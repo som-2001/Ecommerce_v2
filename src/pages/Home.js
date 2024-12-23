@@ -9,7 +9,10 @@ function Home() {
   return (
     <Box sx={{
       backgroundImage: `url("./images/background.jpg")`,
-      backgroundSize: "cover",
+      backgroundAttachment:"fixed",
+      backgroundPosition:"center",
+      backgroundRepeat:'no-repeat',
+      backgroundSize:"100%"
     }}>
       <HomeNavbar />
       <Hero/>
