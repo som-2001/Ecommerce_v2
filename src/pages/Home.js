@@ -6,7 +6,7 @@ import { Hero } from "../components/homepage/Hero";
 import { Product } from "../components/homepage/Product";
 import Footer from "../components/Footer";
 import { FAQ } from "../components/homepage/FAQ";
-
+import "../App.css"
 
 function Home() {
   return (
@@ -15,7 +15,7 @@ function Home() {
       backgroundAttachment:"fixed",
       backgroundPosition:"center",
       backgroundRepeat:'no-repeat',
-      backgroundSize:"100%"
+      backgroundSize:{xs:"cover",md:"100%"}
     }}>
       <HomeNavbar />
       <Hero/>

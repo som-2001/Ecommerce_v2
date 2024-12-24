@@ -108,10 +108,10 @@ function Signup () {
   return (
     <Box>
       <ToastContainer />
-      <HomeNavbar/>
+     
       <Grid container>
         <Grid item xs={12} md={6} lg={7}>
-          <Box sx={{ position: "relative" }}>
+          <Box>
             <CardMedia
               component="video"
               src="../images/register_bike_video.mp4"

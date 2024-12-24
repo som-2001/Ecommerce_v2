@@ -10,9 +10,10 @@ export const Product = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: 2,
+        padding: {xs:2,sm:10},
         backgroundColor: "black",
         color: "white",
+     
       }}
     >
       {/* Image Section */}

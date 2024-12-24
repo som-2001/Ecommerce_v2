@@ -23,10 +23,12 @@ export const HomeNavbar = () => {
 
   return (
     <AppBar
-      position="fixed"
+      position="initial"
       sx={{
-        backgroundColor: "transparent",
+        opacity:0.9,
+        backgroundColor:"black",
         boxShadow: "none",
+      
       }}
     >
       <Container maxWidth="xl">

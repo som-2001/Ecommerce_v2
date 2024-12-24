@@ -1,6 +1,9 @@
 import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
 import "../../App.css"
+import { useNavigate } from "react-router-dom";
 export const About = () => {
+
+  const navigate=useNavigate();
   return (
     <Box
    
@@ -59,6 +62,7 @@ export const About = () => {
           color: "black",
           mt: 3,
         }}
+        onClick={(e)=>navigate("/about")}
       >
         READ MORE
       </Button>

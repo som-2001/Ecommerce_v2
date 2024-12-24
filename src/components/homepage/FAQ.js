@@ -1,10 +1,10 @@
 import React from "react";
-import { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Box } from "@mui/material";
+import { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Box, CardMedia } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const FAQ = () => {
   return (
-    <Box sx={{ padding: "60px", backgroundColor: "black", color: "white" }}>
+    <Box sx={{ padding: "30px", backgroundColor: "black", color: "white" }}>
       <Grid container spacing={4} justifyContent="center" alignItems="center">
         {/* FAQ Section */}
         <Grid item xs={12} md={6}>
@@ -60,11 +60,12 @@ export const FAQ = () => {
 
         {/* Image Section - Bike with Removed Background */}
         <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }}>
-          <img
-            src="../images/faq.jpg" // Replace with your image URL
+          <CardMedia
+            component="img"
+            image="../images/faq.jpg" // Replace with your image URL
             alt="Bike"
-            style={{
-              maxWidth: "70%",
+            sx={{
+              maxWidth: {xs:"90%",sm:"70%"},
               height: "auto",
               borderRadius: "8px",
             }}
