@@ -1,3 +1,11 @@
+.HomeAboutSection {
+  transition: all 0.3s ease; /* Smooth transitions for all properties */
+}
+
+.HomeAboutSection:hover {
+  color: #f9a826;
+
+}
 
 .parentText{
   position:absolute;

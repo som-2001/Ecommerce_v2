@@ -25,6 +25,7 @@ import * as EmailValidator from "email-validator";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import { HomeNavbar } from "../components/HomeNavbar";
 
 
 const schema = yup.object().shape({
@@ -107,6 +108,7 @@ function Signup () {
   return (
     <Box>
       <ToastContainer />
+      <HomeNavbar/>
       <Grid container>
         <Grid item xs={12} md={6} lg={7}>
           <Box sx={{ position: "relative" }}>
