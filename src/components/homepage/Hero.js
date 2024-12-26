@@ -7,7 +7,7 @@ export const Hero = () => {
       sx={{
         minHeight: { xs: "50vh", sm: "70vh", md: "80vh", lg: "100vh" },
         width: "100%",
-        backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url("https://cdn.shopify.com/s/files/1/0577/9675/5633/files/leo_mtdanstore_h2-slide.png?v=1640138612")`,
+        backgroundImage: `url("https://cdn.shopify.com/s/files/1/0577/9675/5633/files/leo_mtdanstore_h2-slide.png?v=1640138612")`,
         position: "relative",
         backgroundSize: "cover",
         backgroundPosition: "center",

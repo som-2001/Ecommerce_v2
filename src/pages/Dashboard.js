@@ -17,6 +17,9 @@ import { Favorite } from "@mui/icons-material";
 import Footer from "../components/Footer.js"
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import { useNavigate } from "react-router-dom";
+import AutoModeIcon from "@mui/icons-material/AutoMode";
+import {Speed } from "@mui/icons-material";
+import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 
 const bikes = [
   { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: '../images/product_1.jpg' },
@@ -219,30 +222,64 @@ const Dashboard = () => {
                       },
                     }}
                   />
-                    <CardContent sx={{ color: "black", filter:"brightness(0.7)" }}>
-                      <Typography variant="h6" component="div">
-                        {bike.name}
+                   <CardContent
+                    sx={{ color: "black", filter: "brightness(0.7)" }}
+                  >
+                    <Typography variant="h6" component="div">
+                      {bike.name}
+                    </Typography>
+                    <Typography variant="body2">
+                      4.0 D5 PowerPulse Momentum 5dr AW… {bike.description}
+                    </Typography>
+                    <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
+                    <Box sx={{ display: "flex", gap: "20px",justifyContent: "center",
+                          alignItems: "center", }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Speed />
+                        <Typography>50 Miles</Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <LocalGasStationIcon />
+                        <Typography>Petrol</Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <AutoModeIcon />
+                        <Typography>Automatic</Typography>
+                      </Box>
+                    </Box>
+                    <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
+                        $150,000
                       </Typography>
-                      <Typography variant="body2">4.0 D5 PowerPulse Momentum 5dr AW… {bike.description}</Typography>
-                      <Divider sx={{backgroundColor:"#C6E4FF",my:1}}/>
-                      <Box sx={{display:"flex",gap:"20px"}}>
-                          <Box>
-                        
-                          <Typography>50 Miles</Typography>
-                          </Box>
-                          <Box>
-                          <Typography>Petrol</Typography>
-                          </Box>
-                          <Box>
-                          <Typography>Automatic</Typography>
-                          </Box>
-                      </Box>
-                      <Divider sx={{backgroundColor:"#C6E4FF",my:1}}/>
-                      <Box sx={{display:"flex",justifyContent:"space-between"}}>
-                      <Typography sx={{fontWeight:700,fontSize:"1.5rem"}}>$150,000</Typography>
-                       <Button onClick={(e)=>navigate(`/view-product/${2}`)}>View Details <CallMadeIcon/></Button>
-                      </Box>
-                    </CardContent>
+                      <Button onClick={(e) => navigate(`/view-product/${2}`)}>
+                        View Details <CallMadeIcon />
+                      </Button>
+                    </Box>
+                  </CardContent>
                    
                   </Card>
                 
