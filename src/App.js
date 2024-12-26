@@ -9,7 +9,8 @@ const Signin=lazy(()=>import("./pages/Signin"));
 const Home=lazy(()=>import("./pages/Home"));
 const About=lazy(()=>import("./pages/About.js"));
 const Contact=lazy(()=>import("./pages/Contact.js"));
-const Dashboard=lazy(()=>import("./pages/Dashboard.js"))
+const Dashboard=lazy(()=>import("./pages/Dashboard.js"));
+const ViewProduct=lazy(()=>import("./pages/ViewProduct.js"));
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/explore-products" element={<Dashboard />} />
+          <Route path="/view-product/:id" element={<ViewProduct />} />
         </Routes>
       </Suspense>
     </Router>

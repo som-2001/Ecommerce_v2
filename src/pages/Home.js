@@ -7,10 +7,14 @@ import { Product } from "../components/homepage/Product";
 import Footer from "../components/Footer";
 import { FAQ } from "../components/homepage/FAQ";
 import "../App.css"
+import BestSeller from "../components/homepage/BestSeller";
+import Gallary from "../components/homepage/Gallary";
+import FeatureProduct from "../components/homepage/FeatureProduct";
 
 function Home() {
   return (
-    <Box  sx={{
+    <Box  
+    sx={{
       backgroundImage: `url("./images/background.jpg")`,
       backgroundAttachment:"fixed",
       backgroundPosition:"center",
@@ -22,9 +26,11 @@ function Home() {
       <About/>
       <ExploreNow/>
       <Product/>
+      <BestSeller/>
+      <FeatureProduct/>
+      <Gallary/>
       <FAQ/>
       <Footer/>
-
     </Box>
   );
 }

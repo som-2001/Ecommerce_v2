@@ -4,10 +4,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export const FAQ = () => {
   return (
-    <Box sx={{ padding: "30px", backgroundColor: "black", color: "white" }}>
+    <Box sx={{ padding: 5, backgroundColor: "black", color: "white" }}>
       <Grid container spacing={4} justifyContent="center" alignItems="center">
         {/* FAQ Section */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} >
           <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold", textAlign: "center", marginBottom: 4 }}>
             Frequently Asked Questions
           </Typography>
@@ -59,13 +59,13 @@ export const FAQ = () => {
         </Grid>
 
         {/* Image Section - Bike with Removed Background */}
-        <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }}>
+        <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center",alignItems:"center" }}>
           <CardMedia
             component="img"
             image="../images/faq.jpg" // Replace with your image URL
             alt="Bike"
             sx={{
-              maxWidth: {xs:"90%",sm:"70%"},
+              maxWidth: {xs:"90%",sm:"70%",md:"70%",lg:"60%"},
               height: "auto",
               borderRadius: "8px",
             }}

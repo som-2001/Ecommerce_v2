@@ -10,24 +10,29 @@ import {
   Card,
   CardMedia,
   CardContent,
-  CardActions,
+  Divider,
 } from "@mui/material";
 import { HomeNavbar } from "../components/HomeNavbar";
 import { Favorite } from "@mui/icons-material";
 import Footer from "../components/Footer.js"
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import { useNavigate } from "react-router-dom";
 
 const bikes = [
-  { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: '../images/home_img_1.png' },
-  { id: 2, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: '../images/home_img_2.png' },
-  { id: 3, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: '../images/home_img_3.png' },
-  { id: 4, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: '../images/home_img_4.jpg' },
-  { id: 5, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: '../images/home_img_1.png' },
+  { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: '../images/product_1.jpg' },
+  { id: 2, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: '../images/product_2.jpg' },
+  { id: 3, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: '../images/product_3.jpg' },
+  { id: 4, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: '../images/product_4.jpg' },
+  { id: 5, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: '../images/product_5.jpg' },
+  { id: 6, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: '../images/product_6.jpg' },
+ 
 ];
 
 const Dashboard = () => {
   const [priceRange, setPriceRange] = useState([100000, 250000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedEngines, setSelectedEngines] = useState([]);
+  const navigate=useNavigate();
 
   const handlePriceChange = (event, newValue) => {
     setPriceRange(newValue);
@@ -69,7 +74,9 @@ const Dashboard = () => {
         {/* Sidebar Filter */}
         <Box
           sx={{
-            width: { xs: "100%", md: "20%" },
+            width: { xs: "100%", md: "20%",lg:"17%" },
+            maxHeight:"500px",
+            position:"sticky",
             p: 2,
             backgroundColor: "#1E1E1E",
             borderRadius: "16px",
@@ -173,19 +180,20 @@ const Dashboard = () => {
         >
           <Typography
             variant="h5"
-            sx={{ mb: 3, fontWeight: "bold", color: "whitesmoke" }}
+            sx={{ mb: 3, fontWeight: "bold", color: "whitesmoke",p:2 }}
           >
-            Available Bikes
+            Explore All Bikes
           </Typography>
           <Grid container spacing={3}>
             {filteredBikes.length > 0 ? (
               filteredBikes.map((bike) => (
-                <Grid item xs={12} sm={6} md={4} lg={4} key={bike.id}>
+                <Grid item xs={12} sm={6} md={4} lg={4} key={bike.id} sx={{display:'flex',justifyContent:"center",alignItems:"center"}}>
                   <Card
                     sx={{
                       borderRadius: "12px",
                       transition: "transform 0.3s, box-shadow 0.3s",
-                      position:"relative"
+                      position:"relative",
+                      width:"350px"
                     }}
                   >
                     <CardMedia
@@ -193,47 +201,49 @@ const Dashboard = () => {
                       alt={bike.name}
                       height="220"
                       image={bike.image}
-                      sx={{ objectFit: "cover" }}
+                      sx={{ objectFit: "cover",filter:'brightness(0.9)' }}
                     />
                    
                    <Favorite
-      sx={{
-        position: "absolute",
-        top: 10,
-        right: 10,
-        color: "#C6E4FF",
-        backgroundColor: "rgba(255, 255, 255, 0.8)", // Add a background to make it stand out
-        borderRadius: "50%",
-        padding: "5px",
-        cursor: "pointer",
-        transition: "transform 0.2s",
-        "&:hover": {
-          transform: "scale(1.2)", // Slightly enlarge the icon on hover
-        },
-      }}
-    />
-                    <CardContent sx={{ backgroundColor: "#1E1E1E", color: "whitesmoke" }}>
+                    sx={{
+                      position: "absolute",
+                      top: 10,
+                      right: 10,
+                      color: "white",
+                      borderRadius: "50%",
+                      padding: "5px",
+                      cursor: "pointer",
+                      transition: "transform 0.2s",
+                      "&:hover": {
+                        transform: "scale(1.2)", // Slightly enlarge the icon on hover
+                      },
+                    }}
+                  />
+                    <CardContent sx={{ color: "black", filter:"brightness(0.7)" }}>
                       <Typography variant="h6" component="div">
                         {bike.name}
                       </Typography>
-                      <Typography variant="body2">Price: ₹{bike.price.toLocaleString()}</Typography>
-                      <Typography variant="body2">Engine: {bike.engine}</Typography>
+                      <Typography variant="body2">4.0 D5 PowerPulse Momentum 5dr AW… {bike.description}</Typography>
+                      <Divider sx={{backgroundColor:"#C6E4FF",my:1}}/>
+                      <Box sx={{display:"flex",gap:"20px"}}>
+                          <Box>
+                        
+                          <Typography>50 Miles</Typography>
+                          </Box>
+                          <Box>
+                          <Typography>Petrol</Typography>
+                          </Box>
+                          <Box>
+                          <Typography>Automatic</Typography>
+                          </Box>
+                      </Box>
+                      <Divider sx={{backgroundColor:"#C6E4FF",my:1}}/>
+                      <Box sx={{display:"flex",justifyContent:"space-between"}}>
+                      <Typography sx={{fontWeight:700,fontSize:"1.5rem"}}>$150,000</Typography>
+                       <Button onClick={(e)=>navigate(`/view-product/${2}`)}>View Details <CallMadeIcon/></Button>
+                      </Box>
                     </CardContent>
-                    <CardActions sx={{ backgroundColor: "#1E1E1E" }}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        fullWidth
-                        sx={{
-                          backgroundColor: "#64b5f6",
-                          color: "black",
-                          padding:1.3,
-                          "&:hover": { backgroundColor: "#2196f3" },
-                        }}
-                      >
-                        View Details
-                      </Button>
-                    </CardActions>
+                   
                   </Card>
                 
                 </Grid>

@@ -25,8 +25,6 @@ import * as EmailValidator from "email-validator";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
-import { HomeNavbar } from "../components/HomeNavbar";
-
 
 const schema = yup.object().shape({
   name: yup
