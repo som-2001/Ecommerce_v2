@@ -37,7 +37,7 @@ const reviews = [
 export const Review = () => {
   return (
     <Box sx={{ padding: 3 }}>
-      <Typography sx={{ fontWeight: "600" }} gutterBottom>
+      <Typography sx={{ fontWeight: "600",paddingLeft:3 }} gutterBottom>
         Ratings & Reviews
       </Typography>
       <Box sx={{ padding: { xs: 2, sm: 7 } }}>
@@ -113,7 +113,7 @@ export const Review = () => {
           </Grid>
         </Grid>
       </Box>
-      <TextField placeholder="Leave comment" fullWidth />
+      <TextField placeholder="Leave comment" fullWidth  />
       <Box
         sx={{
           display: "flex",

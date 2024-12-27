@@ -176,7 +176,7 @@ export const SimilarProducts = () => {
                       <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
                         $150,000
                       </Typography>
-                      <Button variant="body1" sx={{backgroundColor:"whitesmoke",padding:1.3,borderRadius:2}} onClick={(e) => navigate(`/view-product/${2}`)}>
+                      <Button variant="body2" sx={{backgroundColor:"whitesmoke",padding:1.3,borderRadius:2,fontSize:"0.7rem"}} onClick={(e) => navigate(`/view-product/${2}`)}>
                         View Details <CallMadeIcon />
                       </Button>
                     </Box>

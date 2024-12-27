@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Grid, Typography, Button, TextField, Chip } from '@mui/material';
+import { Box, Grid, Typography, Button,  Chip, Divider } from '@mui/material';
 import { Speed, DirectionsBike, LocalGasStation, Build } from '@mui/icons-material';
 import { HomeNavbar } from './../HomeNavbar';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import StarIcon from '@mui/icons-material/Star';
 
 const product = {
   id: 1,
@@ -78,11 +79,17 @@ const Hero = () => {
               {product.name}
             </Typography>
             
+            <Box sx={{display:"flex",justifyContent:"space-between",width:"30%",alignItems:"center"}}>
             <Typography variant="body1" sx={{ color: 'black', marginBottom: '1rem' }}>
               {product.price} <span style={{textDecoration:'line-through',color:"grey"}}>{product.price}</span>
             </Typography>
-
-            <Box sx={{ marginBottom: '1rem',display:"flex",gap:"20px",alignItems:"center",mb:4 }}>
+              
+             <Box sx={{marginBottom:"1rem",display:"flex",gap:'2px'}}> 
+              <StarIcon sx={{color:"#FFA439"}}/>
+               <span style={{fontWeight:600,fontSize:'1.0rem'}}>4.5</span>
+              </Box>
+            </Box>
+            <Box sx={{ marginBottom: '1rem',display:"flex",gap:"20px",alignItems:"center",mb:2 }}>
               <Typography variant="body1" gutterBottom>
                 Select Color:
               </Typography>
@@ -113,6 +120,7 @@ const Hero = () => {
               )}
             </Box>
 
+            <Divider sx={{mb:3}}/>
 
             {/* Highlighted Specifications Chips */}
             <Box sx={{ marginBottom: '1rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
@@ -179,7 +187,7 @@ const Hero = () => {
                 <Box sx={{display: 'flex', gap: '1rem',justifyContent:'center',alignItems:"center"}}>
                    <Inventory2Icon sx={{padding:2,backgroundColor:"whitesmoke",borderRadius:2}}/>
                    <Box sx={{display: 'flex',flexDirection:"column"}}>
-                      <Typography variant='body1' color="text.secondary">In Stock </Typography>
+                      <Typography variant='body1' color="text.secondary">Availability</Typography>
                       <Typography variant='body2'>Today</Typography>
                    </Box>
                 </Box>
