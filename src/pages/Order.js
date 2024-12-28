@@ -4,9 +4,9 @@ import { HomeNavbar } from "../components/HomeNavbar";
 
 export function Order() {
   return (
-    <Box>
+    <Box sx={{overflowX:"hidden"}}>
       <HomeNavbar />
-      <Box sx={{width:"100vw",display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <Box sx={{width:"100vw",display:"flex",justifyContent:"center",alignItems:"center",}}>
         <OrderComponent />
       </Box>
     </Box>

@@ -37,9 +37,9 @@ const FeatureProduct = () => {
       <Typography variant="h3" gutterBottom>
        Feature Products
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container >
         
-          <Grid item xs={12} sm={6} md={6} lg={3} >
+          <Grid item xs={12} sm={6} md={6} lg={3} sx={{ display: "flex",flexDirection:"column", justifyContent: "center",alignItems:"center" }} >
             {product && product.map((product,index)=>(
             <Card
               sx={{
@@ -47,7 +47,7 @@ const FeatureProduct = () => {
                 color: "white",
                 borderRadius: 2,
                 boxShadow: 3,
-                width:{xs:"320px",sm:"390px"},
+                width:{xs:"300px",sm:"390px"},
                 my:2
               }}
             >
@@ -102,7 +102,7 @@ const FeatureProduct = () => {
                 color: "white",
                 borderRadius: 2,
                 boxShadow: 3,
-                width:{xs:"320px",sm:"390px",lg:"850px"}
+                width:{xs:"300px",sm:"390px",md:"650px"}
               }}
             >
               <CardMedia
@@ -148,7 +148,7 @@ const FeatureProduct = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={3} >
+          <Grid item xs={12} sm={6} md={6} lg={3} sx={{ display: "flex",flexDirection:"column", justifyContent: "center",alignItems:"center" }} >
             {product && product.map((product,index)=>(
             <Card
               sx={{
@@ -156,7 +156,7 @@ const FeatureProduct = () => {
                 color: "white",
                 borderRadius: 2,
                 boxShadow: 3,
-                width:{xs:"320px",sm:"390px"},
+                width:{xs:"300px",sm:"390px"},
                 my:2
               }}
             >

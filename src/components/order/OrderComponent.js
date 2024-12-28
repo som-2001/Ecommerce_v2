@@ -7,13 +7,24 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { AddressForm } from './AddressForm';
 import { ShippingForm } from './ShippingForm';
+import { PaymentForm } from './PaymentForm';
 
 const steps = ['Select Address', 'Shipping', 'Payment'];
 
 export default function OrderComponent() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
+  const [addressFormState,setAddressFormState]=React.useState(false);
+  const [ShippingState,setShippingState]=React.useState(false);
 
+  const handlefunction=(data)=>{
+    setAddressFormState(data);
+  }
+
+  const handlefunction1=(data)=>{
+    setShippingState(data);
+
+  }
   const totalSteps = () => {
     return steps.length;
   };
@@ -33,19 +44,10 @@ export default function OrderComponent() {
   const handleNext = () => {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
+        ? 
           steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStep = (step) => () => {
-    setActiveStep(step);
   };
 
   const handleReset = () => {
@@ -54,11 +56,11 @@ export default function OrderComponent() {
   };
 
   return (
-    <Box sx={{ width: '80%',marginTop:5,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column" }}>
+    <Box sx={{ width: '80%',marginTop:5,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",mb:5 }}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
+            <StepButton color="inherit" >
               {label}
             </StepButton>
           </Step>
@@ -83,22 +85,19 @@ export default function OrderComponent() {
 
 
               {/* Your step content goes here */}
-              {activeStep === 0 && <AddressForm />}
-              {activeStep === 1 && <ShippingForm />}
-              {/* {activeStep === 2 && <PaymentForm />}  */}
+              {activeStep === 0 && <AddressForm handlefunction={handlefunction} />}
+              {activeStep === 1 && <ShippingForm handlefunction1={handlefunction1}/>}
+              {activeStep === 2 && <PaymentForm />} 
 
 
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
+             
               <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleNext} sx={{ mr: 1 }}>
+              <Button onClick={handleNext} sx={{ mr: 1 }} 
+              disabled={activeStep===0 ? !addressFormState : (
+                activeStep===1 ? !ShippingState:true
+              )}
+              >
                 Next
               </Button>
             

@@ -19,7 +19,8 @@ function Home() {
       backgroundAttachment:"fixed",
       backgroundPosition:"center",
       backgroundRepeat:'no-repeat',
-      backgroundSize:{xs:"cover",md:"100%"}
+      backgroundSize:{xs:"cover",md:"100%"},
+      // overflowX:"hidden"
     }}>
       <HomeNavbar />
       <Hero/>

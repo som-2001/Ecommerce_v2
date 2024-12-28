@@ -14,7 +14,7 @@ const Gallary = () => {
       <Typography
         sx={{
           fontWeight: 600,
-          fontSize: "150px",
+          fontSize: {xs:"30px",md:"150px"},
           lineHeight: "220px",
           color: "#fff",
           opacity: 0.1,
@@ -36,14 +36,22 @@ const Gallary = () => {
           <CardMedia
             component="img"
             image="../images/gallary_1.jpg"
-            height="500"
+           
+            sx={{
+              objectFit:"contain",
+              height:{xs:200,md:500}
+            }}
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <CardMedia
             component="img"
             image="../images/gallary_2.jpg"
-            height="500"
+           
+            sx={{
+              objectFit:"contain",
+              height:{xs:200,md:500}
+            }}
           />
         </Grid>
       </Grid>

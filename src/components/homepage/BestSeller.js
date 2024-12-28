@@ -43,6 +43,7 @@ const products = [
 
 const BestSeller = () => {
   return (
+  
     <Box
       sx={{
         backgroundColor: "black",
@@ -57,16 +58,18 @@ const BestSeller = () => {
       <Typography variant="h3" gutterBottom>
         Best Sellers
       </Typography>
-      <Grid container spacing={3}>
-        {products.map((product) => (
-          <Grid item xs={12} sm={6} md={3} key={product.id}>
+      <Grid container spacing={3} sx={{display:"flex",justifyContent:"center",textAlign:"center"}}>
+
+        {products.slice(0,3).map((product) => (
+          <Grid item xs={12} sm={6} md={4} key={product.id} sx={{display:"flex",justifyContent:"center",textAlign:"center"}}>
+            
             <Card
               sx={{
                 backgroundColor: "#1c1c1c",
                 color: "white",
                 borderRadius: 2,
                 boxShadow: 3,
-                width:{xs:"320px",sm:"390px"}
+                width:{xs:"340px",sm:"390px"}
               }}
             >
               <CardMedia
