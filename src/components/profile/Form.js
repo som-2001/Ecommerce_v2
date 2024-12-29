@@ -35,7 +35,7 @@ export const Form = () => {
   return (
     <Box
       sx={{
-        width: "100vw",
+        width: "77vw",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -43,7 +43,7 @@ export const Form = () => {
     >
       <Box
         style={{
-          width: "90vw",
+          width: "77vw",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -51,7 +51,7 @@ export const Form = () => {
         }}
       >
         {!isEdit && <Box
-          sx={{ display: "flex", justifyContent: "flex-end", width: "90vw" }}
+          sx={{ display: "flex", justifyContent: "flex-end", width: "77vw" }}
         >
           <Button
             sx={{
@@ -70,7 +70,7 @@ export const Form = () => {
 
         {isEdit && (
           <Box
-            sx={{ display: "flex", justifyContent: "flex-end", width: "90vw" }}
+            sx={{ display: "flex", justifyContent: "flex-end", width: "77vw" }}
           >
             <Button
               type="submit"

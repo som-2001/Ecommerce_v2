@@ -7,19 +7,10 @@ import {
   FormControlLabel,
   Slider,
   Button,
-  Card,
-  CardMedia,
-  CardContent,
-  Divider,
 } from "@mui/material";
 import { HomeNavbar } from "../components/HomeNavbar";
-import { Favorite } from "@mui/icons-material";
 import Footer from "../components/Footer.js"
-import CallMadeIcon from '@mui/icons-material/CallMade';
-import { useNavigate } from "react-router-dom";
-import AutoModeIcon from "@mui/icons-material/AutoMode";
-import {Speed } from "@mui/icons-material";
-import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
+import { RenderCard } from "../components/productCard/RenderCard.js";
 
 const bikes = [
   { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: '../images/product_1.jpg' },
@@ -35,8 +26,7 @@ const Dashboard = () => {
   const [priceRange, setPriceRange] = useState([100000, 250000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedEngines, setSelectedEngines] = useState([]);
-  const navigate=useNavigate();
-
+  
   const handlePriceChange = (event, newValue) => {
     setPriceRange(newValue);
   };
@@ -191,97 +181,7 @@ const Dashboard = () => {
             {filteredBikes.length > 0 ? (
               filteredBikes.map((bike) => (
                 <Grid item xs={12} sm={6} md={4} lg={4} key={bike.id} sx={{display:'flex',justifyContent:"center",alignItems:"center"}}>
-                  <Card
-                    sx={{
-                      borderRadius: "12px",
-                      transition: "transform 0.3s, box-shadow 0.3s",
-                      position:"relative",
-                      width:"350px"
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      alt={bike.name}
-                      height="220"
-                      image={bike.image}
-                      sx={{ objectFit: "cover",filter:'brightness(0.9)' }}
-                    />
-                   
-                   <Favorite
-                    sx={{
-                      position: "absolute",
-                      top: 10,
-                      right: 10,
-                      color: "white",
-                      borderRadius: "50%",
-                      padding: "5px",
-                      cursor: "pointer",
-                      transition: "transform 0.2s",
-                      "&:hover": {
-                        transform: "scale(1.2)", // Slightly enlarge the icon on hover
-                      },
-                    }}
-                  />
-                   <CardContent
-                    sx={{ color: "black", filter: "brightness(0.7)" }}
-                  >
-                    <Typography variant="h6" component="div">
-                      {bike.name}
-                    </Typography>
-                    <Typography variant="body2">
-                      4.0 D5 PowerPulse Momentum 5dr AW… {bike.description}
-                    </Typography>
-                    <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
-                    <Box sx={{ display: "flex", gap: "20px",justifyContent: "center",
-                          alignItems: "center", }}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Speed />
-                        <Typography>50 Miles</Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <LocalGasStationIcon />
-                        <Typography>Petrol</Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        <AutoModeIcon />
-                        <Typography>Automatic</Typography>
-                      </Box>
-                    </Box>
-                    <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
-                    <Box
-                      sx={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
-                        $150,000
-                      </Typography>
-                      <Button onClick={(e) => navigate(`/view-product/${2}`)}>
-                        View Details <CallMadeIcon />
-                      </Button>
-                    </Box>
-                  </CardContent>
-                   
-                  </Card>
+                 <RenderCard bike={bike}/>
                 
                 </Grid>
               ))

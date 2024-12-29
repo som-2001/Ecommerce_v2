@@ -6,6 +6,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import StarIcon from '@mui/icons-material/Star';
+import { useNavigate } from 'react-router-dom';
 
 const product = {
   id: 1,
@@ -34,7 +35,7 @@ const specifications = [
 const Hero = () => {
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
   const [selectedColor, setSelectedColor] = useState('');
-
+  const navigate=useNavigate();
 
   return (
     <Box >
@@ -159,6 +160,7 @@ const Hero = () => {
                   borderRadius: 3,
                  
                 }}
+                onClick={(e)=>navigate("/payment")}
               >
                 Buy Now
               </Button>

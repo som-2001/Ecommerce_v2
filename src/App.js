@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { PageLoader } from "./pages/PageLoader";
+import { ScrollReset } from "./components/ScrollReset.js";
 
 
 
@@ -13,12 +14,15 @@ const Dashboard=lazy(()=>import("./pages/Dashboard.js"));
 const ViewProduct=lazy(()=>import("./pages/ViewProduct.js"));
 const Profile=lazy(()=>import("./pages/Profile.js"));
 const Order=lazy(()=>import("./pages/Order.js"));
+const AllOrders=lazy(()=>import("./pages/AllOrders.js"))
+const WishList=lazy(()=>import("./pages/WishList.js"));
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<PageLoader/>}>
         <Routes>
+        <Route element={<ScrollReset/>}>  
           <Route path="/register" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/" element={<Home />} />
@@ -27,7 +31,10 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/explore-products" element={<Dashboard />} />
           <Route path="/view-product/:id" element={<ViewProduct />} />
-          <Route path="/order" element={<Order />} />
+          <Route path="/payment" element={<Order />} />
+          <Route path="/all-orders" element={<AllOrders />} />
+          <Route path="/wishlist" element={<WishList/>}/>
+        </Route>  
         </Routes>
       </Suspense>
     </Router>

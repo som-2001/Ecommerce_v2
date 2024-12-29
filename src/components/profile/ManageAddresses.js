@@ -8,9 +8,9 @@ export const ManageAddresses = () => {
 
 
   return (
-    <Box sx={{ width: "90vw" }}>
+    <Box sx={{ width: "77vw" }}>
       <Typography variant="h6" color="text.secondary" sx={{my:2}} gutterBottom>
-        Manage Addresses (2)
+        My Addresses (2)
       </Typography>
 
       <Box

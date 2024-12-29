@@ -5,10 +5,12 @@ import { ManageAddresses } from "../components/profile/ManageAddresses";
 import { WishList } from "../components/profile/WishList";
 import { Orders } from "../components/profile/Orders";
 import Footer from './../components/Footer';
+import { HomeNavbar } from "../components/HomeNavbar";
 
 function Profile(){
     return(
         <>
+        <HomeNavbar/>
         <Box sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",overflowX:"hidden"}}>
             <Hero/>
             <Form/>

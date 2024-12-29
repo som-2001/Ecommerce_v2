@@ -1,10 +1,16 @@
 import { Box, CardMedia, Grid, Typography } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 
 export const WishList=()=>{
+    const navigate=useNavigate();
+
     return(
-        <Box sx={{ width: "90vw" }}>
+        <Box sx={{ width: "77vw" }}>
         <Typography variant="h6" color="text.secondary" gutterBottom>
           My WishList (2)
+          (<span style={{fontSize:"1.0rem",textDecoration:"underline",cursor:"pointer",color:"#64b5f6"}}
+          onClick={(e)=>navigate("/wishlist")}
+          >see more</span>)
         </Typography>
   
         <Box sx={{ border: "1px solid #dfdfdf", padding: 2, my: 2 }}>

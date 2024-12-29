@@ -2,7 +2,7 @@ import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
 
 export const Hero = () => {
   return (
-    <Box sx={{ width: "92vw", padding: { xs: 2, sm: 5 } }}>
+    <Box sx={{ width: "77vw", padding: { xs: 2, sm: 5 } }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
           <Typography variant="h5">Welcome, Someswar</Typography>

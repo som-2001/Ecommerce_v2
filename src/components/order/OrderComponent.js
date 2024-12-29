@@ -57,7 +57,8 @@ export default function OrderComponent() {
 
   return (
     <Box sx={{ width: '80%',marginTop:5,display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",mb:5 }}>
-      <Stepper nonLinear activeStep={activeStep}>
+      <Stepper nonLinear activeStep={activeStep} sx={{width:{xs:"100%",md:
+      "70%"},marginBottom:"20px"}}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepButton color="inherit" >
@@ -79,11 +80,7 @@ export default function OrderComponent() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-              Step {activeStep + 1}
-            </Typography>
-
-
+            
               {/* Your step content goes here */}
               {activeStep === 0 && <AddressForm handlefunction={handlefunction} />}
               {activeStep === 1 && <ShippingForm handlefunction1={handlefunction1}/>}
