@@ -13,6 +13,7 @@ import CallMadeIcon from "@mui/icons-material/CallMade";
 import { useNavigate } from "react-router-dom";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import AutoModeIcon from "@mui/icons-material/AutoMode";
+import Footer from "../Footer";
 
 const bikes = [
   {
@@ -70,7 +71,7 @@ export const SimilarProducts = () => {
 
   return (
     <Box>
-      <Typography sx={{ fontWeight: "600", paddingLeft: 6 }}>
+      <Typography  sx={{ fontWeight: "600", fontSize:{xs:"0.9rem",sm:"1.2rem"}, paddingLeft: {xs:3,sm:6},mt:3 }}>
         Similar Products you may be interested in
       </Typography>
       <Box sx={{ padding: 4 }}>
@@ -90,14 +91,17 @@ export const SimilarProducts = () => {
                   alignItems: "center",
                   my: 2,
                 }}
+             
               >
                 <Card
                   sx={{
                     borderRadius: "12px",
                     transition: "transform 0.3s, box-shadow 0.3s",
                     position: "relative",
-                    width: "350px",
+                    width: {xs:"300px",sm:"350px"},
+                    cursor:"pointer"
                   }}
+                  onClick={(e) => navigate(`/view-product/${2}`)}
                 >
                   <CardMedia
                     component="img"
@@ -176,9 +180,7 @@ export const SimilarProducts = () => {
                       <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
                         $150,000
                       </Typography>
-                      <Button variant="body2" sx={{backgroundColor:"whitesmoke",padding:1.3,borderRadius:2,fontSize:"0.7rem"}} onClick={(e) => navigate(`/view-product/${2}`)}>
-                        View Details <CallMadeIcon />
-                      </Button>
+                     
                     </Box>
                   </CardContent>
                 </Card>
@@ -194,6 +196,7 @@ export const SimilarProducts = () => {
           )}
         </Grid>
       </Box>
+      <Footer/>
     </Box>
   );
 };

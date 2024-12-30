@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Grid,
@@ -6,27 +6,39 @@ import {
   Checkbox,
   FormControlLabel,
   Slider,
-  Button,
 } from "@mui/material";
 import { HomeNavbar } from "../components/HomeNavbar";
-import Footer from "../components/Footer.js"
+import Footer from "../components/Footer.js";
 import { RenderCard } from "../components/productCard/RenderCard.js";
 
 const bikes = [
-  { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: '../images/product_1.jpg' },
-  { id: 2, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: '../images/product_2.jpg' },
-  { id: 3, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: '../images/product_3.jpg' },
-  { id: 4, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: '../images/product_4.jpg' },
-  { id: 5, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: '../images/product_5.jpg' },
-  { id: 6, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: '../images/product_6.jpg' },
- 
+  { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_1.jpg" },
+  { id: 2, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: "../images/product_2.jpg" },
+  { id: 3, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: "../images/product_3.jpg" },
+  { id: 4, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: "../images/product_4.jpg" },
+  { id: 5, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: "../images/product_5.jpg" },
+  { id: 6, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_6.jpg" },
+  { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_1.jpg" },
+  { id: 2, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: "../images/product_2.jpg" },
+  { id: 3, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: "../images/product_3.jpg" },
+  { id: 4, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: "../images/product_4.jpg" },
+  { id: 5, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: "../images/product_5.jpg" },
+  { id: 6, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_6.jpg" },
+  { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_1.jpg" },
+  { id: 2, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: "../images/product_2.jpg" },
+  { id: 3, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: "../images/product_3.jpg" },
+  { id: 4, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: "../images/product_4.jpg" },
+  { id: 5, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: "../images/product_5.jpg" },
+  { id: 6, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_6.jpg" },
 ];
 
 const Dashboard = () => {
   const [priceRange, setPriceRange] = useState([100000, 250000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedEngines, setSelectedEngines] = useState([]);
-  
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const footerRef = useRef(null);
+
   const handlePriceChange = (event, newValue) => {
     setPriceRange(newValue);
   };
@@ -51,6 +63,20 @@ const Dashboard = () => {
       (selectedEngines.length === 0 || selectedEngines.includes(bike.engine))
   );
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {setIsFooterVisible(entry.isIntersecting)});
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, []);
+
   return (
     <Box>
       <HomeNavbar />
@@ -67,13 +93,13 @@ const Dashboard = () => {
         {/* Sidebar Filter */}
         <Box
           sx={{
-            width: { xs: "100%", md: "20%",lg:"17%" },
-            maxHeight:"500px",
-            position:"sticky",
+            width: { xs: "86%", md: "23%", lg: "13%" },
+            position: isFooterVisible ? "absolute" : "sticky",
+            top: isFooterVisible ? "auto" : "80px",
+            bottom: isFooterVisible ? "auto" : "80px",
+            alignSelf: "start",
             p: 2,
-            backgroundColor: "#1E1E1E",
             borderRadius: "16px",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.5)",
             color: "whitesmoke",
           }}
         >
@@ -82,7 +108,7 @@ const Dashboard = () => {
           </Typography>
 
           {/* Price Filter */}
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
             Price Range
           </Typography>
           <Slider
@@ -92,17 +118,22 @@ const Dashboard = () => {
             min={100000}
             max={250000}
             sx={{
-              mb: 3,
+              
               "& .MuiSlider-thumb": { backgroundColor: "#64b5f6" },
               "& .MuiSlider-track": { backgroundColor: "#64b5f6" },
             }}
           />
+          <Typography variant="body2" sx={{ mb: 1 }}>
+            $100000-250000
+          </Typography>
 
           {/* Brand Filter */}
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
             Brand
           </Typography>
           {["Yamaha", "KTM", "Royal Enfield", "Bajaj", "TVS"].map((brand) => (
+            <Grid container>
+              <Grid item xs={12}>
             <FormControlLabel
               key={brand}
               control={
@@ -118,6 +149,8 @@ const Dashboard = () => {
               label={brand}
               sx={{ mb: 1 }}
             />
+            </Grid>
+            </Grid>
           ))}
 
           {/* Engine Filter */}
@@ -125,6 +158,8 @@ const Dashboard = () => {
             Engine Type
           </Typography>
           {["150cc", "200cc", "350cc", "310cc"].map((engine) => (
+            <Grid container>
+              <Grid item xs={12}>
             <FormControlLabel
               key={engine}
               control={
@@ -140,25 +175,9 @@ const Dashboard = () => {
               label={engine}
               sx={{ mb: 1 }}
             />
+            </Grid>
+            </Grid>
           ))}
-
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{
-              mt: 3,
-              backgroundColor: "#64b5f6",
-              color: "black",
-              "&:hover": { backgroundColor: "#2196f3" },
-            }}
-            onClick={() => {
-              setSelectedBrands([]);
-              setSelectedEngines([]);
-              setPriceRange([100000, 250000]);
-            }}
-          >
-            Reset Filters
-          </Button>
         </Box>
 
         {/* Product Grid */}
@@ -173,16 +192,23 @@ const Dashboard = () => {
         >
           <Typography
             variant="h5"
-            sx={{ mb: 3, fontWeight: "bold", color: "whitesmoke",p:2 }}
+            sx={{ mb: 3, fontWeight: "bold", color: "whitesmoke", p: 2 }}
           >
             Explore All Bikes
           </Typography>
           <Grid container spacing={3}>
             {filteredBikes.length > 0 ? (
               filteredBikes.map((bike) => (
-                <Grid item xs={12} sm={6} md={4} lg={4} key={bike.id} sx={{display:'flex',justifyContent:"center",alignItems:"center"}}>
-                 <RenderCard bike={bike}/>
-                
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={3}
+                  key={bike.id}
+                  sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
+                  <RenderCard bike={bike} />
                 </Grid>
               ))
             ) : (
@@ -196,7 +222,7 @@ const Dashboard = () => {
           </Grid>
         </Box>
       </Box>
-      <Footer/>
+      <Footer ref={footerRef} />
     </Box>
   );
 };

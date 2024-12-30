@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { PageLoader } from "./pages/PageLoader";
 import { ScrollReset } from "./components/ScrollReset.js";
+import { Cart } from "./pages/Cart.js";
 
 
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/payment" element={<Order />} />
           <Route path="/all-orders" element={<AllOrders />} />
           <Route path="/wishlist" element={<WishList/>}/>
+          <Route path="/cart" element={<Cart/>}/>
         </Route>  
         </Routes>
       </Suspense>

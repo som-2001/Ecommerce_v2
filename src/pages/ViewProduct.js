@@ -7,11 +7,11 @@ import { SimilarProducts } from "../components/viewProduct/SimilarProducts";
 const ViewProduct = () => {
   
   return (
-    <Box >
+    <Box  sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",overflowX:"hidden"}}>
         <Hero/>
         <Review/>
         <SimilarProducts/>
-        <Footer/>
+       
     </Box>
   );
 };

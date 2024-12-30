@@ -6,6 +6,7 @@ import {
   Rating,
   TextField,
   Typography,
+  Button,
 } from "@mui/material";
 
 const ratings = [
@@ -36,117 +37,139 @@ const reviews = [
 
 export const Review = () => {
   return (
-    <Box sx={{ padding: 3 }}>
-      <Typography sx={{ fontWeight: "600",paddingLeft:3 }} gutterBottom>
+    <Box sx={{ padding: 4,width:{xs:"90vw",lg:"57vw" }}}>
+      {/* Section Title */}
+      <Typography
+        variant="h5"
+        sx={{ fontWeight: "bold", mb: 3, color: "#333", textAlign: "center" }}
+      >
         Ratings & Reviews
       </Typography>
-      <Box sx={{ padding: { xs: 2, sm: 7 } }}>
-        <Grid container spacing={4}>
-          <Grid
-            item
-            xs={12}
-            md={5}
-            lg={3}
+
+      {/* Ratings Overview */}
+      <Grid container spacing={4}>
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
+              backgroundColor: "white",
+              borderRadius: "16px",
+              padding: 3,
+              boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+              textAlign: "center",
             }}
           >
+            <Typography variant="h3" sx={{ fontWeight: "bold", color: "#1565c0" }}>
+              4.8
+            </Typography>
+            <Typography variant="body2" sx={{ color: "#666" }}>
+              of 125 reviews
+            </Typography>
+            <Rating name="read-only" value={4.8} precision={0.1} readOnly />
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} md={8}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+            Ratings Breakdown
+          </Typography>
+          {ratings.map((rating, index) => (
             <Box
+              key={index}
               sx={{
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "whitesmoke",
-                padding: 4,
-                width: "200px",
+                gap: 2,
+                mb: 2,
               }}
             >
-              <Typography variant="h4">4.8</Typography>
-              <Typography variant="body2">of 125 reviews</Typography>
-              <Rating name="read-only" value={4} readOnly />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={7} lg={9}>
-            <Box sx={{ marginBottom: "2rem" }}>
-              <Typography variant="h6" gutterBottom>
-                Ratings
+              <Typography variant="body2" sx={{ width: "80px", fontWeight: "bold" }}>
+                {rating.label}
               </Typography>
-              {ratings.map((rating, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1rem",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <Typography variant="body2" sx={{ width: "80px" }}>
-                    {rating.label}
-                  </Typography>
-                  <LinearProgress
-                    variant="determinate"
-                    value={rating.value}
-                    sx={{
-                      flex: 1,
-                      height: "8px", // Set height explicitly
-                      borderRadius: "5px",
-                      backgroundColor: "#e0e0e0", // Base bar color
-                      "& .MuiLinearProgress-bar": {
-                        backgroundColor: rating.color, // Dynamic color
-                      },
-                    }}
-                  />
-                  <Typography
-                    variant="body2"
-                    sx={{ width: "40px", textAlign: "right" }}
-                  >
-                    {rating.value}%
-                  </Typography>
-                </Box>
-              ))}
+              <LinearProgress
+                variant="determinate"
+                value={rating.value}
+                sx={{
+                  flex: 1,
+                  height: 10,
+                  borderRadius: 5,
+                  "& .MuiLinearProgress-bar": {
+                    backgroundColor: rating.color,
+                  },
+                }}
+              />
+              <Typography variant="body2" sx={{ width: "40px", textAlign: "right" }}>
+                {rating.value}%
+              </Typography>
             </Box>
-          </Grid>
+          ))}
         </Grid>
-      </Box>
-      <TextField placeholder="Leave comment" fullWidth  />
+      </Grid>
+
+      {/* Add Review */}
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          mt: 6,
+          display:"flex",
+          flexDirection:'column',
+          justifyContent:'center',
+          alignItems:'center',
+          backgroundColor: "white",
+          padding: 3,
+          borderRadius: "16px",
+          boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+          mt: 5,
         }}
       >
-        {reviews &&
-          reviews.map((data, index) => (
-            <Grid
-              container
-              spacing={2}
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                my: 2,
-                backgroundColor: "whitesmoke",
-                padding: "30px 0px 60px 0px",
-                width: {xs:"100%",md:"70%"}
-              }}
-            >
+        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2,justifyContent:"flex-start" }}>
+          Leave a Review
+        </Typography>
+        <TextField
+          placeholder="Write your comment here..."
+          fullWidth
+          multiline
+          rows={4}
+          sx={{ mb: 2 }}
+        />
+        <Button variant="contained" color="primary" sx={{ padding: '1rem',
+                  backgroundColor: 'black',
+                  color: 'white',
+                  borderRadius: 3,
+                  '&:hover': {
+                    backgroundColor: '#0d47a1',
+                  }, }}>
+          Submit Review
+        </Button>
+      </Box>
+
+      {/* Reviews Section */}
+      <Box sx={{ mt: 5 }}>
+        {reviews.map((data, index) => (
+          <Box
+            key={index}
+            sx={{
+              backgroundColor: "white",
+              padding: 3,
+              borderRadius: "16px",
+              boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+              mb: 3,
+            }}
+          >
+            <Grid container spacing={2}>
               <Grid
                 item
-                xs={4}
+                xs={3}
                 sm={2}
                 md={1}
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
@@ -154,26 +177,32 @@ export const Review = () => {
                 <CardMedia
                   component="img"
                   image={data.image}
-                  sx={{ width: "60px", borderRadius: 10 }}
+                  alt={data.name}
+                  sx={{
+                    width: "60px",
+                    height: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
                 />
               </Grid>
-              <Grid item xs={8} sm={10} md={11}>
+              <Grid item xs={9} sm={10} md={11}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Typography variant="body1" sx={{ fontWeight: "700" }}>
+                  <Typography variant="body1" sx={{ fontWeight: "bold" }}>
                     {data.name}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{mr:2}}>
+                  <Typography variant="body2" sx={{ color: "#888" }}>
                     {data.date}
                   </Typography>
                 </Box>
-                <Rating name="read-only" value={data.rate} readOnly />
-                
-              </Grid>
-              <Grid sx={{padding:3}}>
-                {data.comment}
+                <Rating name="read-only" value={data.rate} readOnly size="small" />
+                <Typography variant="body2" sx={{ mt: 1, color: "#555" }}>
+                  {data.comment}
+                </Typography>
               </Grid>
             </Grid>
-          ))}
+          </Box>
+        ))}
       </Box>
     </Box>
   );

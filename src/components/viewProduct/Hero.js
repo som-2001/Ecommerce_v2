@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Grid, Typography, Button,  Chip, Divider } from '@mui/material';
+import { Box, Grid, Typography, Button, Chip, Divider } from '@mui/material';
 import { Speed, DirectionsBike, LocalGasStation, Build } from '@mui/icons-material';
 import { HomeNavbar } from './../HomeNavbar';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -11,8 +11,10 @@ import { useNavigate } from 'react-router-dom';
 const product = {
   id: 1,
   name: 'Bike Model X',
-  description: 'Enhanced capabilities thanks toan enlarged display of 6.7 inchesand work without rechargingthroughout the day. Incredible photosas in weak, yesand in bright lightusing the new systemwith two cameras more...',
+  description:
+    'Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...',
   price: '$4,999',
+  discountedPrice: '$3,499',
   images: [
     '../images/product_1.jpg',
     '../images/product_2.jpg',
@@ -35,24 +37,41 @@ const specifications = [
 const Hero = () => {
   const [selectedImage, setSelectedImage] = useState(product.images[0]);
   const [selectedColor, setSelectedColor] = useState('');
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   return (
-    <Box >
+    <Box sx={{width:"100%"}}>
       <HomeNavbar />
-      <Box sx={{ padding: '2rem',my:5 }}>
+      <Box sx={{ padding: '2rem', my: 5 }}>
         <Grid container spacing={4}>
           {/* Left Side: Images */}
-          <Grid item xs={12} md={6}>
-            <Box sx={{ textAlign: 'center' }}>
-              {/* Main Image */}
+          <Grid item xs={12} md={5}>
+            <Box
+              sx={{
+                textAlign: 'center',
+                // boxShadow: '0px 4px 9px rgba(0,0,0,0.1)',
+                borderRadius: '8px',
+                padding: '0.6rem',
+              }}
+            >
               <img
                 src={selectedImage}
                 alt={product.name}
-                style={{ width: '95%', maxHeight: '600px', objectFit: 'contain', borderRadius: '8px' }}
+                style={{
+                  width: '95%',
+                  maxHeight: '600px',
+                  objectFit: 'contain',
+                  borderRadius: '8px',
+                }}
               />
-              {/* Thumbnails */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginTop: '1rem',
+                  gap: '10px',
+                }}
+              >
                 {product.images.map((img, index) => (
                   <img
                     key={index}
@@ -62,10 +81,10 @@ const Hero = () => {
                       width: '60px',
                       height: '60px',
                       objectFit: 'cover',
-                      margin: '0 8px',
                       border: selectedImage === img ? '2px solid gold' : '2px solid gray',
                       borderRadius: '4px',
                       cursor: 'pointer',
+                      transition: 'transform 0.3s',
                     }}
                     onClick={() => setSelectedImage(img)}
                   />
@@ -76,91 +95,111 @@ const Hero = () => {
 
           {/* Right Side: Product Details */}
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '1rem' }}>
               {product.name}
             </Typography>
-            
-            <Box sx={{display:"flex",justifyContent:"space-between",width:"30%",alignItems:"center"}}>
-            <Typography variant="body1" sx={{ color: 'black', marginBottom: '1rem' }}>
-              {product.price} <span style={{textDecoration:'line-through',color:"grey"}}>{product.price}</span>
-            </Typography>
-              
-             <Box sx={{marginBottom:"1rem",display:"flex",gap:'2px'}}> 
-              <StarIcon sx={{color:"#FFA439"}}/>
-               <span style={{fontWeight:600,fontSize:'1.0rem'}}>4.5</span>
+            <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+              <Typography
+                variant="h5"
+                sx={{ fontWeight: 'bold', color: '#FF5722', marginRight: '1rem' }}
+              >
+                {product.discountedPrice}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ textDecoration: 'line-through', color: 'gray' }}
+              >
+                {product.price}
+              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginLeft: '1rem',
+                  color: '#FFA439',
+                }}
+              >
+                <StarIcon />
+                <Typography sx={{ marginLeft: '4px', fontWeight: 600 }}>4.5</Typography>
               </Box>
             </Box>
-            <Box sx={{ marginBottom: '1rem',display:"flex",gap:"20px",alignItems:"center",mb:2 }}>
-              <Typography variant="body1" gutterBottom>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '2rem' }}>
+              <Typography variant="body1" sx={{ fontWeight: 600 }}>
                 Select Color:
               </Typography>
-              <Box sx={{ display: 'flex', gap: '1rem' }}>
+              <Box sx={{ display: 'flex', gap: '0.4rem' }}>
                 {product.colors.map((color, index) => (
                   <Box
                     key={index}
                     sx={{
-                      width: '30px',
-                      height: '30px',
+                      width: '40px',
+                      height: '40px',
                       backgroundColor: color.toLowerCase(),
                       border: selectedColor === color ? '3px solid gold' : '2px solid gray',
                       borderRadius: '50%',
                       cursor: 'pointer',
-                      transition: 'transform 0.2s',
+                      transition: 'transform 0.3s',
                       '&:hover': {
-                        transform: 'scale(1.1)',
+                        transform: 'scale(1.2)',
                       },
                     }}
                     onClick={() => setSelectedColor(color)}
                   />
                 ))}
               </Box>
-              {selectedColor && (
-                <Typography variant="body2" sx={{ marginTop: '0.5rem' }}>
-                  Selected Color: <strong>{selectedColor}</strong>
-                </Typography>
-              )}
             </Box>
 
-            <Divider sx={{mb:3}}/>
+            <Divider sx={{ marginBottom: '2rem' }} />
 
-            {/* Highlighted Specifications Chips */}
-            <Box sx={{ marginBottom: '1rem', display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '1rem',
+                marginBottom: '1rem',
+                justifyContent: 'start',
+              }}
+            >
               {specifications.map((spec, index) => (
                 <Chip
                   key={index}
                   icon={spec.icon}
                   label={`${spec.label}: ${spec.value}`}
                   sx={{
-                    backgroundColor: 'whitesmoke',
+                    padding: '0.5rem',
+                    fontWeight: '600',
                     color: 'black',
-                    fontWeight: 'bold',
-                    fontSize: '0.9rem',
-                    padding: 3.5,
-                    borderRadius: '20px',
+                    border: '1px solid #d3d3d3',
+                    backgroundColor: '#f9f9f9',
                     '&:hover': {
-                      backgroundColor: '#1565c0',
+                      backgroundColor: '#e3f2fd',
                     },
                   }}
                 />
               ))}
             </Box>
-            <Typography variant="body2" color='text.secondary' gutterBottom>
+            <Typography
+              variant="body2"
+              sx={{ color: '#757575', marginBottom: '2rem', lineHeight: 1.5,height:"150px" }}
+            >
               {product.description}
             </Typography>
 
-            {/* Buttons */}
-            <Box sx={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+            <Box sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
               <Button
                 variant="contained"
                 sx={{
                   flex: 1,
-                  padding: 2,
+                  padding: '1rem',
                   backgroundColor: 'black',
                   color: 'white',
                   borderRadius: 3,
-                 
+                  '&:hover': {
+                    backgroundColor: '#0d47a1',
+                  },
                 }}
-                onClick={(e)=>navigate("/payment")}
+                onClick={() => navigate('/payment')}
               >
                 Buy Now
               </Button>
@@ -168,44 +207,22 @@ const Hero = () => {
                 variant="outlined"
                 sx={{
                   flex: 1,
+                  padding: '1rem',
                   borderColor: 'black',
                   color: 'black',
                   borderRadius: 3,
-                
+                  '&:hover': {
+                    backgroundColor: '#e3f2fd',
+                  },
                 }}
+                onClick={() => navigate('/cart')}
               >
                 Add to Cart
               </Button>
             </Box>
-
-            <Box sx={{display: 'flex', flexDirection:{xs:"column",sm:"row"}, gap: '4rem',mt:4,justifyContent:"center"}}>
-                <Box sx={{display: 'flex', gap: '1rem',justifyContent:'center',alignItems:"center"}}>
-                   <LocalShippingIcon sx={{padding:2,backgroundColor:"whitesmoke",borderRadius:2}}/>
-                   <Box sx={{display: 'flex',flexDirection:"column"}}>
-                      <Typography variant='body1' color="text.secondary">Free Delivery</Typography>
-                      <Typography variant='body2'>1-2 day</Typography>
-                   </Box>
-                </Box>
-                <Box sx={{display: 'flex', gap: '1rem',justifyContent:'center',alignItems:"center"}}>
-                   <Inventory2Icon sx={{padding:2,backgroundColor:"whitesmoke",borderRadius:2}}/>
-                   <Box sx={{display: 'flex',flexDirection:"column"}}>
-                      <Typography variant='body1' color="text.secondary">Availability</Typography>
-                      <Typography variant='body2'>Today</Typography>
-                   </Box>
-                </Box>
-                <Box sx={{display: 'flex', gap: '1rem',justifyContent:'center',alignItems:"center"}}>
-                   <VerifiedIcon sx={{padding:2,backgroundColor:"whitesmoke",borderRadius:2}}/>
-                   <Box sx={{display: 'flex', flexDirection:"column"}}>
-                      <Typography variant='body1' color="text.secondary">Guaranteed</Typography>
-                      <Typography variant='body2'>1 year</Typography>
-                   </Box>
-                </Box>
-            </Box>
-
           </Grid>
         </Grid>
       </Box>
-      
     </Box>
   );
 };
