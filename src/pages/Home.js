@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { HomeNavbar } from "../components/HomeNavbar";
 import { ExploreNow } from "../components/homepage/ExplorNow";
 import { About } from "../components/homepage/About";
 import { Hero } from "../components/homepage/Hero";
@@ -22,7 +21,7 @@ function Home() {
       backgroundSize:{xs:"cover",md:"100%"},
       // overflowX:"hidden"
     }}>
-      <HomeNavbar />
+      
       <Hero/>
       <About/>
       <ExploreNow/>

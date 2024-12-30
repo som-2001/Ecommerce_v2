@@ -25,6 +25,7 @@ import * as EmailValidator from "email-validator";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import { enqueueSnackbar, SnackbarProvider } from "notistack";
 
 const schema = yup.object().shape({
   name: yup
@@ -78,34 +79,34 @@ function Signup () {
   const mutation = useMutation({
     mutationKey: ["register"],
     mutationFn: (user) => {
-      return axios.post(`${process.env.REACT_APP_BASEURL}/register`, user);
+      return axios.post(`${process.env.REACT_APP_BASEURL}/users/register`, user);
     },
     onSuccess: (user) => {
       console.log(user);
-      toast.success("Registration successful");
+      enqueueSnackbar(user.data.message,{variant:"success"});
       setTimeout(() => {
         navigate("/signin");
       }, 1500);
     },
     onError: (error) => {
-      console.error("Registration failed:", error);
-      toast.error("Registration failed");
+      // console.error("Registration failed:", error.response.data.message);
+      enqueueSnackbar(error.response.data.message,{variant:"error"});
     },
   });
 
   const onSubmit = (data) => {
     mutation.mutate({
-      name: data.name.trim(),
+      username: data.name.trim(),
       email: data.email.trim(),
       password: data.password.trim(),
       confirmpassword: data.confirmpassword.trim(),
-      checkbox: data.checkbox,
+      
     });
   };
 
   return (
     <Box>
-      <ToastContainer />
+      <SnackbarProvider />
      
       <Grid container>
         <Grid item xs={12} md={6} lg={7}>
@@ -309,6 +310,7 @@ function Signup () {
             <Button
               type="submit"
               className="submitbutton"
+              disabled={mutation.isPending}
               sx={{ width: { xs: "300px", sm: "500px", md: "400px" } }}
             >
               {mutation.isPending ? (

@@ -10,10 +10,11 @@ import {
 } from "@mui/material";
 
 const ratings = [
-  { label: "Excellent", value: 60, color: "green" },
-  { label: "Good", value: 20, color: "blue" },
-  { label: "Average", value: 10, color: "orange" },
-  { label: "Bad", value: 10, color: "red" },
+  { label: "Excellent", value: 60, color: "#14958f" },
+  { label: "Good", value: 50, color: "#14958f" },
+  { label: "Average", value: 40, color: "#72bfbc" },
+  { label: "Bad", value: 20, color: "#fcb301" },
+  {label:"Very Bad",value:10,color:"#f16565"}
 ];
 
 const reviews = [

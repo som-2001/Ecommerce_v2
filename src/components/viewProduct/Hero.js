@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Grid, Typography, Button, Chip, Divider } from '@mui/material';
 import { Speed, DirectionsBike, LocalGasStation, Build } from '@mui/icons-material';
-import { HomeNavbar } from './../HomeNavbar';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -41,7 +40,7 @@ const Hero = () => {
 
   return (
     <Box sx={{width:"100%"}}>
-      <HomeNavbar />
+      
       <Box sx={{ padding: '2rem', my: 5 }}>
         <Grid container spacing={4}>
           {/* Left Side: Images */}

@@ -1,13 +1,12 @@
 import React from "react";
 import { Box, Button, Grid, Typography, CardMedia } from "@mui/material";
 import Footer from "../components/Footer";
-import { HomeNavbar } from "../components/HomeNavbar";
+
 
 function About(){
   return (
     <Box sx={{ backgroundColor: "black", color: "whitesmoke" }}>
-      {/* Banner Section */}
-      <HomeNavbar/>
+   
       <Box
         sx={{
           position: "relative",

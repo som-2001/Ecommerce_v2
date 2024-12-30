@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Box } from '@mui/material';
 import { RenderCard } from '../components/productCard/RenderCard';
-import { HomeNavbar } from '../components/HomeNavbar';
+
 import Footer from '../components/Footer';
 
 // Sample data (replace this with your actual Bike data)
@@ -14,7 +14,7 @@ function WishList() {
   return (
 
   <>
-   <HomeNavbar/>
+   
     <Box
       sx={{
         backgroundColor: "#f9f9f9",
@@ -28,10 +28,11 @@ function WishList() {
           fontWeight: "bold",
           mb: 4,
           textAlign: "center",
-          color: "#333",
+        
         }}
+        color="text.secondary"
       >
-        My Wishlist
+        My Wishlist (2 Items)
       </Typography>
       <Grid container spacing={3}>
         {Bike.length > 0 ? (

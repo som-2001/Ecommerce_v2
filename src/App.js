@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { PageLoader } from "./pages/PageLoader";
 import { ScrollReset } from "./components/ScrollReset.js";
 import { Cart } from "./pages/Cart.js";
+import { ProtectedRoute } from "./components/ProtectedRoute.js";
 
 
 
@@ -23,19 +24,21 @@ function App() {
     <Router>
       <Suspense fallback={<PageLoader/>}>
         <Routes>
-        <Route element={<ScrollReset/>}>  
-          <Route path="/register" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/explore-products" element={<Dashboard />} />
-          <Route path="/view-product/:id" element={<ViewProduct />} />
-          <Route path="/payment" element={<Order />} />
-          <Route path="/all-orders" element={<AllOrders />} />
-          <Route path="/wishlist" element={<WishList/>}/>
-          <Route path="/cart" element={<Cart/>}/>
+        <Route element={<ScrollReset/>}> 
+            <Route path="/register" element={<Signup />} />
+            <Route path="/signin" element={<Signin />} />
+          <Route element={<ProtectedRoute/>}> 
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/explore-products" element={<Dashboard />} />
+            <Route path="/view-product/:id" element={<ViewProduct />} />
+            <Route path="/payment" element={<Order />} />
+            <Route path="/all-orders" element={<AllOrders />} />
+            <Route path="/wishlist" element={<WishList/>}/>
+            <Route path="/cart" element={<Cart/>}/>
+          </Route>
         </Route>  
         </Routes>
       </Suspense>

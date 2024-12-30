@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import { HomeNavbar } from "../components/HomeNavbar";
 import Footer from "../components/Footer";
 
 const orders = [
@@ -32,7 +31,7 @@ const orders = [
 const OrdersPage = () => {
   return (
     <Box>
-      <HomeNavbar />
+     
       <Box sx={{ padding: "20px" }}>
         <Typography
           variant="h5"
