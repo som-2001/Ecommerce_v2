@@ -1,5 +1,14 @@
 import React from "react";
-import { AppBar, Box, Toolbar, IconButton, Typography, Container, Button } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Container,
+  Badge,
+  Button,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -7,11 +16,39 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom"; // Import Link for routing
 
+// Example numbers for badge count (you can fetch this data dynamically)
+const wishlistCount = 5; // Number of items in the wishlist
+const cartCount = 3; // Number of items in the cart
+
 const pages = [
-  { label: "All Products", path: "/explore-products", icon: <HomeIcon /> },
-  { label: "Wishlist", path: "/Wishlist", icon: <FavoriteBorderIcon /> },
-  { label: "Cart", path: "/cart", icon: <ShoppingCartIcon /> },
-  { label: "Profile", path: "/profile", icon: <AccountCircleIcon /> },
+  {
+    label: "All Products",
+    path: "/explore-products",
+    icon: <HomeIcon />,
+  },
+  {
+    label: "Wishlist",
+    path: "/wishlist",
+    icon: (
+      <Badge badgeContent={wishlistCount} color="error">
+        <FavoriteBorderIcon />
+      </Badge>
+    ),
+  },
+  {
+    label: "Cart",
+    path: "/cart",
+    icon: (
+      <Badge badgeContent={cartCount} color="error">
+        <ShoppingCartIcon />
+      </Badge>
+    ),
+  },
+  {
+    label: "Profile",
+    path: "/profile",
+    icon: <AccountCircleIcon />,
+  },
 ];
 
 export const AuthNavbar = () => {
@@ -19,10 +56,6 @@ export const AuthNavbar = () => {
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   return (
@@ -53,8 +86,11 @@ export const AuthNavbar = () => {
               textDecoration: "none",
             }}
           >
-            <img src="../images/logo.png" alt="Logo" style={{ height: "70px", marginRight: "8px",objectFit:"cover" }} />
-           
+            <img
+              src="../images/logo.png"
+              alt="Logo"
+              style={{ height: "70px", marginRight: "8px", objectFit: "cover" }}
+            />
           </Typography>
 
           {/* Mobile View */}
@@ -73,27 +109,33 @@ export const AuthNavbar = () => {
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: "none", md: "flex" },
+              display: "flex",
               justifyContent: "flex-end",
               alignItems: "center",
+              gap: { xs: 2, md: 4 },
             }}
           >
             {pages.map((page) => (
-              <Button
+              <Box
                 key={page.label}
                 component={Link}
                 to={page.path}
-                startIcon={page.icon}
                 sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                   color: "white",
-                  fontSize: "1rem",
-                  textTransform: "capitalize",
-                  "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)" },
-                  marginX: 1,
+                  textDecoration: "none",
+                  "&:hover": {
+                    color: "rgba(255, 255, 255, 0.8)",
+                  },
                 }}
               >
-                {page.label}
-              </Button>
+                {page.icon}
+                <Typography variant="body2" sx={{ mt: 0.5 }}>
+                  {page.label}
+                </Typography>
+              </Box>
             ))}
           </Box>
         </Toolbar>

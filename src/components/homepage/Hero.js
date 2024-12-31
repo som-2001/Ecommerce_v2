@@ -5,7 +5,7 @@ export const Hero = () => {
   return (
     <Box
       sx={{
-        minHeight: { xs: "50vh", sm: "70vh", md: "80vh", lg: "100vh" },
+        minHeight: { xs: "50vh", sm: "70vh", md: "80vh", lg: "94vh" },
         width: "100%",
         backgroundImage: `url("https://cdn.shopify.com/s/files/1/0577/9675/5633/files/leo_mtdanstore_h2-slide.png?v=1640138612")`,
         position: "relative",

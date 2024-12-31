@@ -19,8 +19,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import * as EmailValidator from "email-validator";
 import { motion } from "motion/react";
 import axios from "axios";

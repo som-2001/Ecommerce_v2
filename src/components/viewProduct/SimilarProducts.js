@@ -1,7 +1,6 @@
 import { Favorite, Speed } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -9,7 +8,6 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import CallMadeIcon from "@mui/icons-material/CallMade";
 import { useNavigate } from "react-router-dom";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import AutoModeIcon from "@mui/icons-material/AutoMode";

@@ -13,26 +13,10 @@ import Footer from "../components/Footer.js";
 import { RenderCard } from "../components/productCard/RenderCard.js";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-
 const bikes = [
   { id: 1, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_1.jpg" },
   { id: 2, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: "../images/product_2.jpg" },
-  { id: 3, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: "../images/product_3.jpg" },
-  { id: 4, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: "../images/product_4.jpg" },
-  { id: 5, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: "../images/product_5.jpg" },
-  { id: 6, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_6.jpg" },
-  { id: 7, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_1.jpg" },
-  { id: 8, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: "../images/product_2.jpg" },
-  { id: 9, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: "../images/product_3.jpg" },
-  { id: 10, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: "../images/product_4.jpg" },
-  { id: 11, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: "../images/product_5.jpg" },
-  { id: 12, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_6.jpg" },
-  { id: 13, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_1.jpg" },
-  { id: 14, name: "KTM Duke 200", price: 200000, brand: "KTM", engine: "200cc", image: "../images/product_2.jpg" },
-  { id: 15, name: "Royal Enfield Classic", price: 180000, brand: "Royal Enfield", engine: "350cc", image: "../images/product_3.jpg" },
-  { id: 16, name: "Bajaj Pulsar NS200", price: 140000, brand: "Bajaj", engine: "200cc", image: "../images/product_4.jpg" },
-  { id: 17, name: "TVS Apache RR310", price: 220000, brand: "TVS", engine: "310cc", image: "../images/product_5.jpg" },
-  { id: 18, name: "Yamaha R15", price: 150000, brand: "Yamaha", engine: "150cc", image: "../images/product_6.jpg" },
+  // Add more bike data as required
 ];
 
 const Dashboard = () => {
@@ -101,14 +85,15 @@ const Dashboard = () => {
         {/* Sidebar Filter */}
         <Box
           sx={{
-            width: { xs: "86%", md: "23%", lg: "13%" },
+            width: { xs: "100%", md: "23%", lg: "13%" },
             position: isFooterVisible ? "absolute" : "sticky",
             top: isFooterVisible ? "auto" : "80px",
             bottom: isFooterVisible ? "auto" : "80px",
-            display:{xs:"none",md:"flex"},
-            flexDirection:"column",
+            display: { xs: "none", md: "flex" },
+            flexDirection: "column",
             p: 2,
             borderRadius: "16px",
+            backgroundColor: "#1E1E1E",
             color: "whitesmoke",
           }}
         >
@@ -127,13 +112,12 @@ const Dashboard = () => {
             min={100000}
             max={250000}
             sx={{
-              
               "& .MuiSlider-thumb": { backgroundColor: "#64b5f6" },
               "& .MuiSlider-track": { backgroundColor: "#64b5f6" },
             }}
           />
           <Typography variant="body2" sx={{ mb: 1 }}>
-            $100000-250000
+            $100000 - $250000
           </Typography>
 
           {/* Brand Filter */}
@@ -141,8 +125,6 @@ const Dashboard = () => {
             Brand
           </Typography>
           {["Yamaha", "KTM", "Royal Enfield", "Bajaj", "TVS"].map((brand) => (
-            <Grid container>
-              <Grid item xs={12}>
             <FormControlLabel
               key={brand}
               control={
@@ -158,8 +140,6 @@ const Dashboard = () => {
               label={brand}
               sx={{ mb: 1 }}
             />
-            </Grid>
-            </Grid>
           ))}
 
           {/* Engine Filter */}
@@ -167,8 +147,6 @@ const Dashboard = () => {
             Engine Type
           </Typography>
           {["150cc", "200cc", "350cc", "310cc"].map((engine) => (
-            <Grid container>
-              <Grid item xs={12}>
             <FormControlLabel
               key={engine}
               control={
@@ -184,8 +162,6 @@ const Dashboard = () => {
               label={engine}
               sx={{ mb: 1 }}
             />
-            </Grid>
-            </Grid>
           ))}
         </Box>
 
@@ -210,12 +186,12 @@ const Dashboard = () => {
               filteredBikes.map((bike) => (
                 <Grid
                   item
-                  xs={12}
+                  xs={12} 
                   sm={6}
                   md={6}
                   lg={3}
                   key={bike.id}
-                  sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                  sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center" }}
                 >
                   <RenderCard bike={bike} />
                 </Grid>
@@ -231,124 +207,38 @@ const Dashboard = () => {
           </Grid>
         </Box>
 
+        {/* Filter Drawer for small screens */}
         <Drawer
-        anchor="bottom"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        PaperProps={{
-          sx: { backgroundColor: "#1E1E1E", color: "whitesmoke", height: "80%" },
-        }}
-      >
-        <Box sx={{ p: 3 }}>
-          <Typography variant="h5" sx={{ mb: 3, fontWeight: "bold" }}>
-            Filter Bikes
-          </Typography>
-
-          {/* Price Filter */}
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
-            Price Range
-          </Typography>
-          <Slider
-            value={priceRange}
-            onChange={handlePriceChange}
-            valueLabelDisplay="auto"
-            min={100000}
-            max={250000}
-            sx={{
-              mb: 3,
-              "& .MuiSlider-thumb": { backgroundColor: "#64b5f6" },
-              "& .MuiSlider-track": { backgroundColor: "#64b5f6" },
-            }}
-          />
-
-          {/* Brand Filter */}
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
-            Brand
-          </Typography>
-          {["Yamaha", "KTM", "Royal Enfield", "Bajaj", "TVS"].map((brand) => (
-            <FormControlLabel
-              key={brand}
-              control={
-                <Checkbox
-                  checked={selectedBrands.includes(brand)}
-                  onChange={() => toggleBrand(brand)}
-                  sx={{
-                    color: "#64b5f6",
-                    "&.Mui-checked": { color: "#64b5f6" },
-                  }}
-                />
-              }
-              label={brand}
-              sx={{ mb: 1 }}
-            />
-          ))}
-
-          {/* Engine Filter */}
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold", mt: 3, mb: 1 }}>
-            Engine Type
-          </Typography>
-          {["150cc", "200cc", "350cc", "310cc"].map((engine) => (
-            <FormControlLabel
-              key={engine}
-              control={
-                <Checkbox
-                  checked={selectedEngines.includes(engine)}
-                  onChange={() => toggleEngine(engine)}
-                  sx={{
-                    color: "#64b5f6",
-                    "&.Mui-checked": { color: "#64b5f6" },
-                  }}
-                />
-              }
-              label={engine}
-              sx={{ mb: 1 }}
-            />
-          ))}
-
-          {/* Buttons */}
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}>
-            <Button
-              variant="outlined"
-            
-              sx={{
-                color: "whitesmoke",
-                borderColor: "#64b5f6",
-                "&:hover": { borderColor: "#2196f3" },
-              }}
-            >
-              Reset
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => setDrawerOpen(false)}
-              sx={{ backgroundColor: "#64b5f6", color: "black" }}
-            >
-              Apply
-            </Button>
-          </Box>
-        </Box>
-      </Drawer>
-
-      {/* Filter Button (Visible only on xs and sm) */}
-      <Box
-        sx={{
-          display: { xs: "flex", md: "none" },
-          position: "fixed",
-          bottom: 16,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-        }}
-      >
-        <Button
-          variant="contained"
-          startIcon={<FilterListIcon />}
-          onClick={() => setDrawerOpen(true)}
-          sx={{ backgroundColor: "black", color: "white",borderRadius:4,padding:2,width:"150px" }}
+          anchor="bottom"
+          open={drawerOpen}
+          onClose={() => setDrawerOpen(false)}
+          PaperProps={{
+            sx: { backgroundColor: "#1E1E1E", color: "whitesmoke", height: "80%" },
+          }}
         >
-          Filters
-        </Button>
-      </Box>
+          {/* Drawer content (same as sidebar filters) */}
+        </Drawer>
+
+        {/* Floating Filter Button for small screens */}
+        <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            position: "fixed",
+            bottom: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+          }}
+        >
+          <Button
+            variant="contained"
+            startIcon={<FilterListIcon />}
+            onClick={() => setDrawerOpen(true)}
+            sx={{ backgroundColor: "black", color: "white", borderRadius: 4, padding: 2 }}
+          >
+            Filters
+          </Button>
+        </Box>
       </Box>
 
       <Footer ref={footerRef} />

@@ -41,7 +41,7 @@ const Hero = () => {
   return (
     <Box sx={{width:"100%"}}>
       
-      <Box sx={{ padding: '2rem', my: 5 }}>
+      <Box sx={{ padding: '1rem' }}>
         <Grid container spacing={4}>
           {/* Left Side: Images */}
           <Grid item xs={12} md={5}>
@@ -93,7 +93,8 @@ const Hero = () => {
           </Grid>
 
           {/* Right Side: Product Details */}
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} >
+            <Box sx={{padding:"20px"}}>
             <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '1rem' }}>
               {product.name}
             </Typography>
@@ -180,7 +181,7 @@ const Hero = () => {
             </Box>
             <Typography
               variant="body2"
-              sx={{ color: '#757575', marginBottom: '2rem', lineHeight: 1.5,height:"150px" }}
+              sx={{ color: '#757575', marginBottom: '1rem', lineHeight: 1.5,height:"100px" }}
             >
               {product.description}
             </Typography>
@@ -219,6 +220,7 @@ const Hero = () => {
                 Add to Cart
               </Button>
             </Box>
+          </Box>  
           </Grid>
         </Grid>
       </Box>
