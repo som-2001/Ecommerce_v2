@@ -4,6 +4,8 @@ import { PageLoader } from "./pages/PageLoader";
 import { ScrollReset } from "./components/ScrollReset.js";
 import { Cart } from "./pages/Cart.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
+import Topbar from "./components/Admin/Topbar.js";
+import Sidebar from "./components/Admin/Sidebar.js";
 
 
 
@@ -18,6 +20,7 @@ const Profile=lazy(()=>import("./pages/Profile.js"));
 const Order=lazy(()=>import("./pages/Order.js"));
 const AllOrders=lazy(()=>import("./pages/AllOrders.js"))
 const WishList=lazy(()=>import("./pages/WishList.js"));
+const AdminDashboard=lazy(()=>import("./pages/Admin/Dashboard.js"));
 
 function App() {
   return (
@@ -39,6 +42,11 @@ function App() {
             <Route path="/wishlist" element={<WishList/>}/>
             <Route path="/cart" element={<Cart/>}/>
           </Route>
+          {/* <Route element={<Topbar/>}>
+            <Route element={<Sidebar/>}> */}
+              <Route path="/admin-dashboard" element={<AdminDashboard/>}/>
+            {/* </Route> */}
+          {/* </Route> */}
         </Route>  
         </Routes>
       </Suspense>

@@ -7,7 +7,7 @@ const Gallary = () => {
       sx={{
         backgroundColor: "#222222",
         color: "white",
-        padding: "5rem",
+        padding: {xs:"1rem",sm:"5rem"},
         textAlign: "center",
       }}
     >
@@ -15,7 +15,7 @@ const Gallary = () => {
         sx={{
           fontWeight: 600,
           fontSize: {xs:"30px",md:"150px"},
-          lineHeight: "220px",
+          lineHeight: {xs:"88px",md:"220px"},
           color: "#fff",
           opacity: 0.1,
           textTransform: "uppercase",
@@ -32,18 +32,19 @@ const Gallary = () => {
         Our Gallery
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6} md={6}>
           <CardMedia
             component="img"
             image="../images/gallary_1.jpg"
            
             sx={{
               objectFit:"contain",
-              height:{xs:200,md:500}
+              height:{xs:200,md:500},
+              
             }}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6} md={6}>
           <CardMedia
             component="img"
             image="../images/gallary_2.jpg"
