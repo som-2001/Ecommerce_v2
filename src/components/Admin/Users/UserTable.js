@@ -9,23 +9,24 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
+// import Button from '@mui/material/Button';
+// import Drawer from '@mui/material/Drawer';
 import { visuallyHidden } from '@mui/utils';
-import { Divider } from '@mui/material';
+import { Switch } from '@mui/material';
 
 const rows = [
-  { id: 1, name: 'Alice Johnson', email: 'alice.johnson@example.com', date: '01/01/2024' },
-  { id: 2, name: 'Bob Smith', email: 'bob.smith@example.com', date: '02/01/2024' },
+  { image:'product_1.jpg',id: 1, name: 'Alice Johnson', email: 'alice.johnson@example.com', date: '01/01/2024' },
+  { image:'product_2.jpg',id: 2, name: 'Bob Smith', email: 'bob.smith@example.com', date: '02/01/2024' },
 ];
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 const headCells = [
+  { id: 'image', numeric: false, disablePadding: false, label: 'Image' },
   { id: 'name', numeric: false, disablePadding: false, label: 'User Name' },
   { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
   { id: 'date', numeric: true, disablePadding: false, label: 'Date' },
-  // { id: 'action', numeric: false, disablePadding: false, label: 'Action' },
+  { id: 'action', numeric: false, disablePadding: false, label: 'Action' },
 ];
 
 function EnhancedTableHead(props) {
@@ -73,8 +74,8 @@ export default function UserTable() {
   const [orderBy, setOrderBy] = React.useState('name');
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-  const [selectedRow, setSelectedRow] = React.useState(null);
+  // const [drawerOpen, setDrawerOpen] = React.useState(false);
+  // const [selectedRow, setSelectedRow] = React.useState(null);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -82,15 +83,15 @@ export default function UserTable() {
     setOrderBy(property);
   };
 
-  const handleOpenDrawer = (row) => {
-    setSelectedRow(row);
-    setDrawerOpen(true);
-  };
+  // const handleOpenDrawer = (row) => {
+  //   setSelectedRow(row);
+  //   setDrawerOpen(true);
+  // };
 
-  const handleCloseDrawer = () => {
-    setDrawerOpen(false);
-    setSelectedRow(null);
-  };
+  // const handleCloseDrawer = () => {
+  //   setDrawerOpen(false);
+  //   setSelectedRow(null);
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -110,14 +111,18 @@ export default function UserTable() {
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row.id}>
+                   <TableCell align="center">
+                    <img src={`../../../images/${row.image}`} alt='' style={{width:"100px"}}/>
+                   </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="center">{row.email}</TableCell>
                   <TableCell align="center">{row.date}</TableCell>
-                  {/* <TableCell align="center">
-                    <Button variant="text" onClick={() => handleOpenDrawer(row)}>
+                  <TableCell align="center">
+                    {/* <Button variant="text" onClick={() => handleOpenDrawer(row)}>
                       View Details
-                    </Button>
-                  </TableCell> */}
+                    </Button> */}
+                    <Switch {...label} defaultChecked />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

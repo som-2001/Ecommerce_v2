@@ -1,9 +1,12 @@
 import React from "react";
-import { Grid, Box, Card, Typography, Avatar, IconButton } from "@mui/material";
+import { Grid, Box, Card, Typography, Avatar, CardMedia } from "@mui/material";
 import { Line } from "react-chartjs-2";
-import { MoreVert, TrendingUp, AttachMoney, Person } from "@mui/icons-material";
-import Sidebar from "../../components/Admin/Sidebar";
-import Topbar from "../../components/Admin/Topbar";
+import { TrendingUp, AttachMoney, Person, Description } from "@mui/icons-material";
+import GroupIcon from "@mui/icons-material/Group";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import InventoryIcon from "@mui/icons-material/Inventory";
+
 import {
   Chart as ChartJS,
   LineElement,
@@ -80,49 +83,95 @@ const Dashboard = () => {
   };
 
   const metrics = [
-    { icon: <TrendingUp />, label: "Product Sold", value: "25.1k" },
-    { icon: <AttachMoney />, label: "Total Profit", value: "$2,435k" },
-    { icon: <Person />, label: "New Customers", value: "43.5k" },
+    { icon: <TrendingUp />, label: "Order Placed", value: "25k" },
+    { icon: <AttachMoney />, label: "In Shipping", value: "25k" },
+    { icon: <Person />, label: "Out For Delivery", value: "4k" },
+    { icon: <Person />, label: "Delivered", value: "4k" },
   ];
 
   const salesReps = [
-    "Nicholas Patrick",
-    "Cordell Edwards",
-    "Derrick Spencer",
-    "Larissa Burton",
+    { icon: <InventoryIcon sx={{ fontSize: "2rem" }} />, name: "Total Products" },
+    { icon: <LocalShippingIcon sx={{ fontSize: "2rem" }} />, name: "Total Orders" },
+    { icon: <GroupIcon sx={{ fontSize: "2rem" }} />, name: "Total Users" },
+    { icon: <StarBorderIcon sx={{ fontSize: "2rem" }} />, name: "Total Review" },
   ];
+
+  const FeatureProducts = {
+    title: "Feature Products",
+    items: [
+      { name: "Duke", price: "$13520", Description: "Last Week",image:"product_1.jpg" },
+      { name: "Royal Enfield", price: "$22350", Description: "Last Week",image:"product_1.jpg" },
+    ],
+  };
+
+  const bestSeller = {
+    title: "Best Seller",
+    items: [
+      { name: "Duke", price: "$13520", Description: "Last Week",image:"product_1.jpg" },
+      { name: "Royal Enfield",price: "$13520", Description: "Last Week",image:"product_1.jpg" },
+    ],
+  };
+
+  const renderProductList = (section) => (
+    <Card sx={{ p: 2, mb: 2 }}>
+      <Typography variant="h6" gutterBottom>
+        {section.title}
+      </Typography>
+      {section.items.map((item, index) => (
+        <Box
+          key={index}
+          sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}
+        >
+          <CardMedia component="img" src={`../../images/${item.image}`} sx={{width:"70px"}}/>
+          <Box sx={{display:'flex',flexDirection:"column",justifyContent:"flex-start"}}>
+          <Typography variant="body1">{item.name}</Typography>
+          <Typography variant="body2" color="textSecondary">{item.Description}</Typography>
+          </Box>
+          <Typography variant="body2" color="textSecondary">
+            Price {item.price} 
+          </Typography>
+        </Box>
+      ))}
+    </Card>
+  );
 
   return (
     <Box>
       {/* Top Sales Representatives */}
-      <Card sx={{ p: 2, mb: 3 }}>
-        <Typography variant="h6" gutterBottom>
-          Top Sales Representatives
-        </Typography>
-        <Grid container spacing={2}>
-          {salesReps.map((name, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Card sx={{ display: "flex", alignItems: "center", p: 2 }}>
-                <Avatar sx={{ mr: 2 }}>{name[0]}</Avatar>
-                <Box>
-                  <Typography>{name}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    ${Math.round(Math.random() * 2000) + 1000}.00
-                  </Typography>
-                </Box>
-                <IconButton sx={{ ml: "auto" }}>
-                  <MoreVert />
-                </IconButton>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Card>
+      <Grid container spacing={2} sx={{ p: 3 }}>
+        {salesReps.map((name, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <Card
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                p: 2,
+                height: "120px",
+                gap: "20px",
+              }}
+            >
+              {name.icon}
+              <Box>
+                <Typography variant="body1" sx={{ fontSize: "20px" }}>
+                  {name.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ fontSize: "15px" }}
+                  color="textSecondary"
+                >
+                  ${Math.round(Math.random() * 2000) + 1000}.00
+                </Typography>
+              </Box>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
 
       {/* Metrics */}
       <Grid container spacing={2} mb={3}>
         {metrics.map((item, i) => (
-          <Grid item xs={12} sm={6} md={4} key={i}>
+          <Grid item xs={12} sm={6} md={3} key={i}>
             <Card sx={{ p: 2, display: "flex", alignItems: "center" }}>
               <Avatar sx={{ bgcolor: "#36a2eb", mr: 2 }}>{item.icon}</Avatar>
               <Box>
@@ -136,6 +185,7 @@ const Dashboard = () => {
         ))}
       </Grid>
 
+     
       {/* Charts */}
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
@@ -149,22 +199,12 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Card
-            sx={{
-              p: 2,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography variant="h6" gutterBottom>
-              Sales Team Target
-            </Typography>
-            <Typography variant="h4" color="primary">
-              82%
-            </Typography>
-            <Typography>Achieved</Typography>
-          </Card>
+       
+          {renderProductList(bestSeller)}
+        
+       
+          {renderProductList(FeatureProducts)}
+        
         </Grid>
       </Grid>
     </Box>

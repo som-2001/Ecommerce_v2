@@ -9,7 +9,7 @@ export const AdminLayout = () => {
       <Sidebar />
       <Box flex={1} bgcolor="#f7f9fc">
         <Topbar />
-        <Box p={3}><Outlet/></Box>
+        <Box p={2}><Outlet/></Box>
       </Box>
     </Box>
   );

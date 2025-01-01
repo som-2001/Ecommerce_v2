@@ -4,7 +4,7 @@ import { Search, Notifications } from '@mui/icons-material';
 
 const Topbar = () => {
   return (
-    <AppBar position="static" color="transparent" elevation={0} sx={{ mb: 2 }}>
+    <AppBar position="static" color="transparent" elevation={0} sx={{ mb: 0 }}>
       <Toolbar>
         <InputBase
           placeholder="Search…"
