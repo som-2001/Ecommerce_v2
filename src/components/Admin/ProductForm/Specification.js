@@ -51,11 +51,7 @@ const Specifications = ({onValidation}) => {
     onValidation(true)
   };
 
-  console.log(errors);
-  useEffect(()=>{
-    onValidation(false);
-  },[errors])
-
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
@@ -252,12 +248,12 @@ const Specifications = ({onValidation}) => {
               sx={{
                 padding: 2,
                 borderRadius: 2,
-                width: "140px",
+                width: "180px",
                 backgroundColor: "black",
                 color: "white",
               }}
             >
-              Continue
+             Save & Continue
             </Button>
           </Box>
         </Grid>

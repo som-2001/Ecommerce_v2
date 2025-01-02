@@ -5,9 +5,9 @@ export const Hero = ({data}) => {
     <Box sx={{ width: "77vw", padding: { xs: 2, sm: 5 } }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
-          <Typography variant="h5">Welcome, {data.username}</Typography>
+          <Typography variant="h5" color="text.secondary">Welcome, {data.username}</Typography>
           <Typography variant="body2" color="text.secondary">
-            {new Date(data.createdAt).toLocaleDateString()}
+            Joined on, {new Date(data.createdAt).toLocaleDateString()}
           </Typography>
         </Box>
         <Box>
@@ -51,7 +51,7 @@ export const Hero = ({data}) => {
           >
             <CardMedia
               component="img"
-              image={data}
+              image={data?.img ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"}
               sx={{ width: "80px", height: "80px", borderRadius: 10 }}
             />
           </Grid>

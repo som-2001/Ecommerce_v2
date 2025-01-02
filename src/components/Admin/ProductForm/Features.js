@@ -242,12 +242,12 @@ const Features = ({onValidation}) => {
           <Button type="submit" variant="contained" sx={{
                 padding:2,
                 borderRadius:2,
-                width:"140px",
+                width:"180px",
                 backgroundColor:"black",
                 color:'white',
                 mt:1
             }} fullWidth>
-            Submit
+            Save & Submit
           </Button>
         </Box>
       </Grid>

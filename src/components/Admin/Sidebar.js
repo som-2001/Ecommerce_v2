@@ -12,7 +12,7 @@ const Sidebar = () => {
   const navigate=useNavigate();
 
   return (
-    <Box width="250px" bgcolor="#4e59e7" minHeight="100vh" color="white">
+    <Box width="250px" sx={{ background: "linear-gradient(to top,  #C25FFF,#3D29D0)" }} minHeight="100vh" color="white">
       <Box textAlign="center" p={2} fontSize={20}>
         <img src='../../images/logo.png' alt='' style={{width:"70px"}}/>
       </Box>

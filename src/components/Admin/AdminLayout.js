@@ -7,7 +7,7 @@ export const AdminLayout = () => {
   return (
     <Box display="flex">
       <Sidebar />
-      <Box flex={1} bgcolor="#f7f9fc">
+      <Box flex={1} bgcolor="#f7f9fc" >
         <Topbar />
         <Box p={2}><Outlet/></Box>
       </Box>

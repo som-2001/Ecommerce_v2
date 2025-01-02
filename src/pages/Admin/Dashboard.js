@@ -100,43 +100,56 @@ const Dashboard = () => {
       icon: <TrendingUp />,
       label: "Order Placed",
       value: "25k",
-      bgcolor: "#36a2eb",
+      cardBg: "#f5f5f5",
+      iconBg: "#d1c4e9",
     },
     {
       icon: <AttachMoney />,
       label: "In Shipping",
       value: "25k",
-      bgcolor: "#e0584f",
+      cardBg: "#e3f2fd",
+      iconBg: "#bbdefb",
     },
     {
       icon: <Person />,
       label: "Out For Delivery",
       value: "4k",
-      bgcolor: "#eb6cc2",
+      cardBg: "#ede7f6",
+      iconBg: "#b39ddb",
     },
-    { icon: <Person />, label: "Delivered", value: "4k", bgcolor: "#d9e04f" },
+    {
+      icon: <Person />,
+      label: "Delivered",
+      value: "4k",
+      cardBg: "#f1f8e9",
+      iconBg: "#c5e1a5",
+    },
   ];
 
   const salesReps = [
     {
-      icon: <InventoryIcon sx={{ fontSize: "2rem" }} />,
+      icon: <InventoryIcon />,
       name: "Total Products",
-      bgcolor: "#85c6f2",
+      cardBg: "#f3e5f5",
+      iconBg: "#ce93d8",
     },
     {
-      icon: <LocalShippingIcon sx={{ fontSize: "2rem" }} />,
+      icon: <LocalShippingIcon />,
       name: "Total Orders",
-      bgcolor: "#b0a4ed",
+      cardBg: "#e8f5e9",
+      iconBg: "#81c784",
     },
     {
-      icon: <GroupIcon sx={{ fontSize: "2rem" }} />,
+      icon: <GroupIcon />,
       name: "Total Users",
-      bgcolor: "#b1f2e1",
+      cardBg: "#e3f2fd",
+      iconBg: "#64b5f6",
     },
     {
-      icon: <StarBorderIcon sx={{ fontSize: "2rem" }} />,
-      name: "Total Review",
-      bgcolor: "#8febd2",
+      icon: <StarBorderIcon />,
+      name: "Total Reviews",
+      cardBg: "#fff3e0",
+      iconBg: "#ffb74d",
     },
   ];
 
@@ -181,7 +194,13 @@ const Dashboard = () => {
   };
 
   const renderProductList = (section) => (
-    <Card sx={{ p: 2, mb: 2,background: 'linear-gradient(#e1eef5,rgb(231, 202, 193))' }}>
+    <Card
+      sx={{
+        p: 2,
+        mb: 2,
+        background: "linear-gradient(135deg, #ece9e6 0%, #ffffff 100%)",
+      }}
+    >
       <Typography variant="body1" color="text.secondary" gutterBottom>
         {section.title}
       </Typography>
@@ -193,6 +212,7 @@ const Dashboard = () => {
             justifyContent: "space-between",
             mb: 1,
             alignItems: "center",
+            gap: 2,
           }}
         >
           <CardMedia
@@ -208,26 +228,27 @@ const Dashboard = () => {
             }}
           >
             <Typography variant="body1">{item.name}</Typography>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-            >{`${item.Description.slice(0, 50)}...`}</Typography>
+            <Typography variant="body2" color="textSecondary">
+              {`${item.Description.slice(0, 50)}...`}
+            </Typography>
           </Box>
           <Typography variant="body2" color="textSecondary">
             <Stack direction="row">
-              <Chip label={item.price} sx={{ bgcolor: "#f58989" }} />
+              <Chip
+                label={item.price}
+                sx={{ bgcolor: "#5041BC", color: "white" }}
+              />
             </Stack>
           </Typography>
         </Box>
       ))}
     </Card>
   );
-
   return (
     <Box>
       {/* Top Sales Representatives */}
       <Grid container spacing={2} sx={{ p: 3 }}>
-        {salesReps.map((item, index) => (
+      {salesReps.map((item, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card
               sx={{
@@ -235,22 +256,18 @@ const Dashboard = () => {
                 alignItems: "center",
                 p: 2,
                 height: "120px",
+                backgroundColor: item.cardBg,
                 gap: "20px",
-                // background: `linear-gradient(${item.bgcolor} 1.80%,rgb(228, 214, 236,0.7) 55%)`
               }}
             >
-              <Avatar sx={{ bgcolor: item.bgcolor, mr: 2, p: 1 }}>
+              <Avatar sx={{ bgcolor: item.iconBg, mr: 2, p: 1 }}>
                 {item.icon}
               </Avatar>
               <Box>
-                <Typography variant="body1" sx={{ fontSize: "20px" }}>
+                <Typography variant="body2" color="text.secondary">
                   {item.name}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ fontSize: "15px" }}
-                  color="textSecondary"
-                >
+                <Typography variant="h5">
                   ${Math.round(Math.random() * 2000) + 1000}.00
                 </Typography>
               </Box>
@@ -260,20 +277,25 @@ const Dashboard = () => {
       </Grid>
 
       {/* Metrics */}
-      <Grid container spacing={2} mb={3}>
-        {metrics.map((item, i) => (
+      <Grid container spacing={2} mb={3} p={2}>
+      {metrics.map((item, i) => (
           <Grid item xs={12} sm={6} md={3} key={i}>
-            <Card sx={{ p: 4, display: "flex", alignItems: "center",
-              // background: `linear-gradient(${item.bgcolor} , rgb(234, 228, 238,0.2)) 50.71%`  
-              }}>
-              <Avatar sx={{ bgcolor: item.bgcolor, mr: 2, p: 1 }}>
+            <Card
+              sx={{
+                p: 4,
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: item.cardBg,
+              }}
+            >
+              <Avatar sx={{ bgcolor: item.iconBg, mr: 2, p: 1 }}>
                 {item.icon}
               </Avatar>
               <Box>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="body2" color="text.secondary">
                   {item.label}
                 </Typography>
-                <Typography variant="h6">{item.value}</Typography>
+                <Typography variant="h5">{item.value}</Typography>
               </Box>
             </Card>
           </Grid>

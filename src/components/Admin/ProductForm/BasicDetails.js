@@ -212,12 +212,12 @@ const BasicDetails = ({onValidation}) => {
             sx={{
                 padding:2,
                 borderRadius:2,
-                width:"140px",
+                width:"180px",
                 backgroundColor:"black",
                 color:'white'
             }}
           >
-            Continue
+            Save & Continue
           </Button>
           </Box> 
         </Grid>

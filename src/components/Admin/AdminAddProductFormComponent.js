@@ -40,7 +40,7 @@ const BikeFormWithAccordion = () => {
   };
 
   const handleSpecificationsValidation = (isValid) => {
-    setValidBasicInfo(false); 
+    setValidBasicInfo(isValid); 
     setValidSpecifications(isValid);
     if (isValid) {
       setExpanded("panel3"); // Expand the third panel if the second panel is valid

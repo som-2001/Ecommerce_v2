@@ -107,13 +107,13 @@ const OrderPrice = ({onValidation}) => {
             sx={{
                 padding:2,
                 borderRadius:2,
-                width:"140px",
+                width:"180px",
                 backgroundColor:"black",
                 color:'white',
                 mt:1
             }}
           >
-            Continue
+           Save & Continue
           </Button>
           </Box>
         </Grid>

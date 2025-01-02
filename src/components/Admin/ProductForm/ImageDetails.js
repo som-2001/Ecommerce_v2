@@ -56,8 +56,11 @@ function ImageDetails() {
 
   const [files, setFiles] = useState([]);
   const [colors, setColors] = useState([]);
-  const dispatch=useDispatch();
-  const {product}=useSelector(state=>state.product);
+  const [disableBtn, setDisableBtn] = useState(true);
+  const [colorDisabledArray, setColorDisabledArray] = useState([]);
+
+  const dispatch = useDispatch();
+  const { product } = useSelector((state) => state.product);
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
@@ -70,6 +73,7 @@ function ImageDetails() {
   const handleDeleteImage = (indexToDelete) => {
     const updatedFiles = files.filter((_, index) => index !== indexToDelete);
     setFiles(updatedFiles);
+    if (updatedFiles.length === 0) setDisableBtn(true);
     setValue("files", updatedFiles);
   };
 
@@ -86,52 +90,51 @@ function ImageDetails() {
             })
         )
       );
-  
+
     const convertedFiles = await convertFilesToDataURLs(files);
-  
+
     const newColorEntry = {
       color: data.selectedColor,
       images: convertedFiles, // Store converted Data URLs
       stock: data.stock,
     };
-  
+
+    setColorDisabledArray([...colorDisabledArray, data.selectedColor]);
+
     const updatedColors = [...colors, newColorEntry];
     setColors(updatedColors);
     dispatch(addProduct(updatedColors));
     setFiles([]);
     reset(); // Reset the form
+    setDisableBtn(false);
   };
-  
-  
 
   const onSubmit = () => {
-   
-    axios
-      .post(`${process.env.REACT_APP_BASEURL}/products/create`, product, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        console.log("Product created successfully:", response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-        // enqueueSnackbar(error.response.data.message, { variant: "error" });
-        console.error("Product creation failed:", error);
-      });
+    console.log(product);
 
-
+    // axios
+    //   .post(`${process.env.REACT_APP_BASEURL}/products/create`, product, {
+    //     withCredentials: true,
+    //   })
+    //   .then((response) => {
+    //     console.log("Product created successfully:", response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     // enqueueSnackbar(error.response.data.message, { variant: "error" });
+    //     console.error("Product creation failed:", error);
+    //   });
   };
 
   return (
     <Box>
-    
       <Typography variant="body2" sx={{ mb: 1 }} color="text.secondary">
         Color and Image Details
       </Typography>
       <form onSubmit={handleSubmit(onAddEntry)}>
         <Grid container spacing={2}>
           {/* Color Selection */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={3}>
             <Controller
               name="selectedColor"
               control={control}
@@ -145,9 +148,24 @@ function ImageDetails() {
                   <MenuItem value="" disabled>
                     Select a color
                   </MenuItem>
-                  <MenuItem value="Red">Red</MenuItem>
-                  <MenuItem value="Yellow">Yellow</MenuItem>
-                  <MenuItem value="Blue">Blue</MenuItem>
+                  <MenuItem
+                    value="Red"
+                    disabled={colorDisabledArray.includes("Red")}
+                  >
+                    Red
+                  </MenuItem>
+                  <MenuItem
+                    value="Yellow"
+                    disabled={colorDisabledArray.includes("Yellow")}
+                  >
+                    Yellow
+                  </MenuItem>
+                  <MenuItem
+                    value="Blue"
+                    disabled={colorDisabledArray.includes("Blue")}
+                  >
+                    Blue
+                  </MenuItem>
                 </Select>
               )}
             />
@@ -159,7 +177,7 @@ function ImageDetails() {
           </Grid>
 
           {/* Stock Input */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={3}>
             <Controller
               name="stock"
               control={control}
@@ -179,20 +197,20 @@ function ImageDetails() {
           </Grid>
 
           {/* File Upload */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={2}>
             <Controller
               name="files"
               control={control}
               render={({ field }) => (
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   component="label"
                   sx={{
                     padding: 2,
                     borderRadius: 2,
                     width: "170px",
-                    backgroundColor: "black",
-                    color: "white",
+                    border: "1px solid black",
+                    color: "black",
                   }}
                 >
                   Upload Images
@@ -214,6 +232,24 @@ function ImageDetails() {
                 {errors.files.message}
               </Typography>
             )}
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={3}>
+           
+              <Button
+                type="submit"
+                variant="outlined"
+                sx={{
+                  padding: 2,
+                  borderRadius: 2,
+                  width: "140px",
+                  border: "1px solid black",
+                  color: "black",
+                }}
+              >
+                Add Entry
+              </Button>
+           
           </Grid>
 
           {/* Display selected image previews */}
@@ -263,44 +299,6 @@ function ImageDetails() {
           </Grid>
 
           {/* Buttons */}
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <Button
-                type="submit"
-                variant="contained"
-                sx={{
-                  padding: 2,
-                  borderRadius: 2,
-                  width: "140px",
-                  backgroundColor: "black",
-                  color: "white",
-                }}
-              >
-                Add Entry
-              </Button>
-              <Button
-              
-                onClick={onSubmit}
-                variant="outlined"
-                sx={{
-                  padding: 1.9,
-                  borderRadius: 2,
-                  width: "140px",
-                  border: "1px solid black",
-                  color: "black",
-                }}
-              >
-                Submit
-              </Button>
-            </Box>
-          </Grid>
         </Grid>
       </form>
 
@@ -326,7 +324,7 @@ function ImageDetails() {
                     <TableCell align="center">
                       <Grid container spacing={1}>
                         {colorEntry.images.map((image, idx) => (
-                          <Grid item xs={2} key={idx}>
+                          <Grid item xs={3} key={idx}>
                             <Box
                               component="img"
                               src={image}
@@ -352,6 +350,24 @@ function ImageDetails() {
           </TableContainer>
         </Box>
       )}
+
+      <Box sx={{my:1,display:"flex",justifyContent:"center",alignItems:"center"}}>
+        <Button
+          onClick={onSubmit}
+          variant="outlined"
+          disabled={disableBtn}
+          sx={{
+            padding: 1.9,
+            borderRadius: 2,
+            width: "140px",
+            backgroundColor:"black",
+          
+            color: "white",
+          }}
+        >
+          Submit
+        </Button>
+      </Box>
     </Box>
   );
 }
