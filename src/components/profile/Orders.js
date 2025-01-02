@@ -23,12 +23,12 @@ export const Orders=()=>{
             </Grid>
             
             <Grid item xs={12} sm={12} md={4} sx={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
-                <Typography variant="body1">INSANESWORM 240 TC Microfiber Single Floral Flat Bedsheet</Typography>
-                <Typography variant="h6" color="green">$23300 <span style={{textDecoration:"line-through",color:"red",fontSize:"1.0rem"}}>$23523</span> 25% off</Typography>
+                <Typography variant="body2" color="text.secondary">INSANESWORM 240 TC Microfiber Single Floral Flat Bedsheet</Typography>
+                <Typography variant="body1" color="green">$23300 <span style={{textDecoration:"line-through",color:"red",fontSize:"1.0rem"}}>$23523</span> 25% off</Typography>
             </Grid>
              
             <Grid item xs={12} sm={12} md={4} lg={6} sx={{display:"flex",justifyContent:"center",flexDirection:"column",alignItems:{xs:"start",md:"center"}}}>
-                <Typography variant="body1">Ordered on 27 Dec,2024</Typography>
+                <Typography variant="body2" color="text.secondary">Ordered on 27 Dec,2024</Typography>
                 <OrderTracker/>
             </Grid>
         </Grid>
@@ -42,12 +42,12 @@ export const Orders=()=>{
             </Grid>
             
             <Grid item xs={12} sm={12} md={4} sx={{display:"flex",justifyContent:"center",flexDirection:"column"}}>
-                <Typography variant="body1">INSANESWORM 240 TC Microfiber Single Floral Flat Bedsheet</Typography>
-                <Typography variant="h6" color="green">$23300 <span style={{textDecoration:"line-through",color:"red",fontSize:"1.0rem"}}>$23523</span> 25% off</Typography>
+                <Typography variant="body2" color="text.secondary">INSANESWORM 240 TC Microfiber Single Floral Flat Bedsheet</Typography>
+                <Typography variant="body1" color="green">$23300 <span style={{textDecoration:"line-through",color:"red",fontSize:"0.8rem"}}>$23523</span> 25% off</Typography>
                 
             </Grid>
             <Grid item xs={12} sm={12} md={4} lg={6} sx={{display:"flex",justifyContent:"center",flexDirection:"column",alignItems:{xs:"start",md:"center"}}}>
-                <Typography variant="body1">Ordered on 27 Dec,2024</Typography>
+                <Typography variant="body2" color="text.secondary">Ordered on 27 Dec,2024</Typography>
                 <OrderTracker/>
             </Grid>
             

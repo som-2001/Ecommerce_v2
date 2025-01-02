@@ -1,13 +1,13 @@
 import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
 
-export const Hero = () => {
+export const Hero = ({data}) => {
   return (
     <Box sx={{ width: "77vw", padding: { xs: 2, sm: 5 } }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
-          <Typography variant="h5">Welcome, Someswar</Typography>
+          <Typography variant="h5">Welcome, {data.username}</Typography>
           <Typography variant="body2" color="text.secondary">
-            Fri, 27 Dec 2024
+            {new Date(data.createdAt).toLocaleDateString()}
           </Typography>
         </Box>
         <Box>
@@ -51,7 +51,7 @@ export const Hero = () => {
           >
             <CardMedia
               component="img"
-              image="https://mui.com/static/images/avatar/1.jpg"
+              image={data}
               sx={{ width: "80px", height: "80px", borderRadius: 10 }}
             />
           </Grid>
@@ -67,9 +67,9 @@ export const Hero = () => {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h6">Someswar Gorai</Typography>
+            <Typography variant="h6">{data.username}</Typography>
             <Typography variant="body2" color="text.secondary">
-              Someswar Gorai@gmail.com
+              {data.email}
             </Typography>
           </Grid>
         </Grid>

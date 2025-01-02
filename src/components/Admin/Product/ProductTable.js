@@ -19,10 +19,9 @@ import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 
-function createData(id,image, name, brand, engineCapacity, mileage, price) {
+function createData(id,image, name, brand, engineCapacity, mileage, price,FeatureProduct) {
   return {
     id,
     image,
@@ -31,6 +30,7 @@ function createData(id,image, name, brand, engineCapacity, mileage, price) {
     engineCapacity,
     mileage,
     price,
+    FeatureProduct
   };
 }
 function descendingComparator(a, b, orderBy) {
@@ -50,16 +50,16 @@ function getComparator(order, orderBy) {
 }
 
 const rows = [
-  createData(1, 'product_1.jpg','Splendor Plus', 'Hero', '97.2cc', '70 kmpl', '$1,000'),
-  createData(2, 'product_2.jpg','Pulsar 150', 'Bajaj', '149.5cc', '50 kmpl', '$1,500'),
-  createData(3, 'product_3.jpg','FZ V3', 'Yamaha', '149cc', '45 kmpl', '$1,800'),
-  createData(4, 'product_4.jpg','Classic 350', 'Royal Enfield', '349cc', '35 kmpl', '$2,800'),
-  createData(5, 'product_5.jpg','Activa 6G', 'Honda', '109.5cc', '60 kmpl', '$1,200'),
-  createData(6, 'product_6.jpg','Apache RTR 160', 'TVS', '159.7cc', '50 kmpl', '$1,600'),
-  createData(7, 'product_1.jpg','R15 V4', 'Yamaha', '155cc', '40 kmpl', '$2,000'),
-  createData(8, 'product_2.jpg','Gixxer SF', 'Suzuki', '155cc', '47 kmpl', '$1,900'),
-  createData(9, 'product_3.jpg','Bullet 350', 'Royal Enfield', '346cc', '40 kmpl', '$2,500'),
-  createData(10,'product_4.jpg','Himalayan', 'Royal Enfield', '411cc', '30 kmpl', '$3,000'),
+  createData(1, 'product_1.jpg','Splendor Plus', 'Hero', '97.2cc', '70 kmpl', '$1,000',false),
+  createData(2, 'product_2.jpg','Pulsar 150', 'Bajaj', '149.5cc', '50 kmpl', '$1,500',true),
+  createData(3, 'product_3.jpg','FZ V3', 'Yamaha', '149cc', '45 kmpl', '$1,800',false),
+  createData(4, 'product_4.jpg','Classic 350', 'Royal Enfield', '349cc', '35 kmpl', '$2,800',false),
+  createData(5, 'product_5.jpg','Activa 6G', 'Honda', '109.5cc', '60 kmpl', '$1,200',false),
+  createData(6, 'product_6.jpg','Apache RTR 160', 'TVS', '159.7cc', '50 kmpl', '$1,600',false),
+  createData(7, 'product_1.jpg','R15 V4', 'Yamaha', '155cc', '40 kmpl', '$2,000',false),
+  createData(8, 'product_2.jpg','Gixxer SF', 'Suzuki', '155cc', '47 kmpl', '$1,900',true),
+  createData(9, 'product_3.jpg','Bullet 350', 'Royal Enfield', '346cc', '40 kmpl', '$2,500',false),
+  createData(10,'product_4.jpg','Himalayan', 'Royal Enfield', '411cc', '30 kmpl', '$3,000',false),
 ];
 
 const headCells = [
@@ -99,6 +99,12 @@ const headCells = [
     disablePadding: false,
     label: 'Price',
   },
+  {
+    id: 'Feature Products',
+    numeric: false,
+    disablePadding: false,
+    label: 'Feature Products',
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -125,7 +131,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={'center'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -198,11 +204,7 @@ function EnhancedTableToolbar(props) {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        null
       )}
     </Toolbar>
   );
@@ -304,25 +306,26 @@ export default function BikeTable() {
 
                 return (
                   <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.id)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.id}
-                    selected={isItemSelected}
+                  
                     sx={{ cursor: 'pointer' }}
                   >
-                    <TableCell padding="checkbox">
+                    <TableCell align="center" padding="checkbox">
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{
                           'aria-labelledby': labelId,
                         }}
+                        hover
+                        onClick={(event) => handleClick(event, row.id)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.id}
+                        selected={isItemSelected}
                       />
-                    </TableCell>
-                    <TableCell>
+                    </TableCell >
+                    <TableCell align="center">
                       <img src={`../../../images/${row.image}`} alt='' style={{width:"120px",borderRadius:"10px"}}/>
                     </TableCell>
                     <TableCell
@@ -330,13 +333,17 @@ export default function BikeTable() {
                       id={labelId}
                       scope="row"
                       padding="none"
+                      align="center"
                     >
                       {row.name}
                     </TableCell>
-                    <TableCell align="left">{row.brand}</TableCell>
-                    <TableCell align="left">{row.engineCapacity}</TableCell>
-                    <TableCell align="left">{row.mileage}</TableCell>
-                    <TableCell align="left">{row.price}</TableCell>
+                    <TableCell align="center">{row.brand}</TableCell>
+                    <TableCell align="center">{row.engineCapacity}</TableCell>
+                    <TableCell align="center">{row.mileage}</TableCell>
+                    <TableCell align="center">{row.price}</TableCell>
+                    <TableCell align="center">
+                    <Checkbox defaultChecked={row.FeatureProduct}/>
+                     </TableCell>
                   </TableRow>
                 );
               })}

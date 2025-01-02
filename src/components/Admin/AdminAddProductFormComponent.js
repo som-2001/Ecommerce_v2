@@ -4,202 +4,124 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  MenuItem,
-  Grid,
-  Button,
   Box,
-  InputAdornment,
-  FormControl,
-  FormLabel,
-  Select,
-  InputLabel,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+
 import BasicDetails from "./ProductForm/BasicDetails";
 import Specifications from "./ProductForm/Specification";
 import OrderPrice from "./ProductForm/OrderPrice";
 import Features from "./ProductForm/Features";
-import ColorStock from "./ProductForm/ColorStock";
 import ImageDetails from "./ProductForm/ImageDetails";
 
-// Validation Schema with Yup
-const schema = yup.object().shape({
-  // Basic Information
-  bikeName: yup.string().required("Bike Name is required"),
-  brand: yup.string().required("Brand is required"),
-  model: yup.string().required("Model is required"),
-  type: yup.string().required("Type is required"),
-  engineCapacity: yup
-    .number()
-    .typeError("Engine Capacity must be a number")
-    .required("Engine Capacity is required"),
-  yearOfLaunch: yup
-    .number()
-    .typeError("Year of Launch must be a number")
-    .required("Year of Launch is required"),
-  // Specifications
-  engineType: yup.string().required("Engine Type is required"),
-  fuelType: yup.string().required("Fuel Type is required"),
-  mileage: yup
-    .number()
-    .typeError("Mileage must be a number")
-    .required("Mileage is required"),
-  maxPower: yup.string().required("Maximum Power is required"),
-  maxTorque: yup.string().required("Maximum Torque is required"),
-  gearbox: yup.string().required("Gearbox is required"),
-  coolingSystem: yup.string().required("Cooling System is required"),
-  seatHeight: yup
-    .number()
-    .typeError("Seat Height must be a number")
-    .required("Seat Height is required"),
-  groundClearance: yup
-    .number()
-    .typeError("Ground Clearance must be a number")
-    .required("Ground Clearance is required"),
-  kerbWeight: yup
-    .number()
-    .typeError("Kerb Weight must be a number")
-    .required("Kerb Weight is required"),
-  // Price Details
-  originalPrice: yup
-    .number()
-    .typeError("Original Price must be a number")
-    .required("Original Price is required"),
-  offerPrice: yup.number().typeError("Offer Price must be a number"),
-  onRoadPrice: yup
-    .number()
-    .typeError("On-Road Price must be a number")
-    .required("On-Road Price is required"),
-  discount: yup.number().typeError("Discount must be a number"),
-  // Colors
-  availableColors: yup.array().required("Available Colors are required"),
-});
-
 const BikeFormWithAccordion = () => {
+  const [expanded, setExpanded] = useState("panel1"); // Track which panel is expanded
+  const [validBasicInfo, setValidBasicInfo] = useState(false); // Track if Basic Details are valid
+  const [validSpecifications, setValidSpecifications] = useState(false); // Track if Specifications are valid
+  const [validPriceDetails, setValidPriceDetails] = useState(false); // Track if Price Details are valid
+  const [validFeatures, setValidFeatures] = useState(false); // Track if Features are valid
 
-  const [file,setFile]=useState('');
+  // Handle panel expansion
+  const handleChange = (panel) => (event, isExpanded) => {
+    if (panel === "panel2" && !validBasicInfo) return; // Prevent expansion of specifications if Basic Details are not valid
+    if (panel === "panel3" && !validSpecifications) return; // Prevent expansion of Price if Specifications are not valid
+    if (panel === "panel4" && !validPriceDetails) return; // Prevent expansion of Features if Price is not valid
+    if (panel === "panel5" && !validFeatures) return; // Prevent expansion of Images if Features are not valid
+    
+    setExpanded(isExpanded ? panel : false);
+  };
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      // Basic Information
-      bikeName: "",
-      brand: "",
-      model: "",
-      type: "",
-      engineCapacity: "",
-      yearOfLaunch: "",
-      // Specifications
-      engineType: "",
-      fuelType: "",
-      mileage: "",
-      maxPower: "",
-      maxTorque: "",
-      gearbox: "",
-      coolingSystem: "",
-      seatHeight: "",
-      groundClearance: "",
-      kerbWeight: "",
-      // Price Details
-      originalPrice: "",
-      offerPrice: "",
-      discount: "",
-      // Features
-      abs: false,
-      bluetooth: false,
-      mobileChargingPort: false,
-      alloyWheels: false,
-      ledLights: false,
-      // Colors
-      availableColors: [],
+  // Validation callbacks
+  const handleBasicInfoValidation = (isValid) => {
+   
+    if (isValid) {
+      setExpanded("panel2"); // Expand the second panel if the first panel is valid
+    }
+  };
 
-      //images
-      file:''
-    },
-  });
+  const handleSpecificationsValidation = (isValid) => {
+    setValidBasicInfo(false); 
+    setValidSpecifications(isValid);
+    if (isValid) {
+      setExpanded("panel3"); // Expand the third panel if the second panel is valid
+    }
+  };
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
-    console.log(file);
+  const handlePriceDetailsValidation = (isValid) => {
+    setValidPriceDetails(isValid);
+    if (isValid) {
+      setExpanded("panel4"); // Expand the fourth panel if the third panel is valid
+    }
+  };
+
+  const handleFeaturesValidation = (isValid) => {
+    setValidFeatures(isValid);
+    if (isValid) {
+      setExpanded("panel5"); // Expand the fifth panel if the fourth panel is valid
+    }
   };
 
   return (
     <Box p={4}>
-   
-        {/* Basic Information */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Basic Information</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-           <BasicDetails/>
-          </AccordionDetails>
-        </Accordion>
+      {/* Basic Information */}
+      <Accordion expanded={expanded === "panel1"} onChange={handleChange("panel1")}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="body1" color="text.secondary">
+            Basic Information
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <BasicDetails onValidation={handleBasicInfoValidation} />
+        </AccordionDetails>
+      </Accordion>
 
-        {/* Specifications */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Specifications</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Specifications/>
-          </AccordionDetails>
-        </Accordion>
+      {/* Specifications */}
+      <Accordion expanded={expanded === "panel2"} onChange={handleChange("panel2")}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="body1" color="text.secondary">
+            Specifications
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Specifications onValidation={handleSpecificationsValidation} />
+        </AccordionDetails>
+      </Accordion>
 
-        {/* Price Details */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Price Details</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <OrderPrice/>
-          </AccordionDetails>
-        </Accordion>
+      {/* Price Details */}
+      <Accordion expanded={expanded === "panel3"} onChange={handleChange("panel3")}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="body1" color="text.secondary">
+            Price Details
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <OrderPrice onValidation={handlePriceDetailsValidation} />
+        </AccordionDetails>
+      </Accordion>
 
-        {/* Features */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Features</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Features/>
-         
-          </AccordionDetails>
-        </Accordion>
+      {/* Features */}
+      <Accordion expanded={expanded === "panel4"} onChange={handleChange("panel4")}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="body1" color="text.secondary">
+            Features
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Features onValidation={handleFeaturesValidation} />
+        </AccordionDetails>
+      </Accordion>
 
-        {/* Colors */}
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Colors</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {/* Available Colors (Multiselect) */}
-            <ColorStock/>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* Images */}
-
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Images</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-           
-          <ImageDetails/>
-          </AccordionDetails>
-        </Accordion>
-
+      {/* Images */}
+      <Accordion expanded={expanded === "panel5"} onChange={handleChange("panel5")}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="body1" color="text.secondary">
+            Images
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <ImageDetails />
+        </AccordionDetails>
+      </Accordion>
     </Box>
   );
 };

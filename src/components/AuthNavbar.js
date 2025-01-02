@@ -7,7 +7,7 @@ import {
   Typography,
   Container,
   Badge,
-  Button,
+
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
@@ -129,10 +129,11 @@ export const AuthNavbar = () => {
                   "&:hover": {
                     color: "rgba(255, 255, 255, 0.8)",
                   },
+                 
                 }}
               >
-                {page.icon}
-                <Typography variant="body2" sx={{ mt: 0.5 }}>
+                <span >{page.icon}</span>
+                <Typography variant="body2" sx={{ mt: 0.5,fontSize:"11px" }}>
                   {page.label}
                 </Typography>
               </Box>

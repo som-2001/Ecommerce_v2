@@ -1,51 +1,64 @@
-import React from 'react';
-import { Grid, TextField, Button, Box } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
+import React, { useEffect } from "react";
+import { Grid, TextField, Button, Box } from "@mui/material";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
-  engineType: Yup.string().required('Engine Type is required'),
-  fuelType: Yup.string().required('Fuel Type is required'),
+  engineType: Yup.string().required("Engine Type is required"),
+  fuelType: Yup.string().required("Fuel Type is required"),
   mileage: Yup.number()
-    .required('Mileage is required')
-    .positive('Mileage must be a positive number')
-    .max(100, 'Mileage cannot exceed 100 km/l'),
+    .required("Mileage is required")
+    .positive("Mileage must be a positive number")
+    .max(100, "Mileage cannot exceed 100 km/l"),
   maxPower: Yup.number()
-    .required('Maximum Power is required')
-    .positive('Power must be a positive number')
-    .max(1000, 'Power cannot exceed 1000 bhp'),
+    .required("Maximum Power is required")
+    .positive("Power must be a positive number")
+    .max(1000, "Power cannot exceed 1000 bhp"),
   maxTorque: Yup.number()
-    .required('Maximum Torque is required')
-    .positive('Torque must be a positive number')
-    .max(1000, 'Torque cannot exceed 1000 Nm'),
-  gearbox: Yup.string().required('Gearbox type is required'),
-  coolingSystem: Yup.string().required('Cooling System is required'),
+    .required("Maximum Torque is required")
+    .positive("Torque must be a positive number")
+    .max(1000, "Torque cannot exceed 1000 Nm"),
+  gearbox: Yup.string().required("Gearbox type is required"),
+  coolingSystem: Yup.string().required("Cooling System is required"),
   seatHeight: Yup.number()
-    .required('Seat Height is required')
-    .positive('Seat Height must be a positive number'),
+    .required("Seat Height is required")
+    .positive("Seat Height must be a positive number"),
   groundClearance: Yup.number()
-    .required('Ground Clearance is required')
-    .positive('Ground Clearance must be a positive number'),
+    .required("Ground Clearance is required")
+    .positive("Ground Clearance must be a positive number"),
   kerbWeight: Yup.number()
-    .required('Kerb Weight is required')
-    .positive('Kerb Weight must be a positive number'),
+    .required("Kerb Weight is required")
+    .positive("Kerb Weight must be a positive number"),
 });
 
-const Specifications = () => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+const Specifications = ({onValidation}) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(validationSchema),
   });
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    console.log('Form Submitted:', data);
+    console.log("Form Submitted:", data);
+    dispatch(addProduct(data));
+    onValidation(true)
   };
+
+  console.log(errors);
+  useEffect(()=>{
+    onValidation(false);
+  },[errors])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
-
         {/* Engine Type */}
         <Grid item xs={12} sm={6}>
           <Controller
@@ -224,22 +237,28 @@ const Specifications = () => {
 
         {/* Submit Button */}
         <Grid item xs={12}>
-            <Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
+          <Box
             sx={{
-                padding:2,
-                borderRadius:2,
-                width:"140px",
-                backgroundColor:"black",
-                color:'white'
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            Submit
-          </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{
+                padding: 2,
+                borderRadius: 2,
+                width: "140px",
+                backgroundColor: "black",
+                color: "white",
+              }}
+            >
+              Continue
+            </Button>
           </Box>
         </Grid>
       </Grid>

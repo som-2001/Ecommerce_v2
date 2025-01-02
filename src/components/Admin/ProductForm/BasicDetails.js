@@ -3,6 +3,8 @@ import { Grid, TextField, MenuItem, InputAdornment, Button, Box } from '@mui/mat
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../Redux/ProductAdminSlice/ProductSlice';
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -42,13 +44,18 @@ const validationSchema = Yup.object().shape({
     .max(500, 'Description cannot exceed 500 characters'),
 });
 
-const BasicDetails = () => {
+const BasicDetails = ({onValidation}) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
+  const dispatch=useDispatch();
+
   const onSubmit = (data) => {
     console.log('Form Submitted:', data);
+    // Add the new product to the Redux store
+    dispatch(addProduct(data));
+    onValidation(true)
   };
 
   return (
@@ -210,7 +217,7 @@ const BasicDetails = () => {
                 color:'white'
             }}
           >
-            Submit
+            Continue
           </Button>
           </Box> 
         </Grid>

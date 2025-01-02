@@ -65,8 +65,12 @@ function Signin() {
       enqueueSnackbar(user.data.message, { variant: "success" });
       Cookies.set('accessToken', user.data.user.accessToken);
       Cookies.set('refreshToken', user.data.user.refreshToken);
+
       setTimeout(() => {
+        if(user.data.user.role==="user")
         navigate("/explore-products");
+        else if(user.data.user.role==="admin")
+        navigate("/admin/dashboard");
       }, 1500);
     },
     onError: (error) => {

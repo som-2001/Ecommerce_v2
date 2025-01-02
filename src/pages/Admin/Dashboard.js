@@ -1,7 +1,20 @@
 import React from "react";
-import { Grid, Box, Card, Typography, Avatar, CardMedia } from "@mui/material";
+import {
+  Grid,
+  Box,
+  Card,
+  Typography,
+  Avatar,
+  CardMedia,
+  Stack,
+  Chip,
+} from "@mui/material";
 import { Line } from "react-chartjs-2";
-import { TrendingUp, AttachMoney, Person, Description } from "@mui/icons-material";
+import {
+  TrendingUp,
+  AttachMoney,
+  Person,
+} from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -83,52 +96,127 @@ const Dashboard = () => {
   };
 
   const metrics = [
-    { icon: <TrendingUp />, label: "Order Placed", value: "25k" },
-    { icon: <AttachMoney />, label: "In Shipping", value: "25k" },
-    { icon: <Person />, label: "Out For Delivery", value: "4k" },
-    { icon: <Person />, label: "Delivered", value: "4k" },
+    {
+      icon: <TrendingUp />,
+      label: "Order Placed",
+      value: "25k",
+      bgcolor: "#36a2eb",
+    },
+    {
+      icon: <AttachMoney />,
+      label: "In Shipping",
+      value: "25k",
+      bgcolor: "#e0584f",
+    },
+    {
+      icon: <Person />,
+      label: "Out For Delivery",
+      value: "4k",
+      bgcolor: "#eb6cc2",
+    },
+    { icon: <Person />, label: "Delivered", value: "4k", bgcolor: "#d9e04f" },
   ];
 
   const salesReps = [
-    { icon: <InventoryIcon sx={{ fontSize: "2rem" }} />, name: "Total Products" },
-    { icon: <LocalShippingIcon sx={{ fontSize: "2rem" }} />, name: "Total Orders" },
-    { icon: <GroupIcon sx={{ fontSize: "2rem" }} />, name: "Total Users" },
-    { icon: <StarBorderIcon sx={{ fontSize: "2rem" }} />, name: "Total Review" },
+    {
+      icon: <InventoryIcon sx={{ fontSize: "2rem" }} />,
+      name: "Total Products",
+      bgcolor: "#85c6f2",
+    },
+    {
+      icon: <LocalShippingIcon sx={{ fontSize: "2rem" }} />,
+      name: "Total Orders",
+      bgcolor: "#b0a4ed",
+    },
+    {
+      icon: <GroupIcon sx={{ fontSize: "2rem" }} />,
+      name: "Total Users",
+      bgcolor: "#b1f2e1",
+    },
+    {
+      icon: <StarBorderIcon sx={{ fontSize: "2rem" }} />,
+      name: "Total Review",
+      bgcolor: "#8febd2",
+    },
   ];
 
   const FeatureProducts = {
     title: "Feature Products",
     items: [
-      { name: "Duke", price: "$13520", Description: "Last Week",image:"product_1.jpg" },
-      { name: "Royal Enfield", price: "$22350", Description: "Last Week",image:"product_1.jpg" },
+      {
+        name: "Royal Enfield",
+        price: "$13520",
+        Description:
+          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
+        image: "product_1.jpg",
+      },
+      {
+        name: "Royal Enfield",
+        price: "$22350",
+        Description:
+          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
+        image: "product_1.jpg",
+      },
     ],
   };
 
   const bestSeller = {
     title: "Best Seller",
     items: [
-      { name: "Duke", price: "$13520", Description: "Last Week",image:"product_1.jpg" },
-      { name: "Royal Enfield",price: "$13520", Description: "Last Week",image:"product_1.jpg" },
+      {
+        name: "Royal Enfield",
+        price: "$13520",
+        Description:
+          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
+        image: "product_1.jpg",
+      },
+      {
+        name: "Royal Enfield",
+        price: "$13520",
+        Description:
+          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
+        image: "product_1.jpg",
+      },
     ],
   };
 
   const renderProductList = (section) => (
-    <Card sx={{ p: 2, mb: 2 }}>
-      <Typography variant="h6" gutterBottom>
+    <Card sx={{ p: 2, mb: 2,background: 'linear-gradient(#e1eef5,rgb(231, 202, 193))' }}>
+      <Typography variant="body1" color="text.secondary" gutterBottom>
         {section.title}
       </Typography>
       {section.items.map((item, index) => (
         <Box
           key={index}
-          sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mb: 1,
+            alignItems: "center",
+          }}
         >
-          <CardMedia component="img" src={`../../images/${item.image}`} sx={{width:"70px"}}/>
-          <Box sx={{display:'flex',flexDirection:"column",justifyContent:"flex-start"}}>
-          <Typography variant="body1">{item.name}</Typography>
-          <Typography variant="body2" color="textSecondary">{item.Description}</Typography>
+          <CardMedia
+            component="img"
+            src={`../../images/${item.image}`}
+            sx={{ width: "70px", borderRadius: 4 }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+            }}
+          >
+            <Typography variant="body1">{item.name}</Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+            >{`${item.Description.slice(0, 50)}...`}</Typography>
           </Box>
           <Typography variant="body2" color="textSecondary">
-            Price {item.price} 
+            <Stack direction="row">
+              <Chip label={item.price} sx={{ bgcolor: "#f58989" }} />
+            </Stack>
           </Typography>
         </Box>
       ))}
@@ -139,7 +227,7 @@ const Dashboard = () => {
     <Box>
       {/* Top Sales Representatives */}
       <Grid container spacing={2} sx={{ p: 3 }}>
-        {salesReps.map((name, index) => (
+        {salesReps.map((item, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card
               sx={{
@@ -148,12 +236,15 @@ const Dashboard = () => {
                 p: 2,
                 height: "120px",
                 gap: "20px",
+                // background: `linear-gradient(${item.bgcolor} 1.80%,rgb(228, 214, 236,0.7) 55%)`
               }}
             >
-              {name.icon}
+              <Avatar sx={{ bgcolor: item.bgcolor, mr: 2, p: 1 }}>
+                {item.icon}
+              </Avatar>
               <Box>
                 <Typography variant="body1" sx={{ fontSize: "20px" }}>
-                  {name.name}
+                  {item.name}
                 </Typography>
                 <Typography
                   variant="body2"
@@ -172,8 +263,12 @@ const Dashboard = () => {
       <Grid container spacing={2} mb={3}>
         {metrics.map((item, i) => (
           <Grid item xs={12} sm={6} md={3} key={i}>
-            <Card sx={{ p: 2, display: "flex", alignItems: "center" }}>
-              <Avatar sx={{ bgcolor: "#36a2eb", mr: 2 }}>{item.icon}</Avatar>
+            <Card sx={{ p: 4, display: "flex", alignItems: "center",
+              // background: `linear-gradient(${item.bgcolor} , rgb(234, 228, 238,0.2)) 50.71%`  
+              }}>
+              <Avatar sx={{ bgcolor: item.bgcolor, mr: 2, p: 1 }}>
+                {item.icon}
+              </Avatar>
               <Box>
                 <Typography variant="body2" color="textSecondary">
                   {item.label}
@@ -185,7 +280,6 @@ const Dashboard = () => {
         ))}
       </Grid>
 
-     
       {/* Charts */}
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
@@ -199,12 +293,8 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-       
           {renderProductList(bestSeller)}
-        
-       
           {renderProductList(FeatureProducts)}
-        
         </Grid>
       </Grid>
     </Box>

@@ -3,6 +3,8 @@ import { Grid, TextField, Button, Box } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../Redux/ProductAdminSlice/ProductSlice';
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -23,13 +25,17 @@ const validationSchema = Yup.object().shape({
     }),
 });
 
-const OrderPrice = () => {
+const OrderPrice = ({onValidation}) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
+  const dispatch=useDispatch();
+
   const onSubmit = (data) => {
     console.log('Form Submitted:', data);
+    dispatch(addProduct(data));
+    onValidation(true)
   };
 
   return (
@@ -107,7 +113,7 @@ const OrderPrice = () => {
                 mt:1
             }}
           >
-            Submit
+            Continue
           </Button>
           </Box>
         </Grid>

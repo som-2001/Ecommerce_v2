@@ -13,6 +13,9 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
+
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -32,7 +35,7 @@ const validationSchema = Yup.object().shape({
   ledLights: Yup.string().required("LED Lights option is required"),
 });
 
-const Features = () => {
+const Features = ({onValidation}) => {
   const {
     control,
     handleSubmit,
@@ -41,8 +44,14 @@ const Features = () => {
     resolver: yupResolver(validationSchema),
   });
 
+ 
+
+  const dispatch=useDispatch();
+
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
+    dispatch(addProduct(data));
+    onValidation(true)
   };
 
   return (

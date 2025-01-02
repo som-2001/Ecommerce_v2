@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Grid, Typography, Button, Chip, Divider } from '@mui/material';
 import { Speed, DirectionsBike, LocalGasStation, Build } from '@mui/icons-material';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
-import VerifiedIcon from '@mui/icons-material/Verified';
 import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router-dom';
 
