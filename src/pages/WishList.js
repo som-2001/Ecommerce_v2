@@ -19,7 +19,7 @@ function WishList() {
       sx={{
         backgroundColor: "#f9f9f9",
         minHeight: "100vh",
-        p: { xs: 2, sm: 4, md: 6 },
+        p: { xs: 1, sm: 4, md: 6 },
       }}
     >
       <Typography
@@ -34,12 +34,12 @@ function WishList() {
       >
         My Wishlist (2 Items)
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         {Bike.length > 0 ? (
           Bike.map((bike) => (
             <Grid
               item
-              xs={12}
+              xs={6}
               sm={6}
               md={4}
               lg={3}

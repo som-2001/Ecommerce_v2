@@ -28,7 +28,7 @@ export const WishList = () => {
             <CardMedia
               component="img"
               image="../images/product_1.jpg"
-              sx={{ width: "180px", height: "100px" }}
+              sx={{ width: "150px", height: "100px" }}
             />
           </Grid>
 
@@ -68,7 +68,7 @@ export const WishList = () => {
             <CardMedia
               component="img"
               image="../images/product_1.jpg"
-              sx={{ width: "180px", height: "100px" }}
+              sx={{ width: "150px", height: "100px" }}
             />
           </Grid>
 

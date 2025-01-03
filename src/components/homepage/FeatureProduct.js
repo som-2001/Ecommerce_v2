@@ -10,6 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 import CallMadeIcon from "@mui/icons-material/CallMade";
+import { useNavigate } from "react-router-dom";
 
 const product=[
     {
@@ -22,6 +23,9 @@ const product=[
 ]
 
 const FeatureProduct = () => {
+
+  const navigate=useNavigate();
+  
   return (
     <Box
       sx={{
@@ -34,7 +38,7 @@ const FeatureProduct = () => {
       <Typography variant="body2" color="#999999" gutterBottom>
         Your Best Ride Starts here
       </Typography>
-      <Typography variant="h3" gutterBottom>
+      <Typography variant="h3" sx={{fontSize:{xs:"1.5rem",sm:"2.5rem"},my:1}}>
        Feature Products
       </Typography>
       <Grid container >
@@ -47,7 +51,7 @@ const FeatureProduct = () => {
                 color: "white",
                 borderRadius: 2,
                 boxShadow: 3,
-                width:{xs:"300px",sm:"390px"},
+                width:{xs:"300px",sm:"300px"},
                 my:2
               }}
             >
@@ -87,7 +91,7 @@ const FeatureProduct = () => {
                   <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
                     $150,000
                   </Typography>
-                  <Button>
+                  <Button onClick={(e)=>navigate("/view-product/2")}>
                     View Details <CallMadeIcon />
                   </Button>
                 </Box>
@@ -95,14 +99,14 @@ const FeatureProduct = () => {
             </Card>
             ))}
           </Grid>
-          <Grid item xs={12} sm={6} md={6} lg={6} sx={{ display: "flex",flexDirection:"column", justifyContent: "center",alignItems:"center" }}>
+          <Grid item xs={12} sm={6} md={6} lg={6} sx={{ display: "flex",flexDirection:"column", justifyContent: "center",alignItems:"center",zIndex:5 }}>
             <Card
               sx={{
                 backgroundColor: "#1c1c1c",
                 color: "white",
                 borderRadius: 2,
                 boxShadow: 3,
-                width:{xs:"300px",sm:"390px",md:"650px"}
+                width:{xs:"300px",sm:"390px",md:"600px"}
               }}
             >
               <CardMedia
@@ -156,7 +160,7 @@ const FeatureProduct = () => {
                 color: "white",
                 borderRadius: 2,
                 boxShadow: 3,
-                width:{xs:"300px",sm:"390px"},
+                width:{xs:"300px",sm:"300px"},
                 my:2
               }}
             >

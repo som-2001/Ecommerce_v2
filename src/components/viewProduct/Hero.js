@@ -178,12 +178,12 @@ const Hero = () => {
             </Box>
             <Typography
               variant="body2"
-              sx={{ color: '#757575', marginBottom: '1rem', lineHeight: 1.5,height:"100px" }}
+              sx={{ color: '#757575', marginBottom: '1rem', lineHeight: 1.5 }}
             >
               {product.description}
             </Typography>
 
-            <Box sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+            <Box sx={{ display: 'flex', gap: '1rem', marginTop: '1.4rem' }}>
               <Button
                 variant="contained"
                 sx={{

@@ -61,7 +61,7 @@ const BikeDetailsCard = () => {
     ));
 
   return (
-    <Card sx={{ width: "70vw", margin: "auto", padding: 2, borderRadius: 2 }}>
+    <Card sx={{ width: {xs:"80vw",sm:"60vw"}, margin: "auto", padding: 2, borderRadius: 2 }}>
       <CardContent>
         <Typography variant="h5" gutterBottom sx={{ textAlign: "center", fontWeight: "bold" }}>
           Yamaha R15 - Specifications

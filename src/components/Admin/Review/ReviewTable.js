@@ -13,9 +13,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
-import { visuallyHidden } from "@mui/utils";
 import { CardMedia, Divider, Grid, Rating } from "@mui/material";
-
 
 const rows = [
   {
@@ -26,7 +24,7 @@ const rows = [
     price: "$500",
     status: "Shipped",
     date: "01/01/2025",
-    image:"product_1.jpg",
+    image: "product_1.jpg",
     expected_delivery_date: "03/01/2025",
     customers: [
       {
@@ -67,7 +65,7 @@ const rows = [
     price: "$700",
     status: "Delivered",
     date: "01/01/2025",
-    image:"product_2.jpg",
+    image: "product_2.jpg",
     expected_delivery_date: "03/01/2025",
     customers: [
       { name: "Amit Sharma", contact: "1234567890", email: "amit@example.com" },
@@ -102,32 +100,12 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } = props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
-
   return (
     <TableHead>
       <TableRow>
         {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align="center"
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+          <TableCell key={headCell.id} align="center">
+            {headCell.label}
           </TableCell>
         ))}
       </TableRow>
@@ -142,18 +120,10 @@ EnhancedTableHead.propTypes = {
 };
 
 export default function ReviewTable() {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState(null);
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
 
   const handleOpenDrawer = (row) => {
     setSelectedRow(row);
@@ -179,15 +149,17 @@ export default function ReviewTable() {
       <Paper sx={{ width: "100%", mb: 2 }}>
         <TableContainer>
           <Table aria-labelledby="tableTitle">
-            <EnhancedTableHead
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-            />
+            <EnhancedTableHead />
             <TableBody>
               {rows.map((row, index) => (
                 <TableRow key={row.id}>
-                   <TableCell align="center"><img src={`../../../images/${row.image}`} alt="" style={{width:"100px",borderRadius:5}}/></TableCell>
+                  <TableCell align="center">
+                    <img
+                      src={`../../../images/${row.image}`}
+                      alt=""
+                      style={{ width: "100px", borderRadius: 5 }}
+                    />
+                  </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="center">{row.model}</TableCell>
                   <TableCell align="center">{row.orderId}</TableCell>
@@ -236,7 +208,7 @@ export default function ReviewTable() {
                   <img
                     src="../../../images/product_1.jpg"
                     alt=""
-                    style={{ width: "120px",borderRadius:"10px" }}
+                    style={{ width: "120px", borderRadius: "10px" }}
                   />
                 </Grid>
                 <Grid
@@ -246,29 +218,48 @@ export default function ReviewTable() {
                     display: "flex",
                     flexDirection: "row",
                     justifyContent: "center",
-                    gap:"12px",
+                    gap: "12px",
                     alignItems: "center",
                   }}
                 >
-                  <Box sx={{ display: "flex", flexDirection: "column",alignItems:"center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
                     <Typography variant="body2">Bike Name</Typography>
-                    <Typography variant="body2" sx={{fontSize:"12px"}}>{selectedRow.name}</Typography>
+                    <Typography variant="body2" sx={{ fontSize: "12px" }}>
+                      {selectedRow.name}
+                    </Typography>
                   </Box>
 
-                  <Box sx={{ display: "flex", flexDirection: "column",alignItems:"center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
                     <Typography variant="body2">Bike Model</Typography>
-                    <Typography variant="body2" sx={{fontSize:"12px"}}>{selectedRow.model}</Typography>
+                    <Typography variant="body2" sx={{ fontSize: "12px" }}>
+                      {selectedRow.model}
+                    </Typography>
                   </Box>
-                 
-                  <Box sx={{ display: "flex", flexDirection: "column",alignItems:"center" }}>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
                     <Typography variant="body2">Price</Typography>
-                    <Typography variant="body2" sx={{fontSize:"12px"}}><span
-                      
-                    >
-                      $700
-                    </span></Typography>
+                    <Typography variant="body2" sx={{ fontSize: "12px" }}>
+                      <span>$700</span>
+                    </Typography>
                   </Box>
-                
                 </Grid>
               </Grid>
 

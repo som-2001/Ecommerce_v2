@@ -3,18 +3,18 @@ import {
   AppBar,
   Box,
   Toolbar,
-  IconButton,
   Typography,
   Container,
   Badge,
-
+  InputAdornment,
+  TextField,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom"; // Import Link for routing
+import SearchIcon from "@mui/icons-material/Search";
 
 // Example numbers for badge count (you can fetch this data dynamically)
 const wishlistCount = 5; // Number of items in the wishlist
@@ -89,21 +89,16 @@ export const AuthNavbar = () => {
             <img
               src="../images/logo.png"
               alt="Logo"
-              style={{ height: "70px", marginRight: "8px", objectFit: "cover" }}
+              style={{
+                height: "70px",
+                marginRight: "8px",
+                objectFit: "contain",
+                scale: "1.26",
+              }}
             />
           </Typography>
 
-          {/* Mobile View */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="open menu"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
+          {/* Search Button */}
 
           {/* Desktop View */}
           <Box
@@ -115,6 +110,28 @@ export const AuthNavbar = () => {
               gap: { xs: 2, md: 4 },
             }}
           >
+            <TextField
+              placeholder="Search…"
+              autoComplete="off"
+              sx={{
+                background: "#e1eef5",
+                borderRadius: 7,
+                "& .MuiOutlinedInput-notchedOutline": {
+                  border: "none",
+                },
+                height: "55px",
+                marginRight: 1,
+              }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
             {pages.map((page) => (
               <Box
                 key={page.label}
@@ -129,11 +146,10 @@ export const AuthNavbar = () => {
                   "&:hover": {
                     color: "rgba(255, 255, 255, 0.8)",
                   },
-                 
                 }}
               >
-                <span >{page.icon}</span>
-                <Typography variant="body2" sx={{ mt: 0.5,fontSize:"11px" }}>
+                <span>{page.icon}</span>
+                <Typography variant="body2" sx={{ mt: 0.5, fontSize: "11px" }}>
                   {page.label}
                 </Typography>
               </Box>

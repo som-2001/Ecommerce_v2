@@ -9,9 +9,8 @@ import {
 } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-export const Hero = ({ data }) => {
+export const Hero = () => {
   const [profileImage, setProfileImage] = useState(
-    data?.img ??
       "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
   );
 
@@ -27,11 +26,12 @@ export const Hero = ({ data }) => {
     <Box sx={{ width: "77vw", padding: { xs: 2, sm: 5 } }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
-          <Typography variant="h5" color="text.secondary">
-            Welcome, {data.username}
+          <Typography variant="h5" color="text.secondary" sx={{fontSize:{xs:"1.0rem",lg:"1.6rem"}}}>
+            Welcome, Someswar gorai
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Joined on, {new Date(data.createdAt).toLocaleDateString()}
+            Joined on, 7th December,2025
+            {/* {new Date(data.createdAt).toLocaleDateString()} */}
           </Typography>
         </Box>
         <Box>
@@ -69,6 +69,7 @@ export const Hero = ({ data }) => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              alignItems:"center",
               position: "relative", // Important for overlay positioning
             }}
           >
@@ -94,7 +95,7 @@ export const Hero = ({ data }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 opacity: 0,
-                borderRadius: "50px",
+                borderRadius: "50%",
                 transition: "opacity 1s",
                 "&:hover": {
                   opacity: 1,
@@ -130,16 +131,16 @@ export const Hero = ({ data }) => {
             xs={8}
             sm={6}
             md={4}
-            lg={4}
+            lg={2}
             sx={{
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
             }}
           >
-            <Typography variant="h6">{data.username}</Typography>
+            <Typography variant="h6">Someswar Gorai</Typography>
             <Typography variant="body2" color="text.secondary">
-              {data.email}
+              Som@gmail.com
             </Typography>
           </Grid>
         </Grid>

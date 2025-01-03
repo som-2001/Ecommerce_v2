@@ -39,11 +39,11 @@ export const About = () => {
       </Typography>
       <Typography
         variant="body2"
-        color="whitesmoke"
+        color="white"
         sx={{
           width: { xs: "100%", md: "50%" },
           mt: 5,
-          fontSize: { xs: "0.9rem", md: "1rem" },
+          fontSize: { xs: "0.9rem", md: "0.9rem" },
           textAlign: "center",
         }}
         

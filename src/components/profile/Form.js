@@ -20,19 +20,19 @@ const schema = yup
   })
   .required();
 
-export const Form = ({data}) => {
+export const Form = () => {
   const { control, handleSubmit,setValue} = useForm({
     resolver: yupResolver(schema),
   });
 
   const [isEdit, setIsEdit] = useState(false);
 
-  useEffect(()=>{
-    setValue("name",data?.username);
-    setValue("email",data?.email);
-    setValue("gender","Male");
-    setValue("phoneNumber",123456789);
-  },[data?.email,data?.username,setValue,isEdit]);
+  // useEffect(()=>{
+  //   setValue("name",data?.username);
+  //   setValue("email",data?.email);
+  //   setValue("gender","Male");
+  //   setValue("phoneNumber",123456789);
+  // },[data?.email,data?.username,setValue,isEdit]);
   
   const onSubmit = (data) => {
   
