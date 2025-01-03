@@ -21,16 +21,10 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { visuallyHidden } from '@mui/utils';
 
-function createData(id,image, name, email, date,admin) {
-  return {
-    id,
-    image,
-    name,
-    email,
-    date,
-    admin
-  };
+function createData(id, image, name, email, date, admin) {
+  return { id, image, name, email, date, admin };
 }
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -48,9 +42,8 @@ function getComparator(order, orderBy) {
 }
 
 const rows = [
-  createData(1, 'product_1.jpg','someswar gorai','somgorai726@gmail.com', '7th may,2020', false),
-  createData(2, 'product_2.jpg','Rahul gorai','somgorai@klizos.com', '9th may,2020',true),
- 
+  createData(1, 'product_1.jpg', 'Someswar Gorai', 'somgorai726@gmail.com', '7th May, 2020', false),
+  createData(2, 'product_2.jpg', 'Rahul Gorai', 'somgorai@klizos.com', '9th May, 2020', true),
 ];
 
 const headCells = [
@@ -62,8 +55,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     console.log(orderBy);
     onRequestSort(event, property);
@@ -119,7 +111,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
+  const { numSelected, onDeleteSelected } = props;
   return (
     <Toolbar
       sx={[
@@ -143,18 +135,11 @@ function EnhancedTableToolbar(props) {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Bikes Inventory
-        </Typography>
+        null
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={onDeleteSelected}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -167,13 +152,17 @@ function EnhancedTableToolbar(props) {
 
 EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
+  onDeleteSelected: PropTypes.func.isRequired,
 };
 
 export default function UserTable() {
-  // All other logic and methods remain unchanged.
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('date');
   const [selected, setSelected] = React.useState([]);
+  const [rows, setRows] = React.useState([
+    createData(1, 'product_1.jpg', 'Someswar Gorai', 'somgorai726@gmail.com', '7th May, 2020', false),
+    createData(2, 'product_2.jpg', 'Rahul Gorai', 'somgorai@klizos.com', '9th May, 2020', true),
+  ]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -225,6 +214,19 @@ export default function UserTable() {
     setDense(event.target.checked);
   };
 
+  const handleDeleteSelected = () => {
+    const newRows = rows.filter((row) => !selected.includes(row.id));
+    setRows(newRows);
+    setSelected([]);
+  };
+
+  const handleAdminToggle = (event, id) => {
+    const newRows = rows.map((row) =>
+      row.id === id ? { ...row, admin: event.target.checked } : row
+    );
+    setRows(newRows);
+  };
+
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -233,19 +235,18 @@ export default function UserTable() {
       [...rows]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage]
+    [order, orderBy, page, rowsPerPage, rows]
   );
 
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          numSelected={selected.length}
+          onDeleteSelected={handleDeleteSelected}
+        />
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'}>
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -261,52 +262,38 @@ export default function UserTable() {
 
                 return (
                   <TableRow
-                  
-                    sx={{ cursor: 'pointer' }}
+                    hover
+                   
                   >
-                    <TableCell align="center" padding="checkbox">
+                    <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
+                        onClick={(event) => handleClick(event, row.id)}
                         inputProps={{
                           'aria-labelledby': labelId,
                         }}
-                        hover
-                        onClick={(event) => handleClick(event, row.id)}
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={row.id}
-                        selected={isItemSelected}
                       />
-                    </TableCell >
-                    <TableCell align="center">
-                      <img src={`../../../images/${row.image}`} alt='' style={{width:"120px",borderRadius:"10px"}}/>
                     </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
-                      align="center"
-                    >
+                    <TableCell align="center">
+                      <img src={`../../../images/${row.image}`} alt='' style={{ width: "120px", borderRadius: "10px" }} />
+                    </TableCell>
+                    <TableCell component="th" id={labelId} scope="row" padding="none" align="center">
                       {row.name}
                     </TableCell>
-
                     <TableCell align="center">{row.email}</TableCell>
                     <TableCell align="center">{row.date}</TableCell>
                     <TableCell align="center">
-                    <Checkbox defaultChecked={row.admin}/>
-                     </TableCell>
+                      <Checkbox
+                        checked={row.admin}
+                        onChange={(event) => handleAdminToggle(event, row.id)}
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}
               {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
+                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
