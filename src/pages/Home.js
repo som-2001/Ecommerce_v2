@@ -9,6 +9,7 @@ import "../App.css"
 import BestSeller from "../components/homepage/BestSeller";
 import Gallary from "../components/homepage/Gallary";
 import FeatureProduct from "../components/homepage/FeatureProduct";
+import { Partners } from "../components/homepage/Partners";
 
 function Home() {
   return (
@@ -28,6 +29,7 @@ function Home() {
       <Product/>
       <BestSeller/>
       <FeatureProduct/>
+      <Partners/>
       <Gallary/>
       <FAQ/>
       <Footer/>

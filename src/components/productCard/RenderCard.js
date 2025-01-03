@@ -137,7 +137,7 @@ export const RenderCard = ({ bike }) => {
         </Box>
         <Divider sx={{ backgroundColor: "#C6E4FF", my: 1,display:{xs:"none",sm:"block"} }} />
         <Box sx={{ display: "flex",alignItems:"center",gap:"3px",marginTop:"3px" }}>
-          <Typography sx={{ fontWeight: 700, fontSize: {xs:"11px",sm:"1.1rem"} }}>
+          <Typography sx={{ fontWeight: 700, fontSize: {xs:"11px",sm:"1.1rem"}}}>
             $150,000 
           </Typography> 
           <Typography color="text.secondary" sx={{textDecoration:"line-through",fontSize:"11px"}}>$346667</Typography>

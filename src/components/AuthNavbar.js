@@ -22,7 +22,7 @@ const cartCount = 3; // Number of items in the cart
 
 const pages = [
   {
-    label: "All Products",
+    label: "Products",
     path: "/explore-products",
     icon: <HomeIcon />,
   },

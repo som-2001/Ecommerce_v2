@@ -55,7 +55,7 @@ const Hero = () => {
                 alt={product.name}
                 style={{
                   width: '95%',
-                  maxHeight: '600px',
+                  height: '500px',
                   objectFit: 'contain',
                   borderRadius: '8px',
                 }}

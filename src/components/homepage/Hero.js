@@ -1,7 +1,9 @@
-import { Box, CardMedia, Typography } from "@mui/material";
+import { Box, Button, CardMedia, Typography } from "@mui/material";
 import { motion } from "motion/react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -15,6 +17,7 @@ export const Hero = () => {
         justifyContent: "center",
         alignItems: "center",
         overflow: "hidden",
+        flexDirection: "column",
       }}
     >
       {/* Animated Product Image */}
@@ -34,11 +37,33 @@ export const Hero = () => {
         />
       </motion.div>
 
+      <motion.div
+        initial={{ y: "2vh", opacity: 0 }}
+        animate={{
+          y: 0,
+          opacity: 1,
+          transition: { duration: 0.8 },
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{
+            padding: 2.4,
+            width: "140px",
+            backgroundColor: "black",
+            color: "white",
+            borderRadius: 3,
+          }}
+          onClick={(e) => navigate("/explore-products")}
+        >
+          Shop Now
+        </Button>
+      </motion.div>
       {/* Text Section */}
       <Box
         sx={{
           position: "absolute",
-          bottom: "8%",
+          bottom: {xs:"3%",sm:"8%"},
           left: "50%",
           transform: "translateX(-50%)",
           textAlign: "center",

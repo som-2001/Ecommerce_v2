@@ -91,8 +91,8 @@ const FeatureProduct = () => {
                   <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
                     $150,000
                   </Typography>
-                  <Button onClick={(e)=>navigate("/view-product/2")}>
-                    View Details <CallMadeIcon />
+                  <Button variant="contained" sx={{backgroundColor:"black",borderRadius:5,p:1,width:"120px"}} onClick={(e)=>navigate("/explore-products")}>
+                    Shop now
                   </Button>
                 </Box>
               </CardContent>
@@ -145,8 +145,8 @@ const FeatureProduct = () => {
                   <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
                     $150,000
                   </Typography>
-                  <Button>
-                    View Details <CallMadeIcon />
+                  <Button variant="contained" sx={{backgroundColor:"black",borderRadius:5,p:1,width:"120px"}} onClick={(e)=>navigate("/explore-products")}>
+                    Shop now
                   </Button>
                 </Box>
               </CardContent>
@@ -200,8 +200,8 @@ const FeatureProduct = () => {
                   <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
                     $150,000
                   </Typography>
-                  <Button>
-                    View Details <CallMadeIcon />
+                  <Button variant="contained" sx={{backgroundColor:"black",borderRadius:5,p:1,width:"120px"}} onClick={(e)=>navigate("/explore-products")}>
+                    Shop now
                   </Button>
                 </Box>
               </CardContent>

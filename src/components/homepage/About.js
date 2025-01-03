@@ -1,12 +1,12 @@
 import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
-import "../../App.css"
+import "../../App.css";
 import { useNavigate } from "react-router-dom";
-export const About = () => {
+import { motion } from "motion/react";
 
-  const navigate=useNavigate();
+export const About = () => {
+  const navigate = useNavigate();
   return (
     <Box
-   
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -15,28 +15,37 @@ export const About = () => {
         backgroundColor: "black",
         p: { xs: 3, md: 10 },
         minHeight: "90vh",
-        borderBottom:"10px solid #323232"
+        borderBottom: "10px solid #323232",
       }}
     >
-      <Typography variant="h6" className="HomeAboutSection" color="#C6E4FF" sx={{ mb: 4 }}>
+      <Typography
+        variant="h6"
+        className="HomeAboutSection"
+        color="#C6E4FF"
+        sx={{ mb: 4 }}
+      >
         ABOUT US
       </Typography>
+
       <Typography
         variant="h3"
         color="whitesmoke"
         sx={{ fontSize: { xs: "1.2rem", md: "3.5rem" } }}
-      
       >
-        <span sx={{ color: "#C6E4FF" }} className="HomeAboutSection">Million</span> Ideas for Your Single
+        <span sx={{ color: "#C6E4FF !important" }} className="HomeAboutSection">
+          Million
+        </span>{" "}
+        Ideas for Your Single
       </Typography>
       <Typography
         variant="h3"
         color="#C6E4FF"
         sx={{ fontSize: { xs: "1.2rem", md: "3.5rem" } }}
-         className="HomeAboutSection"
+        className="HomeAboutSection"
       >
         Journey
       </Typography>
+
       <Typography
         variant="body2"
         color="white"
@@ -46,7 +55,6 @@ export const About = () => {
           fontSize: { xs: "0.9rem", md: "0.9rem" },
           textAlign: "center",
         }}
-        
       >
         Welcome to our store, we are a community for riders, adventurers, and
         enthusiasts who seek the best bikes and gear for their journey.
@@ -55,14 +63,15 @@ export const About = () => {
       <Button
         variant="contained"
         sx={{
-          borderRadius: 6,
-          padding: "12px 24px",
+          borderRadius: 3,
+          padding: 2.4,
           mb: 5,
-          backgroundColor: "#C6E4FF",
+          backgroundColor: "white",
           color: "black",
           mt: 3,
+          width: "150px",
         }}
-        onClick={(e)=>navigate("/about")}
+        onClick={(e) => navigate("/about")}
       >
         READ MORE
       </Button>
@@ -74,7 +83,6 @@ export const About = () => {
           mt: 3,
           justifyContent: "center",
           alignItems: "center",
-        
         }}
       >
         <Grid
