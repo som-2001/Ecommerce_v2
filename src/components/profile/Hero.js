@@ -1,18 +1,41 @@
-import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  CardMedia,
+  Grid,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
-export const Hero = ({data}) => {
+export const Hero = ({ data }) => {
+  const [profileImage, setProfileImage] = useState(
+    data?.img ??
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
+  );
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setProfileImage(imageUrl); // Update the image preview
+    }
+  };
+
   return (
     <Box sx={{ width: "77vw", padding: { xs: 2, sm: 5 } }}>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
-          <Typography variant="h5" color="text.secondary">Welcome, {data.username}</Typography>
+          <Typography variant="h5" color="text.secondary">
+            Welcome, {data.username}
+          </Typography>
           <Typography variant="body2" color="text.secondary">
             Joined on, {new Date(data.createdAt).toLocaleDateString()}
           </Typography>
         </Box>
         <Box>
           <Button
-            variant="body1"
             sx={{
               backgroundColor: "black",
               color: "white",
@@ -26,7 +49,6 @@ export const Hero = ({data}) => {
         </Box>
       </Box>
 
-      {/* linear-gradient  */}
       <Box
         sx={{
           backgroundImage: "linear-gradient(to right, #9d9dff, #ffffbe);",
@@ -47,13 +69,61 @@ export const Hero = ({data}) => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
+              position: "relative", // Important for overlay positioning
             }}
           >
             <CardMedia
               component="img"
-              image={data?.img ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"}
-              sx={{ width: "80px", height: "80px", borderRadius: 10 }}
+              image={profileImage}
+              sx={{
+                width: "80px",
+                height: "80px",
+                borderRadius: "50px",
+                objectFit:"cover"
+              }}
             />
+            <Box
+              sx={{
+                position: "absolute",
+                top: 9,
+                left: 8,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                opacity: 0,
+                borderRadius: "50px",
+                transition: "opacity 1s",
+                "&:hover": {
+                  opacity: 1,
+                },
+              }}
+            >
+              
+              <IconButton
+                sx={{
+                  backgroundColor: "rgba(0, 0, 0, 0.6)",
+                  color: "white",
+                  "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.8)" },
+                }}
+              >
+                <input
+                type="file"
+                accept="image/*"
+                style={{
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                  opacity: 0,
+                  cursor: "pointer",
+                }}
+                onChange={handleImageChange}
+              />
+                <PhotoCamera />
+              </IconButton>
+            </Box>
           </Grid>
           <Grid
             item
