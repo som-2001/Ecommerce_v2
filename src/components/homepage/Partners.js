@@ -27,18 +27,19 @@ export const Partners=()=>{
        <Box  sx={{
         backgroundColor: "black",
         color: "white",
-        padding: {xs:"5px",sm:"2rem"},
-       
+        padding: {xs:"5px",sm:"3rem"},
+        height:{xs:"570px",sm:"470px"}
+
       }}>
           <Typography variant="body2" color="#999999" gutterBottom align="center">
         Your Best Ride Starts here
       </Typography>
       <Typography variant="h3" gutterBottom align="center" sx={{mb:3}}>
-        Our Parners
+        Our Partners
       </Typography> 
         <Grid container spacing={2} sx={{mt:2,p:2,}}>
             {logos.map((data,index)=>(
-                <Grid item xs={12} sm={2} sx={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <Grid item xs={6} sm={2} sx={{display:"flex",justifyContent:"center",alignItems:"center"}}>
                     <img src={`../../images/${data.icons}`} alt="" style={{width:"150px"}}/>
                 </Grid>
             ))}

@@ -10,6 +10,9 @@ import BestSeller from "../components/homepage/BestSeller";
 import Gallary from "../components/homepage/Gallary";
 import FeatureProduct from "../components/homepage/FeatureProduct";
 import { Partners } from "../components/homepage/Partners";
+import Benefits from "../components/homepage/Benefits";
+import { Review } from "../components/homepage/Review";
+
 
 function Home() {
   return (
@@ -20,7 +23,7 @@ function Home() {
       backgroundPosition:"center",
       backgroundRepeat:'no-repeat',
       backgroundSize:{xs:"cover",md:"100%"},
-      // overflowX:"hidden"
+      overflowX:"hidden"
     }}>
       
       <Hero/>
@@ -31,6 +34,8 @@ function Home() {
       <FeatureProduct/>
       <Partners/>
       <Gallary/>
+      <Benefits/>
+      <Review/>
       <FAQ/>
       <Footer/>
     </Box>
