@@ -12,6 +12,7 @@ import { AdminAddProductForm } from "./pages/Admin/AdminAddProductForm.js";
 import { ReviewDashboard } from "./pages/Admin/ReviewDashboard.js";
 import { UserDashboard } from "./pages/Admin/UserDashboard.js";
 import { OrderDashboard } from "./pages/Admin/OrderDashboard.js";
+import { AdminEditProductForm } from "./pages/Admin/AdminEditProductForm.js";
 
 const Signup = lazy(() => import("./pages/Signup"));
 const Signin = lazy(() => import("./pages/Signin"));
@@ -53,6 +54,7 @@ function App() {
               <Route path="orders" element={<OrderDashboard/>}/>
               <Route path="users" element={<UserDashboard/>}/>
               <Route path="reviews" element={<ReviewDashboard/>}/>
+              <Route path="product-edit/:id" element={<AdminEditProductForm/>}/>
             </Route>
           </Route>
         </Routes>
