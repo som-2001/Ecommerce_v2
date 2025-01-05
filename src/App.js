@@ -35,8 +35,9 @@ function App() {
           <Route element={<ScrollReset />}>
             <Route path="/register" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
+            <Route path="/" element={<Home />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/" element={<Home />} />
+              
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/profile" element={<Profile />} />

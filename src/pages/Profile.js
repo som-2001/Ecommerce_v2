@@ -5,6 +5,9 @@ import { ManageAddresses } from "../components/profile/ManageAddresses";
 import { WishList } from "../components/profile/WishList";
 import { Orders } from "../components/profile/Orders";
 import Footer from "./../components/Footer";
+// import axios from "axios";
+// import {useQuery} from '@tanstack/react-query';
+// import {ScaleLoader} from 'react-spinners';
 
 function Profile() {
   // const { data,isPending,isError } = useQuery({

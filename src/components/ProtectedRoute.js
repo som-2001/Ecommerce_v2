@@ -6,7 +6,7 @@ export const ProtectedRoute=()=>{
    
     const token=Cookies.get("accessToken");
     
-    // if(!token) return <Navigate to="/signin"/>
+    if(!token) return <Navigate to="/" />
 
     return(
         <>

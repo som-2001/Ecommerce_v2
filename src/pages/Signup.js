@@ -41,6 +41,7 @@ const schema = yup.object().shape({
       return !value?.startsWith(" ") && EmailValidator.validate(value);
     })
     .required("Email is required"),
+  mobileNumber:yup.string().max(10,'maximum 10 digits will be there').min(10,"maximum 10 digits will be there").required("phone number is required"),  
   password: yup
     .string()
     .matches(/[a-z]/, "password should contain atleast one lowercase")
@@ -98,7 +99,7 @@ function Signup () {
       email: data.email.trim(),
       password: data.password.trim(),
       confirmpassword: data.confirmpassword.trim(),
-      
+      mobileNumber:data.mobileNumber.trim()
     });
   };
 
@@ -116,7 +117,7 @@ function Signup () {
               loop
               muted
               sx={{
-                height: { xs: "50vh", md: "100vh" },
+                height: { xs: "50vh", md: "115vh" },
                 filter: "brightness(0.4)",
                 objectFit:"cover"
               }}
@@ -194,7 +195,7 @@ function Signup () {
                 </FormHelperText>
               </FormControl>
             </Box>
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 1 }}>
               <FormControl>
                 <Controller
                   control={control}
@@ -207,7 +208,7 @@ function Signup () {
                       placeholder="John@gmail.com"
                       sx={{
                         width: { xs: "300px", sm: "500px", md: "400px" },
-                        my: 1,
+                        my: 0.5,
                         "& .MuiInput-input": {
                           padding: "10px",
                         },
@@ -231,6 +232,44 @@ function Signup () {
                 </FormHelperText>
               </FormControl>
             </Box>
+            <Box sx={{mt:1}}>
+              <FormControl>
+                <Controller
+                  control={control}
+                  name="mobileNumber"
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      variant="standard"
+                      type="number"
+                      placeholder="2523532533"
+                      sx={{
+                        width: { xs: "300px", sm: "500px", md: "400px" },
+                        my: 0.5,
+                        "& .MuiInput-input": {
+                          padding: "10px",
+                        },
+
+                        "& .MuiInput-underline::before": {
+                          borderBottom:
+                            "1px solid rgb(171 158 158 / 42%) !important",
+                        },
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PersonIcon />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+                />
+                <FormHelperText className="error" sx={{ color: "error.main" }}>
+                  {errors && errors?.mobileNumber?.message}
+                </FormHelperText>
+              </FormControl>
+            </Box>
             <Box sx={{ mt: 2 }}>
               <FormControl>
                 <Controller
@@ -244,7 +283,7 @@ function Signup () {
                       placeholder="Type your password here"
                       sx={{
                         width: { xs: "300px", sm: "500px", md: "400px" },
-                        my: 1,
+                        my: 0.5,
                         "& .MuiInput-input": {
                           padding: "10px",
                         },
@@ -281,7 +320,7 @@ function Signup () {
                       placeholder="Type your confirm password here"
                       sx={{
                         width: { xs: "300px", sm: "500px", md: "400px" },
-                        my: 1,
+                        my: 0.5,
                         "& .MuiInput-input": {
                           padding: "10px",
                         },

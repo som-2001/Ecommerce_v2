@@ -12,9 +12,11 @@ import AutoModeIcon from "@mui/icons-material/AutoMode";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import PersonIcon from '@mui/icons-material/Person';
+import Cookies from 'js-cookie';
 
 export const RenderCard = ({ bike }) => {
   const navigate = useNavigate();
+  const token=Cookies.get("accessToken");
 
   return (
     <Card
@@ -67,7 +69,7 @@ export const RenderCard = ({ bike }) => {
         <PersonIcon/>
       </Box>
 
-      <Favorite
+      {token && <Favorite
         sx={{
           position: "absolute",
           top: 10,
@@ -83,7 +85,7 @@ export const RenderCard = ({ bike }) => {
             transform: "scale(1.2)", // Slightly enlarge the icon on hover
           },
         }}
-      />
+      />}
       <CardContent sx={{color: "black", filter: "brightness(0.7)",padding:{xs:1,sm:2},height:{xs:"60px",sm:"120px" }}}>
         <Typography variant="body2">
           {bike.name}

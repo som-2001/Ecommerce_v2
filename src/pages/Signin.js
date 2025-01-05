@@ -26,6 +26,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import Cookies from 'js-cookie';
+// import { useEffect } from "react";
 
 const schema = yup.object().shape({
   email: yup
@@ -42,7 +43,11 @@ const schema = yup.object().shape({
     .required("You must agree to the terms and conditions."),
 });
 
+
+
 function Signin() {
+
+
   const {
     handleSubmit,
     formState: { errors },

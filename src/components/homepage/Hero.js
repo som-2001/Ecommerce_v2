@@ -8,7 +8,7 @@ export const Hero = () => {
   return (
     <Box
       sx={{
-        minHeight: { xs: "48vh", sm: "40vh", md: "100vh" },
+        minHeight: { xs: "48vh", sm: "59vh", md: "86vh",lg:"90vh" },
         width: "100%",
         backgroundImage: `url("https://cdn.shopify.com/s/files/1/0577/9675/5633/files/leo_mtdanstore_h2-slide.png?v=1640138612")`,
         position: "relative",
@@ -41,6 +41,17 @@ export const Hero = () => {
       </motion.div>
 
       {/* Shop Now Button */}
+      <Box sx={{
+        position: "absolute",
+        bottom: { xs: "4%", sm: "8%", md: "10%", lg: "16%" },
+        left: "50%",
+        transform: "translateX(-50%)",
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
       <motion.div
         initial={{ y: "5vh", opacity: 0 }}
         animate={{ y: 0, opacity: 1, transition: { duration: 0.8 } }}
@@ -64,12 +75,13 @@ export const Hero = () => {
           Shop Now
         </Button>
       </motion.div>
+      </Box>
 
       {/* Text Section */}
       <Box
         sx={{
           position: "absolute",
-          top: { xs: "4%", sm: "8%", md: "10%", lg: "12%" },
+          top: { xs: "4%", sm: "8%", md: "10%", lg: "10%" },
           left: "50%",
           transform: "translateX(-50%)",
           textAlign: "center",

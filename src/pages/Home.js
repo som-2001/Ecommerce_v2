@@ -12,9 +12,13 @@ import FeatureProduct from "../components/homepage/FeatureProduct";
 import { Partners } from "../components/homepage/Partners";
 import Benefits from "../components/homepage/Benefits";
 import { Review } from "../components/homepage/Review";
-
+import Cookies from 'js-cookie';
+import { AuthNavbar } from "../components/AuthNavbar";
+import { HomeNavbar } from "../components/HomeNavbar";
 
 function Home() {
+   const token=Cookies.get("accessToken");
+
   return (
     <Box  
     sx={{
@@ -25,7 +29,7 @@ function Home() {
       backgroundSize:{xs:"cover",md:"100%"},
       overflowX:"hidden"
     }}>
-      
+       {token? <AuthNavbar/> : <HomeNavbar/>}
       <Hero/>
       <About/>
       <ExploreNow/>
