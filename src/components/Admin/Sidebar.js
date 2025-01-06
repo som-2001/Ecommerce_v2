@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { Dashboard } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import GroupIcon from '@mui/icons-material/Group';
@@ -14,7 +14,8 @@ const Sidebar = () => {
   return (
     <Box width="280px" sx={{ background: "linear-gradient(to top,  #C25FFF,#3D29D0)" }} minHeight="100vh" color="white">
       <Box textAlign="center" p={2} fontSize={20}>
-        <img src='../../images/logo.png' alt='' style={{width:"70px"}}/>
+       
+        <Typography variant='h6'>BikeMart</Typography>
       </Box>
       <List>
         {[

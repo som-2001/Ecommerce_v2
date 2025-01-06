@@ -32,7 +32,7 @@ const validationSchema = Yup.object().shape({
     .typeError("Stock must be a number")
     .positive("Stock must be greater than 0")
     .required("Stock is required"),
-  files: Yup.array()
+  file: Yup.array()
     .min(1, "Please upload at least one image")
     .max(4, "At most 4 images will be uploaded")
     .required("Images are required"),
@@ -57,7 +57,7 @@ function ImageDetails() {
   const [files, setFiles] = useState([]);
   const [colors, setColors] = useState([]);
   const [disableBtn, setDisableBtn] = useState(true);
-  const [colorDisabledArray, setColorDisabledArray] = useState([]);
+  const [colorDisabled, setColorDisabled] = useState(false);
 
   const dispatch = useDispatch();
   const { product } = useSelector((state) => state.product);
@@ -99,11 +99,9 @@ function ImageDetails() {
       stock: data.stock,
     };
 
-    setColorDisabledArray([...colorDisabledArray, data.selectedColor]);
+    setColorDisabled(true);
 
-    const updatedColors = [...colors, newColorEntry];
-    setColors(updatedColors);
-    dispatch(addProduct(updatedColors));
+    dispatch(addProduct(data));
     setFiles([]);
     reset(); // Reset the form
     setDisableBtn(false);
@@ -112,18 +110,18 @@ function ImageDetails() {
   const onSubmit = () => {
     console.log(product);
 
-    // axios
-    //   .post(`${process.env.REACT_APP_BASEURL}/products/create`, product, {
-    //     withCredentials: true,
-    //   })
-    //   .then((response) => {
-    //     console.log("Product created successfully:", response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     // enqueueSnackbar(error.response.data.message, { variant: "error" });
-    //     console.error("Product creation failed:", error);
-    //   });
+    axios
+      .post(`${process.env.REACT_APP_BASEURL}/products/create`, product, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log("Product created successfully:", response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        // enqueueSnackbar(error.response.data.message, { variant: "error" });
+        console.error("Product creation failed:", error);
+      });
   };
 
   return (
@@ -150,19 +148,19 @@ function ImageDetails() {
                   </MenuItem>
                   <MenuItem
                     value="Red"
-                    disabled={colorDisabledArray.includes("Red")}
+                    disabled={colorDisabled}
                   >
                     Red
                   </MenuItem>
                   <MenuItem
                     value="Yellow"
-                    disabled={colorDisabledArray.includes("Yellow")}
+                    disabled={colorDisabled}
                   >
                     Yellow
                   </MenuItem>
                   <MenuItem
                     value="Blue"
-                    disabled={colorDisabledArray.includes("Blue")}
+                    disabled={colorDisabled}
                   >
                     Blue
                   </MenuItem>

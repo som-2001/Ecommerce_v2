@@ -3,6 +3,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Box, Button, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import { enqueueSnackbar } from "notistack";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import Cookies from 'js-cookie';
 
 const schema = yup
   .object()
@@ -20,22 +24,34 @@ const schema = yup
   })
   .required();
 
-export const Form = () => {
+export const Form = ({data}) => {
   const { control, handleSubmit,setValue} = useForm({
     resolver: yupResolver(schema),
   });
 
   const [isEdit, setIsEdit] = useState(false);
 
-  // useEffect(()=>{
-  //   setValue("name",data?.username);
-  //   setValue("email",data?.email);
-  //   setValue("gender","Male");
-  //   setValue("phoneNumber",123456789);
-  // },[data?.email,data?.username,setValue,isEdit]);
+  useEffect(()=>{
+    setValue("name",data?.username);
+    setValue("email",data?.email);
+    setValue("gender",data?.gender);
+    setValue("phoneNumber",data?.mobileNumber?.[0]);
+  },[data,setValue,isEdit]);
   
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
   
+    await axios.put(
+      `${process.env.REACT_APP_BASEURL}/users/users/${jwtDecode(Cookies.get("accessToken")).id}`,data,
+      {
+        withCredentials: true,
+      }).then(res=>{
+        enqueueSnackbar("profile has been updated")
+      }).catch(err=>{
+        enqueueSnackbar("Failed to update profile")
+
+      })
+    console.log(data.gender);
+    
     setIsEdit(false);
   };
 

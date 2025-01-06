@@ -1,42 +1,48 @@
 import React, { useState } from "react";
 import { Card, CardContent, Typography, Grid, Box, Button, Collapse, Divider } from "@mui/material";
 
-const BikeDetailsCard = () => {
+const BikeDetailsCard = ({ product }) => {
   const [expanded, setExpanded] = useState(false);
 
   const generalInfo = [
-    { label: "Model", value: "Yamaha R15" },
-    { label: "Engine Capacity", value: "155 cc" },
-    { label: "Max Power", value: "18.4 PS @ 10,000 rpm" },
-    { label: "Fuel Type", value: "Petrol" },
-    { label: "Top Speed", value: "136 km/h" },
-    { label: "Acceleration (0-60 kmph)", value: "3.2 seconds" },
+    { label: "Brand", value: product.brand },
+    { label: "Model", value: product.model },
+    { label: "Engine Capacity", value: `${product.engineCapacity} cc` },
+    { label: "Max Power", value: `${product.maxPower} PS` },
+    { label: "Fuel Type", value: product.fuelType },
+    { label: "Year of Launch", value: product.yearOfLaunch },
   ];
 
   const performanceInfo = [
-    { label: "Top Speed", value: "136 km/h" },
-    { label: "Acceleration (0-60 kmph)", value: "3.2 seconds" },
+    { label: "Top Speed", value: `${product.topSpeed} km/h` },
+    { label: "Max Torque", value: `${product.maxTorque} Nm` },
+    { label: "Mileage", value: `${product.mileage} kmpl` },
   ];
 
   const dimensions = [
-    { label: "Length", value: "1990 mm" },
-    { label: "Width", value: "725 mm" },
-    { label: "Height", value: "1135 mm" },
-    { label: "Ground Clearance", value: "170 mm" },
+    { label: "Seat Height", value: `${product.seatHeight} mm` },
+    { label: "Ground Clearance", value: `${product.groundClearance} mm` },
+    { label: "Kerb Weight", value: `${product.kerbWeight} kg` },
+    { label: "Fuel Tank Capacity", value: `${product.fuelTankCapacity} L` },
   ];
 
   const brakesAndSuspension = [
-    { label: "Front Brake", value: "Disc 282 mm" },
-    { label: "Rear Brake", value: "Disc 220 mm" },
-    { label: "Front Suspension", value: "Telescopic Fork" },
-    { label: "Rear Suspension", value: "Monoshock" },
+    { label: "ABS Type", value: product.absType },
+    { label: "Cooling System", value: product.coolingSystem },
+    { label: "Gearbox", value: product.gearbox },
   ];
 
   const additionalDetails = [
-    { label: "Transmission", value: "6-Speed Manual" },
-    { label: "Mileage", value: "45 kmpl" },
-    { label: "Weight", value: "142 kg" },
-    { label: "Price", value: "₹1.8 Lakh (ex-showroom)" },
+    { label: "Original Price", value: `₹${product.originalPrice}` },
+    { label: "Offer Price", value: `₹${product.offerPrice}` },
+    { label: "Discount", value: `${product.discount}%` },
+    { label: "Stock", value: `${product.stock} units available` },
+    { label: "Bluetooth Connectivity", value: product.bluetoothConnectivity ? "Yes" : "No" },
+    { label: "Mobile Charging Port", value: product.mobileChargingPort ? "Yes" : "No" },
+    { label: "Alloy Wheels", value: product.alloyWheels ? "Yes" : "No" },
+    { label: "LED Lights", value: product.ledLights ? "Yes" : "No" },
+    { label: "Instrument Console", value: product.instrumentConsole },
+    { label: "Selected Color", value: product.selectedColor },
   ];
 
   const handleExpandClick = () => {
@@ -61,10 +67,10 @@ const BikeDetailsCard = () => {
     ));
 
   return (
-    <Card sx={{ width: {xs:"80vw",sm:"60vw"}, margin: "auto", padding: 2, borderRadius: 2 }}>
+    <Card sx={{ width: { xs: "80vw", sm: "60vw" }, margin: "auto", padding: 2, borderRadius: 2 }}>
       <CardContent>
         <Typography variant="h5" gutterBottom sx={{ textAlign: "center", fontWeight: "bold" }}>
-          Yamaha R15 - Specifications
+          {product.productName} - Specifications
         </Typography>
         <Box sx={{ marginTop: 3 }}>
           <Typography variant="h6" sx={{ my: 2 }} gutterBottom>

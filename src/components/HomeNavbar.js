@@ -26,7 +26,7 @@ export const HomeNavbar = () => {
       position="initial"
       sx={{
         opacity:0.9,
-        backgroundColor:"black",
+        backgroundColor:"#36454F",
         boxShadow: "none",
       
       }}
@@ -48,7 +48,7 @@ export const HomeNavbar = () => {
               textDecoration: "none",
             }}
           >
-            Ecom
+            BikeMart
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

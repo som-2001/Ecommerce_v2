@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,47 +12,25 @@ import {
   TableSortLabel,
 } from "@mui/material";
 import BasicMenu from "./BasicMenu";
+import axios from "axios";
+import { SnackbarProvider } from "notistack";
 
 const ProductTable = () => {
-  const [bikes, setBikes] = useState([
-    {
-      id: 1,
-      image: "product_1.jpg",
-      name: "Splendor Plus",
-      brand: "Hero",
-      engineCapacity: "97.2cc",
-      mileage: "70 kmpl",
-      price: "1,000",
-      newArrival: false,
-      bestSeller: false,
-      featureProducts: true,
-    },
-    {
-      id: 2,
-      image: "product_2.jpg",
-      name: "Pulsar 150",
-      brand: "Bajaj",
-      engineCapacity: "149.5cc",
-      mileage: "50 kmpl",
-      price: "1,500",
-      newArrival: false,
-      bestSeller: true,
-      featureProducts: true,
-    },
-    {
-      id: 3,
-      image: "product_3.jpg",
-      name: "FZ V3",
-      brand: "Yamaha",
-      engineCapacity: "149cc",
-      mileage: "45 kmpl",
-      price: "1,800",
-      newArrival: true,
-      bestSeller: true,
-      featureProducts: true,
-    },
-    // ... (other bike data)
-  ]);
+  const [bikes, setBikes] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/products/products`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setBikes(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const [order, setOrder] = useState("asc"); // Sorting order
   const [orderBy, setOrderBy] = useState(""); // Column to sort by
@@ -88,13 +66,14 @@ const ProductTable = () => {
   const handleToggle = (id, field) => {
     setBikes((prevBikes) =>
       prevBikes.map((bike) =>
-        bike.id === id ? { ...bike, [field]: !bike[field] } : bike
+        bike._id === id ? { ...bike, [field]: !bike[field] } : bike
       )
     );
   };
 
   return (
     <TableContainer component={Paper}>
+      <SnackbarProvider/>
       <Table>
         <TableHead>
           <TableRow>
@@ -117,39 +96,39 @@ const ProductTable = () => {
         </TableHead>
         <TableBody>
           {bikes.map((bike) => (
-            <TableRow key={bike.id}>
+            <TableRow key={bike._id}>
               <TableCell align="center">
                 <img
-                  src={`../../../images/${bike.image}`}
+                  src={`${bike.image?.[0]}`}
                   alt={bike.name}
-                  width="50"
+                  width="70"
                 />
               </TableCell>
-              <TableCell align="center">{bike.name}</TableCell>
+              <TableCell align="center">{bike.productName}</TableCell>
               <TableCell align="center">{bike.brand}</TableCell>
               <TableCell align="center">{bike.engineCapacity}</TableCell>
               <TableCell align="center">{bike.mileage}</TableCell>
-              <TableCell align="center">{bike.price}</TableCell>
+              <TableCell align="center">{bike.originalPrice}</TableCell>
               <TableCell align="center">
                 <Switch
                   checked={bike.newArrival}
-                  onChange={() => handleToggle(bike.id, "newArrival")}
+                  onChange={() => handleToggle(bike._id, "newArrival")}
                 />
               </TableCell>
               <TableCell align="center">
                 <Switch
                   checked={bike.bestSeller}
-                  onChange={() => handleToggle(bike.id, "bestSeller")}
+                  onChange={() => handleToggle(bike._id, "bestSeller")}
                 />
               </TableCell>
               <TableCell align="center">
                 <Switch
                   checked={bike.featureProducts}
-                  onChange={() => handleToggle(bike.id, "featureProducts")}
+                  onChange={() => handleToggle(bike._id, "featureProducts")}
                 />
               </TableCell>
               <TableCell align="center">
-                  <BasicMenu id={bike.id} setBikes={setBikes}/>
+                  <BasicMenu id={bike._id} setBikes={setBikes}/>
               </TableCell>
             </TableRow>
           ))}

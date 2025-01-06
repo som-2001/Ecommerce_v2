@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import { DeleteDialog } from "./DeleteDialog";
 
 export default function BasicMenu({ id, setBikes }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -15,15 +16,15 @@ export default function BasicMenu({ id, setBikes }) {
   };
 
   const navigate=useNavigate();
+  const [openDialog,setOpenDialog]=React.useState(false);
+  
+  const handleDelete=()=>{
+    setOpenDialog(true);
+  }
 
   const handleEdit=()=>{
       navigate(`/admin/product-edit/${id}`)
   }
-
-  const handleDelete = () => {
-    setBikes((prevbikes) => prevbikes.filter((item) => item.id !== id));
-    handleClose();
-  };
 
   return (
     <div>
@@ -48,6 +49,7 @@ export default function BasicMenu({ id, setBikes }) {
         <MenuItem onClick={handleEdit}>Edit</MenuItem>
         <MenuItem onClick={handleDelete}>Delete</MenuItem>
       </Menu>
+      <DeleteDialog open={openDialog} setOpen={setOpenDialog} setBikes={setBikes} id={id}/>
     </div>
   );
 }

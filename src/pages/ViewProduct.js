@@ -3,15 +3,39 @@ import Hero from "../components/viewProduct/Hero";
 import { Review } from "../components/viewProduct/Review";
 import { SimilarProducts } from "../components/viewProduct/SimilarProducts";
 import Speicification from "../components/viewProduct/Specification";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const ViewProduct = () => {
+
+  const {id}=useParams();
+  const [product,setProduct]=useState([]);
+  const [products,setProducts]=useState([]);
+
+  // Fetch product data using id from the URL parameter
+  useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_BASEURL}/products/products/${id}`).then(res=>{
+      setProduct(res.data)
+    }).catch(err=>{
+      console.log(err);
+    })
+  },[id]);
+
+  useEffect(()=>{
+    axios.get(`${process.env.REACT_APP_BASEURL}/products/products`).then(res=>{
+      setProducts(res.data)
+    }).catch(err=>{
+      console.log(err);
+    })
+  },[id]);
   
   return (
     <Box  sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",overflowX:"hidden"}}>
-        <Hero/>
-        <Speicification/>
+        <Hero product={product}/>
+        <Speicification product={product}/>
         <Review/>
-        <SimilarProducts/>
+        <SimilarProducts bikes={products}/>
        
     </Box>
   );

@@ -9,7 +9,7 @@ import { addProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
   engineType: Yup.string().required("Engine Type is required"),
-  fuelType: Yup.string().required("Fuel Type is required"),
+  fuelType: Yup.string().oneOf( ['Petrol', 'Diesel', 'Electric', 'Hybrid'],"Fuel Type must be between 'Petrol', 'Diesel', 'Electric', 'Hybrid'").required("Fuel Type is required"),
   mileage: Yup.number()
     .required("Mileage is required")
     .positive("Mileage must be a positive number")

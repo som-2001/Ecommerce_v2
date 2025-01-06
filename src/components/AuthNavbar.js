@@ -13,7 +13,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router-dom"; // Import Link for routing
+import { Link, useNavigate } from "react-router-dom"; // Import Link for routing
 import SearchIcon from "@mui/icons-material/Search";
 
 // Example numbers for badge count (you can fetch this data dynamically)
@@ -52,18 +52,15 @@ const pages = [
 ];
 
 export const AuthNavbar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+ 
+  const navigate=useNavigate();
 
   return (
     <AppBar
       position="static"
       sx={{
         opacity: 0.95,
-        backgroundColor: "black",
+        backgroundColor:"black",
         boxShadow: "none",
         paddingY: 1,
       }}
@@ -90,13 +87,17 @@ export const AuthNavbar = () => {
               src="../images/logo.png"
               alt="Logo"
               style={{
-                height: "70px",
+                height: "50px",
+                width:"60px",
                 marginRight: "8px",
                 objectFit: "contain",
                 scale: "1.26",
+               
               }}
             />
+           
           </Typography>
+          <Typography variant="h6" onClick={(e)=>navigate("/")}>BikeMart</Typography>
 
           {/* Search Button */}
 

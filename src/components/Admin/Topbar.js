@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,8 +11,15 @@ import {
 } from "@mui/material";
 import { Notifications } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
+import { LogoutDialog } from "../profile/LogoutDialog";
 
 const Topbar = () => {
+
+  const [open,setOpen]=useState(false);
+  
+  const handleLogout=()=>{
+    setOpen(true);
+  }
   return (
     <AppBar position="static" color="transparent" elevation={0} sx={{ mb: 0 }}>
       <Toolbar sx={{justifyContent:"flex-end"}}>
@@ -52,11 +59,13 @@ const Topbar = () => {
             borderRadius: 2,
             mr: 1,
           }}
+          onClick={handleLogout}
         >
           Logout
         </Button>
         <Avatar sx={{ bgcolor: "#eb6cc2" }}>A</Avatar>
       </Toolbar>
+        <LogoutDialog open={open} setOpen={setOpen}/>
     </AppBar>
   );
 };

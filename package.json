@@ -18,6 +18,7 @@
     "email-validator": "^2.0.4",
     "install": "^0.13.0",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "motion": "^11.15.0",
     "notistack": "^3.0.1",
     "npm": "^11.0.0",

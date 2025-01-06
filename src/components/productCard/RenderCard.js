@@ -17,6 +17,7 @@ import Cookies from 'js-cookie';
 export const RenderCard = ({ bike }) => {
   const navigate = useNavigate();
   const token=Cookies.get("accessToken");
+  console.log(bike);
 
   return (
     <Card
@@ -27,13 +28,13 @@ export const RenderCard = ({ bike }) => {
         width: "330px",
         cursor: "pointer"
       }}
-      onClick={(e) => navigate(`/view-product/${2}`)}
+      onClick={(e) => navigate(`/view-product/${bike?._id}`)}
     >
       <CardMedia
         component="img"
         alt={bike.name}
         height="220"
-        image={bike.image}
+        image={bike.image?.[0]}
         sx={{ objectFit: "cover", filter: "brightness(0.83)" }}
       />
       <Box
@@ -91,7 +92,7 @@ export const RenderCard = ({ bike }) => {
           {bike.name}
         </Typography>
         <Typography variant="body2"  color="text.secondary" sx={{fontSize:"11px"}}>
-          4.0 D5 PowerPulse Momentum 5dr AW…{bike.description}
+          {bike.description}
         </Typography>
         <Divider sx={{ backgroundColor: "#C6E4FF", my: 1,display:{xs:"none",sm:"block"} }} />
         <Box
@@ -112,7 +113,7 @@ export const RenderCard = ({ bike }) => {
             }}
           >
             <Speed />
-            <Typography variant="body2" color="text.secondary" sx={{fontSize:"11px"}}>50 Miles</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{fontSize:"11px"}}>{bike.mileage} Miles</Typography>
           </Box>
           <Box
             sx={{
@@ -123,7 +124,7 @@ export const RenderCard = ({ bike }) => {
             }}
           >
             <LocalGasStationIcon />
-            <Typography variant="body2" color="text.secondary" sx={{fontSize:"11px"}}>Petrol</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{fontSize:"11px"}}>{bike.fuelType}</Typography>
           </Box>
           <Box
             sx={{
@@ -134,19 +135,17 @@ export const RenderCard = ({ bike }) => {
             }}
           >
             <AutoModeIcon />
-            <Typography variant="body2" color="text.secondary" sx={{fontSize:"11px"}}>Automatic</Typography>
+            <Typography variant="body2" color="text.secondary" sx={{fontSize:"11px"}}>{bike.type}</Typography>
           </Box>
         </Box>
         <Divider sx={{ backgroundColor: "#C6E4FF", my: 1,display:{xs:"none",sm:"block"} }} />
         <Box sx={{ display: "flex",alignItems:"center",gap:"3px",marginTop:"3px" }}>
           <Typography sx={{ fontWeight: 700, fontSize: {xs:"11px",sm:"1.1rem"}}}>
-            $150,000 
+            ${bike?.originalPrice}
           </Typography> 
-          <Typography color="text.secondary" sx={{textDecoration:"line-through",fontSize:"11px"}}>$346667</Typography>
-          <Typography color="text.secondary" variant="body2" sx={{fontSize:"11px"}}>(25% off)</Typography>
-          {/* <Button onClick={(e) => navigate(`/view-product/${2}`)}>
-            View Details <CallMadeIcon />
-          </Button> */}
+          <Typography color="text.secondary" sx={{textDecoration:"line-through",fontSize:"11px"}}>${bike?.offerPrice}</Typography>
+          <Typography color="text.secondary" variant="body2" sx={{fontSize:"11px"}}>({bike?.discount}% off)</Typography>
+       
         </Box>
       </CardContent>
     </Card>
