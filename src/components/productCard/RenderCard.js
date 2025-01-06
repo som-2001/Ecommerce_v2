@@ -13,12 +13,24 @@ import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import PersonIcon from '@mui/icons-material/Person';
 import Cookies from 'js-cookie';
+import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 export const RenderCard = ({ bike }) => {
   const navigate = useNavigate();
   const token=Cookies.get("accessToken");
   console.log(bike);
 
+  const addWishList=(id)=>{
+    axios.post(`${process.env.REACT_APP_BASEURL}/wishlist/wishlist/add`,{productId:id},{
+      withCredentials:true
+    }).then(res=>{
+      // enqueueSnackbar(res.data,{variant:"success"});
+    }).catch(err=>{
+      // enqueueSnackbar(err.response.data.message, { variant: "error" });
+
+  })
+  }
   return (
     <Card
       sx={{
@@ -28,7 +40,7 @@ export const RenderCard = ({ bike }) => {
         width: "330px",
         cursor: "pointer"
       }}
-      onClick={(e) => navigate(`/view-product/${bike?._id}`)}
+      
     >
       <CardMedia
         component="img"
@@ -36,6 +48,7 @@ export const RenderCard = ({ bike }) => {
         height="220"
         image={bike.image?.[0]}
         sx={{ objectFit: "cover", filter: "brightness(0.83)" }}
+
       />
       <Box
         sx={{
@@ -78,7 +91,7 @@ export const RenderCard = ({ bike }) => {
           color: "whitesmoke",
           filter: "opacity(0.7)",
           borderRadius: "50%",
-
+          zIndex:45,
           padding: "5px",
           cursor: "pointer",
           transition: "transform 0.2s",
@@ -86,8 +99,9 @@ export const RenderCard = ({ bike }) => {
             transform: "scale(1.2)", // Slightly enlarge the icon on hover
           },
         }}
+        onClick={(e)=>addWishList(bike._id)}
       />}
-      <CardContent sx={{color: "black", filter: "brightness(0.7)",padding:{xs:1,sm:2},height:{xs:"60px",sm:"120px" }}}>
+      <CardContent sx={{color: "black", filter: "brightness(0.7)",padding:{xs:1,sm:2},height:{xs:"60px",sm:"120px" }}} onClick={(e) => navigate(`/view-product/${bike?._id}`)}>
         <Typography variant="body2">
           {bike.name}
         </Typography>
