@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -13,11 +13,28 @@ import Specifications from "./Specification";
 import OrderPrice from "./OrderPrice";
 import Features from "./Features";
 import ImageDetails from "./ImageDetails";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const BikeFormWithAccordion = () => {
+
+  const {id}=useParams();
   const [expanded, setExpanded] = useState("panel1"); // Track which panel is expanded
- 
-  
+  const [product,setProduct]=useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/products/products/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setProduct(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   // Handle panel expansion
   const handleChange = (panel) => (event, isExpanded) => {
     
@@ -36,7 +53,7 @@ const BikeFormWithAccordion = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <BasicDetails  />
+          <BasicDetails product={product} />
         </AccordionDetails>
       </Accordion>
 
@@ -48,7 +65,7 @@ const BikeFormWithAccordion = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Specifications  />
+          <Specifications product={product}/>
         </AccordionDetails>
       </Accordion>
 
@@ -60,7 +77,7 @@ const BikeFormWithAccordion = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <OrderPrice />
+          <OrderPrice product={product} />
         </AccordionDetails>
       </Accordion>
 
@@ -72,7 +89,7 @@ const BikeFormWithAccordion = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Features  />
+          <Features product={product} />
         </AccordionDetails>
       </Accordion>
 
@@ -84,7 +101,7 @@ const BikeFormWithAccordion = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <ImageDetails />
+          <ImageDetails item={product} />
         </AccordionDetails>
       </Accordion>
     </Box>

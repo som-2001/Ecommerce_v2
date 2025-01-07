@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, TextField, Button, Box } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../Redux/ProductAdminSlice/ProductSlice';
+import { EditProduct } from '../../../Redux/ProductAdminSlice/ProductSlice';
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -25,17 +25,26 @@ const validationSchema = Yup.object().shape({
     }),
 });
 
-const OrderPrice = ({onValidation}) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+const OrderPrice = ({product}) => {
+  const { control, handleSubmit,setValue, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
   const dispatch=useDispatch();
 
+  useEffect(()=>{
+    if(product){
+      setValue('originalPrice', product?.originalPrice || '');
+      setValue('offerPrice', product?.offerPrice || '');
+      setValue('discount', product?.discount || '');
+     
+    }
+  },[product,setValue])
+
   const onSubmit = (data) => {
     console.log('Form Submitted:', data);
-    dispatch(addProduct(data));
-    onValidation(true)
+    dispatch(EditProduct(data));
+    
   };
 
   return (
@@ -51,6 +60,7 @@ const OrderPrice = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Original Price"
+                focused
                 fullWidth
                 type="number"
                 error={!!errors.originalPrice}
@@ -70,6 +80,7 @@ const OrderPrice = ({onValidation}) => {
                 {...field}
                 label="Offer Price"
                 fullWidth
+                focused
                 type="number"
                 error={!!errors.offerPrice}
                 helperText={errors.offerPrice?.message}
@@ -88,6 +99,7 @@ const OrderPrice = ({onValidation}) => {
                 {...field}
                 label="Discount (%)"
                 fullWidth
+                focused
                 type="number"
                 error={!!errors.discount}
                 helperText={errors.discount?.message}

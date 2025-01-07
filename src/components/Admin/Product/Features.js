@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   TextField,
@@ -14,8 +14,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
-
+import { EditProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -35,23 +34,35 @@ const validationSchema = Yup.object().shape({
   ledLights: Yup.string().required("LED Lights option is required"),
 });
 
-const Features = ({onValidation}) => {
+const Features = ({ product }) => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
- 
+  useEffect(() => {
+    if (product) {
+      setValue("absType", product?.absType || "");
+      setValue("fuelTankCapacity", product?.fuelTankCapacity || "");
+      setValue("topSpeed", product?.topSpeed || "");
+      setValue("instrumentConsole", product?.instrumentConsole || "");
+      setValue("bluetoothConnectivity", product?.bluetoothConnectivity || "");
+      setValue("mobileChargingPort", product?.mobileChargingPort || "");
+      setValue("alloyWheels", product?.alloyWheels || "");
+      setValue("ledLights", product?.ledLights || "");
+    }
+  }, [product, setValue]);
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
-    dispatch(addProduct(data));
-    onValidation(true)
+    dispatch(EditProduct(data));
+   
   };
 
   return (
@@ -67,11 +78,11 @@ const Features = ({onValidation}) => {
                 <InputLabel>ABS Type</InputLabel>
                 <Select
                   {...field}
+                  value={field.value || ''}
                   error={!!errors.absType}
                   displayEmpty
                   fullWidth
                 >
-                  <MenuItem value="">Select ABS Type</MenuItem>
                   <MenuItem value="None">None</MenuItem>
                   <MenuItem value="Single-channel">Single-channel</MenuItem>
                   <MenuItem value="Dual-channel">Dual-channel</MenuItem>
@@ -90,7 +101,8 @@ const Features = ({onValidation}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Fuel Tank Capacity (Liters)"
+                label="Full Tank Capacity"
+                focused
                 fullWidth
                 error={!!errors.fuelTankCapacity}
                 helperText={errors.fuelTankCapacity?.message}
@@ -108,7 +120,8 @@ const Features = ({onValidation}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Top Speed (km/h)"
+                label="Top Speed"
+                focused
                 fullWidth
                 error={!!errors.topSpeed}
                 helperText={errors.topSpeed?.message}
@@ -127,6 +140,7 @@ const Features = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Instrument Console"
+                focused
                 fullWidth
                 error={!!errors.instrumentConsole}
                 helperText={errors.instrumentConsole?.message}
@@ -145,6 +159,7 @@ const Features = ({onValidation}) => {
                 <InputLabel>Bluetooth Connectivity</InputLabel>
                 <Select
                   {...field}
+                  value={field.value===true?"Available":"Not-Available" || ''}
                   error={!!errors.bluetoothConnectivity}
                   displayEmpty
                   fullWidth
@@ -170,8 +185,10 @@ const Features = ({onValidation}) => {
                 <InputLabel>Mobile Charging Port</InputLabel>
                 <Select
                   {...field}
+                  value={field.value===true?"Available":"Not-Available" || ''}
                   error={!!errors.mobileChargingPort}
                   displayEmpty
+                  focused
                   fullWidth
                 >
                   <MenuItem value="Available">Available</MenuItem>
@@ -196,6 +213,7 @@ const Features = ({onValidation}) => {
                 <Select
                   {...field}
                   error={!!errors.alloyWheels}
+                  value={field.value===true?"Available":"Not-Available" || ''}
                   displayEmpty
                   fullWidth
                 >
@@ -220,6 +238,7 @@ const Features = ({onValidation}) => {
                 <InputLabel>LED Lights</InputLabel>
                 <Select
                   {...field}
+                  value={field.value===true?"Available":"Not-Available" || ''}
                   error={!!errors.ledLights}
                   displayEmpty
                   fullWidth
@@ -238,16 +257,27 @@ const Features = ({onValidation}) => {
 
       {/* Submit Button */}
       <Grid item xs={12}>
-        <Box sx={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-          <Button type="submit" variant="contained" sx={{
-                padding:2,
-                borderRadius:2,
-                width:"180px",
-                backgroundColor:"black",
-                color:'white',
-                mt:1
-            }} fullWidth>
-            Save & Submit
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              padding: 2,
+              borderRadius: 2,
+              width: "180px",
+              backgroundColor: "black",
+              color: "white",
+              mt: 1,
+            }}
+            fullWidth
+          >
+            Save & Continue
           </Button>
         </Box>
       </Grid>

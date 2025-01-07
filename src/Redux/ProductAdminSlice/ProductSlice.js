@@ -12,10 +12,14 @@ const productSlice = createSlice({
       console.log(action.payload);
       state.product = { ...state.product, ...action.payload };
     },
+    EditProduct: (state, action) => {
+      console.log(action.payload);
+      state.product = { ...state.product, ...action.payload };
+    },
     resetProduct: () => initialState, // Reset state to initial values
   },
 });
 
-export const { addProduct, resetProduct } = productSlice.actions;
+export const { EditProduct,addProduct, resetProduct } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -4,7 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
+import { EditProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -35,10 +35,11 @@ const validationSchema = Yup.object().shape({
     .positive("Kerb Weight must be a positive number"),
 });
 
-const Specifications = ({onValidation}) => {
+const Specifications = ({product}) => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
@@ -47,10 +48,23 @@ const Specifications = ({onValidation}) => {
 
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
-    dispatch(addProduct(data));
-    onValidation(true)
+    dispatch(EditProduct(data));
   };
 
+  useEffect(() => {
+    if (product) {
+      setValue("engineType", product.engineType || ""); // Set default or empty if not available
+      setValue("fuelType", product.fuelType || "");
+      setValue("mileage", product.mileage || ""); // Set default if not available
+      setValue("maxPower", product.maxPower || "");
+      setValue("maxTorque", product.maxTorque || "");
+      setValue("gearbox", product.gearbox || "");
+      setValue("coolingSystem", product.coolingSystem || "");
+      setValue("seatHeight", product.seatHeight || "");
+      setValue("groundClearance", product.groundClearance || "");
+      setValue("kerbWeight", product.kerbWeight || "");
+    }
+  }, [product, setValue]);
   
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -64,6 +78,7 @@ const Specifications = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Engine Type"
+                focused
                 fullWidth
                 error={!!errors.engineType}
                 helperText={errors.engineType?.message}
@@ -81,6 +96,7 @@ const Specifications = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Fuel Type"
+                focused
                 fullWidth
                 error={!!errors.fuelType}
                 helperText={errors.fuelType?.message}
@@ -98,6 +114,7 @@ const Specifications = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Mileage (km/l)"
+                focused
                 fullWidth
                 type="number"
                 error={!!errors.mileage}
@@ -116,6 +133,7 @@ const Specifications = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Maximum Power (bhp)"
+                focused
                 fullWidth
                 type="number"
                 error={!!errors.maxPower}
@@ -134,6 +152,7 @@ const Specifications = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Maximum Torque (Nm)"
+                focused
                 fullWidth
                 type="number"
                 error={!!errors.maxTorque}
@@ -152,6 +171,7 @@ const Specifications = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Gearbox"
+                focused
                 fullWidth
                 error={!!errors.gearbox}
                 helperText={errors.gearbox?.message}
@@ -169,6 +189,7 @@ const Specifications = ({onValidation}) => {
               <TextField
                 {...field}
                 label="Cooling System"
+                focused
                 fullWidth
                 error={!!errors.coolingSystem}
                 helperText={errors.coolingSystem?.message}
@@ -187,6 +208,7 @@ const Specifications = ({onValidation}) => {
                 {...field}
                 label="Seat Height (mm)"
                 fullWidth
+                focused
                 type="number"
                 error={!!errors.seatHeight}
                 helperText={errors.seatHeight?.message}
@@ -205,6 +227,7 @@ const Specifications = ({onValidation}) => {
                 {...field}
                 label="Ground Clearance (mm)"
                 fullWidth
+                focused
                 type="number"
                 error={!!errors.groundClearance}
                 helperText={errors.groundClearance?.message}
@@ -223,6 +246,7 @@ const Specifications = ({onValidation}) => {
                 {...field}
                 label="Kerb Weight (kg)"
                 fullWidth
+                focused
                 type="number"
                 error={!!errors.kerbWeight}
                 helperText={errors.kerbWeight?.message}

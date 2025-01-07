@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, TextField, MenuItem, InputAdornment, Button, Box } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../Redux/ProductAdminSlice/ProductSlice';
+import { EditProduct } from '../../../Redux/ProductAdminSlice/ProductSlice';
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -46,18 +46,35 @@ const validationSchema = Yup.object().shape({
 
 
 
-const BasicDetails = ({onValidation}) => {
-  const { control, handleSubmit, formState: { errors } } = useForm({
+const BasicDetails = ({product}) => {
+
+  const { control, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
+    
   });
+
+  useEffect(() => {
+    
+    
+    if (product) {
+      console.log(product.brand);
+      setValue('bikeName', product?.productName || '');
+      setValue('brand', product?.brand || '');
+      setValue('model', product?.model || '');
+      setValue('type', product?.type || '');
+      setValue('engineCapacity', product?.engineCapacity || '');
+      setValue('yearOfLaunch', product?.yearOfLaunch || '');
+      setValue('description', product?.description || '');
+    }
+  }, [product, setValue]);
 
   const dispatch=useDispatch();
 
   const onSubmit = (data) => {
     console.log('Form Submitted:', data);
     // Add the new product to the Redux store
-    dispatch(addProduct(data));
-    onValidation(true)
+    dispatch(EditProduct(data));
+   
   };
 
   return (
@@ -72,7 +89,7 @@ const BasicDetails = ({onValidation}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Bike Name"
+              
                 fullWidth
                 error={!!errors.bikeName}
                 helperText={errors.bikeName?.message}
@@ -89,7 +106,7 @@ const BasicDetails = ({onValidation}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Brand"
+                value={field.value || ''}
                 fullWidth
                 select
                 error={!!errors.brand}
@@ -111,7 +128,7 @@ const BasicDetails = ({onValidation}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Model"
+               
                 fullWidth
                 error={!!errors.model}
                 helperText={errors.model?.message}
@@ -128,14 +145,14 @@ const BasicDetails = ({onValidation}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Type"
+                value={field.value || ''}
                 fullWidth
                 select
                 error={!!errors.type}
                 helperText={errors.type?.message}
               >
                 <MenuItem value="Cruiser">Cruiser</MenuItem>
-                <MenuItem value="Sports">Sports</MenuItem>
+                <MenuItem value="Sport">Sport</MenuItem>
                 <MenuItem value="Naked">Naked</MenuItem>
                 <MenuItem value="Adventure">Adventure</MenuItem>
               </TextField>
@@ -147,12 +164,14 @@ const BasicDetails = ({onValidation}) => {
         <Grid item xs={12} sm={6}>
           <Controller
             name="engineCapacity"
+           
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Engine Capacity (CC)"
+               
                 fullWidth
+                focused
                 type="number"
                 error={!!errors.engineCapacity}
                 helperText={errors.engineCapacity?.message}
@@ -163,22 +182,19 @@ const BasicDetails = ({onValidation}) => {
 
         {/* Year of Launch */}
         <Grid item xs={12} sm={6}>
-          <Controller
-            name="yearOfLaunch"
+          <Controller 
+          name='yearOfLaunch'
+          
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Year of Launch"
+               
                 fullWidth
                 type="number"
                 error={!!errors.yearOfLaunch}
                 helperText={errors.yearOfLaunch?.message}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">₹</InputAdornment>
-                  ),
-                }}
+                
               />
             )}
           />
@@ -187,12 +203,11 @@ const BasicDetails = ({onValidation}) => {
         {/* Description */}
         <Grid item xs={12}>
           <Controller
-            name="description"
+          name='description'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Description"
                 fullWidth
                 multiline
                 rows={3}
