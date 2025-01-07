@@ -22,6 +22,8 @@ const validationSchema = Yup.object().shape({
     .min(2, 'Model must be at least 2 characters long')
     .max(50, 'Model cannot exceed 50 characters'),
 
+  modelNumber:Yup.string().trim().required('Model number is required'),  
+
   type: Yup.string()
     .required('Type is required')
     .oneOf(['Cruiser', 'Sports', 'Naked', 'Adventure'], 'Invalid type selected'),
@@ -113,6 +115,22 @@ const BasicDetails = ({onValidation}) => {
                 fullWidth
                 error={!!errors.model}
                 helperText={errors.model?.message}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Controller
+            name="modelNumber"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Model Number"
+                fullWidth
+                error={!!errors.modelNumber}
+                helperText={errors.modelNumber?.message}
               />
             )}
           />

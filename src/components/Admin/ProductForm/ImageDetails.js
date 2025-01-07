@@ -121,6 +121,7 @@ function ImageDetails() {
     formData.append("productName", product.bikeName);
     formData.append("brand", product.brand);
     formData.append("model", product.model);
+    formData.append("modelNumber", product.modelNumber);
     formData.append("type", product.type);
     formData.append("engineCapacity", product.engineCapacity);
     formData.append("yearOfLaunch", product.yearOfLaunch);
@@ -177,7 +178,7 @@ function ImageDetails() {
 
   return (
     <Box>
-      <SnackbarProvider/>
+    
       <Typography variant="body2" sx={{ mb: 1 }} color="text.secondary">
         Color and Image Details
       </Typography>
@@ -406,7 +407,7 @@ function ImageDetails() {
             padding: 1.9,
             borderRadius: 2,
             width: "140px",
-            backgroundColor: "black",
+            backgroundColor: disableBtn?"":"black",
 
             color: "white",
           }}

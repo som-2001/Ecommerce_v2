@@ -14,6 +14,7 @@ import { RenderCard } from "../components/productCard/RenderCard.js";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import axios from "axios";
 
+
 export const bikes = [
   {
     id: 1,
@@ -78,6 +79,8 @@ const Dashboard = () => {
       .catch((err) => {
         console.log(err);
       });
+
+    
   }, []);
 
   console.log(bikesList);

@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+import { SnackbarProvider } from "notistack";
 import { useEffect } from "react";
 import { useLocation, Outlet } from "react-router-dom";
 
@@ -9,5 +11,10 @@ export const ScrollReset = () => {
     console.log("Scrolled to top for:", location.pathname);
   }, [location.pathname]); // Run effect on location change
 
-  return <Outlet />;
+  return (
+    <Box>
+      <SnackbarProvider />
+      <Outlet />
+    </Box>
+  );
 };

@@ -105,7 +105,7 @@ function Signup () {
 
   return (
     <Box>
-      <SnackbarProvider />
+    
      
       <Grid container>
         <Grid item xs={12} md={6} lg={7}>

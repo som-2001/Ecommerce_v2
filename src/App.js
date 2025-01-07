@@ -42,7 +42,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/explore-products" element={<Dashboard />} />
-              <Route path="/view-product/:id" element={<ViewProduct />} />
+              <Route path="/view-product/:id/:modelNumber" element={<ViewProduct />} />
               <Route path="/payment" element={<Order />} />
               <Route path="/all-orders" element={<AllOrders />} />
               <Route path="/wishlist" element={<WishList />} />

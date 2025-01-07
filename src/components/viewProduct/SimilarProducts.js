@@ -6,7 +6,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import Footer from "../Footer";
 import { RenderCard } from './../productCard/RenderCard';
 
 
@@ -50,7 +49,7 @@ export const SimilarProducts = ({bikes}) => {
           )}
         </Grid>
       </Box>
-      <Footer/>
+    
     </Box>
   );
 };

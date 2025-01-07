@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -15,45 +15,62 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom"; // Import Link for routing
 import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
 
 // Example numbers for badge count (you can fetch this data dynamically)
-const wishlistCount = 5; // Number of items in the wishlist
+ // Number of items in the wishlist
 const cartCount = 3; // Number of items in the cart
 
-const pages = [
-  {
-    label: "Products",
-    path: "/explore-products",
-    icon: <HomeIcon />,
-  },
-  {
-    label: "Wishlist",
-    path: "/wishlist",
-    icon: (
-      <Badge badgeContent={wishlistCount} color="error">
-        <FavoriteBorderIcon />
-      </Badge>
-    ),
-  },
-  {
-    label: "Cart",
-    path: "/cart",
-    icon: (
-      <Badge badgeContent={cartCount} color="error">
-        <ShoppingCartIcon />
-      </Badge>
-    ),
-  },
-  {
-    label: "Profile",
-    path: "/profile",
-    icon: <AccountCircleIcon />,
-  },
-];
 
 export const AuthNavbar = () => {
  
   const navigate=useNavigate();
+  const [wishlistCount,setWishListCount]=useState(0);
+ 
+  
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/wishlist/wishlist/count`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setWishListCount(res.data.wishlistCount);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const pages = [
+    {
+      label: "Products",
+      path: "/explore-products",
+      icon: <HomeIcon />,
+    },
+    {
+      label: "Wishlist",
+      path: "/wishlist",
+      icon: (
+        <Badge badgeContent={wishlistCount} color="error">
+          <FavoriteBorderIcon />
+        </Badge>
+      ),
+    },
+    {
+      label: "Cart",
+      path: "/cart",
+      icon: (
+        <Badge badgeContent={cartCount} color="error">
+          <ShoppingCartIcon />
+        </Badge>
+      ),
+    },
+    {
+      label: "Profile",
+      path: "/profile",
+      icon: <AccountCircleIcon />,
+    },
+  ];
 
   return (
     <AppBar

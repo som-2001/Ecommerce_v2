@@ -6,11 +6,11 @@ export const ProtectedRoute=()=>{
    
     const token=Cookies.get("accessToken");
     
-    if(!token) return <Navigate to="/" />
+    // if(!token) return <Navigate to="/" />
 
     return(
         <>
-        {token? <AuthNavbar/> : <HomeNavbar/>}
+        <AuthNavbar/> 
         <Outlet/>
         </>
     )

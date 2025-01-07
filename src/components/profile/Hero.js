@@ -47,7 +47,7 @@ export const Hero = ({data}) => {
 
   return (
     <Box sx={{ width: "77vw", padding: { xs: 2, sm: 5 } }}>
-      <SnackbarProvider/>
+     
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
           <Typography variant="h5" color="text.secondary" sx={{fontSize:{xs:"1.0rem",lg:"1.6rem"}}}>

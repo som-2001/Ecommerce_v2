@@ -17,6 +17,7 @@ import ImageDetails from "./ImageDetails";
 const BikeFormWithAccordion = () => {
   const [expanded, setExpanded] = useState("panel1"); // Track which panel is expanded
  
+  
   // Handle panel expansion
   const handleChange = (panel) => (event, isExpanded) => {
     

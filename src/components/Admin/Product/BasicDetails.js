@@ -44,6 +44,8 @@ const validationSchema = Yup.object().shape({
     .max(500, 'Description cannot exceed 500 characters'),
 });
 
+
+
 const BasicDetails = ({onValidation}) => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),

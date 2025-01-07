@@ -10,9 +10,10 @@ import {useQuery} from '@tanstack/react-query';
 import {ScaleLoader} from 'react-spinners';
 import {jwtDecode} from "jwt-decode";
 import Cookies from 'js-cookie';
-import { SnackbarProvider } from "notistack";
 
 function Profile() {
+
+
   const { data,isPending,isError } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
@@ -32,7 +33,7 @@ function Profile() {
   console.log(data);
   return (
     <>
-    <SnackbarProvider/>
+   
       <Box
         sx={{
           display: "flex",

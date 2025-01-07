@@ -73,7 +73,7 @@ const ProductTable = () => {
 
   return (
     <TableContainer component={Paper}>
-      <SnackbarProvider/>
+     
       <Table>
         <TableHead>
           <TableRow>
