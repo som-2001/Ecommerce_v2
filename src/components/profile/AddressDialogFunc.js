@@ -24,11 +24,7 @@ import axios from "axios";
 const schema = yup
   .object()
   .shape({
-   
-    mobile: yup
-      .string()
-      .matches(/^\d{10}$/, "Phone number must be 10 digits")
-      .required("Phone number is required"),
+  
     pincode: yup
       .string()
       .matches(/^\d{6}$/, "Pincode must be 6 digits")
@@ -48,7 +44,7 @@ const schema = yup
   })
   .required();
 
-export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
+export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData }) => {
   const {
     control,
     handleSubmit,
@@ -107,6 +103,9 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
         // Handle successful API response
         console.log("Address added successfully:", response.data);
         enqueueSnackbar(response.data.message, { variant: "success" });
+        
+        setProfileData([...profileData,{pincode:data.pincode,locality:data.locality,address:data.address,city:data.city,state:data.state,landmark:data.landmark,addressType:data.addressType}]);
+
         setOpen(false); // Close the dialog
         reset(); // Reset form fields
       } else {
@@ -128,7 +127,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
       onClose={handleClose}
       aria-labelledby="draggable-dialog-title"
     >
-      <DialogTitle style={{ cursor: "move" }} id="draggable-dialog-title">
+      <DialogTitle style={{ cursor: "move",}} id="draggable-dialog-title">
         Add a new address
       </DialogTitle>
       <DialogContent>
@@ -140,27 +139,11 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
+            marginTop:"10px"
           }}
         >
           <Grid container spacing={2}>
            
-            <Grid item xs={12} sm={12} md={6}>
-              <Controller
-                name="mobile"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <TextField
-                    {...field}
-                    type="text"
-                    placeholder="10-digit mobile number"
-                    label="Mobile"
-                    error={!!fieldState.error}
-                    helperText={fieldState.error?.message}
-                    fullWidth
-                  />
-                )}
-              />
-            </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <Controller
                 name="pincode"
@@ -195,25 +178,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
                 )}
               />
             </Grid>
-            <Grid item xs={12} sm={12} md={12}>
-              <Controller
-                name="address"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <TextField
-                    {...field}
-                    type="text"
-                    placeholder="Address (Area and Street)"
-                    multiline
-                    rows={4}
-                    label="Address"
-                    error={!!fieldState.error}
-                    helperText={fieldState.error?.message}
-                    fullWidth
-                  />
-                )}
-              />
-            </Grid>
+          
             <Grid item xs={12} sm={12} md={6}>
               <Controller
                 name="city"
@@ -284,6 +249,25 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
                 )}
               />
             </Grid>
+            <Grid item xs={12} sm={12} md={12}>
+              <Controller
+                name="address"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    type="text"
+                    placeholder="Address (Area and Street)"
+                    multiline
+                    rows={4}
+                    label="Address"
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                    fullWidth
+                  />
+                )}
+              />
+            </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <FormControl component="fieldset" fullWidth>
                 <FormLabel id="address-type-label">Address Type</FormLabel>
@@ -313,6 +297,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
                 />
               </FormControl>
             </Grid>
+            
           </Grid>
           <Button
             type="submit"

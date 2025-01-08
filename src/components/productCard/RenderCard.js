@@ -111,7 +111,7 @@ export const RenderCard = ({ bike }) => {
           {bike?.productName}
         </Typography>
         <Typography variant="body2"  color="text.secondary" sx={{fontSize:"11px"}}>
-          {bike?.description?.slice(0,70)}...
+          {bike?.description?.slice(0,60)}...
         </Typography>
         <Divider sx={{ backgroundColor: "#C6E4FF", my: 1,display:{xs:"none",sm:"block"} }} />
         <Box

@@ -1,13 +1,34 @@
 import { Box, CardMedia, Grid, Typography } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const WishList = () => {
   const navigate = useNavigate();
+  const { WishList } = useSelector((state) => state.product);
+  const [wishlist, setWishList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/wishlist/wishlist`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setWishList(res.data.wishlist);
+        console.log(res.data.wishlist);
+      })
+      .catch((err) => {
+        console.error("Error fetching wishlist:", err);
+      });
+  }, []);
+
+  console.log(wishlist)
 
   return (
-    <Box sx={{ width: "77vw" }}>
+    <Box sx={{ width: "77vw", margin: "auto" }}>
       <Typography variant="h6" color="text.secondary" gutterBottom>
-        My WishList (2) (
+        My WishList ({wishlist?.length || 0} Items) (
         <span
           style={{
             fontSize: "1.0rem",
@@ -15,93 +36,64 @@ export const WishList = () => {
             cursor: "pointer",
             color: "#64b5f6",
           }}
-          onClick={(e) => navigate("/wishlist")}
+          onClick={() => navigate("/wishlist")}
         >
           see more
         </span>
         )
       </Typography>
 
-      <Box sx={{ border: "1px solid #dfdfdf", padding: 2, my: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={3} lg={2}>
-            <CardMedia
-              component="img"
-              image="../images/product_1.jpg"
-              sx={{ width: "150px", height: "100px" }}
-            />
-          </Grid>
+      {wishlist.length === 0 ? (
+        <Typography variant="body2" color="text.secondary" align="center" sx={{ marginTop: 2,my:5 }}>
+          No wishlist items are currently available.
+        </Typography>
+      ) : (
+        <Box sx={{ border: "1px solid #dfdfdf", padding: 2, my: 2 }}>
+          <Grid container spacing={2}>
+            {wishlist.map((item, index) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                <Box sx={{ border: "1px solid #e0e0e0", borderRadius: 2, padding: 2 }}>
+                  <CardMedia
+                    component="img"
+                    image={item?.product?.image?.[0] || "../images/default_product.jpg"}
+                    alt={item?.product?.productName}
+                    sx={{ width: "100%", height: "150px", objectFit: "cover" }}
+                  />
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ marginTop: 1 }}
+                  >
+                    {item?.product?.productName || "Product Name"}
+                  </Typography>
 
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={4}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Typography variant="body2" color="text.secondary">
-              INSANESWORM 240 TC Microfiber Single Floral Flat Bedsheet
-            </Typography>
-            <Typography variant="body1" color="green">
-              $23300{" "}
-              <span
-                style={{
-                  textDecoration: "line-through",
-                  color: "red",
-                  fontSize: "0.8rem",
-                }}
-              >
-                $23523
-              </span>{" "}
-              25% off
-            </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {`${item?.product?.description?.slice(0,30)}...` || "Product Name"}
+                  </Typography>
+                  <Typography variant="body1" color="green">
+                    ${item?.product?.offerPrice} {" "}
+                    {item?.product?.originalPrice && (
+                      <span
+                        style={{
+                          textDecoration: "line-through",
+                          color: "red",
+                          fontSize: "0.8rem",
+                        }}
+                      >
+                        ${item?.product?.originalPrice}
+                      </span>
+                    )} {" "}
+                    {item?.product?.discount && `${item?.product?.discount}% off`}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
           </Grid>
-        </Grid>
-      </Box>
-      <Box sx={{ border: "1px solid #dfdfdf", padding: 2, my: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={3} lg={2}>
-            <CardMedia
-              component="img"
-              image="../images/product_1.jpg"
-              sx={{ width: "150px", height: "100px" }}
-            />
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={4}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Typography variant="body2" color="text.secondary">
-              INSANESWORM 240 TC Microfiber Single Floral Flat Bedsheet
-            </Typography>
-            <Typography variant="body1" color="green">
-              $23300{" "}
-              <span
-                style={{
-                  textDecoration: "line-through",
-                  color: "red",
-                  fontSize: "0.8rem",
-                }}
-              >
-                $23523
-              </span>{" "}
-              25% off
-            </Typography>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      )}
     </Box>
   );
 };

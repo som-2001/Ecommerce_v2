@@ -95,7 +95,7 @@ export const AuthNavbar = () => {
             />
            
           </Typography>
-          <Typography variant="h6" onClick={(e)=>navigate("/")}>BikeMart</Typography>
+          <Typography variant="h6" sx={{display:{xs:"none",sm:"inherit"}}} onClick={(e)=>navigate("/")}>BikeMart</Typography>
 
           {/* Search Button */}
 

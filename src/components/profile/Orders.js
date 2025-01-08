@@ -7,7 +7,7 @@ export const Orders=()=>{
     const navigate=useNavigate();
     
     return(
-        <Box sx={{ width: "77vw" }}>
+        <Box sx={{ width: "77vw",mt:2 }}>
         <Typography variant="h6" color="text.secondary" gutterBottom>
           My Orders (2) (<span style={{fontSize:"1.0rem",textDecoration:"underline",cursor:"pointer",color:"#64b5f6"}}
           onClick={(e)=>navigate("/all-orders")}

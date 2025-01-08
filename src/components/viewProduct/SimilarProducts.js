@@ -14,7 +14,7 @@ export const SimilarProducts = ({bikes}) => {
 
 
   return (
-    <Box>
+    <Box sx={{width:"91vw"}}>
       <Typography  sx={{ fontWeight: "600", fontSize:{xs:"0.9rem",sm:"1.2rem"}, paddingLeft: {xs:3,sm:6},mt:3 }}>
         Similar Products you may be interested in
       </Typography>

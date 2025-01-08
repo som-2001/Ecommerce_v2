@@ -79,7 +79,7 @@ const Hero = ({ product, coloredProduct }) => {
       <Box sx={{ padding: "1rem" }}>
         <Grid container spacing={4}>
           {/* Left Side: Images */}
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={5} sx={{mt:4}}>
             <Box
               sx={{
                 textAlign: "center",
@@ -93,7 +93,7 @@ const Hero = ({ product, coloredProduct }) => {
                   alt={product?.productName || "Product"}
                   style={{
                     width: "95%",
-                    height: "500px",
+                    height: {xs:"200px",sm:"500px"},
                     objectFit: "contain",
                     borderRadius: "8px",
                   }}
@@ -133,7 +133,7 @@ const Hero = ({ product, coloredProduct }) => {
 
           {/* Right Side: Product Details */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ padding: "20px" }}>
+            <Box sx={{ padding: {xs:"0px",sm:"20px" }}}>
               <Typography
                 variant="h4"
                 sx={{ fontWeight: "bold", marginBottom: "1rem" }}
@@ -183,12 +183,12 @@ const Hero = ({ product, coloredProduct }) => {
                 sx={{
                   marginBottom: "1rem",
                   display: "flex",
-                  gap: "20px",
+                  gap: "10px",
                   alignItems: "center",
-                  mb: 4,
+                  mb: 2,
                 }}
               >
-                <Typography variant="body1" gutterBottom>
+                <Typography variant="body1" >
                   Select Color:
                 </Typography>
 
