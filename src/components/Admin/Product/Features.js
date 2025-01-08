@@ -43,6 +43,7 @@ const Features = ({ product }) => {
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (product) {
@@ -54,10 +55,12 @@ const Features = ({ product }) => {
       setValue("mobileChargingPort", product?.mobileChargingPort || "");
       setValue("alloyWheels", product?.alloyWheels || "");
       setValue("ledLights", product?.ledLights || "");
+      
+      dispatch(EditProduct({absType: product?.absType,fuelTankCapacity: product?.fuelTankCapacity,topSpeed: product?.topSpeed,instrumentConsole: product?.instrumentConsole,bluetoothConnectivity:product?.bluetoothConnectivity,mobileChargingPort: product?.mobileChargingPort,alloyWheels: product?.alloyWheels,ledLights: product?.ledLights}))
     }
-  }, [product, setValue]);
+  }, [product, setValue,dispatch]);
 
-  const dispatch = useDispatch();
+  
 
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);

@@ -14,7 +14,7 @@ export const ManageAddresses = ({ profile }) => {
         sx={{ my: 2 }}
         gutterBottom
       >
-        My Addresses ({profile.address.length})
+        My Addresses ({profile?.address?.length})
       </Typography>
 
       <Box

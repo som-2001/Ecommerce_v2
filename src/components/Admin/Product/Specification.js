@@ -63,8 +63,9 @@ const Specifications = ({product}) => {
       setValue("seatHeight", product.seatHeight || "");
       setValue("groundClearance", product.groundClearance || "");
       setValue("kerbWeight", product.kerbWeight || "");
+      dispatch(EditProduct({engineType: product.engineType,fuelType: product.fuelType,mileage: product.mileage, maxPower: product.maxPower,maxTorque: product.maxTorque, gearbox: product.gearbox, coolingSystem: product.coolingSystem, seatHeight: product.seatHeight, groundClearance: product.groundClearance, kerbWeight: product.kerbWeight}))
     }
-  }, [product, setValue]);
+  }, [product, setValue,dispatch]);
   
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

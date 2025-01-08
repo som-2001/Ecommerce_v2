@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 
   type: Yup.string()
     .required('Type is required')
-    .oneOf(['Cruiser', 'Sports', 'Naked', 'Adventure'], 'Invalid type selected'),
+    .oneOf(['Cruiser', 'Sport', 'Naked', 'Adventure'], 'Invalid type selected'),
 
   engineCapacity: Yup.number()
     .required('Engine Capacity is required')
@@ -151,7 +151,7 @@ const BasicDetails = ({onValidation}) => {
                 helperText={errors.type?.message}
               >
                 <MenuItem value="Cruiser">Cruiser</MenuItem>
-                <MenuItem value="Sports">Sports</MenuItem>
+                <MenuItem value="Sport">Sport</MenuItem>
                 <MenuItem value="Naked">Naked</MenuItem>
                 <MenuItem value="Adventure">Adventure</MenuItem>
               </TextField>

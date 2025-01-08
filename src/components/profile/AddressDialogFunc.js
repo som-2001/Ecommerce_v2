@@ -24,7 +24,7 @@ import axios from "axios";
 const schema = yup
   .object()
   .shape({
-    name: yup.string().required("Name is required"),
+   
     mobile: yup
       .string()
       .matches(/^\d{10}$/, "Phone number must be 10 digits")
@@ -71,7 +71,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
       console.log(data);
       // Prepare payload for the API request
       const payload = {
-        username: data.name,
+       
         email: profileData.email,
         password: profileData.password,
         role: profileData.role,
@@ -143,23 +143,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
           }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={6}>
-              <Controller
-                name="name"
-                control={control}
-                render={({ field, fieldState }) => (
-                  <TextField
-                    {...field}
-                    type="text"
-                    placeholder="Your Full Name"
-                    label="Name"
-                    error={!!fieldState.error}
-                    helperText={fieldState.error?.message}
-                    fullWidth
-                  />
-                )}
-              />
-            </Grid>
+           
             <Grid item xs={12} sm={12} md={6}>
               <Controller
                 name="mobile"

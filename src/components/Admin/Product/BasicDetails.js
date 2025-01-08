@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid, TextField, MenuItem, InputAdornment, Button, Box } from '@mui/material';
+import { Grid, TextField, MenuItem, Button, Box } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -22,9 +22,13 @@ const validationSchema = Yup.object().shape({
     .min(2, 'Model must be at least 2 characters long')
     .max(50, 'Model cannot exceed 50 characters'),
 
+  modelNumber: Yup.string()
+    .min(2, 'Model must be at least 2 characters long')
+    .max(50, 'Model cannot exceed 50 characters'),
+
   type: Yup.string()
     .required('Type is required')
-    .oneOf(['Cruiser', 'Sports', 'Naked', 'Adventure'], 'Invalid type selected'),
+    .oneOf(['Cruiser', 'Sport', 'Naked', 'Adventure'], 'Invalid type selected'),
 
   engineCapacity: Yup.number()
     .required('Engine Capacity is required')
@@ -48,10 +52,15 @@ const validationSchema = Yup.object().shape({
 
 const BasicDetails = ({product}) => {
 
+
+  const dispatch=useDispatch()
+
   const { control, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     
   });
+  
+
 
   useEffect(() => {
     
@@ -61,14 +70,17 @@ const BasicDetails = ({product}) => {
       setValue('bikeName', product?.productName || '');
       setValue('brand', product?.brand || '');
       setValue('model', product?.model || '');
+      setValue('modelNumber', product?.modelNumber || '');
       setValue('type', product?.type || '');
       setValue('engineCapacity', product?.engineCapacity || '');
       setValue('yearOfLaunch', product?.yearOfLaunch || '');
       setValue('description', product?.description || '');
-    }
-  }, [product, setValue]);
+      dispatch(EditProduct({bikeName: product.bikeName, brand: product.brand, model: product.model,modelNumber:product?.modelNumber, type: product.type, engineCapacity: product?.engineCapacity, yearOfLaunch: product?.yearOfLaunch, description: product?.description}));
 
-  const dispatch=useDispatch();
+
+    }
+  }, [product, setValue,dispatch]);
+;
 
   const onSubmit = (data) => {
     console.log('Form Submitted:', data);
@@ -132,6 +144,23 @@ const BasicDetails = ({product}) => {
                 fullWidth
                 error={!!errors.model}
                 helperText={errors.model?.message}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Controller
+            name="modelNumber"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Model Number"
+                focused
+                fullWidth
+                error={!!errors.modelNumber}
+                helperText={errors.modelNumber?.message}
               />
             )}
           />

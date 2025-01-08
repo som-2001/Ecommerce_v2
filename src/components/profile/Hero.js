@@ -51,7 +51,7 @@ export const Hero = ({data}) => {
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
           <Typography variant="h5" color="text.secondary" sx={{fontSize:{xs:"1.0rem",lg:"1.6rem"}}}>
-            Welcome, {data?.username}
+            Welcome, {data?.fullName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Joined on, {new Date(data.createdAt).toLocaleDateString()}
@@ -164,7 +164,7 @@ export const Hero = ({data}) => {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h6">{data?.username}</Typography>
+            <Typography variant="h6">{data?.fullName}</Typography>
             <Typography variant="body2" color="text.secondary">
               {data?.email}
             </Typography>

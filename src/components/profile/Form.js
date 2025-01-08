@@ -32,7 +32,7 @@ export const Form = ({data}) => {
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(()=>{
-    setValue("name",data?.username);
+    setValue("name",data?.fullName);
     setValue("email",data?.email);
     setValue("gender",data?.gender);
     setValue("phoneNumber",data?.mobileNumber?.[0]);

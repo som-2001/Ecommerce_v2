@@ -37,9 +37,9 @@ const OrderPrice = ({product}) => {
       setValue('originalPrice', product?.originalPrice || '');
       setValue('offerPrice', product?.offerPrice || '');
       setValue('discount', product?.discount || '');
-     
+      dispatch(EditProduct({originalPrice: product?.originalPrice,offerPrice: product?.offerPrice,discount: product?.discount}));
     }
-  },[product,setValue])
+  },[product,setValue,dispatch])
 
   const onSubmit = (data) => {
     console.log('Form Submitted:', data);

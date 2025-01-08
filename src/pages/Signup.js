@@ -95,7 +95,7 @@ function Signup () {
 
   const onSubmit = (data) => {
     mutation.mutate({
-      username: data.name.trim(),
+      fullName: data.name.trim(),
       email: data.email.trim(),
       password: data.password.trim(),
       confirmpassword: data.confirmpassword.trim(),

@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { EditProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 import { enqueueSnackbar } from "notistack";
+import { useParams } from "react-router-dom";
 // import { enqueueSnackbar, SnackbarProvider } from "notistack";
 
 // Define the validation schema using Yup
@@ -61,25 +62,37 @@ function ImageDetails({ item }) {
   }, [item, setValue]);
 
   const [files, setFiles] = useState([]);
+  const [files1,setFiles1]=useState([]);
   const [colors, setColors] = useState([]);
+  const [selectedColor,setSelectedColor] = useState();
+  const [stock,setStock]=useState('');
   const [totalLength,setTotalLength]=useState();
   const [disableBtn, setDisableBtn] = useState(true);
-
-  const dispatch = useDispatch();
+  const {id}=useParams();
   const { product } = useSelector((state) => state.product);
 
   useEffect(() => {
     if (item) {
       setTotalLength(item?.image?.length);
-      
+  
       const updatedFiles = {
-        color: item.selectedColor, // Provide a default if color is missing
-        stock: item.stock, // Provide a default if stock is missing
-        images: item.image && Array.isArray(item.image) ? item.image : [], // Provide an empty array if images are missing
+        color: item.selectedColor || "", // Use default if missing
+        stock: item.stock || "", // Use default if missing
+        images: Array.isArray(item.image) ? item.image : [], // Ensure it's an array
       };
-      setColors(updatedFiles);
+  
+      // Set the `files` field in the form to the `images` array
+      setValue("files", updatedFiles.images);
+  
+      // Update other state values
+      
+      setFiles1(Array.isArray(item.image) ? item.image:[]);
+      setColors(updatedFiles); // If `setColors` is used for other purposes
+      setSelectedColor(item.selectedColor);
+      setStock(item.stock);
     }
-  }, [item]);
+  }, [item, setValue]);
+  
 
   console.log(colors);
 
@@ -93,16 +106,34 @@ function ImageDetails({ item }) {
         variant: "warning",
       });
     }
+
+    
     const combinedFiles = [...files, ...selectedFiles];
     const validFiles = combinedFiles.slice(0, 4);
 
+    const processedFiles = validFiles.map((file) =>
+      typeof file !== "string" ? file : URL.createObjectURL(file)
+    );
+
     setFiles(validFiles);
+    setFiles1([...files1, ...processedFiles]);
     setValue("files", validFiles);
   };
 
+  const handleColorChange=(e)=>{
+
+    console.log(e.target.value);
+    setSelectedColor(e.target.value);
+    setValue("selectedColor", e.target.value);
+  }
+  const handleStockChange=(e)=>{
+    setStock(e.target.value);
+    setValue("stock", e.target.value);
+  }
   const handleDeleteImage = (indexToDelete) => {
     const updatedFiles = files.filter((_, index) => index !== indexToDelete);
     setFiles(updatedFiles);
+    setFiles1(updatedFiles);
     if (updatedFiles.length === 0) setDisableBtn(true);
     setValue("files", updatedFiles);
   };
@@ -117,13 +148,53 @@ function ImageDetails({ item }) {
 
     setTotalLength(totalLength-1);
     setValue("files", updatedFiles);
+    setFiles1(updatedFiles);
   }
   
-  const onSubmit = () => {
-    console.log(product);
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    console.log(stock);
+
+    // Add product-level fields (e.g., name, brand, engineCapacity, etc.)
+    formData.append("productName", product.bikeName);
+    formData.append("brand", product.brand);
+    formData.append("model", product.model);
+    formData.append("modelNumber", product.modelNumber);
+    formData.append("type", product.type);
+    formData.append("engineCapacity", product.engineCapacity);
+    formData.append("yearOfLaunch", product.yearOfLaunch);
+    formData.append("description", product.description);
+    formData.append("engineType", product.engineType);
+    formData.append("fuelType", product.fuelType);
+    formData.append("mileage", product.mileage);
+    formData.append("maxPower", product.maxPower);
+    formData.append("maxTorque", product.maxTorque);
+    formData.append("gearbox", product.gearbox);
+    formData.append("coolingSystem", product.coolingSystem);
+    formData.append("seatHeight", product.seatHeight);
+    formData.append("groundClearance", product.groundClearance);
+    formData.append("kerbWeight", product.kerbWeight);
+    formData.append("originalPrice", product.originalPrice);
+    formData.append("offerPrice", product.offerPrice);
+    formData.append("discount", product.discount);
+    formData.append("absType", product.absType);
+    formData.append("fuelTankCapacity", product.fuelTankCapacity);
+    formData.append("topSpeed", product.topSpeed);
+    formData.append("instrumentConsole", product.instrumentConsole);
+    formData.append("bluetoothConnectivity", product.bluetoothConnectivity==="Available"?true:false);
+    formData.append("mobileChargingPort", product.mobileChargingPort==="Available"?true:false);
+    formData.append("alloyWheels", product.alloyWheels==="Available"?true:false);
+    formData.append("ledLights", product.ledLights==="Available"?true:false);
+
+    console.log(files1);
+    for (let i = 0; i < files1?.length; i++) {
+      formData.append('images', files1?.[i]);
+    }
+    formData.append("selectedColor", selectedColor);
+    formData.append("stock",stock);
 
     axios
-      .post(`${process.env.REACT_APP_BASEURL}/products/create`, product, {
+      .put(`${process.env.REACT_APP_BASEURL}/products/products/${id}`, formData, {
         withCredentials: true,
       })
       .then((response) => {
@@ -154,6 +225,10 @@ function ImageDetails({ item }) {
                   fullWidth
                   displayEmpty
                   error={!!errors.selectedColor}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    handleColorChange(e);
+                  }}
                 >
                   <MenuItem value="" disabled>
                     Select a color
@@ -183,6 +258,10 @@ function ImageDetails({ item }) {
                   fullWidth
                   error={!!errors.stock}
                   placeholder="Enter stock quantity"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    handleStockChange(e);
+                  }}
                 />
               )}
             />
