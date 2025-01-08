@@ -53,7 +53,7 @@ const ViewProduct = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, [id,modelNumber]);
 
   return (
     <Box

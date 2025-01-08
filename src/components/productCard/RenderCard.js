@@ -15,19 +15,21 @@ import PersonIcon from '@mui/icons-material/Person';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import { useDispatch, useSelector } from "react-redux";
+import { addwishList } from "../../Redux/ProductAdminSlice/ProductSlice";
 
 export const RenderCard = ({ bike }) => {
   const navigate = useNavigate();
   const token=Cookies.get("accessToken");
-
-  console.log(token);
-  console.log(bike);
+  const {wishList}=useSelector(state=>state.product);
+  const dispatch=useDispatch();
 
   const addWishList=(id)=>{
     axios.post(`${process.env.REACT_APP_BASEURL}/wishlist/wishlist/add`,{productId:id},{
       withCredentials:true
     }).then(res=>{
       console.log(res?.data?.message)
+      dispatch(addwishList(id));
       enqueueSnackbar(res?.data?.message,{variant:"success"});
     }).catch(err=>{
       enqueueSnackbar(err.response.data.message, { variant: "error" });
@@ -91,7 +93,7 @@ export const RenderCard = ({ bike }) => {
           position: "absolute",
           top: 10,
           right: 10,
-          color: "black",
+          color: wishList?.includes(bike?._id)?"red":"black",
           filter: "opacity(0.7)",
           borderRadius: "50%",
           zIndex:45,

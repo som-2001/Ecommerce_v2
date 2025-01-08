@@ -15,17 +15,21 @@ import PersonIcon from '@mui/icons-material/Person';
 import Cookies from 'js-cookie';
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useDispatch } from "react-redux";
+import { removeWishListProduct } from "../../Redux/ProductAdminSlice/ProductSlice";
 
 export const WishListCard = ({ bike,setBike }) => {
   const navigate = useNavigate();
   const token=Cookies.get("accessToken");
-
+  const dispatch=useDispatch();
 
   const removeWishList=(id)=>{
     axios.post(`${process.env.REACT_APP_BASEURL}/wishlist/wishlist/remove`,{productId:id},{
       withCredentials:true
     }).then(res=>{
-      console.log(res?.data?.message);
+
+      dispatch(removeWishListProduct(id))
       setBike((prev)=>prev.filter(bike=>bike.product?._id!==id));
       enqueueSnackbar(res?.data?.message,{variant:"success"});
     }).catch(err=>{
@@ -85,7 +89,7 @@ export const WishListCard = ({ bike,setBike }) => {
         <PersonIcon/>
       </Box>
 
-      {token && <Favorite
+      {token && <DeleteIcon
         sx={{
           position: "absolute",
           top: 10,

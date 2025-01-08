@@ -15,31 +15,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom"; // Import Link for routing
 import SearchIcon from "@mui/icons-material/Search";
-import axios from "axios";
-
-// Example numbers for badge count (you can fetch this data dynamically)
- // Number of items in the wishlist
-const cartCount = 3; // Number of items in the cart
-
+import { useSelector } from "react-redux";
 
 export const AuthNavbar = () => {
  
   const navigate=useNavigate();
-  const [wishlistCount,setWishListCount]=useState(0);
- 
-  
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BASEURL}/wishlist/wishlist/count`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setWishListCount(res.data.wishlistCount);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const {wishList,cart}=useSelector(state=>state.product);
 
   const pages = [
     {
@@ -51,7 +32,7 @@ export const AuthNavbar = () => {
       label: "Wishlist",
       path: "/wishlist",
       icon: (
-        <Badge badgeContent={wishlistCount} color="error">
+        <Badge badgeContent={wishList.length} color="error">
           <FavoriteBorderIcon />
         </Badge>
       ),
@@ -60,7 +41,7 @@ export const AuthNavbar = () => {
       label: "Cart",
       path: "/cart",
       icon: (
-        <Badge badgeContent={cartCount} color="error">
+        <Badge badgeContent={cart.length} color="error">
           <ShoppingCartIcon />
         </Badge>
       ),

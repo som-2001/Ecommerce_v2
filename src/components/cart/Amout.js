@@ -6,14 +6,22 @@ import {
     Typography,
     Divider,
   } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
   
-  export const Amount = () => {
+  export const Amount = ({amount,length}) => {
 
     const navigate=useNavigate();
+    const [cartItems,setCartItems] =useState(0);
+
+    useEffect(()=>{
+       if(length){
+        setCartItems(length)
+       }
+    },[]);
     
     return (
-      <Box sx={{ padding: 2, border: "1px solid #e0e0e0", borderRadius: "8px" }}>
+      <Box sx={{ padding: 2, border: "1px solid #e0e0e0", borderRadius: "8px",}}>
         {/* Coupons Section */}
         <Typography
           sx={{ fontSize: "16px", fontWeight: "600", marginBottom: "8px" }}
@@ -121,7 +129,7 @@ import { useNavigate } from "react-router-dom";
           >
             <Typography sx={{ fontSize: "14px" }}>Total MRP</Typography>
             <Typography sx={{ fontSize: "14px", fontWeight: "600" }}>
-              ₹3,698
+              {amount}
             </Typography>
           </Box>
           <Box
@@ -211,7 +219,7 @@ import { useNavigate } from "react-router-dom";
             Total Amount
           </Typography>
           <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
-            ₹1,748
+            {amount}
           </Typography>
         </Box>
   

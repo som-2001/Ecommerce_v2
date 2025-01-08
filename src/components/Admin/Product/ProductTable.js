@@ -7,13 +7,12 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button,
   Switch,
   TableSortLabel,
 } from "@mui/material";
 import BasicMenu from "./BasicMenu";
 import axios from "axios";
-import { SnackbarProvider } from "notistack";
+import { enqueueSnackbar } from "notistack";
 
 const ProductTable = () => {
   const [bikes, setBikes] = useState([]);
@@ -57,19 +56,47 @@ const ProductTable = () => {
     { id: "engineCapacity", label: "Engine Capacity", sortable: true },
     { id: "mileage", label: "Mileage", sortable: true },
     { id: "price", label: "Price($)", sortable: true },
-    { id: "newArrival", label: "New Arrival", sortable: false },
-    { id: "bestSeller", label: "Best Seller", sortable: false },
-    { id: "featureProducts", label: "Feature Products", sortable: false },
+    { id: "isNewArrival", label: "New Arrival", sortable: false },
+    { id: "isBestSeller", label: "Best Seller", sortable: false },
+    { id: "isFeatureProduct", label: "Feature Products", sortable: false },
     { id: "action", label: "Action", sortable: false },
   ];
 
-  const handleToggle = (id, field) => {
-    setBikes((prevBikes) =>
-      prevBikes.map((bike) =>
-        bike._id === id ? { ...bike, [field]: !bike[field] } : bike
+  const handleToggle = (productId, field) => {
+    // Create the payload dynamically based on the field
+    const payload = {
+      isBestSeller: field === "isBestSeller" ? true : undefined,
+      isFeatureProduct: field === "isFeatureProduct" ? true : undefined,
+      isNewArrival: field === "isNewArrival" ? true : undefined,
+    };
+  
+    axios
+      .put(
+        `${process.env.REACT_APP_BASEURL}/products/products/status/${productId}`,
+        payload, // Send the correctly formatted payload
+        {
+          withCredentials: true,
+        }
       )
-    );
+      .then((res) => {
+        // Show success message
+        enqueueSnackbar(res.data?.message, { variant: "success" });
+  
+        // Update the state to reflect the changes
+        setBikes((prevBikes) =>
+          prevBikes.map((bike) =>
+            bike._id === productId ? { ...bike, [field]: !bike[field] } : bike
+          )
+        );
+      })
+      .catch((err) => {
+        // Show error message
+        enqueueSnackbar(err.response?.data?.message || "Error updating product", {
+          variant: "error",
+        });
+      });
   };
+  
 
   return (
     <TableContainer component={Paper}>
@@ -111,20 +138,20 @@ const ProductTable = () => {
               <TableCell align="center">{bike.originalPrice}</TableCell>
               <TableCell align="center">
                 <Switch
-                  checked={bike.newArrival}
-                  onChange={() => handleToggle(bike._id, "newArrival")}
+                  checked={bike?.isNewArrival}
+                  onChange={() => handleToggle(bike._id, "isNewArrival")}
                 />
               </TableCell>
               <TableCell align="center">
                 <Switch
-                  checked={bike.bestSeller}
-                  onChange={() => handleToggle(bike._id, "bestSeller")}
+                  checked={bike?.isBestSeller}
+                  onChange={() => handleToggle(bike._id, "isBestSeller")}
                 />
               </TableCell>
               <TableCell align="center">
                 <Switch
-                  checked={bike.featureProducts}
-                  onChange={() => handleToggle(bike._id, "featureProducts")}
+                  checked={bike?.isFeatureProducts}
+                  onChange={() => handleToggle(bike._id, "isFeatureProduct")}
                 />
               </TableCell>
               <TableCell align="center">

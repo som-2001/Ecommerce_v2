@@ -7,15 +7,19 @@ import {
   Build,
 } from "@mui/icons-material";
 import StarIcon from "@mui/icons-material/Star";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import { useDispatch, useSelector } from "react-redux";
+import { addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
 
 const Hero = ({ product, coloredProduct }) => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { cart } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
 
   const [selectedImage, setSelectedImage] = useState("");
-
   const [selectedColor, setSelectedColor] = useState(0);
 
   useEffect(() => {
@@ -27,20 +31,25 @@ const Hero = ({ product, coloredProduct }) => {
     }
   }, [product, coloredProduct]);
 
-  const addToCart = (id) => {
+  const addToCart = () => {
     axios
-      .post(`${process.env.REACT_APP_BASEURL}/cart/product/cart`, {
-        product: id,
-        quantity: 1,
-      },{
-        withCredentials:true
-      })
+      .post(
+        `${process.env.REACT_APP_BASEURL}/cart/product/cart`,
+        {
+          productId: id,
+          quantity: 1,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         console.log(res.data);
-        // enqueueSnackbar(res.data.message, { variant: "success" });
+        enqueueSnackbar(res.data.message, { variant: "success" });
+        dispatch(addCart(id));
       })
       .catch((err) => {
-        // enqueueSnackbar(err.response.data.message, { variant: "error" });
+        enqueueSnackbar(err.response.data.message, { variant: "error" });
       });
   };
 
@@ -271,6 +280,7 @@ const Hero = ({ product, coloredProduct }) => {
                 </Button>
                 <Button
                   variant="outlined"
+                  disabled={cart.includes(product?._id)}
                   sx={{
                     flex: 1,
                     padding: "1rem",
@@ -282,7 +292,7 @@ const Hero = ({ product, coloredProduct }) => {
                     },
                   }}
                   // onClick={() => navigate('/cart')}
-                  onClick={(e)=>addToCart(product?._id)}
+                  onClick={addToCart}
                 >
                   Add to Cart
                 </Button>

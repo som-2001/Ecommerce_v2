@@ -1,7 +1,33 @@
 import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { removeCartProduct } from "../../Redux/ProductAdminSlice/ProductSlice";
 
-export const CartProduct = () => {
+export const CartProduct = ({cart,setCart}) => {
+
+  const { Cart } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  console.log(cart);
+  
+  const removeCart = (id) => {
+    // Call the API to remove the cart item
+    axios
+      .delete(`${process.env.REACT_APP_BASEURL}/cart/remove/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data.message);
+        // Update state only if the API call succeeds
+        setCart((prev) => prev.filter((product) => product?.product?._id !== id));
+        dispatch(removeCartProduct(id));
+      })
+      .catch((error) => {
+        console.error("Error removing item from cart:", error.message);
+      });
+  };
+  
   return (
     <Box sx={{ padding: 1, borderBottom: "1px solid #e0e0e0", marginBottom: 2 }}>
       <Grid container spacing={2} sx={{ alignItems: "center", }}>
@@ -10,12 +36,13 @@ export const CartProduct = () => {
         <Grid item xs={12} sm={4} md={4} lg={3} sx={{ display:"flex",justifyContent:"center", alignItems: "center" }}>
           <CardMedia 
             component="img"
-            image="../images/product_1.jpg"
+            image={cart?.product?.image?.[0]}
             sx={{
               width: {xs:"250px",sm:"100px"},
               height: "140px",
               borderRadius: "8px",
               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              objectFit:"contain"
             }}
           />
         </Grid>
@@ -30,7 +57,7 @@ export const CartProduct = () => {
               lineHeight: 1.4,
             }}
           >
-            Royal Enfield
+            {cart?.product?.productName}
           </Typography>
           <Typography
             sx={{
@@ -39,7 +66,7 @@ export const CartProduct = () => {
               marginBottom: "8px",
             }}
           >
-            The Roadster LifeStyle Co Men Light Blue Solid Regular Fit...
+            {cart?.product?.description?.slice(0,50)}...
           </Typography>
 
           {/* Size and Quantity */}
@@ -65,7 +92,7 @@ export const CartProduct = () => {
               color: "#212121",
             }}
           >
-            $47,046{" "}
+            ${cart?.product?.offerPrice}{" "}
             <span
               style={{
                 textDecoration: "line-through",
@@ -74,9 +101,9 @@ export const CartProduct = () => {
                 marginLeft: "8px",
               }}
             >
-              $124,453
+              ${cart?.product?.originalPrice}
             </span>{" "}
-            <span style={{ color: "#ff4081", marginLeft: "8px" }}>58% OFF</span>
+            <span style={{ color: "#ff4081", marginLeft: "8px" }}>{cart?.product?.discount}% OFF</span>
           </Typography>
 
           {/* Delivery Date */}
@@ -111,6 +138,7 @@ export const CartProduct = () => {
                 backgroundColor: "#fff5f8",
               },
             }}
+            onClick={(e)=>removeCart(cart?.product?._id)}
           >
             Remove
           </Button>

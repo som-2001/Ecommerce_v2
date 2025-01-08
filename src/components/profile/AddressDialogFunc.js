@@ -346,10 +346,10 @@ export const AddressDialogFunc = ({ open, setOpen, profileData }) => {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleClose}>
+        <Button variant="outlined" onClick={handleClose} sx={{border:"1px solid black",color:"black"}}>
           Cancel
         </Button>
-        <Button onClick={handleClose}>Add</Button>
+       
       </DialogActions>
     </Dialog>
   );
