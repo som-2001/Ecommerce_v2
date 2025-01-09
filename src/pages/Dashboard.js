@@ -62,7 +62,7 @@ export const bikes = [
 
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
-  const [priceRange, setPriceRange] = useState([100, 25000]);
+  const [priceRange, setPriceRange] = useState([0, 2500000000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedEngines, setSelectedEngines] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
