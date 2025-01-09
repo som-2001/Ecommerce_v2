@@ -23,28 +23,7 @@ const Topbar = () => {
   return (
     <AppBar position="static" color="transparent" elevation={0} sx={{ mb: 0 }}>
       <Toolbar sx={{justifyContent:"flex-end"}}>
-        <TextField
-          placeholder="Search…"
-          sx={{
-            background: "#e1eef5",
-            borderRadius: 7,
-            "& .MuiOutlinedInput-notchedOutline": {
-              border: "none",
-            },
-            height:"55px",
-            marginRight: 1,
-            
-          }}
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
+       
         <IconButton sx={{ bgcolor: "#d3e9f5", mr: 2 }}>
           <Badge badgeContent={4} color="error">
             <Notifications />

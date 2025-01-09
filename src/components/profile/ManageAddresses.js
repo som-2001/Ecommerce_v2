@@ -7,6 +7,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import WorkIcon from "@mui/icons-material/Work";
 import { useEffect, useState } from "react";
 import { AddressDialogFunc } from "./AddressDialogFunc";
+import { PersonPinCircle } from "@mui/icons-material";
 
 export const ManageAddresses = ({ profile }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -117,20 +118,15 @@ export const ManageAddresses = ({ profile }) => {
               />
 
               {/* Address Details */}
-              <Typography
-                variant="body1"
-                sx={{ fontWeight: "bold", mt: 1, color: "#333" }}
-              >
-                {profile?.username}
-              </Typography>
+            
               <Box sx={{ mt: 1 }}>
-                <Typography
+              <Typography
                   variant="body2"
                   color="text.secondary"
-                  sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
+                  sx={{ fontWeight: "bold", mt: 1, color: "#333",display: "flex", alignItems: "center", mb: 0.5 }}
                 >
-                  <LocationOnIcon sx={{ fontSize: "1rem", mr: 1 }} />
-                  {data.address}
+                  {data?.customerName?<PersonPinCircle sx={{ fontSize: "1rem", mr: 1 }} />:null}
+                  {data?.customerName}
                 </Typography>
                 <Typography
                   variant="body2"
@@ -138,7 +134,7 @@ export const ManageAddresses = ({ profile }) => {
                   sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
                 >
                   <LocationOnIcon sx={{ fontSize: "1rem", mr: 1 }} />
-                  {data.locality}, {data.city}
+                  {data?.address}
                 </Typography>
                 <Typography
                   variant="body2"
@@ -146,7 +142,15 @@ export const ManageAddresses = ({ profile }) => {
                   sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
                 >
                   <LocationOnIcon sx={{ fontSize: "1rem", mr: 1 }} />
-                  Pincode: {data.pincode}
+                  {data?.locality}, {data?.city}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ display: "flex", alignItems: "center", mb: 0.5 }}
+                >
+                  <LocationOnIcon sx={{ fontSize: "1rem", mr: 1 }} />
+                  Pincode: {data?.pincode}
                 </Typography>
               </Box>
 

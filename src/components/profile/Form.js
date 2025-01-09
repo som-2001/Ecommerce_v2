@@ -17,7 +17,7 @@ const schema = yup
       .string()
       .email("Invalid email format")
       .required("Email is required"),
-    phoneNumber: yup
+      mobileNumber: yup
       .string()
       .matches(/^\d{10}$/, "Phone number must be 10 digits")
       .required("Phone number is required"),
@@ -35,7 +35,7 @@ export const Form = ({data}) => {
     setValue("name",data?.fullName);
     setValue("email",data?.email);
     setValue("gender",data?.gender);
-    setValue("phoneNumber",data?.mobileNumber?.[0]);
+    setValue("mobileNumber",data?.mobileNumber);
   },[data,setValue,isEdit]);
   
   const onSubmit = async(data) => {
@@ -45,9 +45,9 @@ export const Form = ({data}) => {
       {
         withCredentials: true,
       }).then(res=>{
-        enqueueSnackbar("profile has been updated")
+        enqueueSnackbar("profile has been updated",{variant:"success"})
       }).catch(err=>{
-        enqueueSnackbar("Failed to update profile")
+        enqueueSnackbar("Failed to update profile",{variant:"error"})
 
       })
     console.log(data.gender);
@@ -180,7 +180,7 @@ export const Form = ({data}) => {
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <Controller
-              name="phoneNumber"
+              name="mobileNumber"
               control={control}
               render={({ field, fieldState }) => (
                 <TextField

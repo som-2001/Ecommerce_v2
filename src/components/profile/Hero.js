@@ -101,7 +101,7 @@ export const Hero = ({data}) => {
           >
             <CardMedia
               component="img"
-              image={profileImage}
+              image={data.profilePicture ?? profileImage}
               sx={{
                 width: "80px",
                 height: "80px",

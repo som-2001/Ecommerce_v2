@@ -24,7 +24,10 @@ import axios from "axios";
 const schema = yup
   .object()
   .shape({
-  
+    customerName:yup.string().required("Customer Name is required."),
+    contactNumber:yup
+    .string()
+    .matches(/^\d{10}$/, "Phone number must be 10 digits").required("Phone number must be a valid number"),
     pincode: yup
       .string()
       .matches(/^\d{6}$/, "Pincode must be 6 digits")
@@ -35,8 +38,7 @@ const schema = yup
     state: yup.string().required("State is required"),
     alternatePhoneumber: yup
       .string()
-      .matches(/^\d{10}$/, "Phone number must be 10 digits")
-      .optional(),
+      .matches(/^\d{10}$/, "Phone number must be 10 digits"),
     landmark: yup.string().optional(),
     addressType: yup
       .string()
@@ -75,6 +77,8 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
         gender: profileData.gender,
         mobileNumber: profileData.mobileNumber,
         address: {
+          customerName:data.customerName,
+          contactNumber: data.contactNumber,
           pincode: data.pincode,
           locality: data.locality,
           address: data.address,
@@ -104,7 +108,8 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
         console.log("Address added successfully:", response.data);
         enqueueSnackbar(response.data.message, { variant: "success" });
         
-        setProfileData([...profileData,{pincode:data.pincode,locality:data.locality,address:data.address,city:data.city,state:data.state,landmark:data.landmark,addressType:data.addressType}]);
+        setProfileData([...profileData,{customerName:data.customerName,
+          contactNumber: data.contactNumber,pincode:data.pincode,locality:data.locality,address:data.address,city:data.city,state:data.state,landmark:data.landmark,addressType:data.addressType}]);
 
         setOpen(false); // Close the dialog
         reset(); // Reset form fields
@@ -143,6 +148,41 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
           }}
         >
           <Grid container spacing={2}>
+
+          <Grid item xs={12} sm={12} md={6}>
+              <Controller
+                name="customerName"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    type="text"
+                    placeholder="Your Name"
+                    label="Customer Name"
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                    fullWidth
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <Controller
+                name="contactNumber"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    type="text"
+                    placeholder="Contact Number"
+                    label="Contact Number"
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                    fullWidth
+                  />
+                )}
+              />
+            </Grid>
            
             <Grid item xs={12} sm={12} md={6}>
               <Controller
