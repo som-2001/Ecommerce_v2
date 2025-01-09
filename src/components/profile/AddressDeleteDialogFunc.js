@@ -6,7 +6,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Box } from "@mui/material";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";

@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { NoCartProduct } from "../components/cart/NoCartProduct";
 
+
 export const Cart = () => {
   const [cart, setCart] = useState([]);
-  const [amount,setAmount]=useState('');
-  
 
   useEffect(() => {
     axios
@@ -17,7 +16,7 @@ export const Cart = () => {
       })
       .then((res) => {
         setCart(res.data.products);
-        setAmount(res.data.totalPrice);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -54,7 +53,7 @@ export const Cart = () => {
               height: "fit-content", // Prevents stretching of the grid
             }}
           >
-            <Amount amount={amount} length={cart}/>
+            <Amount length={cart}/>
           </Grid>
         </Grid>
       </Box>

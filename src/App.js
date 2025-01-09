@@ -4,8 +4,6 @@ import { PageLoader } from "./pages/PageLoader";
 import { ScrollReset } from "./components/ScrollReset.js";
 import { Cart } from "./pages/Cart.js";
 import { ProtectedRoute } from "./components/ProtectedRoute.js";
-import Topbar from "./components/Admin/Topbar.js";
-import Sidebar from "./components/Admin/Sidebar.js";
 import { AdminLayout } from "./components/Admin/AdminLayout.js";
 import { AdminProductDashboard } from "./pages/Admin/AdminProductDashboard.js";
 import { AdminAddProductForm } from "./pages/Admin/AdminAddProductForm.js";

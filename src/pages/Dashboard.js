@@ -15,7 +15,6 @@ import { RenderCard } from "../components/productCard/RenderCard.js";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import axios from "axios";
 
-
 export const bikes = [
   {
     id: 1,
@@ -62,7 +61,7 @@ export const bikes = [
 
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 2500000000]);
+  const [priceRange, setPriceRange] = useState([0, 2500000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedEngines, setSelectedEngines] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -80,8 +79,6 @@ const Dashboard = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    
   }, []);
 
   console.log(bikesList);
@@ -109,7 +106,8 @@ const Dashboard = () => {
       bike.offerPrice >= priceRange[0] &&
       bike.offerPrice <= priceRange[1] &&
       (selectedBrands.length === 0 || selectedBrands.includes(bike.brand)) &&
-      (selectedEngines.length === 0 || selectedEngines.includes(bike.engineCapacity))
+      (selectedEngines.length === 0 ||
+        selectedEngines.includes(bike.engineCapacity))
   );
   console.log(filteredBikes);
 
@@ -132,14 +130,13 @@ const Dashboard = () => {
     };
   }, []);
 
-  
   return (
     <Box>
       <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          gap: 3,
+          gap: 1,
           p: { xs: 0, sm: 3 },
           backgroundColor: "#121212",
           minHeight: "100vh",
@@ -148,24 +145,45 @@ const Dashboard = () => {
         {/* Sidebar Filter */}
         <Box
           sx={{
-            width: { xs: "100%", md: "23%", lg: "13%" },
+            width: { xs: "100%", md: "23%", lg: "15%" },
             position: isFooterVisible ? "absolute" : "sticky",
             top: isFooterVisible ? "auto" : "80px",
             bottom: isFooterVisible ? "auto" : "80px",
             display: { xs: "none", md: "flex" },
             flexDirection: "column",
-            p: 2,
-            borderRadius: "16px",
-            backgroundColor: "#1E1E1E",
+            p: 3,
+            borderRadius: "24px",
+            background: "linear-gradient(145deg, #1F1F2B, #272738)",
+            boxShadow:
+              "0 10px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
             color: "whitesmoke",
+            transition:
+              "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+            "&:hover": {
+              transform: "scale(1.03)",
+              boxShadow:
+                "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
+            },
           }}
         >
-          <Typography variant="h5" sx={{ mb: 3, fontWeight: "bold" }}>
+          <Typography
+            variant="h5"
+            sx={{
+              mb: 3,
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "rgba(100, 181, 246, 1)",
+              textShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+            }}
+          >
             Filter Bikes
           </Typography>
 
           {/* Price Filter */}
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: "bold", mb: 1, color: "#64b5f6" }}
+          >
             Price Range
           </Typography>
           <Slider
@@ -173,18 +191,29 @@ const Dashboard = () => {
             onChange={handlePriceChange}
             valueLabelDisplay="auto"
             min={100}
-            max={25000}
+            max={2500000}
             sx={{
-              "& .MuiSlider-thumb": { backgroundColor: "#64b5f6" },
-              "& .MuiSlider-track": { backgroundColor: "#64b5f6" },
+              "& .MuiSlider-thumb": {
+                backgroundColor: "#64b5f6",
+                boxShadow: "0 0 10px rgba(100, 181, 246, 0.8)",
+              },
+              "& .MuiSlider-track": {
+                backgroundColor: "rgba(100, 181, 246, 0.8)",
+              },
+              "& .MuiSlider-rail": {
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+              },
             }}
           />
-          <Typography variant="body2" sx={{ mb: 1 }}>
+          <Typography variant="body2" sx={{ mb: 3, color: "#BDBDBD" }}>
             $100 - $25000
           </Typography>
 
           {/* Brand Filter */}
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: "bold", mb: 2, color: "#64b5f6" }}
+          >
             Brand
           </Typography>
           {["Yamaha", "KTM", "Royal Enfield", "Bajaj", "TVS"].map((brand) => (
@@ -196,11 +225,25 @@ const Dashboard = () => {
                   onChange={() => toggleBrand(brand)}
                   sx={{
                     color: "#64b5f6",
-                    "&.Mui-checked": { color: "#64b5f6" },
+                    "&.Mui-checked": {
+                      color: "#64b5f6",
+                      boxShadow: "0 0 8px rgba(100, 181, 246, 0.8)",
+                    },
                   }}
                 />
               }
-              label={brand}
+              label={
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#E0E0E0",
+                    transition: "color 0.2s",
+                    "&:hover": { color: "#64b5f6" },
+                  }}
+                >
+                  {brand}
+                </Typography>
+              }
               sx={{ mb: 1 }}
             />
           ))}
@@ -208,7 +251,12 @@ const Dashboard = () => {
           {/* Engine Filter */}
           <Typography
             variant="subtitle1"
-            sx={{ fontWeight: "bold", mt: 3, mb: 1 }}
+            sx={{
+              fontWeight: "bold",
+              mt: 3,
+              mb: 2,
+              color: "#64b5f6",
+            }}
           >
             Engine Type
           </Typography>
@@ -221,11 +269,25 @@ const Dashboard = () => {
                   onChange={() => toggleEngine(engine)}
                   sx={{
                     color: "#64b5f6",
-                    "&.Mui-checked": { color: "#64b5f6" },
+                    "&.Mui-checked": {
+                      color: "#64b5f6",
+                      boxShadow: "0 0 8px rgba(100, 181, 246, 0.8)",
+                    },
                   }}
                 />
               }
-              label={engine}
+              label={
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#E0E0E0",
+                    transition: "color 0.2s",
+                    "&:hover": { color: "#64b5f6" },
+                  }}
+                >
+                  {engine}
+                </Typography>
+              }
               sx={{ mb: 1 }}
             />
           ))}
@@ -270,11 +332,26 @@ const Dashboard = () => {
               ))
             ) : (
               <Box
-                
-                sx={{ display:"flex",justifyContent:"center", alignItems:"center", width: "100%", color: "whitesmoke",height:"50vh",flexDirection: "column",mt:5 }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  color: "whitesmoke",
+                  height: "50vh",
+                  flexDirection: "column",
+                  mt: 5,
+                }}
               >
-                 <CardMedia component="img" image="../../images/product-empty.gif" alt="Empty Product" sx={{width:{xs:"300px"}}}/>
-                <Typography variant="body1" sx={{mt:2}}>No bikes match your filters.</Typography>
+                <CardMedia
+                  component="img"
+                  image="../../images/product-empty.gif"
+                  alt="Empty Product"
+                  sx={{ width: { xs: "300px" } }}
+                />
+                <Typography variant="body1" sx={{ mt: 2 }}>
+                  No bikes match your filters.
+                </Typography>
               </Box>
             )}
           </Grid>

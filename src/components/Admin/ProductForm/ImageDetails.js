@@ -22,7 +22,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { enqueueSnackbar,SnackbarProvider } from "notistack";
+import { enqueueSnackbar } from "notistack";
 // import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useNavigate } from 'react-router-dom';
 import { resetProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";

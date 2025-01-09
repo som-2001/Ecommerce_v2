@@ -36,7 +36,6 @@ function ImageDetails({ item }) {
     control,
     formState: { errors },
     setValue,
-    reset,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(validationSchema),

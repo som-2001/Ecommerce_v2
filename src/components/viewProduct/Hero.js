@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
+import { addAmount, addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
 
 const Hero = ({ product, coloredProduct }) => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Hero = ({ product, coloredProduct }) => {
     }
   }, [product, coloredProduct]);
 
-  const addToCart = () => {
+  const addToCart = (amount) => {
     axios
       .post(
         `${process.env.REACT_APP_BASEURL}/cart/product/cart`,
@@ -47,6 +47,8 @@ const Hero = ({ product, coloredProduct }) => {
         console.log(res.data);
         enqueueSnackbar(res.data.message, { variant: "success" });
         dispatch(addCart(id));
+        dispatch(addAmount(amount));
+        
       })
       .catch((err) => {
         enqueueSnackbar(err.response.data.message, { variant: "error" });
@@ -178,7 +180,7 @@ const Hero = ({ product, coloredProduct }) => {
                 </Box>
               </Box>
 
-              <Divider sx={{ marginBottom: "2rem" }} />
+              <Divider sx={{ marginBottom: "1rem" }} />
               <Box
                 sx={{
                   marginBottom: "1rem",
@@ -191,6 +193,8 @@ const Hero = ({ product, coloredProduct }) => {
                 <Typography variant="body1" >
                   Select Color:
                 </Typography>
+
+              
 
                 <Box sx={{ display: "flex", gap: "1rem" }}>
                   {coloredProduct.map((color, index) => (
@@ -226,6 +230,8 @@ const Hero = ({ product, coloredProduct }) => {
                 </Typography>
               )} */}
               </Box>
+            
+              <Divider sx={{ marginBottom: "1rem" }} />  
 
               <Box
                 sx={{
@@ -292,7 +298,7 @@ const Hero = ({ product, coloredProduct }) => {
                     },
                   }}
                   // onClick={() => navigate('/cart')}
-                  onClick={addToCart}
+                  onClick={(e)=>addToCart(product?.offerPrice)}
                 >
                   Add to Cart
                 </Button>

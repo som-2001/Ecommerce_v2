@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   AppBar,
   Box,
@@ -65,41 +65,10 @@ export const AuthNavbar = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* Logo */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "white",
-              textDecoration: "none",
-            }}
-          >
-            <img
-              src="../images/logo.png"
-              alt="Logo"
-              style={{
-                height: "50px",
-                width:"60px",
-                marginRight: "8px",
-                objectFit: "contain",
-                scale: "1.26",
-               
-              }}
-            />
-           
-          </Typography>
+         
           <Typography variant="h6" sx={{display:{xs:"none",sm:"inherit"}}} onClick={(e)=>navigate("/")}>BikeMart</Typography>
 
-          {/* Search Button */}
-
-          {/* Desktop View */}
+        
           <Box
             sx={{
               flexGrow: 1,

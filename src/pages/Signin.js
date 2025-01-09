@@ -24,7 +24,7 @@ import * as EmailValidator from "email-validator";
 import { motion } from "motion/react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
-import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import { enqueueSnackbar } from "notistack";
 import Cookies from 'js-cookie';
 // import { useEffect } from "react";
 

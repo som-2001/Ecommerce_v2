@@ -6,11 +6,8 @@ import {
   Avatar,
   Button,
   Badge,
-  TextField,
-  InputAdornment,
 } from "@mui/material";
 import { Notifications } from "@mui/icons-material";
-import SearchIcon from "@mui/icons-material/Search";
 import { LogoutDialog } from "../profile/LogoutDialog";
 
 const Topbar = () => {

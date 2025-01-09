@@ -6,8 +6,6 @@ import { WishList } from "../components/profile/WishList";
 import { Orders } from "../components/profile/Orders";
 import Footer from "./../components/Footer";
 import axios from "axios";
-import {useQuery} from '@tanstack/react-query';
-import {ScaleLoader} from 'react-spinners';
 import {jwtDecode} from "jwt-decode";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";

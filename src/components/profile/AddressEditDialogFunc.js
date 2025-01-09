@@ -15,8 +15,6 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import { enqueueSnackbar } from "notistack";
 import axios from "axios";
 import { useEffect } from "react";

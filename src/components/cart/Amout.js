@@ -7,11 +7,13 @@ import {
     Divider,
   } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
   
-  export const Amount = ({amount,length}) => {
+  export const Amount = ({length}) => {
 
     const navigate=useNavigate();
+    const {amount}=useSelector(state=>state.product);
     const [cartItems,setCartItems] =useState(0);
 
     useEffect(()=>{
@@ -117,7 +119,7 @@ import { useNavigate } from "react-router-dom";
             marginBottom: "8px",
           }}
         >
-          PRICE DETAILS (2 Items)
+          PRICE DETAILS ({length.length} Items)
         </Typography>
         <Box sx={{ marginBottom: "16px" }}>
           <Box

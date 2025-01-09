@@ -241,14 +241,14 @@ const BasicDetails = ({product}) => {
         {/* Description */}
         <Grid item xs={12}>
           <Controller
-          name='Description'
+          name='description'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
                 fullWidth
                 multiline
-                label="description"
+                label="Description"
                 focused
                 rows={3}
                 error={!!errors.description}

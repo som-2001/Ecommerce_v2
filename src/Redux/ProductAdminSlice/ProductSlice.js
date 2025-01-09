@@ -4,6 +4,7 @@ const initialState = {
   product: [],
   wishList:[], // Add wishlist array here for storing product ids
   cart: [], // Add cart array here for storing product ids
+  amount:0
 };
 
 const productSlice = createSlice({
@@ -42,6 +43,7 @@ const productSlice = createSlice({
       action.payload.forEach((payload) => {
         if (!state.cart.includes(payload?.product?._id)) {
           state.cart.push(payload?.product?._id);
+          state.amount=state.amount+payload?.product?.offerPrice;
         }
       });
      
@@ -50,6 +52,12 @@ const productSlice = createSlice({
       if (!state.cart.includes(action?.payload)) {
         state.cart.push(action?.payload);
       }
+    },
+    addAmount:(state,action)=>{
+      state.amount=state.amount+action.payload;
+    },
+    removeAmount:(state,action)=>{
+      state.amount=state.amount-action.payload;
     },
     removeCartProduct:(state,action)=>{
       state.cart=state.cart.filter(id=>id!==action?.payload);
@@ -60,6 +68,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { EditProduct, addProduct, resetProduct , initializewishList,addwishList,removeWishListProduct,initializeCart,addCart,removeCartProduct} = productSlice.actions;
+export const { EditProduct, addProduct, resetProduct , initializewishList,addwishList,removeWishListProduct,initializeCart,addCart,removeCartProduct,addAmount,removeAmount} = productSlice.actions;
 
 export default productSlice.reducer;

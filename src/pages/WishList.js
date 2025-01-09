@@ -3,6 +3,7 @@ import { Grid, Typography, Box } from "@mui/material";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { WishListCard } from "../components/Wishlist/WishListCard";
+import { NoWishList } from "../components/Wishlist/NoWishList";
 
 // Sample data (replace this with your actual Bike data)
 
@@ -58,21 +59,11 @@ function WishList() {
                   alignItems: "center",
                 }}
               >
-                <WishListCard bike={bike} setBike={setBike}/>
+                <WishListCard bike={bike} setBike={setBike} />
               </Grid>
             ))
           ) : (
-            <Typography
-              variant="h6"
-              sx={{
-                textAlign: "center",
-                width: "100%",
-                mt: 4,
-                color: "#555",
-              }}
-            >
-              No items in your wishlist!
-            </Typography>
+            <NoWishList/>
           )}
         </Grid>
       </Box>
