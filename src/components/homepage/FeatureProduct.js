@@ -16,21 +16,11 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import PersonIcon from "@mui/icons-material/Person";
 import Cookies from "js-cookie";
 
-const product = [
-  {
-    id: 1,
-    image: "../images/product_3.jpg",
-  },
-  {
-    id: 2,
-    image: "../images/product_4.jpg",
-  },
-];
-
-const FeatureProduct = () => {
+const FeatureProduct = ({ product }) => {
   const navigate = useNavigate();
   const token = Cookies.get("accessToken");
 
+  console.log(product);
   return (
     <Box
       sx={{
@@ -64,7 +54,7 @@ const FeatureProduct = () => {
           }}
         >
           {product &&
-            product.map((product, index) => (
+            product?.slice(0, 2)?.map((product, index) => (
               <Card
                 sx={{
                   backgroundColor: "#1c1c1c",
@@ -79,7 +69,7 @@ const FeatureProduct = () => {
                 <CardMedia
                   component="img"
                   height="200"
-                  image={product.image}
+                  image={product.image?.[0]}
                   alt=""
                 />
                 <Box
@@ -126,7 +116,7 @@ const FeatureProduct = () => {
                   >
                     10.4K
                   </Typography>
-                  <PersonIcon sx={{color:"black"}}/>
+                  <PersonIcon sx={{ color: "black" }} />
                 </Box>
 
                 {token && (
@@ -135,10 +125,10 @@ const FeatureProduct = () => {
                       position: "absolute",
                       top: 10,
                       right: 10,
-                      color: "whitesmoke",
+                      color: "black",
                       filter: "opacity(0.7)",
                       borderRadius: "50%",
-
+                      backgroundColor: "white",
                       padding: "5px",
                       cursor: "pointer",
                       transition: "transform 0.2s",
@@ -156,21 +146,21 @@ const FeatureProduct = () => {
                   }}
                 >
                   <Typography variant="h6" component="div">
-                    Bajaj Pulsar NS200
+                    {product?.productName}
                   </Typography>
                   <Typography variant="body2">
-                    4.0 D5 PowerPulse Momentum 5dr AW…{" "}
+                    {product?.description.slice(0, 70)}...
                   </Typography>
                   <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
                   <Box sx={{ display: "flex", gap: "20px" }}>
                     <Box>
-                      <Typography>50 Miles</Typography>
+                      <Typography>{product?.mileage} Miles</Typography>
                     </Box>
                     <Box>
-                      <Typography>Petrol</Typography>
+                      <Typography>{product?.fuelType}</Typography>
                     </Box>
                     <Box>
-                      <Typography>Automatic</Typography>
+                      <Typography>{product?.kerbWeight}</Typography>
                     </Box>
                   </Box>
                   <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
@@ -178,7 +168,7 @@ const FeatureProduct = () => {
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
-                      $150,000
+                      ${product?.offerPrice}
                     </Typography>
                     <Button
                       variant="contained"
@@ -197,6 +187,7 @@ const FeatureProduct = () => {
               </Card>
             ))}
         </Grid>
+
         <Grid
           item
           xs={12}
@@ -211,26 +202,31 @@ const FeatureProduct = () => {
             zIndex: 5,
           }}
         >
-          <Card
-            sx={{
-              backgroundColor: "#1c1c1c",
-              color: "white",
-              borderRadius: 2,
-              boxShadow: 3,
-              position:"relative",
-              width: { xs: "300px", sm: "390px", md: "600px" },
-            }}
-          >
-            <CardMedia
-              component="img"
-              height="400"
-              image="../images/product_3.jpg"
-              alt=""
-            />
-              <Box
+          {product &&
+            product?.slice(2, 3)?.map((product, index) => (
+              <Card
+                sx={{
+                  backgroundColor: "#1c1c1c",
+                  color: "white",
+                  borderRadius: 2,
+                  position: "relative",
+                  boxShadow: 3,
+                  width: { xs: "300px", sm: "500px" },
+
+                  my: 2,
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={product.image?.[0]}
+                  alt=""
+                  sx={{ height: { xs: "200px", sm: "300px" } }}
+                />
+                <Box
                   sx={{
                     position: "absolute",
-                    bottom: 205,
+                    top: { xs: 150, sm: 250 },
                     left: 10,
                     backgroundColor: "whitesmoke",
                     display: "flex",
@@ -271,7 +267,7 @@ const FeatureProduct = () => {
                   >
                     10.4K
                   </Typography>
-                  <PersonIcon sx={{color:"black"}}/>
+                  <PersonIcon sx={{ color: "black" }} />
                 </Box>
 
                 {token && (
@@ -280,10 +276,10 @@ const FeatureProduct = () => {
                       position: "absolute",
                       top: 10,
                       right: 10,
-                      color: "whitesmoke",
+                      color: "black",
                       filter: "opacity(0.7)",
                       borderRadius: "50%",
-
+                      backgroundColor: "white",
                       padding: "5px",
                       cursor: "pointer",
                       transition: "transform 0.2s",
@@ -293,52 +289,56 @@ const FeatureProduct = () => {
                     }}
                   />
                 )}
-            <CardContent
-              sx={{
-                backgroundColor: "white",
-                color: "black",
-                filter: "brightness(0.9)",
-              }}
-            >
-              <Typography variant="h6" component="div">
-                Bajaj Pulsar NS200
-              </Typography>
-              <Typography variant="body2">
-                4.0 D5 PowerPulse Momentum 5dr AW…{" "}
-              </Typography>
-              <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
-              <Box sx={{ display: "flex", gap: "20px" }}>
-                <Box>
-                  <Typography>50 Miles</Typography>
-                </Box>
-                <Box>
-                  <Typography>Petrol</Typography>
-                </Box>
-                <Box>
-                  <Typography>Automatic</Typography>
-                </Box>
-              </Box>
-              <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
-                  $150,000
-                </Typography>
-                <Button
-                  variant="contained"
+                <CardContent
                   sx={{
-                    backgroundColor: "black",
-                    borderRadius: 5,
-                    p: 1,
-                    width: "120px",
+                    backgroundColor: "white",
+                    color: "black",
+                    filter: "brightness(0.9)",
                   }}
-                  onClick={(e) => navigate("/explore-products")}
                 >
-                  Shop now
-                </Button>
-              </Box>
-            </CardContent>
-          </Card>
+                  <Typography variant="h6" component="div">
+                    {product?.productName}
+                  </Typography>
+                  <Typography variant="body2">
+                    {product?.description.slice(0, 70)}...
+                  </Typography>
+                  <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
+                  <Box sx={{ display: "flex", gap: "20px" }}>
+                    <Box>
+                      <Typography>{product?.mileage} Miles</Typography>
+                    </Box>
+                    <Box>
+                      <Typography>{product?.fuelType}</Typography>
+                    </Box>
+                    <Box>
+                      <Typography>{product?.kerbWeight}</Typography>
+                    </Box>
+                  </Box>
+                  <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
+                      ${product?.offerPrice}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "black",
+                        borderRadius: 5,
+                        p: 1,
+                        width: "120px",
+                      }}
+                      onClick={(e) => navigate("/explore-products")}
+                    >
+                      Shop now
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            ))}
         </Grid>
+
         <Grid
           item
           xs={12}
@@ -353,13 +353,13 @@ const FeatureProduct = () => {
           }}
         >
           {product &&
-            product.map((product, index) => (
+            product?.slice(3, 5)?.map((product, index) => (
               <Card
                 sx={{
                   backgroundColor: "#1c1c1c",
                   color: "white",
                   borderRadius: 2,
-                  position:"relative",
+                  position: "relative",
                   boxShadow: 3,
                   width: { xs: "300px", sm: "300px" },
                   my: 2,
@@ -368,10 +368,10 @@ const FeatureProduct = () => {
                 <CardMedia
                   component="img"
                   height="200"
-                  image={product.image}
+                  image={product.image?.[0]}
                   alt=""
                 />
-                  <Box
+                <Box
                   sx={{
                     position: "absolute",
                     top: 150,
@@ -415,7 +415,7 @@ const FeatureProduct = () => {
                   >
                     10.4K
                   </Typography>
-                  <PersonIcon sx={{color:"black"}}/>
+                  <PersonIcon sx={{ color: "black" }} />
                 </Box>
 
                 {token && (
@@ -424,10 +424,10 @@ const FeatureProduct = () => {
                       position: "absolute",
                       top: 10,
                       right: 10,
-                      color: "whitesmoke",
+                      color: "black",
                       filter: "opacity(0.7)",
                       borderRadius: "50%",
-
+                      backgroundColor: "white",
                       padding: "5px",
                       cursor: "pointer",
                       transition: "transform 0.2s",
@@ -445,21 +445,21 @@ const FeatureProduct = () => {
                   }}
                 >
                   <Typography variant="h6" component="div">
-                    Bajaj Pulsar NS200
+                    {product?.productName}
                   </Typography>
                   <Typography variant="body2">
-                    4.0 D5 PowerPulse Momentum 5dr AW…{" "}
+                    {product?.description.slice(0, 70)}...
                   </Typography>
                   <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
                   <Box sx={{ display: "flex", gap: "20px" }}>
                     <Box>
-                      <Typography>50 Miles</Typography>
+                      <Typography>{product?.mileage} Miles</Typography>
                     </Box>
                     <Box>
-                      <Typography>Petrol</Typography>
+                      <Typography>{product?.fuelType}</Typography>
                     </Box>
                     <Box>
-                      <Typography>Automatic</Typography>
+                      <Typography>{product?.kerbWeight}</Typography>
                     </Box>
                   </Box>
                   <Divider sx={{ backgroundColor: "#C6E4FF", my: 1 }} />
@@ -467,7 +467,7 @@ const FeatureProduct = () => {
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <Typography sx={{ fontWeight: 700, fontSize: "1.5rem" }}>
-                      $150,000
+                      ${product?.offerPrice}
                     </Typography>
                     <Button
                       variant="contained"

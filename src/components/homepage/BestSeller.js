@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import { RenderCard } from "../productCard/RenderCard";
-import { bikes } from "../../pages/Dashboard";
+
 
 
 const BestSeller = ({product}) => {

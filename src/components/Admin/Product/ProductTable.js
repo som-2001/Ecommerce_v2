@@ -64,6 +64,7 @@ const ProductTable = () => {
 
   const handleToggle = (productId, field) => {
     // Create the payload dynamically based on the field
+
     const payload = {
       isBestSeller: field === "isBestSeller" ? true : undefined,
       isFeatureProduct: field === "isFeatureProduct" ? true : undefined,
@@ -150,7 +151,7 @@ const ProductTable = () => {
               </TableCell>
               <TableCell align="center">
                 <Switch
-                  checked={bike?.isFeatureProducts}
+                  checked={bike?.isFeatureProduct}
                   onChange={() => handleToggle(bike._id, "isFeatureProduct")}
                 />
               </TableCell>
