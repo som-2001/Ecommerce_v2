@@ -8,7 +8,7 @@ import { EditProduct } from '../../../Redux/ProductAdminSlice/ProductSlice';
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
-  bikeName: Yup.string()
+  productName: Yup.string()
     .required('Bike Name is required')
     .min(2, 'Bike Name must be at least 2 characters long')
     .max(50, 'Bike Name cannot exceed 50 characters'),
@@ -64,10 +64,11 @@ const BasicDetails = ({product}) => {
 
   useEffect(() => {
     
+    console.log(product?.productName);
     
     if (product) {
       console.log(product.brand);
-      setValue('bikeName', product?.productName || '');
+      setValue('productName', product?.productName || '');
       setValue('brand', product?.brand || '');
       setValue('model', product?.model || '');
       setValue('modelNumber', product?.modelNumber || '');
@@ -75,7 +76,7 @@ const BasicDetails = ({product}) => {
       setValue('engineCapacity', product?.engineCapacity || '');
       setValue('yearOfLaunch', product?.yearOfLaunch || '');
       setValue('description', product?.description || '');
-      dispatch(EditProduct({bikeName: product.bikeName, brand: product.brand, model: product.model,modelNumber:product?.modelNumber, type: product.type, engineCapacity: product?.engineCapacity, yearOfLaunch: product?.yearOfLaunch, description: product?.description}));
+      dispatch(EditProduct({productName: product.productName, brand: product.brand, model: product.model,modelNumber:product?.modelNumber, type: product.type, engineCapacity: product?.engineCapacity, yearOfLaunch: product?.yearOfLaunch, description: product?.description}));
 
 
     }
@@ -96,15 +97,16 @@ const BasicDetails = ({product}) => {
         {/* Bike Name */}
         <Grid item xs={12} sm={6}>
           <Controller
-            name="bikeName"
+            name="productName"
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-              
+                focused
+                label="Product Name"
                 fullWidth
-                error={!!errors.bikeName}
-                helperText={errors.bikeName?.message}
+                error={!!errors.productName}
+                helperText={errors.productName?.message}
               />
             )}
           />
@@ -120,6 +122,8 @@ const BasicDetails = ({product}) => {
                 {...field}
                 value={field.value || ''}
                 fullWidth
+                focused
+                label="Brand"
                 select
                 error={!!errors.brand}
                 helperText={errors.brand?.message}
@@ -140,7 +144,8 @@ const BasicDetails = ({product}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-               
+                focused
+                label="Model"
                 fullWidth
                 error={!!errors.model}
                 helperText={errors.model?.message}
@@ -158,6 +163,7 @@ const BasicDetails = ({product}) => {
                 {...field}
                 label="Model Number"
                 focused
+                
                 fullWidth
                 error={!!errors.modelNumber}
                 helperText={errors.modelNumber?.message}
@@ -167,7 +173,7 @@ const BasicDetails = ({product}) => {
         </Grid>
 
         {/* Type */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Controller
             name="type"
             control={control}
@@ -176,7 +182,9 @@ const BasicDetails = ({product}) => {
                 {...field}
                 value={field.value || ''}
                 fullWidth
+                label="Type"
                 select
+                focused
                 error={!!errors.type}
                 helperText={errors.type?.message}
               >
@@ -190,7 +198,7 @@ const BasicDetails = ({product}) => {
         </Grid>
 
         {/* Engine Capacity */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Controller
             name="engineCapacity"
            
@@ -198,7 +206,7 @@ const BasicDetails = ({product}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-               
+               label="Engine Capacity"
                 fullWidth
                 focused
                 type="number"
@@ -210,7 +218,7 @@ const BasicDetails = ({product}) => {
         </Grid>
 
         {/* Year of Launch */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Controller 
           name='yearOfLaunch'
           
@@ -218,8 +226,9 @@ const BasicDetails = ({product}) => {
             render={({ field }) => (
               <TextField
                 {...field}
-               
+                focused
                 fullWidth
+                label="Year of Launch"
                 type="number"
                 error={!!errors.yearOfLaunch}
                 helperText={errors.yearOfLaunch?.message}
@@ -232,13 +241,15 @@ const BasicDetails = ({product}) => {
         {/* Description */}
         <Grid item xs={12}>
           <Controller
-          name='description'
+          name='Description'
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
                 fullWidth
                 multiline
+                label="description"
+                focused
                 rows={3}
                 error={!!errors.description}
                 helperText={errors.description?.message}

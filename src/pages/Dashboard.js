@@ -8,6 +8,7 @@ import {
   Slider,
   Button,
   Drawer,
+  CardMedia,
 } from "@mui/material";
 import Footer from "../components/Footer.js";
 import { RenderCard } from "../components/productCard/RenderCard.js";
@@ -61,7 +62,7 @@ export const bikes = [
 
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
-  const [priceRange, setPriceRange] = useState([10, 2500000]);
+  const [priceRange, setPriceRange] = useState([100, 25000]);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedEngines, setSelectedEngines] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -105,10 +106,10 @@ const Dashboard = () => {
 
   const filteredBikes = bikesList.filter(
     (bike) =>
-      bike.originalPrice >= priceRange[0] &&
-      bike.originalPrice <= priceRange[1] &&
+      bike.offerPrice >= priceRange[0] &&
+      bike.offerPrice <= priceRange[1] &&
       (selectedBrands.length === 0 || selectedBrands.includes(bike.brand)) &&
-      (selectedEngines.length === 0 || selectedEngines.includes(bike.engineType))
+      (selectedEngines.length === 0 || selectedEngines.includes(bike.engineCapacity))
   );
   console.log(filteredBikes);
 
@@ -171,15 +172,15 @@ const Dashboard = () => {
             value={priceRange}
             onChange={handlePriceChange}
             valueLabelDisplay="auto"
-            min={100000}
-            max={250000}
+            min={100}
+            max={25000}
             sx={{
               "& .MuiSlider-thumb": { backgroundColor: "#64b5f6" },
               "& .MuiSlider-track": { backgroundColor: "#64b5f6" },
             }}
           />
           <Typography variant="body2" sx={{ mb: 1 }}>
-            $100000 - $250000
+            $100 - $25000
           </Typography>
 
           {/* Brand Filter */}
@@ -268,12 +269,13 @@ const Dashboard = () => {
                 </Grid>
               ))
             ) : (
-              <Typography
-                variant="body1"
-                sx={{ textAlign: "center", width: "100%", color: "whitesmoke" }}
+              <Box
+                
+                sx={{ display:"flex",justifyContent:"center", alignItems:"center", width: "100%", color: "whitesmoke",height:"50vh",flexDirection: "column",mt:5 }}
               >
-                No bikes match your filters.
-              </Typography>
+                 <CardMedia component="img" image="../../images/product-empty.gif" alt="Empty Product" sx={{width:{xs:"300px"}}}/>
+                <Typography variant="body1" sx={{mt:2}}>No bikes match your filters.</Typography>
+              </Box>
             )}
           </Grid>
         </Box>

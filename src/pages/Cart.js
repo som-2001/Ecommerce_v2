@@ -3,6 +3,7 @@ import { CartProduct } from "../components/cart/CartProducts";
 import { Amount } from "../components/cart/Amout";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { NoCartProduct } from "../components/cart/NoCartProduct";
 
 export const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -36,7 +37,7 @@ export const Cart = () => {
         <Grid container spacing={2}>
           {/* Cart Product Grid */}
           <Grid item xs={12} md={7} lg={9}>
-            {cart?.map((data, index) => (
+            {cart.length===0?<NoCartProduct/>:cart?.map((data, index) => (
               <CartProduct setCart={setCart} cart={data} key={index} />
             ))}
           </Grid>

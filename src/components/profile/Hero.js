@@ -11,7 +11,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Cookies from 'js-cookie';
 import axios from "axios";
 import {jwtDecode} from "jwt-decode";
-import { enqueueSnackbar, SnackbarProvider } from "notistack";
+import { enqueueSnackbar } from "notistack";
 import { LogoutDialog } from "./LogoutDialog";
 
 export const Hero = ({data}) => {

@@ -8,7 +8,7 @@ import { RenderCard } from "../productCard/RenderCard";
 import { bikes } from "../../pages/Dashboard";
 
 
-const BestSeller = () => {
+const BestSeller = ({product}) => {
   return (
   
     <Box
@@ -27,7 +27,7 @@ const BestSeller = () => {
       </Typography>
       <Grid container spacing={1}>
 
-        {bikes.slice(0,4).map((product) => (
+        {product?.slice(0,4).map((product) => (
           <Grid item xs={6} sm={6} md={3} key={product.id} sx={{display:"flex",justifyContent:"center"}}>
 
           <RenderCard bike={product}/>  

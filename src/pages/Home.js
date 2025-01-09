@@ -15,9 +15,30 @@ import { Review } from "../components/homepage/Review";
 import Cookies from 'js-cookie';
 import { AuthNavbar } from "../components/AuthNavbar";
 import { HomeNavbar } from "../components/HomeNavbar";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Home() {
    const token=Cookies.get("accessToken");
+   const [newArrival, setNewArrival] = useState([]);
+   const [bestSeller, setBestSeller] = useState([]);
+   const [featureProduct, setFeatureProduct] = useState([]);
+ 
+   useEffect(() => {
+     axios
+       .get(`${process.env.REACT_APP_BASEURL}/home/gets`)
+       .then((res) => {
+         // Categorize data properly
+         setNewArrival(res?.data?.newArrivals);
+         setBestSeller(res?.data?.bestSellers);
+         setFeatureProduct(res?.data?.featureProducts);
+       })
+       .catch((error) => {
+         console.error('Error fetching data:', error);
+       });
+   }, []);
+ 
+   console.log(newArrival,bestSeller,featureProduct);
 
   return (
     <Box  
@@ -33,9 +54,9 @@ function Home() {
       <Hero/>
       <About/>
       <ExploreNow/>
-      <Product/>
-      <BestSeller/>
-      <FeatureProduct/>
+      <Product product={newArrival}/>
+      <BestSeller product={bestSeller}/>
+      <FeatureProduct product={featureProduct}/>
       <Partners/>
       <Gallary/>
       <Benefits/>

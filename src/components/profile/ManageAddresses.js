@@ -8,10 +8,17 @@ import WorkIcon from "@mui/icons-material/Work";
 import { useEffect, useState } from "react";
 import { AddressDialogFunc } from "./AddressDialogFunc";
 import { PersonPinCircle } from "@mui/icons-material";
+import { AddressEditDialogFunc } from "./AddressEditDialogFunc";
+import { AddressDeleteDialogFunc } from "./AddressDeleteDialogFunc";
 
 export const ManageAddresses = ({ profile }) => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [address, setAddress] = useState([]);
+  const [profileId, setProfileId] = useState();
+  const [addressId, setAddressId] = useState();
+  const [addressData, setAddressData] = useState([]);
 
   useEffect(() => {
     if (profile?.address) {
@@ -20,13 +27,25 @@ export const ManageAddresses = ({ profile }) => {
     }
   }, [profile]);
 
+  const EditAddress = (index, profileId, addressId) => {
+    setOpenEditDialog(true);
+    setProfileId(profileId);
+    setAddressId(addressId);
+    setAddressData(address[index]);
+  };
+
+  const DeleteAddress=(profileId,addressId)=>{
+    setOpenDeleteDialog(true);
+    setProfileId(profileId);
+    setAddressId(addressId);
+  }
   return (
     <Box sx={{ width: "77vw", margin: "0 auto", mt: 4 }}>
       {/* Header Section */}
       <Typography
         variant="h6"
         color="text.secondary"
-        sx={{ my: 2,fontSize: "1.1rem" }}
+        sx={{ my: 2, fontSize: "1.1rem" }}
         gutterBottom
       >
         My Addresses ({profile?.address?.length})
@@ -106,7 +125,7 @@ export const ManageAddresses = ({ profile }) => {
                   display: "flex",
                   alignItems: "center",
                   pl: 1,
-                  width:"fit-content"
+                  width: "fit-content",
                 }}
                 icon={
                   data?.addressType === "Home" ? (
@@ -118,14 +137,23 @@ export const ManageAddresses = ({ profile }) => {
               />
 
               {/* Address Details */}
-            
+
               <Box sx={{ mt: 1 }}>
-              <Typography
+                <Typography
                   variant="body2"
                   color="text.secondary"
-                  sx={{ fontWeight: "bold", mt: 1, color: "#333",display: "flex", alignItems: "center", mb: 0.5 }}
+                  sx={{
+                    fontWeight: "bold",
+                    mt: 1,
+                    color: "#333",
+                    display: "flex",
+                    alignItems: "center",
+                    mb: 0.5,
+                  }}
                 >
-                  {data?.customerName?<PersonPinCircle sx={{ fontSize: "1rem", mr: 1 }} />:null}
+                  {data?.customerName ? (
+                    <PersonPinCircle sx={{ fontSize: "1rem", mr: 1 }} />
+                  ) : null}
                   {data?.customerName}
                 </Typography>
                 <Typography
@@ -169,14 +197,18 @@ export const ManageAddresses = ({ profile }) => {
                   sx={{ color: "#1976d2" }}
                   onClick={() => console.log("Edit Address")}
                 >
-                  <EditIcon />
+                  <EditIcon
+                    onClick={(e) => EditAddress(index, profile?._id, data?._id)}
+                  />
                 </IconButton>
                 <IconButton
                   size="small"
                   sx={{ color: "#f44336" }}
                   onClick={() => console.log("Delete Address")}
                 >
-                  <DeleteIcon />
+                  <DeleteIcon
+                    onClick={(e) => DeleteAddress(profile?._id, data?._id)}
+                  />
                 </IconButton>
               </Box>
             </Box>
@@ -191,6 +223,31 @@ export const ManageAddresses = ({ profile }) => {
           setOpen={setOpenDialog}
           profileData={address}
           setProfileData={setAddress}
+        />
+      )}
+
+      {/* Edit Address Dialog */}
+      {openEditDialog && (
+        <AddressEditDialogFunc
+          open={openEditDialog}
+          setOpen={setOpenEditDialog}
+          profileId={profileId}
+          addressId={addressId}
+          profileData={addressData}
+          AddressData={address}
+          setAddressData={setAddress}
+        />
+      )}
+
+      {/* Delete Address Dialog*/}
+      {openDeleteDialog && (
+        <AddressDeleteDialogFunc
+          open={openDeleteDialog}
+          setOpen={setOpenDeleteDialog}
+          profileId={profileId}
+          addressId={addressId}
+          setAddressData={setAddress}
+
         />
       )}
     </Box>

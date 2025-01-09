@@ -137,7 +137,7 @@ const BasicDetails = ({onValidation}) => {
         </Grid>
 
         {/* Type */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Controller
             name="type"
             control={control}
@@ -160,7 +160,7 @@ const BasicDetails = ({onValidation}) => {
         </Grid>
 
         {/* Engine Capacity */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Controller
             name="engineCapacity"
             control={control}
@@ -178,7 +178,7 @@ const BasicDetails = ({onValidation}) => {
         </Grid>
 
         {/* Year of Launch */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Controller
             name="yearOfLaunch"
             control={control}
@@ -190,11 +190,7 @@ const BasicDetails = ({onValidation}) => {
                 type="number"
                 error={!!errors.yearOfLaunch}
                 helperText={errors.yearOfLaunch?.message}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">₹</InputAdornment>
-                  ),
-                }}
+               
               />
             )}
           />

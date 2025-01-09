@@ -71,7 +71,7 @@ const Features = ({onValidation}) => {
                   displayEmpty
                   fullWidth
                 >
-                  <MenuItem value="">Select ABS Type</MenuItem>
+                 
                   <MenuItem value="None">None</MenuItem>
                   <MenuItem value="Single-channel">Single-channel</MenuItem>
                   <MenuItem value="Dual-channel">Dual-channel</MenuItem>

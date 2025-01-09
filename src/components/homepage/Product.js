@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Typography, Divider, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export const Product = () => {
+export const Product = ({product}) => {
   const navigate = useNavigate();
 
   return (
@@ -39,7 +39,7 @@ export const Product = () => {
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <img
-            src="../images/home_img_4.jpg" // Replace with your image URL
+            src={product?.[0]?.image?.[0]} // Replace with your image URL
             alt="Product"
             style={{ width: "100%", borderRadius: "8px", maxWidth: "500px" }}
           />
@@ -54,16 +54,14 @@ export const Product = () => {
           color: '#73b2eb'
           }}
           >
-            Kert Domane R (Speed Type)
+           {product?.[0]?.productName}
           </Typography>
           <Typography
             variant="body2"
             gutterBottom
             sx={{ fontSize: { xs: "1rem", sm: "1.0rem", md: "0.9rem" } }}
           >
-            This is a detailed description of the product. Highlight the key
-            features, benefits, or specifications of the product to attract
-            potential buyers.
+            {product?.[0]?.description}
           </Typography>
           <Divider sx={{ backgroundColor: "whitesmoke", my: 2, width: "90%" }} />
 
@@ -79,7 +77,7 @@ export const Product = () => {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="subtitle1">Weight</Typography>
+                <Typography variant="subtitle1">Kerb Weight</Typography>
               </Grid>
               <Grid
                 item
@@ -90,7 +88,7 @@ export const Product = () => {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="subtitle1">Wheel</Typography>
+                <Typography variant="subtitle1">maxPower</Typography>
               </Grid>
               <Grid
                 item
@@ -101,7 +99,7 @@ export const Product = () => {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="subtitle1">Size</Typography>
+                <Typography variant="subtitle1">Fuel Tank Capacity</Typography>
               </Grid>
             </Grid>
 
@@ -116,7 +114,7 @@ export const Product = () => {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="body1">9.5 kg</Typography>
+                <Typography variant="body1">{product?.[0]?.kerbWeight} kg</Typography>
               </Grid>
               <Grid
                 item
@@ -127,7 +125,7 @@ export const Product = () => {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="body1">700 C</Typography>
+                <Typography variant="body1">{product?.[0]?.maxPower} C</Typography>
               </Grid>
               <Grid
                 item
@@ -138,7 +136,7 @@ export const Product = () => {
                   alignItems: "center",
                 }}
               >
-                <Typography variant="body1">48 – 52</Typography>
+                <Typography variant="body1">{product?.[0]?.fuelTankCapacity}</Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -152,7 +150,7 @@ export const Product = () => {
               gutterBottom
               sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.2rem" } }}
             >
-              $199.99
+              ${product?.[0]?.offerPrice}
             </Typography>
             <Button
               variant="contained"

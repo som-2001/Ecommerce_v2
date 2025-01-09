@@ -93,6 +93,7 @@ export const WishListCard = ({ bike,setBike }) => {
         sx={{
           position: "absolute",
           top: 10,
+          backgroundColor:"white",
           right: 10,
           color: "black",
           filter: "opacity(0.7)",

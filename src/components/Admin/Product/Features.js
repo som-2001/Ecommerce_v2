@@ -51,21 +51,36 @@ const Features = ({ product }) => {
       setValue("fuelTankCapacity", product?.fuelTankCapacity || "");
       setValue("topSpeed", product?.topSpeed || "");
       setValue("instrumentConsole", product?.instrumentConsole || "");
-      setValue("bluetoothConnectivity", product?.bluetoothConnectivity || "");
-      setValue("mobileChargingPort", product?.mobileChargingPort || "");
-      setValue("alloyWheels", product?.alloyWheels || "");
-      setValue("ledLights", product?.ledLights || "");
-      
-      dispatch(EditProduct({absType: product?.absType,fuelTankCapacity: product?.fuelTankCapacity,topSpeed: product?.topSpeed,instrumentConsole: product?.instrumentConsole,bluetoothConnectivity:product?.bluetoothConnectivity,mobileChargingPort: product?.mobileChargingPort,alloyWheels: product?.alloyWheels,ledLights: product?.ledLights}))
+      setValue(
+        "bluetoothConnectivity",
+        product?.bluetoothConnectivity ? "Available" : "Not Available"
+      );
+      setValue(
+        "mobileChargingPort",
+        product?.mobileChargingPort ? "Available" : "Not Available"
+      );
+      setValue(
+        "alloyWheels",
+        product?.alloyWheels ? "Available" : "Not Available"
+      );
+      setValue("ledLights", product?.ledLights ? "Available" : "Not Available");
     }
-  }, [product, setValue,dispatch]);
-
-  
+  }, [product, setValue]);
 
   const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
-    dispatch(EditProduct(data));
-   
+    // Convert string values to boolean before dispatching
+    const formattedData = {
+      absType: data.absType,
+      fuelTankCapacity: data.fuelTankCapacity,
+      topSpeed: data.topSpeed,
+      instrumentConsole: data.instrumentConsole,
+      bluetoothConnectivity: data.bluetoothConnectivity === "Available",
+      mobileChargingPort: data.mobileChargingPort === "Available",
+      alloyWheels: data.alloyWheels === "Available",
+      ledLights: data.ledLights === "Available",
+    };
+    console.log("Form Submitted:", formattedData);
+    dispatch(EditProduct(formattedData));
   };
 
   return (
@@ -79,13 +94,7 @@ const Features = ({ product }) => {
             render={({ field }) => (
               <FormControl fullWidth>
                 <InputLabel>ABS Type</InputLabel>
-                <Select
-                  {...field}
-                  value={field.value || ''}
-                  error={!!errors.absType}
-                  displayEmpty
-                  fullWidth
-                >
+                <Select {...field} value={field.value || ""} error={!!errors.absType}>
                   <MenuItem value="None">None</MenuItem>
                   <MenuItem value="Single-channel">Single-channel</MenuItem>
                   <MenuItem value="Dual-channel">Dual-channel</MenuItem>
@@ -119,12 +128,12 @@ const Features = ({ product }) => {
         <Grid item xs={12} sm={6} md={4}>
           <Controller
             name="topSpeed"
+            focused
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
                 label="Top Speed"
-                focused
                 fullWidth
                 error={!!errors.topSpeed}
                 helperText={errors.topSpeed?.message}
@@ -139,11 +148,11 @@ const Features = ({ product }) => {
           <Controller
             name="instrumentConsole"
             control={control}
+            focused
             render={({ field }) => (
               <TextField
                 {...field}
                 label="Instrument Console"
-                focused
                 fullWidth
                 error={!!errors.instrumentConsole}
                 helperText={errors.instrumentConsole?.message}
@@ -160,19 +169,11 @@ const Features = ({ product }) => {
             render={({ field }) => (
               <FormControl fullWidth>
                 <InputLabel>Bluetooth Connectivity</InputLabel>
-                <Select
-                  {...field}
-                  value={field.value===true?"Available":"Not-Available" || ''}
-                  error={!!errors.bluetoothConnectivity}
-                  displayEmpty
-                  fullWidth
-                >
+                <Select {...field} value={field.value || ""} error={!!errors.bluetoothConnectivity}>
                   <MenuItem value="Available">Available</MenuItem>
-                  <MenuItem value="Not-Available">Not Available</MenuItem>
+                  <MenuItem value="Not Available">Not Available</MenuItem>
                 </Select>
-                <Typography color="error">
-                  {errors.bluetoothConnectivity?.message}
-                </Typography>
+                <Typography color="error">{errors.bluetoothConnectivity?.message}</Typography>
               </FormControl>
             )}
           />
@@ -186,20 +187,11 @@ const Features = ({ product }) => {
             render={({ field }) => (
               <FormControl fullWidth>
                 <InputLabel>Mobile Charging Port</InputLabel>
-                <Select
-                  {...field}
-                  value={field.value===true?"Available":"Not-Available" || ''}
-                  error={!!errors.mobileChargingPort}
-                  displayEmpty
-                  focused
-                  fullWidth
-                >
+                <Select {...field} value={field.value || ""} error={!!errors.mobileChargingPort}>
                   <MenuItem value="Available">Available</MenuItem>
-                  <MenuItem value="Not-Available">Not Available</MenuItem>
+                  <MenuItem value="Not Available">Not Available</MenuItem>
                 </Select>
-                <Typography color="error">
-                  {errors.mobileChargingPort?.message}
-                </Typography>
+                <Typography color="error">{errors.mobileChargingPort?.message}</Typography>
               </FormControl>
             )}
           />
@@ -213,19 +205,11 @@ const Features = ({ product }) => {
             render={({ field }) => (
               <FormControl fullWidth>
                 <InputLabel>Alloy Wheels</InputLabel>
-                <Select
-                  {...field}
-                  error={!!errors.alloyWheels}
-                  value={field.value===true?"Available":"Not-Available" || ''}
-                  displayEmpty
-                  fullWidth
-                >
+                <Select {...field} value={field.value || ""} error={!!errors.alloyWheels}>
                   <MenuItem value="Available">Available</MenuItem>
-                  <MenuItem value="Not-Available">Not Available</MenuItem>
+                  <MenuItem value="Not Available">Not Available</MenuItem>
                 </Select>
-                <Typography color="error">
-                  {errors.alloyWheels?.message}
-                </Typography>
+                <Typography color="error">{errors.alloyWheels?.message}</Typography>
               </FormControl>
             )}
           />
@@ -239,19 +223,11 @@ const Features = ({ product }) => {
             render={({ field }) => (
               <FormControl fullWidth>
                 <InputLabel>LED Lights</InputLabel>
-                <Select
-                  {...field}
-                  value={field.value===true?"Available":"Not-Available" || ''}
-                  error={!!errors.ledLights}
-                  displayEmpty
-                  fullWidth
-                >
+                <Select {...field} value={field.value || ""} error={!!errors.ledLights}>
                   <MenuItem value="Available">Available</MenuItem>
-                  <MenuItem value="Not-Available">Not Available</MenuItem>
+                  <MenuItem value="Not Available">Not Available</MenuItem>
                 </Select>
-                <Typography color="error">
-                  {errors.ledLights?.message}
-                </Typography>
+                <Typography color="error">{errors.ledLights?.message}</Typography>
               </FormControl>
             )}
           />
@@ -260,13 +236,7 @@ const Features = ({ product }) => {
 
       {/* Submit Button */}
       <Grid item xs={12}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Button
             type="submit"
             variant="contained"
@@ -278,7 +248,6 @@ const Features = ({ product }) => {
               color: "white",
               mt: 1,
             }}
-            fullWidth
           >
             Save & Continue
           </Button>

@@ -20,11 +20,12 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { enqueueSnackbar,SnackbarProvider } from "notistack";
 // import { enqueueSnackbar, SnackbarProvider } from "notistack";
 import { useNavigate } from 'react-router-dom';
+import { resetProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 
 // Define the validation schema using Yup
 const validationSchema = Yup.object().shape({
@@ -62,6 +63,7 @@ function ImageDetails() {
   const [colorDisabled, setColorDisabled] = useState(false);
   const { product } = useSelector((state) => state.product);
   const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
@@ -164,6 +166,7 @@ function ImageDetails() {
         enqueueSnackbar(response.data.message, { variant: "success" })
         console.log("Product created successfully:", response.data);
         setFiles([]);
+        dispatch(resetProduct());
         setColors(false);
         setTimeout(()=>{
           navigate("/admin/products")

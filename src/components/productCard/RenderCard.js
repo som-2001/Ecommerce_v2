@@ -94,6 +94,7 @@ export const RenderCard = ({ bike }) => {
           top: 10,
           right: 10,
           color: wishList?.includes(bike?._id)?"red":"black",
+          backgroundColor:"white",
           filter: "opacity(0.7)",
           borderRadius: "50%",
           zIndex:45,
@@ -160,9 +161,9 @@ export const RenderCard = ({ bike }) => {
         <Divider sx={{ backgroundColor: "#C6E4FF", my: 1,display:{xs:"none",sm:"block"} }} />
         <Box sx={{ display: "flex",alignItems:"center",gap:"3px",marginTop:"3px" }}>
           <Typography sx={{ fontWeight: 700, fontSize: {xs:"11px",sm:"1.1rem"}}}>
-            ${bike?.originalPrice}
+            ${bike?.offerPrice}
           </Typography> 
-          <Typography color="text.secondary" sx={{textDecoration:"line-through",fontSize:"11px"}}>${bike?.offerPrice}</Typography>
+          <Typography color="text.secondary" sx={{textDecoration:"line-through",fontSize:"11px"}}>${bike?.originalPrice}</Typography>
           <Typography color="text.secondary" variant="body2" sx={{fontSize:"11px"}}>({bike?.discount}% off)</Typography>
        
         </Box>

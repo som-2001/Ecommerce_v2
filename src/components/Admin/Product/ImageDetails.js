@@ -16,7 +16,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { resetProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 
 // Define the validation schema using Yup
 const validationSchema = Yup.object().shape({
@@ -26,7 +27,6 @@ const validationSchema = Yup.object().shape({
     .positive("Stock must be greater than 0")
     .required("Stock is required"),
   files: Yup.array()
-    .min(1, "Please upload at least one image")
     .max(4, "At most 4 images will be supported")
     .required("Images are required"),
 });
@@ -36,6 +36,7 @@ function ImageDetails({ item }) {
     control,
     formState: { errors },
     setValue,
+    reset,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(validationSchema),
@@ -46,12 +47,16 @@ function ImageDetails({ item }) {
     },
   });
 
+  const navigate=useNavigate();
+
   const [files, setFiles] = useState([]);
   const [existingFiles, setExistingFiles] = useState([]);
   const [selectedColor, setSelectedColor] = useState("");
   const [stock, setStock] = useState("");
   const { id } = useParams();
   const { product } = useSelector((state) => state.product);
+  const dispatch=useDispatch();
+
 
   useEffect(() => {
     if (item) {
@@ -60,36 +65,38 @@ function ImageDetails({ item }) {
       setExistingFiles(item.image || []);
       setValue("selectedColor", item.selectedColor);
       setValue("stock", item.stock);
-      setValue("files", item.image || []);
+      // setValue("files", item.image || []);
     }
   }, [item, setValue]);
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
-    const combinedFiles = [...files, ...selectedFiles];
+    // const combinedFiles = [...files, ...selectedFiles];
 
-    if (combinedFiles.length + existingFiles.length > 4) {
-      enqueueSnackbar("At most 4 images are supported.", { variant: "warning" });
-      return;
-    }
+    // if (combinedFiles.length + existingFiles.length > 4) {
+    //   enqueueSnackbar("At most 4 images are supported.", { variant: "warning" });
+    //   return;
+    // }
 
-    setFiles(combinedFiles);
-    setValue("files", [...combinedFiles, ...existingFiles]);
+    // setFiles(combinedFiles);
+    setFiles(selectedFiles.slice(0,4));
+    // setValue("files", [...combinedFiles, ...existingFiles]);
+    setValue("files", selectedFiles.slice(0,4));
   };
 
   const handleDeleteFile = (index) => {
     const updatedFiles = [...files];
     updatedFiles.splice(index, 1);
     setFiles(updatedFiles);
-    setValue("files", [...updatedFiles, ...existingFiles]);
+    setValue("files", updatedFiles);
   };
 
-  const handleDeleteExistingFile = (index) => {
-    const updatedExistingFiles = [...existingFiles];
-    updatedExistingFiles.splice(index, 1);
-    setExistingFiles(updatedExistingFiles);
-    setValue("files", [...files, ...updatedExistingFiles]);
-  };
+  // const handleDeleteExistingFile = (index) => {
+  //   const updatedExistingFiles = [...existingFiles];
+  //   updatedExistingFiles.splice(index, 1);
+  //   setExistingFiles(updatedExistingFiles);
+  //   setValue("files", [...files, ...updatedExistingFiles]);
+  // };
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -118,7 +125,16 @@ function ImageDetails({ item }) {
         withCredentials: true,
       })
       .then((response) => {
+        
         enqueueSnackbar("Product updated successfully!", { variant: "success" });
+        dispatch(resetProduct());
+        
+        setFiles([]);
+        setTimeout(()=>{
+          navigate("/admin/products")
+        },1200)
+
+        // reset();
       })
       .catch((error) => {
         enqueueSnackbar("Product update failed. Try again.", { variant: "error" });
@@ -141,6 +157,7 @@ function ImageDetails({ item }) {
                 <Select
                   {...field}
                   fullWidth
+                  
                   displayEmpty
                   error={!!errors.selectedColor}
                   onChange={(e) => {
@@ -172,6 +189,8 @@ function ImageDetails({ item }) {
                   {...field}
                   type="number"
                   fullWidth
+                  label="Stock"
+                  focused
                   error={!!errors.stock}
                   placeholder="Enter stock quantity"
                   onChange={(e) => {
@@ -188,7 +207,7 @@ function ImageDetails({ item }) {
 
           {/* File Upload */}
           <Grid item xs={12} sm={6} md={3}>
-            <Button variant="outlined" component="label">
+            <Button variant="outlined" component="label" sx={{border:"1px solid black", color:"black",p:2,borderRadius:3,width:"fit-content"}}>
               Upload Images
               <input
                 type="file"
@@ -207,15 +226,15 @@ function ImageDetails({ item }) {
 
           {/* Selected Images */}
           <Grid item xs={12}>
-            <Typography variant="body2">Selected Images:</Typography>
+            {files.length>0 && <Typography variant="body2">Selected Images:</Typography>}
             <Grid container spacing={2}>
               {files.map((file, index) => (
                 <Grid item xs={3} key={index}>
-                  <Box sx={{ position: "relative" }}>
+                  <Box sx={{ position: "relative", display:"flex",justifyContent:"center",alignItems:"center",my:2 }}>
                     <img
                       src={URL.createObjectURL(file)}
                       alt="Uploaded"
-                      style={{ width: "100%", height: "auto", borderRadius: 8 }}
+                      style={{ width: "150px", height: "150px", borderRadius: 8,objectFit:'contain' }}
                     />
                     <IconButton
                       onClick={() => handleDeleteFile(index)}
@@ -226,29 +245,37 @@ function ImageDetails({ item }) {
                   </Box>
                 </Grid>
               ))}
-              {existingFiles.map((fileUrl, index) => (
+              
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Typography variant="body2">Previous Images:</Typography>
+            <Grid container spacing={2}>
+            {existingFiles.map((fileUrl, index) => (
                 <Grid item xs={3} key={index}>
-                  <Box sx={{ position: "relative" }}>
+                  <Box sx={{ position: "relative",display:"flex",justifyContent:"center",alignItems:"center",my:2 }}>
                     <img
                       src={fileUrl}
                       alt="Existing"
-                      style={{ width: "100%", height: "auto", borderRadius: 8 }}
+                      style={{ width: "150px", height: "150px", borderRadius: 8,objectFit:'contain' }}
                     />
-                    <IconButton
+                    {/* <IconButton
                       onClick={() => handleDeleteExistingFile(index)}
                       sx={{ position: "absolute", top: 5, right: 5 }}
                     >
                       <DeleteIcon />
-                    </IconButton>
+                    </IconButton> */}
                   </Box>
                 </Grid>
               ))}
+              
             </Grid>
           </Grid>
 
           {/* Submit Button */}
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
+          <Grid item xs={12} align="center">
+            <Button type="submit" variant="contained" sx={{backgroundColor:"black",color:"white",p:2,borderRadius:3,width:"120px"}}>
               Submit
             </Button>
           </Grid>
