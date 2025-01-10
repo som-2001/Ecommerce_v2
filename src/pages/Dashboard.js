@@ -5,73 +5,38 @@ import {
   Typography,
   Checkbox,
   FormControlLabel,
-  Slider,
   Button,
   Drawer,
   CardMedia,
   CircularProgress,
+  TextField,
 } from "@mui/material";
 import Footer from "../components/Footer.js";
 import { RenderCard } from "../components/productCard/RenderCard.js";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import axios from "axios";
 
-export const bikes = [
-  {
-    id: 1,
-    name: "Yamaha R15",
-    price: 150000,
-    brand: "Yamaha",
-    engine: "150cc",
-    image: "../images/product_1.jpg",
-  },
-  {
-    id: 2,
-    name: "KTM Duke 200",
-    price: 200000,
-    brand: "KTM",
-    engine: "200cc",
-    image: "../images/product_2.jpg",
-  },
-  {
-    id: 3,
-    name: "KTM Duke 200",
-    price: 200000,
-    brand: "KTM",
-    engine: "200cc",
-    image: "../images/product_3.jpg",
-  },
-  {
-    id: 4,
-    name: "KTM Duke 200",
-    price: 200000,
-    brand: "KTM",
-    engine: "200cc",
-    image: "../images/product_4.jpg",
-  },
-  {
-    id: 5,
-    name: "KTM Duke 200",
-    price: 200000,
-    brand: "KTM",
-    engine: "200cc",
-    image: "../images/product_5.jpg",
-  },
-  // Add more bike data as required
-];
-
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
+  const [bikesList1, setBikesList1] = useState([]);
   const [load, setLoad] = useState(true);
-
   const [priceRange, setPriceRange] = useState([]);
-  const [brands,setBrands]=useState([]);
-  const [fuelType,setFuelType]=useState([]);
-
+  const [brands, setBrands] = useState([]);
+  const [fuelType, setFuelType] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedMileage, setSelectedMileage] = useState([]);
+  const [selectedFuelType, setSelectedFuelType] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [fromValue, setFromValue] = useState("");
+  const [toValue, setToValue] = useState("");
+
+  const handleFromChange = (event) => {
+    setFromValue(event.target.value);
+  };
+
+  const handleToChange = (event) => {
+    setToValue(event.target.value);
+  };
   const footerRef = useRef(null);
 
   useEffect(() => {
@@ -82,22 +47,22 @@ const Dashboard = () => {
       .then((res) => {
         setLoad(false);
         setBikesList(res.data);
+        setBikesList1(res.data);
       })
       .catch((err) => {
         setLoad(false);
         console.log(err);
       });
 
-      axios
+    axios
       .get(`${process.env.REACT_APP_BASEURL}/products/brand`, {
         withCredentials: true,
       })
       .then((res) => {
         setLoad(false);
         setBrands(res.data?.brand);
-        setPriceRange([res.data?.price?.[0],res.data?.price?.[res.data?.price.length-1]]);
+        setPriceRange([0, res.data?.price?.[res.data?.price.length - 1]]);
         setFuelType(res?.data?.fuelType);
-
       })
       .catch((err) => {
         setLoad(false);
@@ -105,116 +70,87 @@ const Dashboard = () => {
       });
   }, []);
 
-;
-
-  const handlePriceChange = (event, newValue) => {
-    
+  const handlePriceChange = () => {
     const urlParams = new URLSearchParams();
-    const brandParams=new URLSearchParams();
-    // Join array as a string before appending
-    urlParams.append('price', newValue);
-    brandParams.append('searchQuery', newValue)
-   
+
+    urlParams.append("minPrice", fromValue);
+    urlParams.append("maxPrice", toValue);
     axios
       .get(
-        `${
-          process.env.REACT_APP_BASEURL
-        }/products/filter/price?${urlParams}&${brandParams}`,
+        `${process.env.REACT_APP_BASEURL}/products/filter/price?${urlParams}`,
         {
           withCredentials: true,
         }
       )
       .then((res) => {
         console.log(res?.data);
-        setBikesList(res?.data?.products);
+        setBikesList(res?.data?.products); // Update the product list based on response
       })
       .catch((err) => {
         console.log(err);
       });
-
-    setPriceRange(newValue);
   };
-  
+
   const toggleBrand = (brand) => {
+    const updatedBrands = selectedBrands.includes(brand)
+      ? selectedBrands.filter((b) => b !== brand) // Remove the brand if already selected
+      : [...selectedBrands, brand]; // Add the brand if not already selected
 
+    setSelectedBrands(updatedBrands);
+
+    // Optionally, update the filtered list using an API
     const urlParams = new URLSearchParams();
-    const brandParams=new URLSearchParams();
-    // Join array as a string before appending
-    urlParams.append('brand', brand);
-    brandParams.append('searchQuery', brand)
-    setSelectedBrands(brand);
-    axios
-      .get(
-        `${
-          process.env.REACT_APP_BASEURL
-        }/products/filter/brand?${urlParams}&${brandParams}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log(res?.data);
-        setBikesList(res?.data?.products);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    updatedBrands.forEach((b) => urlParams.append("brand", b));
+    if (urlParams.size > 0) {
+      axios
+        .get(
+          `${process.env.REACT_APP_BASEURL}/products/filter/brand?${urlParams}`,
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          setBikesList(res.data?.products || []);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      setBikesList(bikesList1);
+    }
   };
 
   const togglefuelType = (fuelType) => {
+    const updatedFuelType = selectedFuelType.includes(fuelType)
+      ? selectedFuelType.filter((b) => b !== fuelType)
+      : [...selectedFuelType, fuelType]; // Add the brand if not already selected
+
+    setSelectedFuelType(updatedFuelType);
+
+    // Optionally, update the filtered list using an API
     const urlParams = new URLSearchParams();
-    const brandParams=new URLSearchParams();
-    // Join array as a string before appending
-    urlParams.append('fuelType', fuelType);
-    brandParams.append('searchQuery', fuelType)
-  
-    axios
-      .get(
-        `${
-          process.env.REACT_APP_BASEURL
-        }/products/filter/fuelType?${urlParams}&${brandParams}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log(res?.data);
-        setBikesList(res?.data?.products);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    updatedFuelType.forEach((b) => urlParams.append("fuelType", b));
 
-  // const filteredBikes = bikesList.filter(
-  //   (bike) =>
-  //     bike.offerPrice >= priceRange[0] &&
-  //     bike.offerPrice <= priceRange[1] &&
-  //     (selectedBrands.length === 0 || selectedBrands.includes(bike.brand)) &&
-  //     (selectedEngines.length === 0 ||
-  //       selectedEngines.includes(bike.engineCapacity))
-  // );
-  // console.log(filteredBikes);
+    console.log(urlParams.size);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsFooterVisible(entry.isIntersecting);
-      },
-      { root: null, threshold: 0 }
-    );
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current);
+    if (urlParams.size > 0) {
+      axios
+        .get(
+          `${process.env.REACT_APP_BASEURL}/products/filter/fuelType?${urlParams}`,
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          setBikesList(res.data?.products || []);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      setBikesList(bikesList1);
     }
-
-    return () => {
-      if (footerRef.current) {
-        observer.unobserve(footerRef.current);
-      }
-    };
-  }, []);
+  };
 
   return (
     <Box>
@@ -248,6 +184,7 @@ const Dashboard = () => {
             "&:hover": {
               boxShadow:
                 "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
+            height:"600px"   
             },
           }}
         >
@@ -271,33 +208,81 @@ const Dashboard = () => {
           >
             Price Range
           </Typography>
-          <Slider
-            value={priceRange}
-            onChange={handlePriceChange}
-            valueLabelDisplay="auto"
-            min={priceRange?.[0]}
-            max={priceRange?.[1]}
-            sx={{
-              "& .MuiSlider-thumb": {
-                backgroundColor: "#64b5f6",
-                boxShadow: "0 0 10px rgba(100, 181, 246, 0.8)",
-              },
-              "& .MuiSlider-track": {
-                backgroundColor: "rgba(100, 181, 246, 0.8)",
-              },
-              "& .MuiSlider-rail": {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-              },
-            }}
-          />
-          <Typography variant="body2" sx={{ mb: 3, color: "#BDBDBD" }}>
-            ${priceRange?.[0]} - ${priceRange?.[1]}
-          </Typography>
+          {/* 'From' TextField */}
+          <Grid container spacing={1} sx={{mb:2,display:"flex",alignItems:"center"}}>
+            <Grid item xs={5}>
+              <TextField
+                label="From"
+                value={fromValue}
+                onChange={handleFromChange}
+                variant="outlined"
+                size="small"
+                fullWidth
+                sx={{
+                  "& .MuiInputBase-root": {
+                    borderRadius: "8px", // Custom border radius for the text field
+                    backgroundColor: "#f0f0f0", // Background color of the input field
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#333", // Label color
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#64b5f6", // Border color
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#42a5f5", // Border color when hovered
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#1e88e5", // Focused border color
+                    },
+                  },
+                }}
+              />
+            </Grid>
+
+            {/* 'To' TextField */}
+            <Grid item xs={5}>
+              <TextField
+                label="To"
+                value={toValue}
+                onChange={handleToChange}
+                variant="outlined"
+                size="small"
+                fullWidth
+                sx={{
+                  "& .MuiInputBase-root": {
+                    borderRadius: "8px",
+                    backgroundColor: "#f0f0f0",
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#333",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#64b5f6",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#42a5f5",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#1e88e5",
+                    },
+                  },
+                }}
+              />
+            </Grid>
+            <Grid xs={2}>
+              <Typography variant="body2" onClick={handlePriceChange} sx={{ color: "white",ml:2 }}>
+                Apply
+              </Typography>
+            </Grid>
+          </Grid>
 
           {/* Brand Filter */}
           <Typography
             variant="subtitle1"
-            sx={{ fontWeight: "bold", mb: 2, color: "#64b5f6" }}
+            sx={{ fontWeight: "bold", color: "#64b5f6" }}
           >
             Brand
           </Typography>
@@ -306,8 +291,8 @@ const Dashboard = () => {
               key={brand}
               control={
                 <Checkbox
-                  checked={brand.includes(selectedBrands)}
-                  onChange={() => toggleBrand(brand)}
+                  checked={brand?.brand?.includes(selectedBrands)}
+                  onChange={(e) => toggleBrand(brand, e)}
                   sx={{
                     color: "#64b5f6",
                     "&.Mui-checked": {
@@ -329,7 +314,6 @@ const Dashboard = () => {
                   {brand}
                 </Typography>
               }
-              sx={{ mb: 1 }}
             />
           ))}
 
@@ -345,13 +329,13 @@ const Dashboard = () => {
           >
             fuelType
           </Typography>
-          {fuelType.map((mileage) => (
+          {fuelType.map((fuelType) => (
             <FormControlLabel
-              key={mileage}
+              key={fuelType}
               control={
                 <Checkbox
-                  checked={selectedMileage.includes(mileage)}
-                  onChange={() => togglefuelType(mileage)}
+                  checked={fuelType?.fuelType?.includes(fuelType)}
+                  onChange={() => togglefuelType(fuelType)}
                   sx={{
                     color: "#64b5f6",
                     "&.Mui-checked": {
@@ -477,69 +461,164 @@ const Dashboard = () => {
             </Typography>
 
             {/* Price Filter */}
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
-              Price Range
-            </Typography>
-            <Slider
-              value={priceRange}
-              onChange={handlePriceChange}
-              valueLabelDisplay="auto"
-              min={100000}
-              max={250000}
-              sx={{
-                mb: 3,
-                "& .MuiSlider-thumb": { backgroundColor: "#64b5f6" },
-                "& .MuiSlider-track": { backgroundColor: "#64b5f6" },
-              }}
-            />
-
-            {/* Brand Filter */}
-            <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
-              Brand
-            </Typography>
-            {["Yamaha", "KTM", "Royal Enfield", "Bajaj", "TVS"].map((brand) => (
-              <FormControlLabel
-                key={brand}
-                control={
-                  <Checkbox
-                    checked={selectedBrands.includes(brand)}
-                    onChange={() => toggleBrand(brand)}
-                    sx={{
-                      color: "#64b5f6",
-                      "&.Mui-checked": { color: "#64b5f6" },
-                    }}
-                  />
-                }
-                label={brand}
-                sx={{ mb: 1 }}
-              />
-            ))}
-
-            {/* Engine Filter */}
             <Typography
-              variant="subtitle1"
-              sx={{ fontWeight: "bold", mt: 3, mb: 1 }}
-            >
-              Engine Type
-            </Typography>
-            {["Electric Motor", "Single-Cylinder Engine", "Twin-Cylinder Engine", "Inline Six-Cylinder Engine"].map((engine) => (
-              <FormControlLabel
-                key={engine}
-                control={
-                  <Checkbox
-                    checked={selectedMileage.includes(engine)}
-                    onChange={() => fuelType(engine)}
-                    sx={{
-                      color: "#64b5f6",
-                      "&.Mui-checked": { color: "#64b5f6" },
-                    }}
-                  />
-                }
-                label={engine}
-                sx={{ mb: 1 }}
+            variant="subtitle1"
+            sx={{ fontWeight: "bold", mb: 1, color: "#64b5f6" }}
+          >
+            Price Range
+          </Typography>
+          {/* 'From' TextField */}
+          <Grid container spacing={1} sx={{mb:2,display:"flex",alignItems:"center"}}>
+            <Grid item xs={5}>
+              <TextField
+                label="From"
+                value={fromValue}
+                onChange={handleFromChange}
+                variant="outlined"
+                size="small"
+                fullWidth
+                sx={{
+                  "& .MuiInputBase-root": {
+                    borderRadius: "8px", // Custom border radius for the text field
+                    backgroundColor: "#f0f0f0", // Background color of the input field
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#333", // Label color
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#64b5f6", // Border color
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#42a5f5", // Border color when hovered
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#1e88e5", // Focused border color
+                    },
+                  },
+                }}
               />
-            ))}
+            </Grid>
 
+            {/* 'To' TextField */}
+            <Grid item xs={5}>
+              <TextField
+                label="To"
+                value={toValue}
+                onChange={handleToChange}
+                variant="outlined"
+                size="small"
+                fullWidth
+                sx={{
+                  "& .MuiInputBase-root": {
+                    borderRadius: "8px",
+                    backgroundColor: "#f0f0f0",
+                  },
+                  "& .MuiInputLabel-root": {
+                    color: "#333",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#64b5f6",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#42a5f5",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#1e88e5",
+                    },
+                  },
+                }}
+              />
+            </Grid>
+            <Grid xs={2}>
+              <Typography variant="body2" onClick={handlePriceChange} sx={{ color: "white",ml:2 }}>
+                Apply
+              </Typography>
+            </Grid>
+          </Grid>
+
+          {/* Brand Filter */}
+          <Typography
+            variant="subtitle1"
+            sx={{ fontWeight: "bold", color: "#64b5f6" }}
+          >
+            Brand
+          </Typography>
+          {brands?.map((brand) => (
+            <FormControlLabel
+              key={brand}
+              control={
+                <Checkbox
+                  checked={brand?.brand?.includes(selectedBrands)}
+                  onChange={(e) => toggleBrand(brand, e)}
+                  sx={{
+                    color: "#64b5f6",
+                    "&.Mui-checked": {
+                      color: "#64b5f6",
+                      boxShadow: "0 0 8px rgba(100, 181, 246, 0.8)",
+                    },
+                  }}
+                />
+              }
+              label={
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#E0E0E0",
+                    transition: "color 0.2s",
+                    "&:hover": { color: "#64b5f6" },
+                  }}
+                >
+                  {brand}
+                </Typography>
+              }
+            />
+          ))}
+
+          {/* Milage Filter */}
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontWeight: "bold",
+              mt: 3,
+              mb: 2,
+              color: "#64b5f6",
+            }}
+          >
+            fuelType
+          </Typography>
+          {fuelType.map((fuelType) => (
+            <FormControlLabel
+              key={fuelType}
+              control={
+                <Checkbox
+                  checked={fuelType?.fuelType?.includes(fuelType)}
+                  onChange={() => togglefuelType(fuelType)}
+                  sx={{
+                    color: "#64b5f6",
+                    "&.Mui-checked": {
+                      color: "#64b5f6",
+                      boxShadow: "0 0 8px rgba(100, 181, 246, 0.8)",
+                    },
+                  }}
+                />
+              }
+              label={
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#E0E0E0",
+                    transition: "color 0.2s",
+                    "&:hover": { color: "#64b5f6" },
+                  }}
+                >
+                  {fuelType}
+                </Typography>
+              }
+              sx={{ mb: 1 }}
+            />
+          ))}
             {/* Buttons */}
             <Box
               sx={{ display: "flex", justifyContent: "space-between", mt: 3 }}
