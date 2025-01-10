@@ -18,6 +18,7 @@ import {
   TextField,
   Paper,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,13 +61,17 @@ function ImageDetails() {
   const [colors, setColors] = useState([]);
   const [stock, setStock] = useState("");
   const [disableBtn, setDisableBtn] = useState(true);
-  const [colorDisabled, setColorDisabled] = useState(false);
+  // const [colorDisabled, setColorDisabled] = useState(false);
   const { product } = useSelector((state) => state.product);
   const navigate=useNavigate();
   const dispatch=useDispatch();
+  const [load,setLoading]=useState(false);
 
   const handleFileChange = (e) => {
+    console.log(files);
+   
     const selectedFiles = Array.from(e.target.files);
+    console.log(selectedFiles);
     const combinedFiles = [...files, ...selectedFiles];
     const validFiles = combinedFiles.slice(0, 4);
     setFiles(validFiles);
@@ -81,6 +86,9 @@ function ImageDetails() {
   };
 
   const onAddEntry = async (data) => {
+
+    if(files.length === 0) return enqueueSnackbar("Please select file first",{variant:'warning'});
+
     const convertFilesToDataURLs = (files) =>
       Promise.all(
         files.map(
@@ -102,14 +110,13 @@ function ImageDetails() {
       stock: data.stock,
     };
 
-    setColorDisabled(true);
+    // setColorDisabled(true);
 
-    const updatedColors = [...colors, newColorEntry];
-    setColors(updatedColors);
+    // const updatedColors = [...colors, newColorEntry];
+    setColors([newColorEntry]);
     setStock(data.stock);
 
-    // setFiles([]);
-    reset(); // Reset the form
+   
     setDisableBtn(false);
   };
 
@@ -118,7 +125,7 @@ function ImageDetails() {
     console.log(product);
     const formData = new FormData();
     console.log(colors);
-
+    setLoading(true)
     // Add product-level fields (e.g., name, brand, engineCapacity, etc.)
     formData.append("productName", product.bikeName);
     formData.append("brand", product.brand);
@@ -167,13 +174,18 @@ function ImageDetails() {
         console.log("Product created successfully:", response.data);
         setFiles([]);
         dispatch(resetProduct());
-        setColors(false);
+        setColors([]);
+        setLoading(false);
         setTimeout(()=>{
           navigate("/admin/products")
         },2000);
       })
       .catch((error) => {
         console.log(error);
+        // setFiles([]);
+        // setColors([]);
+        setDisableBtn(true);
+        setLoading(false);
         enqueueSnackbar(error?.response?.data?.message, { variant: "error" });
         console.error("Product creation failed:", error);
       });
@@ -202,13 +214,13 @@ function ImageDetails() {
                   <MenuItem value="" disabled>
                     Select a color
                   </MenuItem>
-                  <MenuItem value="Red" disabled={colorDisabled}>
+                  <MenuItem value="Red" >
                     Red
                   </MenuItem>
-                  <MenuItem value="Yellow" disabled={colorDisabled}>
+                  <MenuItem value="Yellow">
                     Yellow
                   </MenuItem>
-                  <MenuItem value="Blue" disabled={colorDisabled}>
+                  <MenuItem value="Blue">
                     Blue
                   </MenuItem>
                 </Select>
@@ -346,7 +358,7 @@ function ImageDetails() {
       </form>
 
       {/* Display Table */}
-      {colors.length > 0 && (
+      {colors?.length > 0 && (
         <Box mt={4}>
           <Typography variant="h6">Entries</Typography>
           <TableContainer component={Paper}>
@@ -359,7 +371,7 @@ function ImageDetails() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {colors.map((colorEntry, index) => (
+                {colors?.map((colorEntry, index) => (
                   <TableRow key={index}>
                     <TableCell align="center" sx={{ width: "120px" }}>
                       {colorEntry.color}
@@ -404,8 +416,8 @@ function ImageDetails() {
       >
         <Button
           onClick={onSubmit}
-          variant="outlined"
-          disabled={disableBtn}
+          variant="contained"
+          disabled={load || disableBtn}
           sx={{
             padding: 1.9,
             borderRadius: 2,
@@ -415,7 +427,7 @@ function ImageDetails() {
             color: "white",
           }}
         >
-          Submit
+          {load ? <CircularProgress/>: "Submit" }
         </Button>
       </Box>
     </Box>

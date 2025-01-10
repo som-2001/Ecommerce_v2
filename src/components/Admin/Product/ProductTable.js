@@ -13,9 +13,12 @@ import {
 import BasicMenu from "./BasicMenu";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import { useDispatch } from "react-redux";
+import { resetProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
 
 const ProductTable = () => {
   const [bikes, setBikes] = useState([]);
+  const dispatch=useDispatch();
 
   useEffect(() => {
     axios
@@ -24,6 +27,7 @@ const ProductTable = () => {
       })
       .then((res) => {
         console.log(res.data);
+        dispatch(resetProduct());
         setBikes(res.data);
       })
       .catch((err) => {

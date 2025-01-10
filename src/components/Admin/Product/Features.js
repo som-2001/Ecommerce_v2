@@ -74,7 +74,7 @@ const Features = ({ product }) => {
       fuelTankCapacity: data.fuelTankCapacity,
       topSpeed: data.topSpeed,
       instrumentConsole: data.instrumentConsole,
-      bluetoothConnectivity: data.bluetoothConnectivity === "Available",
+      bluetoothConnectivity: data.bluetoothConnectivity === "Available" ,
       mobileChargingPort: data.mobileChargingPort === "Available",
       alloyWheels: data.alloyWheels === "Available",
       ledLights: data.ledLights === "Available",

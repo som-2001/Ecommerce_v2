@@ -160,7 +160,7 @@ const Dashboard = () => {
             transition:
               "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
             "&:hover": {
-              transform: "scale(1.03)",
+            
               boxShadow:
                 "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
             },

@@ -11,6 +11,7 @@ import {
   Select,
   TextField,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,6 +56,7 @@ function ImageDetails({ item }) {
   const { id } = useParams();
   const { product } = useSelector((state) => state.product);
   const dispatch=useDispatch();
+  const [load,setLoading]=useState(false);
 
 
   useEffect(() => {
@@ -98,6 +100,7 @@ function ImageDetails({ item }) {
   // };
 
   const onSubmit = (data) => {
+    setLoading(true);
     const formData = new FormData();
 
     // Append product-level fields
@@ -112,7 +115,7 @@ function ImageDetails({ item }) {
 
     // Append existing files (URLs)
     existingFiles.forEach((fileUrl) => {
-      formData.append("existingImages", fileUrl);
+      formData.append("images", fileUrl);
     });
 
     // Append color and stock
@@ -127,7 +130,7 @@ function ImageDetails({ item }) {
         
         enqueueSnackbar("Product updated successfully!", { variant: "success" });
         dispatch(resetProduct());
-        
+        setLoading(false);
         setFiles([]);
         setTimeout(()=>{
           navigate("/admin/products")
@@ -136,7 +139,8 @@ function ImageDetails({ item }) {
         // reset();
       })
       .catch((error) => {
-        enqueueSnackbar("Product update failed. Try again.", { variant: "error" });
+        setLoading(false);
+        enqueueSnackbar(error?.response?.data?.message, { variant: "error" });
       });
   };
 
@@ -274,8 +278,8 @@ function ImageDetails({ item }) {
 
           {/* Submit Button */}
           <Grid item xs={12} align="center">
-            <Button type="submit" variant="contained" sx={{backgroundColor:"black",color:"white",p:2,borderRadius:3,width:"120px"}}>
-              Submit
+            <Button disabled={load} type="submit" variant="contained" sx={{backgroundColor:"black",color:"white",p:2,borderRadius:3,width:"120px"}}>
+              {load ? <CircularProgress/>: "Submit" }
             </Button>
           </Grid>
         </Grid>

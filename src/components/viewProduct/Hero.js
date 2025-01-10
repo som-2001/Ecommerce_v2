@@ -12,6 +12,7 @@ import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { addAmount, addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
+import BluetoothIcon from '@mui/icons-material/Bluetooth';
 
 const Hero = ({ product, coloredProduct }) => {
   const navigate = useNavigate();
@@ -48,7 +49,6 @@ const Hero = ({ product, coloredProduct }) => {
         enqueueSnackbar(res.data.message, { variant: "success" });
         dispatch(addCart(id));
         dispatch(addAmount(amount));
-        
       })
       .catch((err) => {
         enqueueSnackbar(err.response.data.message, { variant: "error" });
@@ -74,6 +74,7 @@ const Hero = ({ product, coloredProduct }) => {
       label: "Fuel Capacity",
       value: product?.fuelTankCapacity || "N/A",
     },
+    
   ];
 
   return (
@@ -81,7 +82,7 @@ const Hero = ({ product, coloredProduct }) => {
       <Box sx={{ padding: "1rem" }}>
         <Grid container spacing={4}>
           {/* Left Side: Images */}
-          <Grid item xs={12} md={5} sx={{mt:4}}>
+          <Grid item xs={12} md={5} sx={{ mt: 4 }}>
             <Box
               sx={{
                 textAlign: "center",
@@ -95,7 +96,7 @@ const Hero = ({ product, coloredProduct }) => {
                   alt={product?.productName || "Product"}
                   style={{
                     width: "95%",
-                    height: {xs:"200px",sm:"500px"},
+                    height: { xs: "200px", sm: "500px" },
                     objectFit: "contain",
                     borderRadius: "8px",
                   }}
@@ -135,18 +136,24 @@ const Hero = ({ product, coloredProduct }) => {
 
           {/* Right Side: Product Details */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ padding: {xs:"0px",sm:"20px" }}}>
+            <Box sx={{ padding: { xs: "0px", sm: "20px" } }}>
               <Typography
                 variant="h4"
-                sx={{ fontWeight: "bold", marginBottom: "1rem" }}
+                sx={{ fontWeight: "bold", marginBottom: "0.5rem" }}
               >
-                {product?.productName || "Product Name"}
+                {product?.productName || "Product Name"} ({product?.brand})
+              </Typography>
+              <Typography variant="body2" sx={{ marginBottom: "0.5rem" }}>
+                Available since: {new Date(product?.createdAt).toLocaleString()}
+              </Typography>
+              <Typography variant="body1" color="green" fontWeight="bold">
+                Special price
               </Typography>
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  marginBottom: "1rem",
+                 
                 }}
               >
                 <Typography
@@ -154,7 +161,7 @@ const Hero = ({ product, coloredProduct }) => {
                   sx={{
                     fontWeight: "bold",
                     color: "#FF5722",
-                    marginRight: "1rem",
+                    marginRight: "0.4rem",
                   }}
                 >
                   ₹{product?.offerPrice || "N/A"}
@@ -165,11 +172,18 @@ const Hero = ({ product, coloredProduct }) => {
                 >
                   ₹{product?.originalPrice || "N/A"}
                 </Typography>
+
+                <Typography
+                  variant="body1"
+                  sx={{ color: "green", marginLeft: "0.4rem" }}
+                >
+                  {product?.discount || "N/A"}% off
+                </Typography>
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    marginLeft: "1rem",
+                    marginLeft: "0.4rem",
                     color: "#FFA439",
                   }}
                 >
@@ -178,6 +192,10 @@ const Hero = ({ product, coloredProduct }) => {
                     4.5
                   </Typography>
                 </Box>
+              </Box>
+
+              <Box sx={{ my: 0.3 }}>
+                <Typography variant="body2" sx={{fontWeight:"600",mb:2}}>Model Version: {product?.yearOfLaunch}</Typography>
               </Box>
 
               <Divider sx={{ marginBottom: "1rem" }} />
@@ -190,13 +208,9 @@ const Hero = ({ product, coloredProduct }) => {
                   mb: 2,
                 }}
               >
-                <Typography variant="body1" >
-                  Select Color:
-                </Typography>
+                <Typography variant="body1">Select Color:</Typography>
 
-              
-
-                <Box sx={{ display: "flex", gap: "1rem" }}>
+                <Box sx={{ display: "flex", gap: "0.6rem" }}>
                   {coloredProduct.map((color, index) => (
                     <Box
                       key={index}
@@ -206,7 +220,7 @@ const Hero = ({ product, coloredProduct }) => {
                         backgroundColor: color?.selectedColor?.toLowerCase(),
                         border:
                           selectedColor === color?.selectedColor
-                            ? "3px solid gold"
+                            ? "2px solid black"
                             : "2px solid gray",
                         borderRadius: "50%",
                         cursor: "pointer",
@@ -230,8 +244,8 @@ const Hero = ({ product, coloredProduct }) => {
                 </Typography>
               )} */}
               </Box>
-            
-              <Divider sx={{ marginBottom: "1rem" }} />  
+
+              <Divider sx={{ marginBottom: "1rem" }} />
 
               <Box
                 sx={{
@@ -298,7 +312,7 @@ const Hero = ({ product, coloredProduct }) => {
                     },
                   }}
                   // onClick={() => navigate('/cart')}
-                  onClick={(e)=>addToCart(product?.offerPrice)}
+                  onClick={(e) => addToCart(product?.offerPrice)}
                 >
                   Add to Cart
                 </Button>
