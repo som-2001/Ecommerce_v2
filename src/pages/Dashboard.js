@@ -9,6 +9,7 @@ import {
   Button,
   Drawer,
   CardMedia,
+  CircularProgress,
 } from "@mui/material";
 import Footer from "../components/Footer.js";
 import { RenderCard } from "../components/productCard/RenderCard.js";
@@ -61,9 +62,14 @@ export const bikes = [
 
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 2500000]);
+  const [load, setLoad] = useState(true);
+
+  const [priceRange, setPriceRange] = useState([]);
+  const [brands,setBrands]=useState([]);
+  const [fuelType,setFuelType]=useState([]);
+
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedEngines, setSelectedEngines] = useState([]);
+  const [selectedMileage, setSelectedMileage] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const footerRef = useRef(null);
@@ -74,42 +80,122 @@ const Dashboard = () => {
         withCredentials: true,
       })
       .then((res) => {
+        setLoad(false);
         setBikesList(res.data);
       })
       .catch((err) => {
+        setLoad(false);
+        console.log(err);
+      });
+
+      axios
+      .get(`${process.env.REACT_APP_BASEURL}/products/brand`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setLoad(false);
+        setBrands(res.data?.brand);
+        setPriceRange([res.data?.price?.[0],res.data?.price?.[res.data?.price.length-1]]);
+        setFuelType(res?.data?.fuelType);
+
+      })
+      .catch((err) => {
+        setLoad(false);
         console.log(err);
       });
   }, []);
 
-  console.log(bikesList);
+;
 
   const handlePriceChange = (event, newValue) => {
+    
+    const urlParams = new URLSearchParams();
+    const brandParams=new URLSearchParams();
+    // Join array as a string before appending
+    urlParams.append('price', newValue);
+    brandParams.append('searchQuery', newValue)
+   
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_BASEURL
+        }/products/filter/price?${urlParams}&${brandParams}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log(res?.data);
+        setBikesList(res?.data?.products);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     setPriceRange(newValue);
   };
-
+  
   const toggleBrand = (brand) => {
-    setSelectedBrands((prev) =>
-      prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
-    );
+
+    const urlParams = new URLSearchParams();
+    const brandParams=new URLSearchParams();
+    // Join array as a string before appending
+    urlParams.append('brand', brand);
+    brandParams.append('searchQuery', brand)
+    setSelectedBrands(brand);
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_BASEURL
+        }/products/filter/brand?${urlParams}&${brandParams}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log(res?.data);
+        setBikesList(res?.data?.products);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   };
 
-  const toggleEngine = (engine) => {
-    setSelectedEngines((prev) =>
-      prev.includes(engine)
-        ? prev.filter((e) => e !== engine)
-        : [...prev, engine]
-    );
+  const togglefuelType = (fuelType) => {
+    const urlParams = new URLSearchParams();
+    const brandParams=new URLSearchParams();
+    // Join array as a string before appending
+    urlParams.append('fuelType', fuelType);
+    brandParams.append('searchQuery', fuelType)
+  
+    axios
+      .get(
+        `${
+          process.env.REACT_APP_BASEURL
+        }/products/filter/fuelType?${urlParams}&${brandParams}`,
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log(res?.data);
+        setBikesList(res?.data?.products);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  const filteredBikes = bikesList.filter(
-    (bike) =>
-      bike.offerPrice >= priceRange[0] &&
-      bike.offerPrice <= priceRange[1] &&
-      (selectedBrands.length === 0 || selectedBrands.includes(bike.brand)) &&
-      (selectedEngines.length === 0 ||
-        selectedEngines.includes(bike.engineCapacity))
-  );
-  console.log(filteredBikes);
+  // const filteredBikes = bikesList.filter(
+  //   (bike) =>
+  //     bike.offerPrice >= priceRange[0] &&
+  //     bike.offerPrice <= priceRange[1] &&
+  //     (selectedBrands.length === 0 || selectedBrands.includes(bike.brand)) &&
+  //     (selectedEngines.length === 0 ||
+  //       selectedEngines.includes(bike.engineCapacity))
+  // );
+  // console.log(filteredBikes);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -160,7 +246,6 @@ const Dashboard = () => {
             transition:
               "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
             "&:hover": {
-            
               boxShadow:
                 "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
             },
@@ -190,8 +275,8 @@ const Dashboard = () => {
             value={priceRange}
             onChange={handlePriceChange}
             valueLabelDisplay="auto"
-            min={100}
-            max={2500000}
+            min={priceRange?.[0]}
+            max={priceRange?.[1]}
             sx={{
               "& .MuiSlider-thumb": {
                 backgroundColor: "#64b5f6",
@@ -206,7 +291,7 @@ const Dashboard = () => {
             }}
           />
           <Typography variant="body2" sx={{ mb: 3, color: "#BDBDBD" }}>
-            $100 - $25000
+            ${priceRange?.[0]} - ${priceRange?.[1]}
           </Typography>
 
           {/* Brand Filter */}
@@ -216,12 +301,12 @@ const Dashboard = () => {
           >
             Brand
           </Typography>
-          {["Yamaha", "KTM", "Royal Enfield", "Bajaj", "TVS"].map((brand) => (
+          {brands?.map((brand) => (
             <FormControlLabel
               key={brand}
               control={
                 <Checkbox
-                  checked={selectedBrands.includes(brand)}
+                  checked={brand.includes(selectedBrands)}
                   onChange={() => toggleBrand(brand)}
                   sx={{
                     color: "#64b5f6",
@@ -248,7 +333,7 @@ const Dashboard = () => {
             />
           ))}
 
-          {/* Engine Filter */}
+          {/* Milage Filter */}
           <Typography
             variant="subtitle1"
             sx={{
@@ -258,15 +343,15 @@ const Dashboard = () => {
               color: "#64b5f6",
             }}
           >
-            Engine Type
+            fuelType
           </Typography>
-          {["150cc", "200cc", "350cc", "310cc"].map((engine) => (
+          {fuelType.map((mileage) => (
             <FormControlLabel
-              key={engine}
+              key={mileage}
               control={
                 <Checkbox
-                  checked={selectedEngines.includes(engine)}
-                  onChange={() => toggleEngine(engine)}
+                  checked={selectedMileage.includes(mileage)}
+                  onChange={() => togglefuelType(mileage)}
                   sx={{
                     color: "#64b5f6",
                     "&.Mui-checked": {
@@ -285,7 +370,7 @@ const Dashboard = () => {
                     "&:hover": { color: "#64b5f6" },
                   }}
                 >
-                  {engine}
+                  {fuelType}
                 </Typography>
               }
               sx={{ mb: 1 }}
@@ -310,51 +395,66 @@ const Dashboard = () => {
           >
             Explore All Bikes
           </Typography>
-          <Grid container spacing={{ xs: 0.5, sm: 3 }}>
-            {filteredBikes.length > 0 ? (
-              filteredBikes.map((bike) => (
-                <Grid
-                  item
-                  xs={6}
-                  sm={6}
-                  md={6}
-                  lg={3}
-                  key={bike.id}
+          {!load ? (
+            <Grid container spacing={{ xs: 0.5, sm: 3 }}>
+              {bikesList.length > 0 ? (
+                bikesList.map((bike) => (
+                  <Grid
+                    item
+                    xs={6}
+                    sm={6}
+                    md={6}
+                    lg={3}
+                    key={bike.id}
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <RenderCard bike={bike} />
+                  </Grid>
+                ))
+              ) : (
+                <Box
                   sx={{
                     display: "flex",
-                    flexWrap: "wrap",
                     justifyContent: "center",
                     alignItems: "center",
+                    width: "100%",
+                    color: "whitesmoke",
+                    height: "50vh",
+                    flexDirection: "column",
+                    mt: 5,
                   }}
                 >
-                  <RenderCard bike={bike} />
-                </Grid>
-              ))
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: "100%",
-                  color: "whitesmoke",
-                  height: "50vh",
-                  flexDirection: "column",
-                  mt: 5,
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  image="../../images/product-empty.gif"
-                  alt="Empty Product"
-                  sx={{ width: { xs: "300px" } }}
-                />
-                <Typography variant="body1" sx={{ mt: 2 }}>
-                  No bikes match your filters.
-                </Typography>
-              </Box>
-            )}
-          </Grid>
+                  <CardMedia
+                    component="img"
+                    image="../../images/product-empty.gif"
+                    alt="Empty Product"
+                    sx={{ width: { xs: "300px" } }}
+                  />
+                  <Typography variant="body1" sx={{ mt: 2 }}>
+                    No bikes match your filters.
+                  </Typography>
+                </Box>
+              )}
+            </Grid>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                color: "whitesmoke",
+                height: "80vh",
+              }}
+            >
+              <CircularProgress size={35} />
+            </Box>
+          )}
         </Box>
 
         {/* Filter Drawer for small screens */}
@@ -422,13 +522,13 @@ const Dashboard = () => {
             >
               Engine Type
             </Typography>
-            {["150cc", "200cc", "350cc", "310cc"].map((engine) => (
+            {["Electric Motor", "Single-Cylinder Engine", "Twin-Cylinder Engine", "Inline Six-Cylinder Engine"].map((engine) => (
               <FormControlLabel
                 key={engine}
                 control={
                   <Checkbox
-                    checked={selectedEngines.includes(engine)}
-                    onChange={() => toggleEngine(engine)}
+                    checked={selectedMileage.includes(engine)}
+                    onChange={() => fuelType(engine)}
                     sx={{
                       color: "#64b5f6",
                       "&.Mui-checked": { color: "#64b5f6" },

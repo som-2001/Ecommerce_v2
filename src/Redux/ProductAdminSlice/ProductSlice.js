@@ -4,7 +4,8 @@ const initialState = {
   product: [],
   wishList:[], // Add wishlist array here for storing product ids
   cart: [], // Add cart array here for storing product ids
-  amount:0
+  amount:0,
+  search:[]
 };
 
 const productSlice = createSlice({
@@ -62,12 +63,16 @@ const productSlice = createSlice({
     removeCartProduct:(state,action)=>{
       state.cart=state.cart.filter(id=>id!==action?.payload);
     },
+
+    setSearch:(state,action)=>{
+      state.search=action.payload;
+    },
  
 
     resetProduct: () => initialState, // Reset state to initial values
   },
 });
 
-export const { EditProduct, addProduct, resetProduct , initializewishList,addwishList,removeWishListProduct,initializeCart,addCart,removeCartProduct,addAmount,removeAmount} = productSlice.actions;
+export const { EditProduct, addProduct, resetProduct , initializewishList,addwishList,removeWishListProduct,initializeCart,addCart,removeCartProduct,addAmount,removeAmount,setSearch} = productSlice.actions;
 
 export default productSlice.reducer;

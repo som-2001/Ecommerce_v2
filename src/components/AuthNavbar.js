@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -15,12 +15,46 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom"; // Import Link for routing
 import SearchIcon from "@mui/icons-material/Search";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setSearch } from "../Redux/ProductAdminSlice/ProductSlice";
 
 export const AuthNavbar = () => {
- 
-  const navigate=useNavigate();
-  const {wishList,cart}=useSelector(state=>state.product);
+  const navigate = useNavigate();
+  const { wishList, cart } = useSelector((state) => state.product);
+  const [input, setInput] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (input.length === 0) {
+      dispatch(setSearch([]));
+    }
+  }, [input, dispatch]);
+
+  const handleSearch = () => {
+    if (input?.length !== 0) {
+      const urlParams = new URLSearchParams();
+      urlParams.append("searchQuery", input);
+
+      axios
+        .post(
+          `${
+            process.env.REACT_APP_BASEURL
+          }/products/filter/post?${urlParams.toString()}`,
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          console.log(res?.data);
+
+          dispatch(setSearch(res?.data?.products));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
 
   const pages = [
     {
@@ -58,17 +92,22 @@ export const AuthNavbar = () => {
       position="static"
       sx={{
         opacity: 0.95,
-        backgroundColor:"black",
+        backgroundColor: "black",
         boxShadow: "none",
         paddingY: 1,
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-         
-          <Typography variant="h6" sx={{display:{xs:"none",sm:"inherit"}}} onClick={(e)=>navigate("/")}>BikeMart</Typography>
+          <img src="../images/image.png" alt="" style={{width:"50px",borderRadius:"50px",}}/>
+          <Typography
+            variant="h6"
+            sx={{ display: { xs: "none", sm: "inherit" },marginLeft:"5px" }}
+            onClick={(e) => navigate("/")}
+          >
+            BikeMart
+          </Typography>
 
-        
           <Box
             sx={{
               flexGrow: 1,
@@ -81,6 +120,7 @@ export const AuthNavbar = () => {
             <TextField
               placeholder="Search…"
               autoComplete="off"
+              onChange={(e) => setInput(e.target.value)}
               sx={{
                 background: "#e1eef5",
                 borderRadius: 7,
@@ -94,12 +134,13 @@ export const AuthNavbar = () => {
                 input: {
                   endAdornment: (
                     <InputAdornment position="start">
-                      <SearchIcon />
+                      <SearchIcon onClick={handleSearch} />
                     </InputAdornment>
                   ),
                 },
               }}
             />
+
             {pages.map((page) => (
               <Box
                 key={page.label}
