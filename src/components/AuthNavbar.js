@@ -37,17 +37,16 @@ export const AuthNavbar = () => {
       urlParams.append("searchQuery", input);
 
       axios
-        .post(
+        .get(
           `${
             process.env.REACT_APP_BASEURL
-          }/products/filter/post?${urlParams.toString()}`,
+          }/products/filter?${urlParams.toString()}`,
           {
             withCredentials: true,
           }
         )
         .then((res) => {
           console.log(res?.data);
-
           dispatch(setSearch(res?.data?.products));
         })
         .catch((err) => {
@@ -99,10 +98,14 @@ export const AuthNavbar = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img src="../images/image.png" alt="" style={{width:"50px",borderRadius:"50px",}}/>
+          <img
+            src="../images/image.png"
+            alt=""
+            style={{ width: "50px", borderRadius: "50px" }}
+          />
           <Typography
             variant="h6"
-            sx={{ display: { xs: "none", sm: "inherit" },marginLeft:"5px" }}
+            sx={{ display: { xs: "none", sm: "inherit" }, marginLeft: "5px" }}
             onClick={(e) => navigate("/")}
           >
             BikeMart
