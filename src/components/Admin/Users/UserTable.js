@@ -97,8 +97,8 @@ const UserTable = ({
                 <TableCell align="center">{new Date(user.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell align="center">
                   <Switch
-                    checked={user.admin || false}
-                    onChange={() => handleToggle(user._id, "admin")}
+                    checked={user.role==="admin" || false}
+                    // onChange={() => handleToggle(user._id, "admin")}
                   />
                 </TableCell>
               </TableRow>

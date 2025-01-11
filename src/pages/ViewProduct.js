@@ -30,11 +30,11 @@ const ViewProduct = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASEURL}/products/products`, {
+      .get(`${process.env.REACT_APP_BASEURL}/products/filter?page=1`, {
         withCredentials: true,
       })
       .then((res) => {
-        setProducts(res.data);
+        setProducts(res.data?.products);
       })
       .catch((err) => {
         console.log(err);

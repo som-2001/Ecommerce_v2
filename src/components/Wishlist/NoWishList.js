@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const NoWishList = () => {
+  const navigate=useNavigate();
   return (
     <Box
       sx={{
@@ -59,6 +61,7 @@ export const NoWishList = () => {
           padding: 2.2,
           width:"fit-content"
         }}
+        onClick={(e)=>navigate("/explore-products")}
       >
         Start Shopping
       </Button>

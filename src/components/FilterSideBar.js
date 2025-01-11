@@ -41,6 +41,8 @@ export const FilterSideBar = ({
       sx={{
         width: { xs: "100%", md: "23%", lg: "15%" },
         display: { xs: "none", md: "flex" },
+        position:"sticky",
+        top:"20px",
         flexDirection: "column",
         p: 3,
         borderRadius: "24px",
@@ -49,7 +51,7 @@ export const FilterSideBar = ({
           "0 10px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
         color: "whitesmoke",
         transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-        height: "600px",
+        height: "620px",
         "&:hover": {
           boxShadow:
             "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
@@ -69,6 +71,15 @@ export const FilterSideBar = ({
       >
         Filter Bikes
       </Typography>
+      <Box sx={{display:"flex",justifyContent:"flex-end"}}>
+          <Typography
+            variant="body2"
+            onClick={handleFilterChange}
+            sx={{ color: "#64b5f6", ml: 2,fontWeight:"bold",cursor:"pointer" }}
+          >
+            Apply
+          </Typography>
+        </Box>
 
       {/* Price Filter */}
       <Typography
@@ -82,9 +93,12 @@ export const FilterSideBar = ({
         spacing={1}
         sx={{ mb: 2, display: "flex", alignItems: "center" }}
       >
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <TextField
             label="From"
+            InputLabelProps={{
+                style: { color: '#64b5f6' }, // Label color
+              }}
             value={fromValue}
             onChange={(e) => setFromValue(e.target.value)}
             variant="outlined"
@@ -98,9 +112,12 @@ export const FilterSideBar = ({
             }}
           />
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={6}>
           <TextField
             label="To"
+            InputLabelProps={{
+                style: { color: '#64b5f6' }, // Label color
+              }}
             value={toValue}
             onChange={(e) => setToValue(e.target.value)}
             variant="outlined"
@@ -110,19 +127,12 @@ export const FilterSideBar = ({
               "& .MuiInputBase-root": {
                 borderRadius: "8px",
                 backgroundColor: "#f0f0f0",
+                
               },
             }}
           />
         </Grid>
-        <Grid xs={2}>
-          <Typography
-            variant="body2"
-            onClick={handleFilterChange}
-            sx={{ color: "white", ml: 2 }}
-          >
-            Apply
-          </Typography>
-        </Grid>
+        
       </Grid>
 
       {/* Brand Filter */}
@@ -141,10 +151,7 @@ export const FilterSideBar = ({
               onChange={() => toggleBrand(brand)}
               sx={{
                 color: "#64b5f6",
-                "&.Mui-checked": {
-                  color: "#64b5f6",
-                  boxShadow: "0 0 8px rgba(100, 181, 246, 0.8)",
-                },
+                
               }}
             />
           }
@@ -178,10 +185,7 @@ export const FilterSideBar = ({
               onChange={() => toggleFuelType(fuel)}
               sx={{
                 color: "#64b5f6",
-                "&.Mui-checked": {
-                  color: "#64b5f6",
-                  boxShadow: "0 0 8px rgba(100, 181, 246, 0.8)",
-                },
+               
               }}
             />
           }

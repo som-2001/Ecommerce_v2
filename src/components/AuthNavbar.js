@@ -8,6 +8,7 @@ import {
   Badge,
   InputAdornment,
   TextField,
+  CardMedia,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -98,10 +99,11 @@ export const AuthNavbar = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <img
-            src="../images/image.png"
-            alt=""
-            style={{ width: "50px", borderRadius: "50px" }}
+          <CardMedia
+          component="img"
+          image="../images/image.png"
+          alt=""
+          sx={{ width: "50px", borderRadius: "50px",display: { xs: "none", sm: "inherit" } }}
           />
           <Typography
             variant="h6"
@@ -130,6 +132,7 @@ export const AuthNavbar = () => {
                 "& .MuiOutlinedInput-notchedOutline": {
                   border: "none",
                 },
+                width:{xs:"150px",sm:"450px"},
                 height: "55px",
                 marginRight: 1,
               }}

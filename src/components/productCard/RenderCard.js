@@ -153,13 +153,17 @@ export const RenderCard = ({ bike }) => {
         }}
         onClick={() => navigate(`/view-product/${bike?._id}/${bike?.modelNumber}`)}
       >
-        <Typography variant="h6" sx={{ fontWeight: 700}}>
+        <Typography variant="h6" sx={{ fontWeight: 700,display:{xs:"inherit",sm:"none"}}}>
+          
+          {bikeName.length>10 ? `${bikeName.slice(0,10)}...`:bikeName}
+        </Typography>
+        <Typography variant="h6" sx={{ fontWeight: 700,display:{xs:"none",sm:"inherit",height:"40px"}}}>
           
           {bikeName.length>20 ? `${bikeName.slice(0,20)}...`:bikeName}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1}}>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1,display:{xs:"none",sm:"inherit",height:"40px"}}}>
           
-          {bike?.description?.length>15 ? `${bike?.description.slice(0,80)}...`:bikeName.description}
+          {bike?.description?.length>20 ? `${bike?.description.slice(0,60)}...`:bikeName.description}
         </Typography>
 
         <Divider sx={{ my: 1 }} />
@@ -206,7 +210,7 @@ export const RenderCard = ({ bike }) => {
           >
             ₹{bike.originalPrice}
           </Typography>
-          <Typography sx={{ fontSize: "0.8rem", color: "red" }}>
+          <Typography sx={{ fontSize: "0.8rem", color: "red",display:{xs:"none",sm:"inherit"} }}>
             ({bike.discount}% OFF)
           </Typography>
         </Box>

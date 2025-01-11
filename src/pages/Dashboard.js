@@ -5,11 +5,15 @@ import {
   Typography,
   CardMedia,
   CircularProgress,
+  Drawer,
+  Button,
 } from "@mui/material";
 import Footer from "../components/Footer.js";
 import { RenderCard } from "../components/productCard/RenderCard.js";
 import axios from "axios";
 import { FilterSideBar } from "../components/FilterSideBar.js";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { DrawerFilter } from "../components/DrawerFilter.js";
 
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
@@ -24,6 +28,8 @@ const Dashboard = () => {
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
   const [urlParamsState, setUrlParamsState] = useState();
+  const [drawerOpen,setDrawerOpen]=useState(false);
+
   const footerRef = useRef(null);
 
   const handleFilterChange = () => {
@@ -37,7 +43,7 @@ const Dashboard = () => {
     if (selectedBrands.length > 0) {
       selectedBrands.forEach((brand) => urlParams.append("brand", brand));
     }
-   // Add selected fuel types if any
+    // Add selected fuel types if any
     if (selectedFuelType.length > 0) {
       selectedFuelType.forEach((fuel) => urlParams.append("fuelType", fuel));
     }
@@ -105,9 +111,12 @@ const Dashboard = () => {
     setIsLoadingMore(true);
 
     axios
-      .get(`${process.env.REACT_APP_BASEURL}/products/filter?${urlParamsState}&page=${page}`, {
-        withCredentials: true,
-      })
+      .get(
+        `${process.env.REACT_APP_BASEURL}/products/filter?${urlParamsState}&page=${page}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         setBikesList((prevBikes) => [
           ...prevBikes,
@@ -147,7 +156,6 @@ const Dashboard = () => {
           setFromValue={setFromValue}
           setToValue={setToValue}
           handleFilterChange={handleFilterChange}
-          
         />
 
         {/* Product Grid */}
@@ -244,8 +252,55 @@ const Dashboard = () => {
           <Box ref={footerRef}></Box>
         </Box>
       </Box>
+
+      <Drawer
+        anchor="bottom"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        ModalProps={{ keepMounted: true }}
+      >
+        <DrawerFilter
+          setBikesList={setBikesList}
+          selectedBrands={selectedBrands}
+          setSelectedBrands={setSelectedBrands}
+          selectedFuelType={selectedFuelType}
+          setSelectedFuelType={setSelectedFuelType}
+          brands={brands}
+          fuelType={fuelType}
+          fromValue={fromValue}
+          toValue={toValue}
+          setFromValue={setFromValue}
+          setToValue={setToValue}
+          handleFilterChange={handleFilterChange}
+        />
+      </Drawer>
+        
+      <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            position: "fixed",
+            bottom: 16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+          }}
+        >
+          <Button
+            variant="contained"
+            startIcon={<FilterListIcon />}
+            onClick={() => setDrawerOpen(true)}
+            sx={{
+              backgroundColor: "black",
+              color: "white",
+              borderRadius: 4,
+              padding: 2,
+            }}
+          >
+            Filters
+          </Button>
+        </Box>
+     
       <Footer />
-      
     </Box>
   );
 };
