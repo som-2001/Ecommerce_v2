@@ -6,6 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useRef } from "react";
 
 export const FilterSideBar = ({
   selectedBrands,
@@ -16,23 +17,30 @@ export const FilterSideBar = ({
   fuelType,
   fromValue,
   toValue,
+  fromValueRef,
+  toValueRef,
   setFromValue,
   setToValue,
   handleFilterChange,
 }) => {
+
+  const input=useRef(null);
+
   const toggleBrand = (brand) => {
     const updatedBrands = selectedBrands.includes(brand)
-      ? selectedBrands.filter((b) => b !== brand) 
-      : [...selectedBrands, brand]; 
+      ? selectedBrands.filter((b) => b !== brand)
+      : [...selectedBrands, brand];
 
+    handleFilterChange(updatedBrands, selectedFuelType);
     setSelectedBrands(updatedBrands);
   };
 
   const toggleFuelType = (fuel) => {
     const updatedFuelType = selectedFuelType.includes(fuel)
-      ? selectedFuelType.filter((f) => f !== fuel) 
+      ? selectedFuelType.filter((f) => f !== fuel)
       : [...selectedFuelType, fuel];
 
+    handleFilterChange(selectedBrands, updatedFuelType);
     setSelectedFuelType(updatedFuelType);
   };
 
@@ -41,12 +49,12 @@ export const FilterSideBar = ({
       sx={{
         width: { xs: "100%", md: "23%", lg: "15%" },
         display: { xs: "none", md: "flex" },
-        position:"sticky",
-        top:"20px",
+        position: "sticky",
+        top: "20px",
         flexDirection: "column",
         p: 3,
-        borderRadius: "24px",
-        background: "linear-gradient(145deg, #1F1F2B, #272738)",
+        borderRadius: "18px",
+        background: "#1E1E1E",
         boxShadow:
           "0 10px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
         color: "whitesmoke",
@@ -55,7 +63,6 @@ export const FilterSideBar = ({
         "&:hover": {
           boxShadow:
             "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
-          
         },
       }}
     >
@@ -71,16 +78,6 @@ export const FilterSideBar = ({
       >
         Filter Bikes
       </Typography>
-      <Box sx={{display:"flex",justifyContent:"flex-end"}}>
-          <Typography
-            variant="body2"
-            onClick={handleFilterChange}
-            sx={{ color: "#64b5f6", ml: 2,fontWeight:"bold",cursor:"pointer" }}
-          >
-            Apply
-          </Typography>
-        </Box>
-
       {/* Price Filter */}
       <Typography
         variant="subtitle1"
@@ -97,10 +94,20 @@ export const FilterSideBar = ({
           <TextField
             label="From"
             InputLabelProps={{
-                style: { color: '#64b5f6' }, // Label color
-              }}
+              style: { color: "#64b5f6" }, // Label color
+            }}
             value={fromValue}
-            onChange={(e) => setFromValue(e.target.value)}
+            onChange={(e) => {
+              setFromValue(e.target.value);
+              fromValueRef.current = e.target.value;
+
+              if(input.current){
+                clearTimeout(input.current);
+              }  
+              input.current = setTimeout(() => {
+                handleFilterChange(selectedBrands, selectedFuelType);
+              }, 500);
+            }}
             variant="outlined"
             size="small"
             fullWidth
@@ -116,10 +123,21 @@ export const FilterSideBar = ({
           <TextField
             label="To"
             InputLabelProps={{
-                style: { color: '#64b5f6' }, // Label color
-              }}
+              style: { color: "#64b5f6" }, // Label color
+            }}
             value={toValue}
-            onChange={(e) => setToValue(e.target.value)}
+            onChange={(e) => {
+              toValueRef.current = e.target.value;
+              setToValue(e.target.value);
+
+               if(input.current){
+                clearTimeout(input.current);
+              }  
+              input.current = setTimeout(() => {
+                handleFilterChange(selectedBrands, selectedFuelType);
+              }, 500);
+             
+            }}
             variant="outlined"
             size="small"
             fullWidth
@@ -127,12 +145,10 @@ export const FilterSideBar = ({
               "& .MuiInputBase-root": {
                 borderRadius: "8px",
                 backgroundColor: "#f0f0f0",
-                
               },
             }}
           />
         </Grid>
-        
       </Grid>
 
       {/* Brand Filter */}
@@ -151,7 +167,6 @@ export const FilterSideBar = ({
               onChange={() => toggleBrand(brand)}
               sx={{
                 color: "#64b5f6",
-                
               }}
             />
           }
@@ -185,7 +200,6 @@ export const FilterSideBar = ({
               onChange={() => toggleFuelType(fuel)}
               sx={{
                 color: "#64b5f6",
-               
               }}
             />
           }

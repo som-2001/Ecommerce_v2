@@ -26,26 +26,30 @@ const Dashboard = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [fromValue, setFromValue] = useState("");
+  const fromValueRef=useRef(undefined);
+  const toValueRef=useRef(undefined);
   const [toValue, setToValue] = useState("");
   const [urlParamsState, setUrlParamsState] = useState();
   const [drawerOpen,setDrawerOpen]=useState(false);
 
   const footerRef = useRef(null);
 
-  const handleFilterChange = () => {
+  const handleFilterChange = (updatedBrandParams,updatedFuelParams) => {
+
+    console.log(updatedBrandParams);
     const urlParams = new URLSearchParams();
     setPage(1);
     // Add price filters if defined
-    if (fromValue) urlParams.append("minPrice", fromValue);
-    if (toValue) urlParams.append("maxPrice", toValue);
+    if (fromValueRef?.current!==undefined) urlParams.append("minPrice", fromValueRef?.current);
+    if (toValueRef?.current!==undefined) urlParams.append("maxPrice", toValueRef?.current);
 
     // Add selected brands if any
-    if (selectedBrands.length > 0) {
-      selectedBrands.forEach((brand) => urlParams.append("brand", brand));
+    if (updatedBrandParams?.length > 0) {
+      updatedBrandParams?.forEach((brand) => urlParams.append("brand", brand));
     }
     // Add selected fuel types if any
-    if (selectedFuelType.length > 0) {
-      selectedFuelType.forEach((fuel) => urlParams.append("fuelType", fuel));
+    if (updatedFuelParams?.length > 0) {
+      updatedFuelParams?.forEach((fuel) => urlParams.append("fuelType", fuel));
     }
     setUrlParamsState(urlParams.toString());
   };
@@ -156,6 +160,8 @@ const Dashboard = () => {
           setFromValue={setFromValue}
           setToValue={setToValue}
           handleFilterChange={handleFilterChange}
+          fromValueRef={fromValueRef}
+          toValueRef={toValueRef}
         />
 
         {/* Product Grid */}
