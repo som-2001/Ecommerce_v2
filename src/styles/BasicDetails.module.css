@@ -1,0 +1,49 @@
+.center{
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.button {
+    padding: 16px !important; /* Equivalent to padding: 2 in MUI */
+    border-radius: 8px !important; /* Equivalent to borderRadius: 2 in MUI */
+    width:180px !important;
+    background-color:black !important;
+    color:white !important
+}
+
+.deleteButton{
+    padding: 16px !important; /* Equivalent to padding: 2 in MUI */
+    border-radius: 8px !important; /* Equivalent to borderRadius: 2 in MUI */
+    width:150px !important;
+    background-color:black !important;
+    color:white !important
+}
+.outlinedButton{
+
+    border:1px solid black !important;
+    color:black !important;
+    padding:16px !important;
+    border-radius:8px !important;
+    width:fit-content !important
+}
+.image{
+     width: 150px;
+     height: 150px;
+     border-radius: 20px;
+     object-fit:contain
+}
+.selectedImages{
+    position: relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:16px 0px 16px 0px 
+}
+
+.file{
+    width: 130px;
+    height: 110px;
+    border-radius: 8px !important;
+    object-fit:contain
+}
+  

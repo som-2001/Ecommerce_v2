@@ -19,6 +19,7 @@ import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate, useParams } from "react-router-dom";
 import { resetProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
+import styles from "../../../styles/BasicDetails.module.css";
 
 // Define the validation schema using Yup
 const validationSchema = Yup.object().shape({
@@ -210,7 +211,7 @@ function ImageDetails({ item }) {
 
           {/* File Upload */}
           <Grid item xs={12} sm={6} md={3}>
-            <Button variant="outlined" component="label" sx={{border:"1px solid black", color:"black",p:2,borderRadius:3,width:"fit-content"}}>
+            <Button variant="outlined" component="label" className={styles.outlinedButton}>
               Upload Images
               <input
                 type="file"
@@ -233,11 +234,11 @@ function ImageDetails({ item }) {
             <Grid container spacing={2}>
               {files.map((file, index) => (
                 <Grid item xs={3} key={index}>
-                  <Box sx={{ position: "relative", display:"flex",justifyContent:"center",alignItems:"center",my:2 }}>
+                  <Box className={styles.selectedImages}>
                     <img
                       src={URL.createObjectURL(file)}
                       alt="Uploaded"
-                      style={{ width: "150px", height: "150px", borderRadius: 8,objectFit:'contain' }}
+                      className={styles.file}
                     />
                     <IconButton
                       onClick={() => handleDeleteFile(index)}
@@ -257,11 +258,11 @@ function ImageDetails({ item }) {
             <Grid container spacing={2}>
             {existingFiles.map((fileUrl, index) => (
                 <Grid item xs={3} key={index}>
-                  <Box sx={{ position: "relative",display:"flex",justifyContent:"center",alignItems:"center",my:2 }}>
+                  <Box className={styles.selectedImages}>
                     <img
                       src={fileUrl}
                       alt="Existing"
-                      style={{ width: "150px", height: "150px", borderRadius: 8,objectFit:'contain' }}
+                      className={styles.image}
                     />
                     {/* <IconButton
                       onClick={() => handleDeleteExistingFile(index)}
@@ -278,7 +279,7 @@ function ImageDetails({ item }) {
 
           {/* Submit Button */}
           <Grid item xs={12} align="center">
-            <Button disabled={load} type="submit" variant="contained" sx={{backgroundColor:"black",color:"white",p:2,borderRadius:3,width:"120px"}}>
+            <Button disabled={load} type="submit" variant="contained" className={styles.button}>
               {load ? <CircularProgress/>: "Submit" }
             </Button>
           </Grid>

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeAmount, removeCartProduct } from "../../Redux/ProductAdminSlice/ProductSlice";
 import { enqueueSnackbar } from "notistack";
+import styles from "../../styles/cart.module.css"
 
 export const CartProduct = ({ cart, setCart }) => {
   const dispatch = useDispatch();
@@ -26,15 +27,9 @@ export const CartProduct = ({ cart, setCart }) => {
 
   return (
     <Box
+    className={styles.CartProductBox}
       sx={{
-        padding: 2,
-        borderRadius: "12px",
-        // boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
-        background: "linear-gradient(135deg, #f8f9fa, #ffffff)",
-        marginBottom: 3,
-        transition: "transform 0.3s, box-shadow 0.3s",
         "&:hover": {
-          // transform: "translateY(-5px)",
           boxShadow: "0 12px 32px rgba(0, 0, 0, 0.15)",
         },
       }}
@@ -46,11 +41,7 @@ export const CartProduct = ({ cart, setCart }) => {
           xs={12}
           sm={4}
           md={3}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          className={styles.flex}
         >
           <CardMedia
             component="img"
@@ -58,24 +49,15 @@ export const CartProduct = ({ cart, setCart }) => {
             alt={cart?.product?.productName}
             sx={{
               width: { xs: "200px", sm: "150px" },
-              height: "auto",
-              borderRadius: "10px",
-              objectFit: "contain",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
             }}
+            className={styles.img}
           />
         </Grid>
 
         {/* Product Details */}
         <Grid item xs={12} sm={8} md={6}>
           <Typography
-            sx={{
-              fontSize: "18px",
-              fontWeight: "700",
-              color: "#333",
-              marginBottom: "8px",
-              textTransform: "capitalize",
-            }}
+            className={styles.textFormat1}
           >
             {cart?.product?.productName}
           </Typography>
@@ -144,15 +126,8 @@ export const CartProduct = ({ cart, setCart }) => {
         >
           <Button
             variant="contained"
+            className={styles.removeButton}
             sx={{
-              background: "linear-gradient(135deg, #ff5a5f, #ff4081)",
-              color: "#fff",
-              fontSize: "14px",
-              fontWeight: "600",
-              padding: "8px 24px",
-              borderRadius: "24px",
-              textTransform: "capitalize",
-              boxShadow: "0 4px 12px rgba(255, 64, 129, 0.3)",
               "&:hover": {
                 background: "linear-gradient(135deg, #ff4081, #ff5a5f)",
                 boxShadow: "0 6px 16px rgba(255, 64, 129, 0.5)",

@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { EditProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
+import styles from "../../../styles/BasicDetails.module.css";
 
 // Validation Schema using Yup
 const validationSchema = Yup.object().shape({
@@ -259,24 +260,14 @@ const Specifications = ({product}) => {
         {/* Submit Button */}
         <Grid item xs={12}>
           <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+           className={styles.center}
           >
             <Button
               type="submit"
               variant="contained"
               color="primary"
               fullWidth
-              sx={{
-                padding: 2,
-                borderRadius: 2,
-                width: "180px",
-                backgroundColor: "black",
-                color: "white",
-              }}
+              className={styles.button}
             >
              Save & Continue
             </Button>

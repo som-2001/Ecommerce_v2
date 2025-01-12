@@ -1,0 +1,46 @@
+.noCartBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img{
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1),
+}
+
+.textFormat1{
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #333 !important;
+  margin-bottom: 8px !important;
+  text-transform: capitalize !important
+}
+.removeButton{
+  background: linear-gradient(135deg, #ff5a5f, #ff4081);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 24px;
+  border-radius: 24px;
+  text-transform: capitalize !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 12px rgba(255, 64, 129, 0.3)
+}
+
+.CartProductBox{
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  /* margin-bottom: 24px; */
+  transition: transform 0.3s, box-shadow 0.3s
+}
