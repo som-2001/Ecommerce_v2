@@ -50,7 +50,7 @@ export const FilterSideBar = ({
         width: { xs: "100%", md: "23%", lg: "15%" },
         display: { xs: "none", md: "flex" },
         position: "sticky",
-        top: "20px",
+        top: "0px",
         flexDirection: "column",
         p: 3,
         borderRadius: "18px",
@@ -59,7 +59,7 @@ export const FilterSideBar = ({
           "0 10px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
         color: "whitesmoke",
         transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-        height: "620px",
+        height: "645px",
         "&:hover": {
           boxShadow:
             "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
