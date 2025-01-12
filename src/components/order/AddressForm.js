@@ -1,39 +1,46 @@
 import { Box, Chip, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddressDialogFunc } from "../profile/AddressDialogFunc";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { setAddressDetails } from "../../Redux/ProductAdminSlice/ProductSlice";
 
 export const AddressForm = ({ handlefunction }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const [addressData, setAddressData] = useState([]);
+  const dispatch=useDispatch();
 
-  const addresses = [
-    {
-      id: 1,
-      type: "Home",
-      name: "Someswar Gorai",
-      details:
-        "Trish bigha, 1km away from academy of technology college, Adisaptagram, Bansberia, West Bengal - 712502",
-    },
-    {
-      id: 2,
-      type: "Work",
-      name: "Someswar Gorai",
-      details:
-        "Trish bigha, 1km away from academy of technology college, Adisaptagram, Bansberia, West Bengal - 712502",
-    },
-  ];
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.REACT_APP_BASEURL}/users/users/${
+          jwtDecode(Cookies.get("accessToken")).id
+        }`,
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setAddressData(res.data?.address);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  const handleIdFunction = (id) => {
+  const handleIdFunction = (id,address) => {
     setSelectedId((prev) => (prev === id ? null : id)); // Toggle the same checkbox or select a new one
+    dispatch(setAddressDetails({address:address}));
     handlefunction(true);
   };
-
 
   return (
     <Box sx={{ width: { xs: "82vw", sm: "90vw", md: "60vw" } }}>
       <Typography variant="h6" color="text.secondary" gutterBottom>
-        Manage Addresses ({addresses.length})
+        Manage Addresses ({addressData.length})
       </Typography>
 
       <Box
@@ -43,27 +50,29 @@ export const AddressForm = ({ handlefunction }) => {
           my: 2,
           display: "flex",
           alignItems: "center",
+          borderRadius: 2,
           cursor: "pointer",
+          backgroundColor: "#fff",
           "&:hover": {
-            backgroundColor: "#f5f5f5",
+            backgroundColor: "#f9f9f9",
           },
           "&:active": {
-            backgroundColor: "#e0e0e0",
+            backgroundColor: "#f0f0f0",
           },
         }}
         onClick={(e) => setOpenDialog(true)}
       >
-        <AddIcon />
+        <AddIcon sx={{ color: "#4caf50", fontSize: "2rem", mr: 2 }} />
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ width: { xs: "100%", md: "40%" } }}
+          sx={{ fontSize: "1rem", fontWeight: "bold", color: "#4caf50" }}
         >
           Add a new Address
         </Typography>
       </Box>
 
-      {addresses.map((address) => (
+      {addressData.map((address) => (
         <Box
           key={address.id}
           sx={{
@@ -78,28 +87,49 @@ export const AddressForm = ({ handlefunction }) => {
           <Box>
             <input
               type="radio"
-              checked={selectedId === address.id} // Only the selected checkbox will appear checked
-              onChange={() => handleIdFunction(address.id)}
+              style={{cursor:"pointer"}}
+              checked={selectedId === address._id} // Only the selected checkbox will appear checked
+              onChange={() => handleIdFunction(address._id,address)}
             />
           </Box>
           <Box>
-            <Chip label={address.type} sx={{ my: 1 }} />
-            <Typography variant="body1">{address.name}</Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ width: { xs: "100%", md: "40%" } }}
-            >
-              {address.details}
+            <Chip
+              label={address?.addressType}
+              sx={{
+                my: 1,
+                backgroundColor:
+                  address?.addressType === "Home" ? "#4caf50" : "#2196f3",
+                color: "white",
+              }}
+            />
+            <Typography variant="body1" sx={{fontWeight:"bold"}}>{address?.customerName}</Typography>
+            <Typography variant="body2" color="text.secondary">
+              {address?.landmark}
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography variant="body2" color="text.secondary">
+                {address?.locality},{" "}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {address?.state},{" "}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {address?.address}
+              </Typography>
+            </Box>
+            <Typography variant="body2" color="text.secondary">
+              {address?.pincode}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              +91-{address?.contactNumber}
             </Typography>
           </Box>
         </Box>
       ))}
 
       {openDialog && (
-        <AddressDialogFunc open={openDialog} setOpen={setOpenDialog} />
+        <AddressDialogFunc open={openDialog} setOpen={setOpenDialog} profileData={addressData} setProfileData={setAddressData} />
       )}
-
     </Box>
   );
 };

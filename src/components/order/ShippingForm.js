@@ -3,14 +3,32 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setShippingDate } from "../../Redux/ProductAdminSlice/ProductSlice";
+import dayjs from "dayjs";
 
 export const ShippingForm = ({ handlefunction1 }) => {
+  const dispatch=useDispatch();
   const [selectedMethod, setSelectedMethod] = useState(null); // Track selected shipment method
   const [scheduledDate, setScheduledDate] = useState(null); // Track selected date for "Schedule" option
+  const randomDays = Math.floor(Math.random() * 10); // Random integer between 0 and 10
+  const deliveryDate = dayjs().add(randomDays, "day");
+  const fastDeliveryDate=dayjs().add(randomDays-1,"day");
 
   const handleSelection = (method) => {
+
+    console.log(fastDeliveryDate);
+
     setSelectedMethod(method);
     handlefunction1(false);
+    if(method==="Free"){
+    dispatch(setShippingDate({method,deliveryDate}));
+    }else if(method==="8.50"){
+      dispatch(setShippingDate({method,fastDeliveryDate}));
+    }else{
+      dispatch(setShippingDate({method,scheduledDate}))
+    }
+
     if (method !== "Schedule") {
       setScheduledDate(null); // Clear date if not using "Schedule" option
     }
@@ -51,7 +69,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             lg={6}
             sx={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: { xs: "start", md: "center" } }}
           >
-            <Typography variant="body1">Will be delivered on 27 Dec, 2024</Typography>
+            <Typography variant="body1">Will be delivered on {deliveryDate.format("DD MMM, YYYY")}</Typography>
           </Grid>
         </Grid>
       </Box>
@@ -59,12 +77,12 @@ export const ShippingForm = ({ handlefunction1 }) => {
       {/* $8.50 Option */}
       <Box
         sx={{ border: "1px solid #dfdfdf", padding: 4, my: 2 }}
-        onClick={() => handleSelection("Paid")}
+        onClick={() => handleSelection("8.50")}
       >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={3} lg={2}>
             <FormControlLabel
-              control={<Radio checked={selectedMethod === "Paid"} />}
+              control={<Radio checked={selectedMethod === "8.50"} />}
               label=""
             />
             <Typography variant="body1">$8.50</Typography>
@@ -80,7 +98,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             lg={6}
             sx={{ display: "flex", justifyContent: "center", flexDirection: "column", alignItems: { xs: "start", md: "center" } }}
           >
-            <Typography variant="body1">Will be delivered on 27 Dec, 2024</Typography>
+            <Typography variant="body1">Will be delivered on {fastDeliveryDate.format("DD MMM, YYYY")}</Typography>
           </Grid>
         </Grid>
       </Box>
@@ -116,6 +134,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
                   setScheduledDate(date);
                   handleSelection("Schedule");
                 }}
+                minDate={dayjs().add(randomDays, "day")}
                 disabled={selectedMethod !== "Schedule"}
               />
             </LocalizationProvider>
