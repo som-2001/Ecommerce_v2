@@ -11,6 +11,8 @@ import { ReviewDashboard } from "./pages/Admin/ReviewDashboard.js";
 import { UserDashboard } from "./pages/Admin/UserDashboard.js";
 import { OrderDashboard } from "./pages/Admin/OrderDashboard.js";
 import { AdminEditProductForm } from "./pages/Admin/AdminEditProductForm.js";
+import { Success } from "./pages/Success.js";
+import { OrderError } from "./pages/OrderError.js";
 
 const Signup = lazy(() => import("./pages/Signup"));
 const Signin = lazy(() => import("./pages/Signin"));
@@ -45,6 +47,8 @@ function App() {
               <Route path="/all-orders" element={<AllOrders />} />
               <Route path="/wishlist" element={<WishList />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/success" element={<Success />} />
+              <Route path="/error" element={<OrderError />} />
             </Route>
             <Route path="/admin/" element={<AdminLayout />}>
               <Route path="dashboard" element={<AdminDashboard />} />
