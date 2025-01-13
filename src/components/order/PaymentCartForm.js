@@ -7,54 +7,29 @@ import {
   Divider,
   Chip,
 } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 const stripe = await stripePromise;
 
-export const PaymentForm = () => {
-  const { id } = useParams();
-  const [product, setProduct] = useState([]);
-  const { address, shippingDate } = useSelector((state) => state.product);
-  const [selectedItem,setSelectedItem]=useState('');
-  const [Tax,setTax]=useState(Math.floor(Math.random()*20));
-  const [TotalAmount,setTotalAmount]=useState('');
+export const PaymentCartForm = () => {
+  const { address, shippingDate, cartProducts, amount } = useSelector(
+    (state) => state.product
+  );
+  const [selectedItem, setSelectedItem] = useState("");
+  const [Tax, setTax] = useState(Math.floor(Math.random() * 20));
 
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_BASEURL}/products/products/${id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setProduct(res?.data);
-        console.log(res?.data);
-        if(shippingDate.method==="Free" || shippingDate?.method==="Schedule"){
-        setTotalAmount(Tax+res?.data?.offerPrice);
-        }else{
-          setTotalAmount(Tax+res?.data?.offerPrice+(Number(shippingDate?.method)));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },[Tax,shippingDate?.method,id]);
-
-  const handlePaytmentMethodFunction=(method)=>{
-    setSelectedItem(method);
-  }
   const StripePayment = async () => {
     const response = await axios.post(
       `${process.env.REACT_APP_BASEURL}/orders/order`,
       {
         shippingAddress: address.address,
         userId: jwtDecode(Cookies.get("accessToken")).id,
-        products: [{product:{productName:product?.productName,image:product?.image,description:product?.description,offerPrice:product?.offerPrice,_id:product?._id},price:TotalAmount,quantity:1}],
+        products: cartProducts,
         orderMode: selectedItem === "COD" ? "COD" : "Prepaid",
         shipmentDetails:shippingDate,
         Tax:Tax
@@ -70,7 +45,9 @@ export const PaymentForm = () => {
       console.error(result.error.message);
     }
   };
-  
+  const handlePaytmentMethodFunction = (method) => {
+    setSelectedItem(method);
+  };
   return (
     <Box
       sx={{
@@ -86,38 +63,48 @@ export const PaymentForm = () => {
             Summary
           </Typography>
 
-          <Box
-            sx={{
-              backgroundColor: "whitesmoke",
-              padding: 2,
-              borderRadius: 2,
-              mb: 3,
-            }}
-          >
-            <Grid container spacing={1} alignItems="center">
+          {cartProducts?.map((product, index) => (
+            <Grid
+              container
+              alignItems="center"
+              sx={{
+                backgroundColor: "whitesmoke",
+                padding: 2,
+                borderRadius: 2,
+                my: 2,
+
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Grid item xs={3}>
                 <CardMedia
                   component="img"
-                  image={product?.image?.[0]}
-                  sx={{ width: {xs:"70px",sm:"120px"}, height: "70px", borderRadius: 1 }}
+                  image={product?.product?.image?.[0]}
+                  sx={{
+                    width: { xs: "70px", sm: "120px" },
+                    height: "80px",
+                    borderRadius: 1,
+                  }}
                 />
               </Grid>
               <Grid item xs={5}>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Typography variant="body1" fontWeight="bold">
-                    {product?.productName} ({product?.brand})
+                    {product?.product?.productName} ({product?.product?.brand})
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {product?.description?.length > 50
-                      ? product?.description.slice(0, 50)
-                      : product?.description}
+                    {product?.product?.description?.length > 40
+                      ? product?.product?.description.slice(0, 40)
+                      : product?.product?.description}
                     ...
                   </Typography>
                 </Box>
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="body1" color="green" fontWeight="bold">
-                  ${product?.offerPrice}{" "}
+                  ${product?.product?.offerPrice}{" "}
                   <span
                     style={{
                       fontSize: "14px",
@@ -125,15 +112,15 @@ export const PaymentForm = () => {
                       textDecoration: "line-through",
                     }}
                   >
-                    ${product?.originalPrice}
+                    ${product?.product?.originalPrice}
                   </span>{" "}
                   <span style={{ fontSize: "12px", color: "black" }}>
-                    {product?.discount}%OFF
+                    {product?.product?.discount}%OFF
                   </span>
                 </Typography>
               </Grid>
             </Grid>
-          </Box>
+          ))}
 
           {/* Address Section */}
           <Box sx={{ mb: 2 }}>
@@ -194,7 +181,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body1" textAlign="right">
-                  ${product?.offerPrice}
+                  ${amount}
                 </Typography>
               </Grid>
             </Grid>
@@ -230,7 +217,13 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="h6" fontWeight="bold" textAlign="right">
-                  ${TotalAmount}
+                  $
+                  {shippingDate?.method === "Free" ||
+                  shippingDate?.method === "Schedule"
+                    ? Number(Tax) + Number(amount)
+                    : Number(Tax) +
+                      Number(amount) +
+                      (Number(shippingDate?.method))}
                 </Typography>
               </Grid>
             </Grid>
@@ -242,66 +235,72 @@ export const PaymentForm = () => {
           <Typography variant="h5" sx={{ mb: 3, fontWeight: "bold" }}>
             Payment
           </Typography>
-         
-            <Box
-              sx={{
-                border: "1px solid #dfdfdf",
-                padding: 3,
-                borderRadius:3,
-                my: 2,
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                width:{xs:"75vw",sm:"30vw"}
-              }}
-            >
-              <Box>
-                <input
-                  type="radio"
-                  style={{ cursor: "pointer" }}
-                  checked={selectedItem === "Online"}
-                  onChange={() => handlePaytmentMethodFunction("Online")}
-                />
-              </Box>
-              <Box>
-                <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                  Online Payment
-                </Typography>
-              </Box>
-            </Box>
 
-            <Box
-              sx={{
-                border: "1px solid #dfdfdf",
-                padding: 3,
-                borderRadius:3,
-                my: 2,
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                width:{xs:"75vw",sm:"30vw"}
-              }}
-            >
-              <Box>
-                <input
-                  type="radio"
-                  style={{ cursor: "pointer" }}
-                  checked={selectedItem === "COD"}
-                  onChange={() => handlePaytmentMethodFunction("COD")}
-                />
-              </Box>
-              <Box>
-                <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                  Cash on Delivery
-                </Typography>
-              </Box>
+          <Box
+            sx={{
+              border: "1px solid #dfdfdf",
+              padding: 3,
+              borderRadius: 3,
+              my: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              width: { xs: "75vw", md: "30vw" },
+            }}
+          >
+            <Box>
+              <input
+                type="radio"
+                style={{ cursor: "pointer" }}
+                checked={selectedItem === "Online"}
+                onChange={() => handlePaytmentMethodFunction("Online")}
+              />
             </Box>
-            <Box sx={{display:"flex",width:{xs:"80vw",sm:"30vw"},justifyContent:"center"}}>
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                Online Payment
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              border: "1px solid #dfdfdf",
+              padding: 3,
+              borderRadius: 3,
+              my: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              width: { xs: "75vw", md: "30vw" },
+            }}
+          >
+            <Box>
+              <input
+                type="radio"
+                style={{ cursor: "pointer" }}
+                checked={selectedItem === "COD"}
+                onChange={() => handlePaytmentMethodFunction("COD")}
+              />
+            </Box>
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                Cash on Delivery
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              width: { xs: "75vw", md: "30vw" },
+              justifyContent: "center",
+            }}
+          >
             <Button
               sx={{
                 backgroundColor: "black",
                 padding: 2,
-                borderRadius:3,
+                borderRadius: 3,
                 color: "white",
                 width: "140px",
                 "&:hover": { backgroundColor: "#333" },
@@ -310,7 +309,7 @@ export const PaymentForm = () => {
             >
               Pay
             </Button>
-            </Box>
+          </Box>
         </Grid>
       </Grid>
     </Box>

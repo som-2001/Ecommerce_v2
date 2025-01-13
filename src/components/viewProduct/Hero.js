@@ -12,7 +12,6 @@ import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { addAmount, addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
-import BluetoothIcon from '@mui/icons-material/Bluetooth';
 
 const Hero = ({ product, coloredProduct }) => {
   const navigate = useNavigate();
@@ -291,10 +290,10 @@ const Hero = ({ product, coloredProduct }) => {
                     color: "white",
                     borderRadius: 3,
                     "&:hover": {
-                      backgroundColor: "#0d47a1",
+                      backgroundColor: "grey",
                     },
                   }}
-                  onClick={() => navigate("/payment")}
+                  onClick={() => navigate(`/payment/${product?._id}`)}
                 >
                   Buy Now
                 </Button>

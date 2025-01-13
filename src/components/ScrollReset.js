@@ -3,7 +3,7 @@ import axios from "axios";
 import { SnackbarProvider } from "notistack";
 import { useEffect } from "react";
 import { useLocation, Outlet } from "react-router-dom";
-import { initializeCart, initializewishList } from "../Redux/ProductAdminSlice/ProductSlice";
+import { cartProducts, initializeCart, initializewishList } from "../Redux/ProductAdminSlice/ProductSlice";
 import { useDispatch } from "react-redux";
 
 export const ScrollReset = () => {
@@ -32,6 +32,7 @@ export const ScrollReset = () => {
     })
     .then((res) => {
       dispatch(initializeCart(res.data.products));
+      dispatch(cartProducts(res?.data?.products));
     })
     .catch((err) => {
       console.log(err);

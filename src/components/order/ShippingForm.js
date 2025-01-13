@@ -22,11 +22,11 @@ export const ShippingForm = ({ handlefunction1 }) => {
     setSelectedMethod(method);
     handlefunction1(false);
     if(method==="Free"){
-    dispatch(setShippingDate({method,deliveryDate}));
-    }else if(method==="8.50"){
-      dispatch(setShippingDate({method,fastDeliveryDate}));
+    dispatch(setShippingDate({method:method,deliveryDate:deliveryDate}));
+    }else if(method==="8"){
+      dispatch(setShippingDate({method:method,deliveryDate:fastDeliveryDate}));
     }else{
-      dispatch(setShippingDate({method,scheduledDate}))
+      dispatch(setShippingDate({method:method,deliveryDate:scheduledDate}))
     }
 
     if (method !== "Schedule") {
@@ -77,15 +77,15 @@ export const ShippingForm = ({ handlefunction1 }) => {
       {/* $8.50 Option */}
       <Box
         sx={{ border: "1px solid #dfdfdf", padding: 4, my: 2 }}
-        onClick={() => handleSelection("8.50")}
+        onClick={() => handleSelection("8")}
       >
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={3} lg={2}>
             <FormControlLabel
-              control={<Radio checked={selectedMethod === "8.50"} />}
+              control={<Radio checked={selectedMethod === "8"} />}
               label=""
             />
-            <Typography variant="body1">$8.50</Typography>
+            <Typography variant="body1">$8</Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={4} sx={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
             <Typography variant="body1">Get your delivery as soon as possible</Typography>

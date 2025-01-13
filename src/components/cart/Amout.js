@@ -240,7 +240,7 @@ import { useNavigate } from "react-router-dom";
               backgroundColor: "#ff1c75",
             },
           }}
-          onClick={(e)=>navigate("/payment")}
+          onClick={(e)=>navigate(`/payment/bike-order-cart`)}
         >
           Place Order
         </Button>

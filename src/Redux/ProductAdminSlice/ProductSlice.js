@@ -7,7 +7,8 @@ const initialState = {
   amount: 0,
   search: [],
   address:'',
-  shippingDate:''
+  shippingDate:'',
+  cartProducts:[]
 };
 
 const productSlice = createSlice({
@@ -52,6 +53,9 @@ const productSlice = createSlice({
         state.cart.push(action?.payload);
       }
     },
+    cartProducts:(state,action)=>{
+      state.cartProducts=action?.payload;
+    },
     addAmount: (state, action) => {
       state.amount = state.amount + action.payload;
     },
@@ -88,7 +92,8 @@ export const {
   removeAmount,
   setSearch,
   setAddressDetails,
-  setShippingDate
+  setShippingDate,
+  cartProducts
 } = productSlice.actions;
 
 export default productSlice.reducer;

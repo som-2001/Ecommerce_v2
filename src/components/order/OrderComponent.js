@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import { AddressForm } from './AddressForm';
 import { ShippingForm } from './ShippingForm';
 import { PaymentForm } from './PaymentForm';
+import { useParams } from 'react-router-dom';
+import { PaymentCartForm } from './PaymentCartForm';
 
 const steps = ['Select Address', 'Shipping', 'Payment'];
 
@@ -16,6 +18,9 @@ export default function OrderComponent() {
   const [completed, setCompleted] = React.useState({});
   const [addressFormState,setAddressFormState]=React.useState(false);
   const [ShippingState,setShippingState]=React.useState(false);
+
+  const {id}=useParams();
+  console.log(id);
 
   const handlefunction=(data)=>{
     setAddressFormState(data);
@@ -84,16 +89,19 @@ export default function OrderComponent() {
               {/* Your step content goes here */}
               {activeStep === 0 && <AddressForm handlefunction={handlefunction} />}
               {activeStep === 1 && <ShippingForm handlefunction1={handlefunction1}/>}
-              {activeStep === 2 && <PaymentForm />} 
+              {activeStep === 2 ? (id !== 'bike-order-cart' ? <PaymentForm /> : <PaymentCartForm />) : null}
+
+
 
 
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
              
               <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleNext} sx={{ mr: 1 }} 
+              <Button onClick={handleNext} sx={{ border:"1px solid black",p:2,color:"black",borderRadius:3,width:"120px", mr: 1,display:activeStep===2?"none":'inherit' }} 
               disabled={activeStep===0 ? !addressFormState : (
                 activeStep===1 ? !ShippingState:true
               )}
+              
               >
                 Next
               </Button>

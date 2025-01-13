@@ -106,7 +106,7 @@ export const AddressForm = ({ handlefunction }) => {
             <Typography variant="body2" color="text.secondary">
               {address?.landmark}
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ display: "flex", flexDirection: "row",flexWrap:"wrap",wordBreak:"break-word" }}>
               <Typography variant="body2" color="text.secondary">
                 {address?.locality},{" "}
               </Typography>
