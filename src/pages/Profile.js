@@ -6,42 +6,52 @@ import { WishList } from "../components/profile/WishList";
 import { Orders } from "../components/profile/Orders";
 import Footer from "./../components/Footer";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode";
-import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
 function Profile() {
+  const [data, setData] = useState([]);
+  const [orders,setOrders]=useState([]);
+  const [orderError,setOrderError]=useState('');
+  const [orderLength,setOrderLength]=useState('');
+  const [changeState,setChangeState]=useState(false);
 
-  const [data,setData]=useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.REACT_APP_BASEURL}/users/users/${
+          jwtDecode(Cookies.get("accessToken")).id
+        }`,
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-  useEffect(()=>{
-    axios.get(`${process.env.REACT_APP_BASEURL}/users/users/${jwtDecode(Cookies.get("accessToken")).id}`,{withCredentials:true}).then(res=>{
-      console.log(res.data);
-      setData(res.data)
-    }).catch(err=>{
-      console.log(err);
-    });
-  },[]);
-  // const { data,isPending,isError } = useQuery({
-  //   queryKey: ["profile"],
-  //   queryFn: async () => {
-  //     const response = await axios.get(
-  //       `${process.env.REACT_APP_BASEURL}/users/users/${jwtDecode(Cookies.get("accessToken")).id}`,
-  //       {
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     return response.data;
-  //   },
-  // });
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/orders/userOrders?limit=2`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setOrders(res.data?.orders);
+        setOrderLength(res.data.orderLength);
 
-  // if (isPending) return <Box sx={{display:"flex",justifyContent:"center",alignItems:"center",minHeight:"100vh"}}><ScaleLoader color="black"/></Box>;
-  // if (isError) return <div>Error :</div>;
-
+      })
+      .catch((err) => {
+        setOrderError(err?.response?.data?.message)
+        console.log(err);
+      });
+  }, [changeState]);
 
   return (
     <>
-   
       <Box
         sx={{
           display: "flex",
@@ -51,10 +61,10 @@ function Profile() {
           overflowX: "hidden",
         }}
       >
-        <Hero data={data}/>
-        <Form data={data}/>
-        <ManageAddresses profile={data}/>
-        <Orders />
+        <Hero data={data} />
+        <Form data={data} setChangeState={setChangeState}/>
+        <ManageAddresses profile={data} />
+        <Orders orders={orders} orderLength={orderLength} orderError={orderError}/>
         <WishList />
       </Box>
       <Footer />

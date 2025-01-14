@@ -50,7 +50,7 @@ export const WishList = () => {
       ) : (
         <Box sx={{ border: "1px solid #dfdfdf", padding: 2, my: 2 }}>
           <Grid container spacing={2}>
-            {wishlist.map((item, index) => (
+            {wishlist.slice(0,4).map((item, index) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                 <Box sx={{ border: "1px solid #e0e0e0", borderRadius: 2, padding: 2 }}>
                   <CardMedia

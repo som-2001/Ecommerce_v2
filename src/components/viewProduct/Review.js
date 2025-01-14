@@ -4,41 +4,41 @@ import {
   Grid,
   LinearProgress,
   Rating,
-  TextField,
   Typography,
-  Button,
 } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import  dayjs  from 'dayjs';
 
 const ratings = [
   { label: "Excellent", value: 60, color: "#14958f" },
   { label: "Good", value: 50, color: "#14958f" },
   { label: "Average", value: 40, color: "#72bfbc" },
   { label: "Bad", value: 20, color: "#fcb301" },
-  {label:"Very Bad",value:10,color:"#f16565"}
+  { label: "Very Bad", value: 10, color: "#f16565" },
 ];
 
-const reviews = [
-  {
-    image: "https://mui.com/static/images/avatar/1.jpg",
-    name: "Grace Carey",
-    rate: 4,
-    comment:
-      "I was a bit nervous to be buying a secondhand phone from Amazon, but I couldn’t be happier with my purchase!! I have a pre-paid data plan so I was worried that this phone wouldn’t connect with my data plan, since the new phones don’t have the physical Sim tray anymore, but couldn’t have been easier! I bought an Unlocked black iPhone 14 Pro Max in excellent condition and everything is PERFECT. It was super easy to set up and the phone works and looks great. It truly was in excellent condition. Highly recommend!!!🖤",
-    date: "23th Jan, 2024",
-  },
-  {
-    image: "https://mui.com/static/images/avatar/2.jpg",
-    name: "Ronald Richards",
-    rate: 5,
-    comment:
-      "I was a bit nervous to be buying a secondhand phone from Amazon, but I couldn’t be happier with my purchase!! ",
-    date: "23th Jan, 2024",
-  },
-];
+
 
 export const Review = () => {
+  const [review, setReview] = useState([]);
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/review/${id}/reviews`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setReview(res.data?.reviews);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
   return (
-    <Box sx={{ padding: 4,width:{xs:"90vw",lg:"57vw" }}}>
+    <Box sx={{ padding: 4, width: { xs: "90vw", lg: "57vw" } }}>
       {/* Section Title */}
       <Typography
         variant="h5"
@@ -68,7 +68,10 @@ export const Review = () => {
               textAlign: "center",
             }}
           >
-            <Typography variant="h3" sx={{ fontWeight: "bold", color: "#1565c0" }}>
+            <Typography
+              variant="h3"
+              sx={{ fontWeight: "bold", color: "#1565c0" }}
+            >
               4.8
             </Typography>
             <Typography variant="body2" sx={{ color: "#666" }}>
@@ -92,7 +95,10 @@ export const Review = () => {
                 mb: 2,
               }}
             >
-              <Typography variant="body2" sx={{ width: "80px", fontWeight: "bold" }}>
+              <Typography
+                variant="body2"
+                sx={{ width: "80px", fontWeight: "bold" }}
+              >
                 {rating.label}
               </Typography>
               <LinearProgress
@@ -107,7 +113,10 @@ export const Review = () => {
                   },
                 }}
               />
-              <Typography variant="body2" sx={{ width: "40px", textAlign: "right" }}>
+              <Typography
+                variant="body2"
+                sx={{ width: "40px", textAlign: "right" }}
+              >
                 {rating.value}%
               </Typography>
             </Box>
@@ -115,44 +124,9 @@ export const Review = () => {
         </Grid>
       </Grid>
 
-      {/* Add Review */}
-      <Box
-        sx={{
-          display:"flex",
-          flexDirection:'column',
-          justifyContent:'center',
-          alignItems:'center',
-          backgroundColor: "white",
-          padding: 3,
-          borderRadius: "16px",
-          boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-          mt: 5,
-        }}
-      >
-        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2,justifyContent:"flex-start" }}>
-          Leave a Review
-        </Typography>
-        <TextField
-          placeholder="Write your comment here..."
-          fullWidth
-          multiline
-          rows={4}
-          sx={{ mb: 2 }}
-        />
-        <Button variant="contained" color="primary" sx={{ padding: '1rem',
-                  backgroundColor: 'black',
-                  color: 'white',
-                  borderRadius: 3,
-                  '&:hover': {
-                    backgroundColor: '#0d47a1',
-                  }, }}>
-          Submit Review
-        </Button>
-      </Box>
-
       {/* Reviews Section */}
       <Box sx={{ mt: 5 }}>
-        {reviews.map((data, index) => (
+        {review.map((data, index) => (
           <Box
             key={index}
             sx={{
@@ -177,7 +151,7 @@ export const Review = () => {
               >
                 <CardMedia
                   component="img"
-                  image={data.image}
+                  image={data?.user?.profilePicture}
                   alt={data.name}
                   sx={{
                     width: "60px",
@@ -190,15 +164,20 @@ export const Review = () => {
               <Grid item xs={9} sm={10} md={11}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                    {data.name}
+                    {data?.user?.fullName}
                   </Typography>
                   <Typography variant="body2" sx={{ color: "#888" }}>
-                    {data.date}
+                    {dayjs(data.createdAt).format("DD-MMM-YYYY")}
                   </Typography>
                 </Box>
-                <Rating name="read-only" value={data.rate} readOnly size="small" />
+                <Rating
+                  name="read-only"
+                  value={data.rating}
+                  readOnly
+                  size="small"
+                />
                 <Typography variant="body2" sx={{ mt: 1, color: "#555" }}>
-                  {data.comment}
+                  {data?.reviewText}
                 </Typography>
               </Grid>
             </Grid>

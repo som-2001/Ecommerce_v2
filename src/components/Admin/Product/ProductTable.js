@@ -17,6 +17,7 @@ import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch } from "react-redux";
 import { resetProduct } from "../../../Redux/ProductAdminSlice/ProductSlice";
+import { useNavigate } from "react-router-dom";
 
 const ProductTable = () => {
   const [bikes, setBikes] = useState([]);
@@ -27,6 +28,7 @@ const ProductTable = () => {
   const [orderBy, setOrderBy] = useState("createdAt"); // Default column to sort by
   const [search, setSearch] = useState(""); // Search query
   const dispatch = useDispatch();
+  const navigate=useNavigate();
 
   const fetchProducts = () => {
     axios
@@ -148,7 +150,7 @@ const ProductTable = () => {
           </TableHead>
           <TableBody>
             {bikes.map((bike) => (
-              <TableRow key={bike._id}>
+              <TableRow key={bike._id} onClick={(e)=>navigate(`/view-product/${bike?._id}/${bike?.modelNumber}`)}>
                 <TableCell align="center">
                   <img src={`${bike.image?.[0]}`} alt={bike.name} width="70" />
                 </TableCell>

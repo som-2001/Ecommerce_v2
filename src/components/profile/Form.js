@@ -24,7 +24,7 @@ const schema = yup
   })
   .required();
 
-export const Form = ({data}) => {
+export const Form = ({data,setChangeState}) => {
   const { control, handleSubmit,setValue} = useForm({
     resolver: yupResolver(schema),
   });
@@ -36,16 +36,26 @@ export const Form = ({data}) => {
     setValue("email",data?.email);
     setValue("gender",data?.gender);
     setValue("mobileNumber",data?.mobileNumber);
-  },[data,setValue,isEdit]);
+  },[data,setValue]);
   
   const onSubmit = async(data) => {
   
     await axios.put(
-      `${process.env.REACT_APP_BASEURL}/users/users/${jwtDecode(Cookies.get("accessToken")).id}`,data,
+      `${process.env.REACT_APP_BASEURL}/users/users/${jwtDecode(Cookies.get("accessToken")).id}`,{
+        fullName:data?.name,
+        email:data?.email,
+        gender:data?.gender,
+        mobileNumber:data?.mobileNumber
+      },
       {
         withCredentials: true,
       }).then(res=>{
-        enqueueSnackbar("profile has been updated",{variant:"success"})
+        setValue("name",data?.fullName);
+        setValue("email",data?.email);
+        setValue("gender",data?.gender);
+        setValue("mobileNumber",data?.mobileNumber);
+        enqueueSnackbar("profile has been updated",{variant:"success"});
+        
       }).catch(err=>{
         enqueueSnackbar("Failed to update profile",{variant:"error"})
 

@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { loadStripe } from "@stripe/stripe-js";
@@ -21,10 +21,10 @@ export const PaymentForm = () => {
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const { address, shippingDate } = useSelector((state) => state.product);
-  const [selectedItem,setSelectedItem]=useState('');
-  const [Tax,setTax]=useState(Math.floor(Math.random()*20));
-  const [TotalAmount,setTotalAmount]=useState('');
-
+  const [selectedItem, setSelectedItem] = useState("");
+  const [Tax, setTax] = useState(Math.floor(Math.random() * 20));
+  const [TotalAmount, setTotalAmount] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -34,43 +34,68 @@ export const PaymentForm = () => {
       .then((res) => {
         setProduct(res?.data);
         console.log(res?.data);
-        if(shippingDate.method==="Free" || shippingDate?.method==="Schedule"){
-        setTotalAmount(Tax+res?.data?.offerPrice);
-        }else{
-          setTotalAmount(Tax+res?.data?.offerPrice+(Number(shippingDate?.method)));
+        if (
+          shippingDate.method === "Free" ||
+          shippingDate?.method === "Schedule"
+        ) {
+          setTotalAmount(Tax + res?.data?.offerPrice);
+        } else {
+          setTotalAmount(
+            Tax + res?.data?.offerPrice + Number(shippingDate?.method)
+          );
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  },[Tax,shippingDate?.method,id]);
+  }, [Tax, shippingDate?.method, id]);
 
-  const handlePaytmentMethodFunction=(method)=>{
+  const handlePaytmentMethodFunction = (method) => {
     setSelectedItem(method);
-  }
+  };
+
   const StripePayment = async () => {
     const response = await axios.post(
       `${process.env.REACT_APP_BASEURL}/orders/order`,
       {
         shippingAddress: address.address,
         userId: jwtDecode(Cookies.get("accessToken")).id,
-        products: [{product:{productName:product?.productName,image:product?.image,description:product?.description,offerPrice:product?.offerPrice,_id:product?._id},price:TotalAmount,quantity:1}],
+        products: [
+          {
+            product: {
+              productName: product?.productName,
+              image: product?.image,
+              description: product?.description,
+              offerPrice: product?.offerPrice,
+              _id: product?._id,
+            },
+            price: TotalAmount,
+            quantity: 1,
+          },
+        ],
         orderMode: selectedItem === "COD" ? "COD" : "Prepaid",
-        shipmentDetails:shippingDate,
-        Tax:Tax
+        shipmentDetails: shippingDate,
+        Tax: Tax,
       },
       {
         withCredentials: true,
       }
     );
-    const session = response.data?.checkoutSessionId;
-    const result = await stripe.redirectToCheckout({ sessionId: session });
 
-    if (result.error) {
-      console.error(result.error.message);
+    if (response?.data?.message === "Order confirmed successfully.") {
+      navigate("/success");
+    } 
+
+    const session = response.data?.checkoutSessionId;
+    if (session) {
+      const result = await stripe.redirectToCheckout({ sessionId: session });
+
+      if (result.error) {
+        console.error(result.error.message);
+      }
     }
   };
-  
+
   return (
     <Box
       sx={{
@@ -99,7 +124,11 @@ export const PaymentForm = () => {
                 <CardMedia
                   component="img"
                   image={product?.image?.[0]}
-                  sx={{ width: {xs:"70px",sm:"120px"}, height: "70px", borderRadius: 1 }}
+                  sx={{
+                    width: { xs: "70px", sm: "120px" },
+                    height: "70px",
+                    borderRadius: 1,
+                  }}
                 />
               </Grid>
               <Grid item xs={5}>
@@ -242,66 +271,72 @@ export const PaymentForm = () => {
           <Typography variant="h5" sx={{ mb: 3, fontWeight: "bold" }}>
             Payment
           </Typography>
-         
-            <Box
-              sx={{
-                border: "1px solid #dfdfdf",
-                padding: 3,
-                borderRadius:3,
-                my: 2,
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                width:{xs:"75vw",sm:"30vw"}
-              }}
-            >
-              <Box>
-                <input
-                  type="radio"
-                  style={{ cursor: "pointer" }}
-                  checked={selectedItem === "Online"}
-                  onChange={() => handlePaytmentMethodFunction("Online")}
-                />
-              </Box>
-              <Box>
-                <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                  Online Payment
-                </Typography>
-              </Box>
-            </Box>
 
-            <Box
-              sx={{
-                border: "1px solid #dfdfdf",
-                padding: 3,
-                borderRadius:3,
-                my: 2,
-                display: "flex",
-                alignItems: "center",
-                gap: "20px",
-                width:{xs:"75vw",sm:"30vw"}
-              }}
-            >
-              <Box>
-                <input
-                  type="radio"
-                  style={{ cursor: "pointer" }}
-                  checked={selectedItem === "COD"}
-                  onChange={() => handlePaytmentMethodFunction("COD")}
-                />
-              </Box>
-              <Box>
-                <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                  Cash on Delivery
-                </Typography>
-              </Box>
+          <Box
+            sx={{
+              border: "1px solid #dfdfdf",
+              padding: 3,
+              borderRadius: 3,
+              my: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              width: { xs: "75vw", sm: "30vw" },
+            }}
+          >
+            <Box>
+              <input
+                type="radio"
+                style={{ cursor: "pointer" }}
+                checked={selectedItem === "Online"}
+                onChange={() => handlePaytmentMethodFunction("Online")}
+              />
             </Box>
-            <Box sx={{display:"flex",width:{xs:"80vw",sm:"30vw"},justifyContent:"center"}}>
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                Online Payment
+              </Typography>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              border: "1px solid #dfdfdf",
+              padding: 3,
+              borderRadius: 3,
+              my: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: "20px",
+              width: { xs: "75vw", sm: "30vw" },
+            }}
+          >
+            <Box>
+              <input
+                type="radio"
+                style={{ cursor: "pointer" }}
+                checked={selectedItem === "COD"}
+                onChange={() => handlePaytmentMethodFunction("COD")}
+              />
+            </Box>
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                Cash on Delivery
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              width: { xs: "80vw", sm: "30vw" },
+              justifyContent: "center",
+            }}
+          >
             <Button
               sx={{
                 backgroundColor: "black",
                 padding: 2,
-                borderRadius:3,
+                borderRadius: 3,
                 color: "white",
                 width: "140px",
                 "&:hover": { backgroundColor: "#333" },
@@ -310,7 +345,7 @@ export const PaymentForm = () => {
             >
               Pay
             </Button>
-            </Box>
+          </Box>
         </Grid>
       </Grid>
     </Box>

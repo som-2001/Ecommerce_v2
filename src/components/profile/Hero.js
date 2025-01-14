@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -23,6 +23,13 @@ export const Hero = ({data}) => {
   const openLogoutDialog=()=>{
     setOpen(true);
   }
+  console.log(data);
+
+  useEffect(()=>{
+    if(data){
+      setProfileImage(data?.profilePicture);
+    }
+  },[data]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -37,7 +44,7 @@ export const Hero = ({data}) => {
       axios.put(`${process.env.REACT_APP_BASEURL}/users/profile-picture/${jwtDecode(Cookies.get("accessToken")).id}`,formData,{
         withCredentials: true
       }).then(res=>{
-        enqueueSnackbar("Profile picture has been updated successfully")
+        enqueueSnackbar("Profile picture has been updated successfully",{variant:"success"})
       }).catch(err=>{
         enqueueSnackbar("Failed to update profile picture", {variant: "error"})
       })
@@ -101,7 +108,7 @@ export const Hero = ({data}) => {
           >
             <CardMedia
               component="img"
-              image={data.profilePicture ?? profileImage}
+              image={profileImage}
               sx={{
                 width: "80px",
                 height: "80px",

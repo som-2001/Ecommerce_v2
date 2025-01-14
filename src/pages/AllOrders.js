@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Card,
@@ -8,34 +8,60 @@ import {
   Avatar,
   Rating,
   Divider,
+ 
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import Footer from "../components/Footer";
-
-const orders = [
-  {
-    id: "12345",
-    productName:
-      "Combed Cotton Rich Graphic Round Neck Half Sleeve Tshirt-2718",
-    brand: "Duke",
-    productImage: "https://via.placeholder.com/60",
-    color: "red",
-    price: "$24124",
-    deliveryDate: "Sun, 6 Oct",
-    returnDate: "Sun, 20 Oct",
-    status: "Delivered",
-  },
-];
+import axios from "axios";
+import dayjs from "dayjs";
+import { ReviewDrawer } from "../components/UserReview/ReviewDrawer";
 
 const OrdersPage = () => {
+  const [orders, setOrders] = useState([]);
+  const [productDetails, setProductDetails] = useState([]);
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [rating,setRating]=useState();
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/orders/userOrders`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setOrders(res.data?.orders);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleOpenDrawer = (id) => {
+    setDrawerOpen(true);
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/products/products/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setProductDetails(res?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Box>
-     
       <Box sx={{ padding: "20px" }}>
         <Typography
           variant="h5"
-          sx={{ marginBottom: "20px", fontWeight: "bold",width:"46vw",display:"flex",justifyContent:"center" }}
+          sx={{
+            marginBottom: "20px",
+            fontWeight: "bold",
+            width: "46vw",
+            display: "flex",
+            justifyContent: "center",
+          }}
         >
           All Orders
         </Typography>
@@ -83,71 +109,108 @@ const OrdersPage = () => {
                       {order.status}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      On {order.deliveryDate}
+                      On{" "}
+                      {dayjs(order?.shipmentDetails?.deliveryDate).format(
+                        "DD-MMM-YYYY"
+                      )}
                     </Typography>
                   </Box>
                 </Box>
                 {/* Product Info Section */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    backgroundColor: "#f9f9f9",
-                    padding: "16px",
-                    borderRadius: "8px",
-                  }}
-                >
-                  <img
-                    src="../images/product_1.jpg"
-                    alt={order.productName}
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                      marginRight: "16px",
+                {order?.products?.map((item, index) => (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      backgroundColor: "#f9f9f9",
+                      padding: "16px",
+                      borderRadius: "8px",
+                      mb: 1,
                     }}
-                  />
-                  <Box sx={{ flexGrow: 1 }}>
-                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                      {order.brand}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {order.productName}
-                    </Typography>
-                    <Box sx={{ display: "flex", gap: "10px" }}>
-                      <Typography variant="body2" color="text.secondary">
-                        Color:{" "}
-                      </Typography>
-                      <Box
-                        sx={{
-                          width: "16px",
-                          height: "16px",
-                          backgroundColor: order.color,
-                          borderRadius: "50%",
-                          transition: "transform 0.2s",
-                        }}
-                      />
-                    </Box>
-                    <Typography variant="body2" color="text.secondary">
-                      Price: {order.price}
-                    </Typography>
+                  >
+                    <img
+                      src={item?.image?.[0]}
+                      alt={order.productName}
+                      style={{
+                        width: "70px",
+                        height: "70px",
+                        marginRight: "16px",
+                        objectFit: "contain",
+                      }}
+                    />
+                    <Grid container>
+                      <Grid item xs={12} sm={6} sx={{ flexGrow: 1 }}>
+                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                          {item?.productName} ({item?.brand})
+                        </Typography>
+
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                          <Typography variant="body2" color="text.secondary">
+                            Color:{" "}
+                          </Typography>
+                          <Box
+                            sx={{
+                              width: "16px",
+                              height: "16px",
+                              backgroundColor: item?.selectedColor,
+                              borderRadius: "50%",
+                              transition: "transform 0.2s",
+                              border: "1px solid black",
+                            }}
+                          />
+                        </Box>
+                        <Typography variant="body2" color="green">
+                          Price: ${order.totalPrice}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={8} sm={6}>
+                        {order?.status === "delivered" ? (
+                         
+                            
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                my: 1,
+                                color: "#ff4081",
+                                cursor: "pointer",
+                              }}
+                              onClick={(e) => handleOpenDrawer(item?._id)}
+                            >
+                              Rate & Review
+                            </Typography>
+                          
+                        ) : null}
+                      </Grid>
+                    </Grid>
+
+                    <LocalShippingOutlinedIcon color="action" />
                   </Box>
-                  <LocalShippingOutlinedIcon color="action" />
-                </Box>
+                ))}
+
                 {/* Footer Section */}
                 <CardContent>
-                  <Typography variant="body2" color="text.secondary">
-                    Order ID # {order.id}
-                  </Typography>
                   <Divider sx={{ marginY: "16px" }} />
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Rating value={2} />
-                  </Box>
+
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontWeight: "bold" }}
+                  >
+                    Order ID # {order._id}
+                  </Typography>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
       </Box>
+      {drawerOpen && (
+        <ReviewDrawer
+          product={productDetails}
+          drawerOpen={drawerOpen}
+          setDrawerOpen={setDrawerOpen}
+        />
+      )}
       <Footer />
     </Box>
   );

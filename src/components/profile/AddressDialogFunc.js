@@ -107,9 +107,9 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
         // Handle successful API response
         console.log("Address added successfully:", response.data);
         enqueueSnackbar(response.data.message, { variant: "success" });
-        
-        setProfileData([...profileData,{customerName:data.customerName,
-          contactNumber: data.contactNumber,pincode:data.pincode,locality:data.locality,address:data.address,city:data.city,state:data.state,landmark:data.landmark,addressType:data.addressType}]);
+        console.log(response?.data?.message);
+
+        setProfileData(response?.data?.user?.address);
 
         setOpen(false); // Close the dialog
         reset(); // Reset form fields
