@@ -15,7 +15,7 @@ const Sidebar = () => {
     <Box width="280px" sx={{ background: "linear-gradient(to top,  #C25FFF,#3D29D0)" }} minHeight="100vh" color="white">
       <Box textAlign="center" p={2} fontSize={20}>
        
-        <Typography variant='h6'>BikeMart</Typography>
+        <Typography variant='h6' sx={{cursor:"pointer"}}>BikeMart</Typography>
       </Box>
       <List>
         {[
@@ -26,8 +26,8 @@ const Sidebar = () => {
           { label: 'Review Management', icon: <StarBorderIcon />,route:"reviews"  },
 
         ].map((item, index) => (
-          <ListItem button key={index} onClick={(e)=>navigate(item.route)}>
-            <ListItemIcon sx={{ color: 'white' }}>{item.icon}</ListItemIcon>
+          <ListItem button key={index} onClick={(e)=>navigate(item.route)} sx={{cursor:"pointer"}}>
+            <ListItemIcon sx={{ color: 'white', }}>{item.icon}</ListItemIcon>
             <ListItemText primary={item.label} sx={{mr:1}}/>
           </ListItem>
         ))}
