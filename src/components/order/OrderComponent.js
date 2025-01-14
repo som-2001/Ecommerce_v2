@@ -18,6 +18,7 @@ export default function OrderComponent() {
   const [completed, setCompleted] = React.useState({});
   const [addressFormState,setAddressFormState]=React.useState(false);
   const [ShippingState,setShippingState]=React.useState(false);
+  
 
   const {id}=useParams();
   console.log(id);
@@ -88,7 +89,7 @@ export default function OrderComponent() {
             
               {/* Your step content goes here */}
               {activeStep === 0 && <AddressForm handlefunction={handlefunction} />}
-              {activeStep === 1 && <ShippingForm handlefunction1={handlefunction1}/>}
+              {activeStep === 1 && <ShippingForm handlefunction1={handlefunction1} />}
               {activeStep === 2 ? (id !== 'bike-order-cart' ? <PaymentForm /> : <PaymentCartForm />) : null}
 
 

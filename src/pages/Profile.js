@@ -12,10 +12,10 @@ import { useEffect, useState } from "react";
 
 function Profile() {
   const [data, setData] = useState([]);
-  const [orders,setOrders]=useState([]);
-  const [orderError,setOrderError]=useState('');
-  const [orderLength,setOrderLength]=useState('');
-  const [changeState,setChangeState]=useState(false);
+  const [orders, setOrders] = useState([]);
+  const [orderError, setOrderError] = useState("");
+  const [orderLength, setOrderLength] = useState("");
+  const [changeState, setChangeState] = useState(false);
 
   useEffect(() => {
     axios
@@ -28,7 +28,6 @@ function Profile() {
       .then((res) => {
         console.log(res.data);
         setData(res.data);
-       
       })
       .catch((err) => {
         console.log(err);
@@ -42,10 +41,9 @@ function Profile() {
         console.log(res.data);
         setOrders(res.data?.orders);
         setOrderLength(res.data.orderLength);
-
       })
       .catch((err) => {
-        setOrderError(err?.response?.data?.message)
+        setOrderError(err?.response?.data?.message);
         console.log(err);
       });
   }, [changeState]);
@@ -62,9 +60,13 @@ function Profile() {
         }}
       >
         <Hero data={data} />
-        <Form data={data} setChangeState={setChangeState}/>
+        <Form data={data} setChangeState={setChangeState} changeState={changeState}/>
         <ManageAddresses profile={data} />
-        <Orders orders={orders} orderLength={orderLength} orderError={orderError}/>
+        <Orders
+          orders={orders}
+          orderLength={orderLength}
+          orderError={orderError}
+        />
         <WishList />
       </Box>
       <Footer />

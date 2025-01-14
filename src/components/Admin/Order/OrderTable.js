@@ -8,7 +8,11 @@ import {
   TableRow,
   Paper,
   TablePagination,
+  Select,
+  MenuItem,
 } from "@mui/material";
+import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
   // Define columns for the order data
@@ -34,6 +38,24 @@ const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
     setPage(1);
   };
 
+  const handleOrderStatusChange = (id, value) => {
+
+    console.log(id,value);
+    axios
+      .put(
+        `${process.env.REACT_APP_BASEURL}/orders/order/status`,
+        { orderId: id, status: value },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        enqueueSnackbar(res.data?.message, { variant: "success" });
+      })
+      .catch((error) => {
+        enqueueSnackbar(error?.response?.data?.message, { variant: "error" });
+      });
+  };
   return (
     <>
       <TableContainer component={Paper}>
@@ -60,9 +82,22 @@ const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
                 <TableCell align="center">{`$${order.totalPrice}`}</TableCell>
                 <TableCell align="center">{order.paymentStatus}</TableCell>
                 <TableCell align="center">{order.orderMode}</TableCell>
-                <TableCell align="center">{order.status}</TableCell>
                 <TableCell align="center">
-                  {new Date(order.shipmentDetails.deliveryDate).toLocaleDateString()}
+                  <Select
+                    sx={{width:"150px"}}
+                    defaultValue={order?.status}
+                    onChange={(e) => handleOrderStatusChange(order?._id, e.target.value)}
+                  >
+                    <MenuItem value="ordered">Ordered</MenuItem>
+                    <MenuItem value="shipped">Shipped</MenuItem>
+                    <MenuItem value="delivered">Delivered</MenuItem>
+                    <MenuItem value="cancelled">Cancelled</MenuItem>
+                  </Select>
+                </TableCell>
+                <TableCell align="center">
+                  {new Date(
+                    order.shipmentDetails.deliveryDate
+                  ).toLocaleDateString()}
                 </TableCell>
               </TableRow>
             ))}

@@ -24,7 +24,7 @@ const schema = yup
   })
   .required();
 
-export const Form = ({data,setChangeState}) => {
+export const Form = ({data,setChangeState,changeState}) => {
   const { control, handleSubmit,setValue} = useForm({
     resolver: yupResolver(schema),
   });
@@ -56,6 +56,7 @@ export const Form = ({data,setChangeState}) => {
         setValue("mobileNumber",data?.mobileNumber);
         enqueueSnackbar("profile has been updated",{variant:"success"});
         
+        setChangeState(!changeState);
       }).catch(err=>{
         enqueueSnackbar("Failed to update profile",{variant:"error"})
 
