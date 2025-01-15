@@ -1,16 +1,14 @@
 import React from "react";
 import { Grid, Typography, Link, Box, Divider } from "@mui/material";
 import { Facebook, Instagram, Twitter, LinkedIn } from "@mui/icons-material";
-
 const Footer = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#1f1f1f",
+        backgroundColor: "#1F1F1F",
         color: "white",
         padding: "40px 20px",
         marginTop: "auto",
-     
       }}
     >
       <Grid container spacing={4} justifyContent="center">
@@ -21,14 +19,14 @@ const Footer = () => {
             gutterBottom
             sx={{
               fontWeight: "bold",
-              color: "#f9a826",
+              color: "#F9A826",
               marginBottom: "16px",
             }}
           >
-            Venturo Bike Rentals
+            BikeMart
           </Typography>
           <Typography variant="body2" gutterBottom>
-            Rent high-quality bikes for your adventures and have the best
+            High-quality bikes for your adventures and have the best
             experience exploring new places with comfort and style.
           </Typography>
           <Box sx={{ display: "flex", gap: 2, marginTop: "16px" }}>
@@ -58,39 +56,9 @@ const Footer = () => {
             </Link>
           </Box>
         </Grid>
-
         {/* Footer Middle Section */}
         <Grid item xs={12} sm={6} md={3}>
-          <Typography
-            variant="h6"
-            gutterBottom
-            sx={{ fontWeight: "bold", marginBottom: "16px" }}
-          >
-            Quick Links
-          </Typography>
-          <Box>
-            {["About Us", "Our Services", "Pricing", "Contact"].map((link) => (
-              <Link
-                href="#"
-                color="inherit"
-                variant="body2"
-                display="block"
-                gutterBottom
-                key={link}
-                sx={{
-                  textDecoration: "none",
-                  "&:hover": { color: "#f9a826" },
-                }}
-              >
-                {link}
-              </Link>
-            ))}
-          </Box>
-        </Grid>
-
-        {/* Footer Right Section */}
-        <Grid item xs={12} sm={6} md={3}>
-          <Typography
+        <Typography
             variant="h6"
             gutterBottom
             sx={{ fontWeight: "bold", marginBottom: "16px" }}
@@ -98,22 +66,45 @@ const Footer = () => {
             Contact Us
           </Typography>
           <Typography variant="body2" gutterBottom>
-            1234 Bike Lane, City, Country
+            ASO 616, Astra Towers, Action Area IIC, Newtown, New Town, West Bengal 700161
           </Typography>
           <Typography variant="body2" gutterBottom>
             Email:{" "}
             <Link
-              href="mailto:info@venturo.com"
-              sx={{ color: "#f9a826", textDecoration: "none" }}
+              href="mailto:bikemart@klizo.com"
+              sx={{ color: "#F9A826", textDecoration: "none" }}
             >
-              info@venturo.com
+              bikemart@klizo.com
             </Link>
           </Typography>
           <Typography variant="body2" gutterBottom>
-            Phone: +1 234 567 890
+            Phone: +91 7002272289
           </Typography>
         </Grid>
-
+        {/* Footer Right Section */}
+        <Grid item xs={12} sm={6} md={3}>
+            <Typography variant="h6" sx={{fontWeight: "bold", marginBottom: "16px" }}>Our Location</Typography>
+          {/* Embedding Google Map */}
+          <Box
+            sx={{
+              width: "150%",
+              height: "250px",
+              marginTop: "16px",
+              borderRadius: "8px",
+              overflow: "hidden",
+            }}
+          >
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Klizo&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              title="map"
+            ></iframe>
+          </Box>
+        </Grid>
         {/* Footer Bottom Section */}
         <Grid item xs={12}>
           <Divider sx={{ backgroundColor: "#444", my: 2 }} />
@@ -125,12 +116,11 @@ const Footer = () => {
               fontWeight: "light",
             }}
           >
-            &copy; {new Date().getFullYear()} Ecommerce. All Rights Reserved.
+            &copy; {new Date().getFullYear()} BikeMart. All Rights Reserved.
           </Typography>
         </Grid>
       </Grid>
     </Box>
   );
 };
-
 export default Footer;

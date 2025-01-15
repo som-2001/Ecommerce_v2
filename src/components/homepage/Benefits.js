@@ -27,7 +27,7 @@ const benefits = [
 
 const Benefits = () => {
   return (
-    <Box sx={{ backgroundColor: "#a4c3d3", p:{xs:3,sm:"82px 160px"},height:{xs:"fit-content",md:"350px" }}}>
+    <Box sx={{ backgroundColor: "black", p:{xs:3,sm:"82px 160px"},height:{xs:"fit-content",md:"350px",color:"white" }}}>
       <Typography
         variant="h4"
         sx={{ textAlign: "center", marginBottom: "20px", fontWeight: "600" }}
@@ -40,7 +40,7 @@ const Benefits = () => {
             <Paper
               elevation={0}
               sx={{
-                backgroundColor: "transparent",
+               
                 textAlign: "center",
                 padding: "20px",
                 borderRadius: "12px",

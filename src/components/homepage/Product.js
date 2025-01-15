@@ -161,7 +161,7 @@ export const Product = ({product}) => {
                 width: "130px",
                 height:"60px"
               }}
-              onClick={(e) => navigate("/explore-products")}
+              onClick={(e) => navigate(`/view-product/${product?.[0]?._id}/${product?.[0]?.modelNumber}`)}
             >
               Shop now
             </Button>

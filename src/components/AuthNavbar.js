@@ -95,6 +95,7 @@ export const AuthNavbar = () => {
         backgroundColor: "black",
         boxShadow: "none",
         paddingY: 1,
+      
       }}
     >
       <Container maxWidth="xl">
@@ -107,7 +108,7 @@ export const AuthNavbar = () => {
           />
           <Typography
             variant="h6"
-            sx={{ display: { xs: "none", sm: "inherit" }, marginLeft: "5px" }}
+            sx={{ display: { xs: "none", md: "inherit" }, marginLeft: "5px" }}
             onClick={(e) => navigate("/")}
           >
             BikeMart
