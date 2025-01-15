@@ -108,41 +108,7 @@ export const RenderCard = ({ bike }) => {
         />
       )}
 
-      {/* Rating Section */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 175,
-          left: 10,
-          backgroundColor: "rgba(255, 255, 255, 0.9)",
-          display: "flex",
-          alignItems: "center",
-          borderRadius: 2,
-          padding: "6px",
-          width: "110px",
-        }}
-      >
-        <Typography variant="body2" sx={{ fontWeight: 600, fontSize: "11px" }}>
-          4
-        </Typography>
-        <StarBorderIcon
-          sx={{
-            color: "green",
-            marginLeft: "4px",
-            cursor: "pointer",
-            "&:hover": {
-              transform: "scale(1.2)",
-            },
-          }}
-        />
-        <Typography variant="body2" sx={{ mx: 1, fontWeight: 600, fontSize: "11px" }}>
-          |
-        </Typography>
-        <Typography variant="body2" sx={{ fontWeight: 600, fontSize: "11px" }}>
-          10.4K
-        </Typography>
-        <PersonIcon sx={{ ml: "2px", fontSize: "16px" }} />
-      </Box>
+     
 
       {/* Product Details */}
       <CardContent

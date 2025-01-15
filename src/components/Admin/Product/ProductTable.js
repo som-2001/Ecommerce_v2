@@ -28,7 +28,7 @@ const ProductTable = () => {
   const [orderBy, setOrderBy] = useState("createdAt"); // Default column to sort by
   const [search, setSearch] = useState(""); // Search query
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const fetchProducts = () => {
     axios
@@ -98,9 +98,12 @@ const ProductTable = () => {
         );
       })
       .catch((err) => {
-        enqueueSnackbar(err.response?.data?.message || "Error updating product", {
-          variant: "error",
-        });
+        enqueueSnackbar(
+          err.response?.data?.message || "Error updating product",
+          {
+            variant: "error",
+          }
+        );
       });
   };
 
@@ -122,7 +125,7 @@ const ProductTable = () => {
       <TextField
         placeholder="Search Bikes By Name..."
         variant="outlined"
-        sx={{ml:2,width:"350px"}}
+        sx={{ ml: 2, width: "350px" }}
         margin="normal"
         value={search}
         onChange={handleSearchChange}
@@ -150,9 +153,19 @@ const ProductTable = () => {
           </TableHead>
           <TableBody>
             {bikes.map((bike) => (
-              <TableRow key={bike._id} >
+              <TableRow key={bike._id}>
                 <TableCell align="center">
-                  <img src={`${bike.image?.[0]}`} alt={bike.name} width="70" onClick={(e)=>navigate(`/view-product/${bike?._id}/${bike?.modelNumber}`)} style={{cursor:"pointer"}}/>
+                  <img
+                    src={`${bike.image?.[0]}`}
+                    alt={bike.name}
+                    width="70"
+                    onClick={(e) =>
+                      navigate(
+                        `/view-product/${bike?._id}/${bike?.modelNumber}`
+                      )
+                    }
+                    style={{ cursor: "pointer" }}
+                  />
                 </TableCell>
                 <TableCell align="center">{bike.productName}</TableCell>
                 <TableCell align="center">{bike.brand}</TableCell>

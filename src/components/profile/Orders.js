@@ -10,7 +10,7 @@ export const Orders = ({ orders,orderLength,orderError }) => {
   return (
     <Box sx={{ width: "77vw", mt: 2 }}>
       <Typography variant="h6" color="text.secondary" gutterBottom>
-        My Orders ({orderLength }) (
+        My Orders ({orderLength || 0 }) (
         <span
           style={{
             fontSize: "1.0rem",
@@ -32,7 +32,7 @@ export const Orders = ({ orders,orderLength,orderError }) => {
   );
 };
 
-const OrderCard = ({ order, }) => {
+const OrderCard = ({ order}) => {
   const [showAllProducts, setShowAllProducts] = useState(false);
 
  

@@ -12,7 +12,7 @@ const Sidebar = () => {
   const navigate=useNavigate();
 
   return (
-    <Box width="280px" sx={{ background: "linear-gradient(to top,  #C25FFF,#3D29D0)" }} minHeight="100vh" color="white">
+    <Box width="280px" sx={{ background:  "#0d2229" }} minHeight="100vh" color="white">
       <Box textAlign="center" p={2} fontSize={20}>
        
         <Typography variant='h6' sx={{cursor:"pointer"}}>BikeMart</Typography>

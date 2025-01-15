@@ -29,7 +29,7 @@ const Topbar = () => {
         <Button
           sx={{
             width: "120px",
-            background: "linear-gradient(to right,#5041BC,#3D29D0)",
+            background: "#DDA853",
             color: "white",
             p: 1,
             borderRadius: 2,
@@ -39,7 +39,7 @@ const Topbar = () => {
         >
           Logout
         </Button>
-        <Avatar sx={{ bgcolor: "#eb6cc2" }}>A</Avatar>
+        <Avatar sx={{ bgcolor: "#16404D" }}>A</Avatar>
       </Toolbar>
         <LogoutDialog open={open} setOpen={setOpen}/>
     </AppBar>

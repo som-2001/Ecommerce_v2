@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Typography, Button, Chip, Divider } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Typography,
+  Button,
+  Chip,
+  Divider,
+  CardMedia,
+} from "@mui/material";
 import {
   Speed,
   DirectionsBike,
@@ -73,7 +81,6 @@ const Hero = ({ product, coloredProduct }) => {
       label: "Fuel Capacity",
       value: product?.fuelTankCapacity || "N/A",
     },
-    
   ];
 
   return (
@@ -90,10 +97,11 @@ const Hero = ({ product, coloredProduct }) => {
               }}
             >
               {selectedImage && (
-                <img
-                  src={selectedImage}
+                <CardMedia
+                  component="img"
+                  image={selectedImage}
                   alt={product?.productName || "Product"}
-                  style={{
+                  sx={{
                     width: "95%",
                     height: { xs: "200px", sm: "500px" },
                     objectFit: "contain",
@@ -152,7 +160,6 @@ const Hero = ({ product, coloredProduct }) => {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                 
                 }}
               >
                 <Typography
@@ -192,7 +199,9 @@ const Hero = ({ product, coloredProduct }) => {
               </Box>
 
               <Box sx={{ my: 0.3 }}>
-                <Typography variant="body2" sx={{fontWeight:"600",mb:2}}>Model Version: {product?.yearOfLaunch}</Typography>
+                <Typography variant="body2" sx={{ fontWeight: "600", mb: 2 }}>
+                  Model Version: {product?.yearOfLaunch}
+                </Typography>
               </Box>
 
               <Divider sx={{ marginBottom: "1rem" }} />

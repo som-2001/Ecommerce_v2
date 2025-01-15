@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Grid, Typography, Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { WishListCard } from "../components/Wishlist/WishListCard";
@@ -9,6 +9,7 @@ import { NoWishList } from "../components/Wishlist/NoWishList";
 
 function WishList() {
   const [Bike, setBike] = React.useState([]);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     axios
@@ -16,9 +17,11 @@ function WishList() {
         withCredentials: true,
       })
       .then((res) => {
+        setLoad(false);
         setBike(res.data.wishlist);
       })
       .catch((err) => {
+        setLoad(false);
         console.log(err);
       });
   }, []);
@@ -44,7 +47,18 @@ function WishList() {
           My Wishlist ({Bike.length} Items)
         </Typography>
         <Grid container spacing={1}>
-          {Bike.length > 0 ? (
+          {load ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                height: "60vh",
+                alignItems: "center",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          ) : Bike.length > 0 ? (
             Bike.map((bike) => (
               <Grid
                 item
@@ -63,7 +77,7 @@ function WishList() {
               </Grid>
             ))
           ) : (
-            <NoWishList/>
+            <NoWishList />
           )}
         </Grid>
       </Box>

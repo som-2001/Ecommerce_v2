@@ -161,7 +161,7 @@ function ImageDetails({ item }) {
                 <Select
                   {...field}
                   fullWidth
-                  
+                  disabled
                   displayEmpty
                   error={!!errors.selectedColor}
                   onChange={(e) => {

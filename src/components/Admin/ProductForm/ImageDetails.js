@@ -204,6 +204,7 @@ function ImageDetails() {
             <Controller
               name="selectedColor"
               control={control}
+              
               render={({ field }) => (
                 <Select
                   {...field}
