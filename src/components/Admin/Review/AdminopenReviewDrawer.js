@@ -1,64 +1,61 @@
+import { DeleteRounded } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Divider,
   Drawer,
+  Typography,
   Grid,
   Rating,
-  TextField,
-  Typography,
+  Avatar,
 } from "@mui/material";
-import axios from "axios";
-import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
+import { ReviewDeleteDrawer } from "./ReviewDeleteDrawer";
 
-export const ReviewDrawer = ({ product, drawerOpen, setDrawerOpen }) => {
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState("");
+export const AdminopenReviewDrawer = ({
+  review,
+  setReviews,
+  drawerOpen,
+  setDrawerOpen,
+}) => {
+  const [openReviewDelete, setOpenReviewDelete] = useState(false);
+  const [Reviewid, setReviewId] = useState(0);
 
   const handleCloseDrawer = () => {
     setDrawerOpen(false);
   };
 
-  const createReview = () => {
-
-    if(rating===""){
-        return enqueueSnackbar("You have to give a valid rating",{variant:"warning"});
-    }
-    if(review.length<5)
-    {
-        return enqueueSnackbar("Review is too short.",{variant:"warning"});
-    }
-    axios
-      .post(
-        `${process.env.REACT_APP_BASEURL}/review/create`,
-        {
-          rating: rating,
-          reviewText: review,
-          product: product?._id,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        enqueueSnackbar(res?.data?.message, { variant: "success" });
-        setDrawerOpen(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   return (
-    <Drawer anchor="right" open={drawerOpen} onClose={handleCloseDrawer}>
-      <Box sx={{ width:"320px", p: 2.5 }}>
-        <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
-          Product Summary
-        </Typography>
-        <Divider sx={{ mb: 2 }} />
-       
-            {product && (
+    <>
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
+        PaperProps={{
+          sx: {
+            width: { xs: "80vw", sm: "450px" },
+            p: 3,
+
+            borderRadius: "8px 0 0 8px",
+          },
+        }}
+      >
+        <Box>
+          {/* Header */}
+          <Typography
+            variant="h6"
+            sx={{
+              mb: 2,
+              fontWeight: "bold",
+              color: "#37474f",
+              textAlign: "center",
+            }}
+          >
+            Review Summary
+          </Typography>
+          <Divider sx={{ mb: 3 }} />
+
+          {/* Product Details */}
+          {review && (
             <>
               <Typography variant="body1" sx={{ mb: 1, fontWeight: "bold" }}>
                 Product Details
@@ -71,7 +68,7 @@ export const ReviewDrawer = ({ product, drawerOpen, setDrawerOpen }) => {
                 }}
               >
                 <img
-                  src={product?.image?.[0]}
+                  src={review?.product?.image?.[0]}
                   alt="Product"
                   style={{
                     width: "100%",
@@ -88,42 +85,42 @@ export const ReviewDrawer = ({ product, drawerOpen, setDrawerOpen }) => {
                     color="text.primary"
                     sx={{ fontWeight: "bold", mb: 0.5 }}
                   >
-                    {product?.productName} ({product?.brand})
+                    {review?.product?.productName} ({review?.product?.brand})
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Model: {product?.modelNumber}
+                    Model: {review?.product?.modelNumber}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Color: {product?.selectedColor}
+                    Color: {review?.product?.selectedColor}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Engine Capacity: {product?.engineCapacity}cc
+                    Engine Capacity: {review?.product?.engineCapacity}cc
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Max Power: {product?.maxPower} HP
+                    Max Power: {review?.product?.maxPower} HP
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Mileage: {product?.mileage} km/l
+                    Mileage: {review?.product?.mileage} km/l
                   </Typography>
                   <Typography
                     variant="body2"
@@ -136,7 +133,7 @@ export const ReviewDrawer = ({ product, drawerOpen, setDrawerOpen }) => {
                       gap: "5px",
                     }}
                   >
-                    ${product?.offerPrice}
+                    ${review?.product?.offerPrice}
                     <span
                       style={{
                         textDecoration: "line-through",
@@ -144,7 +141,7 @@ export const ReviewDrawer = ({ product, drawerOpen, setDrawerOpen }) => {
                         color: "#9e9e9e",
                       }}
                     >
-                      ${product?.originalPrice}
+                      ${review?.product?.originalPrice}
                     </span>
                   </Typography>
                 </Grid>
@@ -154,28 +151,28 @@ export const ReviewDrawer = ({ product, drawerOpen, setDrawerOpen }) => {
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Kerb Weight: {product?.kerbWeight}
+                    Kerb Weight: {review?.product?.kerbWeight}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Top Speed: {product?.topSpeed}
+                    Top Speed: {review?.product?.topSpeed}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Gear: {product?.gearbox}
+                    Gear: {review?.product?.gearbox}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
                     sx={{ mb: 0.5 }}
                   >
-                    Cooling System: {product?.coolingSystem} HP
+                    Cooling System: {review?.product?.coolingSystem} HP
                   </Typography>
                 </Grid>
               </Grid>
@@ -185,70 +182,87 @@ export const ReviewDrawer = ({ product, drawerOpen, setDrawerOpen }) => {
                 color="text.secondary"
                 sx={{ mb: 0.5 }}
               >
-                description: {product?.description}
+                description: {review?.product?.description}
               </Typography>
             </>
-            )}
+          )}
 
+          <Divider sx={{ my: 3 }} />
+
+          {/* Reviews Section */}
+          <Typography
+            variant="h6"
+            sx={{
+              mb: 2,
+              fontWeight: "bold",
+              color: "#37474f",
+              textAlign: "center",
+            }}
+          >
+            Customer Detailed Review
+          </Typography>
+
+          <Box
+            key={review._id}
+            sx={{
+              mb: 2,
+              p: 2,
+              bgcolor: "#fff",
+              borderRadius: "8px",
+              boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
+              position: "relative",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "white",
-                mt: 5,
+                mb: 1,
               }}
             >
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: "bold", mb: 2, justifyContent: "flex-start" }}
-              >
-                Leave a Review
+              <Avatar
+                src={review.user?.profilePicture}
+                alt={review.user?.fullName || "User"}
+                sx={{ width: 40, height: 40, mr: 2 }}
+              />
+              <Typography variant="body1" fontWeight="bold">
+                {review.user?.fullName || "Anonymous"}
               </Typography>
-
-              <Box>
-                <Typography
-                  variant="body1"
-                  sx={{ justifyContent: "flex-start" }}
-                >
-                  Rate This Product
-                </Typography>
-                <Rating
-                  size="large"
-                  onChange={(e) => setRating(e.target.value)}
-                  sx={{ mb: 3 }}
-                />
-
-                <TextField
-                  placeholder="Write your comment here..."
-                  fullWidth
-                  multiline
-                  rows={4}
-                  sx={{ mb: 2 }}
-                  onChange={(e) => setReview(e.target.value)}
-                />
-              </Box>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                  padding: "1rem",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: 3,
-                  "&:hover": {
-                    backgroundColor: "#0d47a1",
-                  },
-                }}
-                onClick={createReview}
-              >
-                Submit Review
-              </Button>
             </Box>
-          
-        
-      </Box>
-    </Drawer>
+            <Rating value={review.rating} readOnly sx={{ mb: 1 }} />
+            <Typography variant="body2" color="text.secondary">
+              {review.reviewText}
+            </Typography>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ display: "block", mt: 1 }}
+            >
+              {new Date(review.createdAt).toLocaleDateString()}
+            </Typography>
+            <DeleteRounded
+              sx={{
+                position: "absolute",
+                top: "12px",
+                right: "10px",
+                cursor: "pointer",
+              }}
+              onClick={(e) => {
+                setOpenReviewDelete(true);
+                setReviewId(review?._id);
+              }}
+            />
+          </Box>
+        </Box>
+      </Drawer>
+      {openReviewDelete && (
+        <ReviewDeleteDrawer
+          openReviewDelete={openReviewDelete}
+          setOpenReviewDelete={setOpenReviewDelete}
+          reviewId={Reviewid}
+          setReviews={setReviews}
+        />
+      )}
+    </>
   );
 };

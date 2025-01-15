@@ -10,9 +10,15 @@ import {
   TablePagination,
   Select,
   MenuItem,
+  Chip,
+  Box,
 } from "@mui/material";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
+import dayjs from "dayjs";
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import  PersonIcon  from '@mui/icons-material/Person';
+import CallIcon from '@mui/icons-material/Call';
 
 const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
   // Define columns for the order data
@@ -74,13 +80,21 @@ const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
               <TableRow key={order._id}>
                 <TableCell align="center">{order._id}</TableCell>
                 <TableCell align="center">
+                <Box sx={{display:"flex",justifyContent:"center",alignItems:"center",gap:'5px'}}>
+                  <PersonIcon/>
                   {order.shippingAddress[0]?.customerName || "N/A"}
+                  </Box>
                 </TableCell>
                 <TableCell align="center">
+               
+                <Box sx={{display:"flex",justifyContent:"center",alignItems:"center",gap:'5px'}}>
+                <CallIcon/>
                   {order.shippingAddress[0]?.contactNumber || "N/A"}
+                </Box>
                 </TableCell>
-                <TableCell align="center">{`$${order.totalPrice}`}</TableCell>
-                <TableCell align="center">{order.paymentStatus}</TableCell>
+                <TableCell align="center" sx={{color:"green"}}>{`$${order.totalPrice}`}</TableCell>
+                <TableCell align="center">
+                  <Chip label={order.paymentStatus} sx={{backgroundColor:"#74d48e",color:"white"}}/></TableCell>
                 <TableCell align="center">{order.orderMode}</TableCell>
                 <TableCell align="center">
                   <Select
@@ -95,9 +109,12 @@ const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
                   </Select>
                 </TableCell>
                 <TableCell align="center">
-                  {new Date(
+                  <Box sx={{display:"flex",justifyContent:"center",alignItems:"center",gap:'5px'}}>
+                  <DateRangeIcon/>
+                  {dayjs(
                     order.shipmentDetails.deliveryDate
-                  ).toLocaleDateString()}
+                  ).format("DD MMM,YYYY")}
+                  </Box>
                 </TableCell>
               </TableRow>
             ))}

@@ -1,12 +1,9 @@
 import React from "react";
 import { Box, Button, Grid, Typography, CardMedia } from "@mui/material";
 import Footer from "../components/Footer";
-
-
-function About(){
+function About() {
   return (
     <Box sx={{ backgroundColor: "black", color: "whitesmoke" }}>
-   
       <Box
         sx={{
           position: "relative",
@@ -51,7 +48,7 @@ function About(){
           <Button
             variant="contained"
             sx={{
-              backgroundColor: "#f9a826",
+              backgroundColor: "#F9A826",
               color: "black",
               padding: "10px 20px",
               borderRadius: "6px",
@@ -61,7 +58,6 @@ function About(){
           </Button>
         </Box>
       </Box>
-
       {/* About Section */}
       <Box
         sx={{
@@ -98,7 +94,6 @@ function About(){
           adventures unforgettable.
         </Typography>
       </Box>
-
       {/* Features Section */}
       <Grid container spacing={3} sx={{ px: { xs: 3, sm: 5 }, pb: 10 }}>
         <Grid
@@ -126,7 +121,7 @@ function About(){
             sx={{
               mt: 2,
               fontWeight: "bold",
-              color: "#f9a826",
+              color: "#F9A826",
             }}
           >
             High-Performance Bikes
@@ -139,7 +134,6 @@ function About(){
             designed for speed and agility.
           </Typography>
         </Grid>
-
         <Grid
           item
           xs={12}
@@ -165,7 +159,7 @@ function About(){
             sx={{
               mt: 2,
               fontWeight: "bold",
-              color: "#f9a826",
+              color: "#F9A826",
             }}
           >
             Adventure Gear
@@ -178,7 +172,6 @@ function About(){
             your ultimate biking experience.
           </Typography>
         </Grid>
-
         <Grid
           item
           xs={12}
@@ -204,7 +197,7 @@ function About(){
             sx={{
               mt: 2,
               fontWeight: "bold",
-              color: "#f9a826",
+              color: "#F9A826",
             }}
           >
             Community Support
@@ -218,10 +211,135 @@ function About(){
           </Typography>
         </Grid>
       </Grid>
-
-      <Footer/>
+      {/* Our Team Section */}
+      <Box
+        sx={{
+          px: { xs: 3, sm: 5 },
+          py: { xs: 5, md: 10 },
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            color: "#C6E4FF",
+            fontWeight: "bold",
+            mb: 5,
+            fontSize: { xs: "1.8rem", md: "3rem" },
+          }}
+        >
+          MEET OUR TEAM
+        </Typography>
+        <Grid container spacing={3}>
+          {/* Team Member 1 */}
+          <Grid item xs={12} sm={6} md={4}>
+            <CardMedia
+              component="img"
+              image="../images/team_member1.jpg"
+              alt="Team Member 1"
+              sx={{
+                borderRadius: "50%",
+                width: "200px",
+                height: "200px",
+                objectFit: "cover",
+                mx: "auto",
+              }}
+            />
+            <Typography
+              variant="h6"
+              sx={{
+                mt: 2,
+                fontWeight: "bold",
+                color: "#F9A826",
+              }}
+            >
+             Someswar Gorai
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "whitesmoke",
+                fontSize: "1rem",
+                fontStyle: "italic",
+              }}
+            >
+              Frontend Developer
+            </Typography>
+          </Grid>
+          {/* Team Member 2 */}
+          <Grid item xs={12} sm={6} md={4}>
+            <CardMedia
+              component="img"
+              image="../images/team_member2.jpg"
+              alt="Team Member 2"
+              sx={{
+                borderRadius: "50%",
+                width: "200px",
+                height: "200px",
+                objectFit: "cover",
+                mx: "auto",
+              }}
+            />
+            <Typography
+              variant="h6"
+              sx={{
+                mt: 2,
+                fontWeight: "bold",
+                color: "#F9A826",
+              }}
+            >
+              Amardeep Dubey
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "whitesmoke",
+                fontSize: "1rem",
+                fontStyle: "italic",
+              }}
+            >
+              Manager, Senior Developer & Lead
+            </Typography>
+          </Grid>
+          {/* Team Member 3 */}
+          <Grid item xs={12} sm={6} md={4}>
+            <CardMedia
+              component="img"
+              image="../images/team_member3.jpg"
+              alt="Team Member 3"
+              sx={{
+                borderRadius: "50%",
+                width: "200px",
+                height: "200px",
+                objectFit: "cover",
+                mx: "auto",
+              }}
+            />
+            <Typography
+              variant="h6"
+              sx={{
+                mt: 2,
+                fontWeight: "bold",
+                color: "#F9A826",
+              }}
+            >
+             Md Danish
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "whitesmoke",
+                fontSize: "1rem",
+                fontStyle: "italic",
+              }}
+            >
+              Backend Developer
+            </Typography>
+          </Grid>
+        </Grid>
+      </Box>
+      <Footer />
     </Box>
   );
-};
-
+}
 export default About;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,17 +8,23 @@ import {
   TableRow,
   Paper,
   TablePagination,
+  Rating,
+  Button,
 } from "@mui/material";
+import dayjs from "dayjs";
+import { AdminopenReviewDrawer } from "./AdminopenReviewDrawer";
 
-const ReviewTable = ({ reviews, page, setPage, limit, setLimit, total }) => {
-  // Define columns for the review data
+const ReviewTable = ({ reviews,setReviews, page, setPage, limit, setLimit, total }) => {
+  const [openReviewDrawer, setOpenReviewDrawer] = useState(false);
+  const [specificReview,setSpecificReview]=useState([]);
+
   const columns = [
-    { id: "reviewId", label: "Review ID", sortable: false },
-    { id: "productName", label: "Product Name", sortable: true },
-    { id: "userName", label: "User Name", sortable: false },
-    { id: "rating", label: "Rating", sortable: true },
-    { id: "reviewText", label: "Review Text", sortable: true },
-    { id: "createdAt", label: "Date Posted", sortable: true },
+    { id: "productImage", label: "Product Image" },
+    { id: "productName", label: "Product Name" },
+    { id: "userName", label: "User Name" },
+    { id: "rating", label: "Rating" },
+    { id: "createdAt", label: "Date Posted" },
+    { id: "actions", label: "Explore" },
   ];
 
   // Handle page change
@@ -48,13 +54,41 @@ const ReviewTable = ({ reviews, page, setPage, limit, setLimit, total }) => {
           <TableBody>
             {reviews.map((review) => (
               <TableRow key={review._id}>
-                <TableCell align="center">{review._id}</TableCell>
-                <TableCell align="center">{review.product.productName}</TableCell>
-                <TableCell align="center">{review.user.fullName}</TableCell>
-                <TableCell align="center">{review.rating}</TableCell>
-                <TableCell align="center">{review.reviewText}</TableCell>
                 <TableCell align="center">
-                  {new Date(review.createdAt).toLocaleDateString()}
+                  <img
+                    src={review.product.image?.[0]}
+                    alt=""
+                    style={{
+                      width: "80px",
+                      height: "60px",
+                      objectFit: "contain",
+                    }}
+                  />
+                </TableCell>
+                <TableCell align="center">
+                  {review.product.productName}
+                </TableCell>
+                <TableCell align="center">{review.user.fullName}</TableCell>
+                <TableCell align="center">
+                  <Rating size="medium" value={review.rating} readOnly />
+                </TableCell>
+                <TableCell align="center">
+                  {dayjs(review.createdAt).format("DD  MMM,YYYY")}
+                </TableCell>
+                <TableCell align="center">
+                  <Button
+                    onClick={(e)=>{setSpecificReview(review)
+                      setOpenReviewDrawer(true)
+                    }}
+                    sx={{
+                      color: "white",
+                      backgroundColor: "black",
+                      p: 1.5,
+                      borderRadius: 3,
+                    }}
+                  >
+                    Explore
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -70,6 +104,15 @@ const ReviewTable = ({ reviews, page, setPage, limit, setLimit, total }) => {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleRowsPerPageChange}
       />
+
+      {openReviewDrawer && (
+        <AdminopenReviewDrawer
+          drawerOpen={openReviewDrawer}
+          setDrawerOpen={setOpenReviewDrawer}
+          review={specificReview}
+          setReviews={setReviews}
+        />
+      )}
     </>
   );
 };

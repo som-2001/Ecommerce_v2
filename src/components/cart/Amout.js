@@ -145,7 +145,7 @@ import { useNavigate } from "react-router-dom";
             <Typography
               sx={{ fontSize: "14px", fontWeight: "600", color: "#4caf50" }}
             >
-              -₹1,970
+              0
             </Typography>
           </Box>
           <Box
@@ -180,7 +180,7 @@ import { useNavigate } from "react-router-dom";
               Platform Fee
             </Typography>
             <Typography sx={{ fontSize: "14px", fontWeight: "600" }}>
-              ₹20
+              0
             </Typography>
           </Box>
           <Box
@@ -229,6 +229,7 @@ import { useNavigate } from "react-router-dom";
         <Button
           variant="contained"
           fullWidth
+          disabled={amount===0}
           sx={{
             backgroundColor: "#ff4081",
             color: "#ffffff",
