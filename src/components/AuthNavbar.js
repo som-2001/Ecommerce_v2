@@ -102,13 +102,13 @@ export const AuthNavbar = () => {
         <Toolbar disableGutters>
           <CardMedia
           component="img"
-          image="../images/image.png"
+          image="https://files.oaiusercontent.com/file-FJK3hH92ZeU2mV4FCoPxCE?se=2025-01-15T14%3A03%3A22Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Dimage.png&sig=3tSnEjkknlDBZnn3W6JocDQYprWlQMMWTQD6VI9bjHw%3D"
           alt=""
-          sx={{ width: "50px", borderRadius: "50px",display: { xs: "none", sm: "inherit" } }}
+          sx={{ width: "50px", borderRadius: "50px",display: { xs: "none", md: "block" },cursor:"pointer" }}
           />
           <Typography
             variant="h6"
-            sx={{ display: { xs: "none", md: "inherit" }, marginLeft: "5px" }}
+            sx={{ display: { xs: "none", md: "inherit" }, marginLeft: "5px",cursor:"pointer" }}
             onClick={(e) => navigate("/")}
           >
             BikeMart
