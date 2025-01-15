@@ -172,12 +172,10 @@ const Hero = ({ product, coloredProduct }) => {
                   ₹{product?.originalPrice || "N/A"}
                 </Typography>
 
-                <Typography
-                  variant="body1"
+                <Chip
                   sx={{ color: "green", marginLeft: "0.4rem" }}
-                >
-                  {product?.discount || "N/A"}% off
-                </Typography>
+                  label={`${product?.discount}% off` || "N/A"}
+                />
                 <Box
                   sx={{
                     display: "flex",

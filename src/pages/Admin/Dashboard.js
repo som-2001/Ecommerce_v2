@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Box,
@@ -10,53 +10,102 @@ import {
   Chip,
 } from "@mui/material";
 import { Line } from "react-chartjs-2";
-import {
-  TrendingUp,
-  AttachMoney,
-  Person,
-} from "@mui/icons-material";
+import { TrendingUp, AttachMoney } from "@mui/icons-material";
 import GroupIcon from "@mui/icons-material/Group";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import {
   Chart as ChartJS,
   LineElement,
   PointElement,
-  LineController,
   CategoryScale,
   LinearScale,
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Register components
-ChartJS.register(
-  LineElement,
-  PointElement,
-  LineController,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend
-);
+ChartJS.register(LineElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement);
+
+// Process data
+const processRevenueData = (orders) => {
+  const revenueByDate = {};
+
+  orders.forEach((order) => {
+    const date = new Date(order.shipmentDetails.deliveryDate).toLocaleDateString();
+    revenueByDate[date] = (revenueByDate[date] || 0) + order.totalPrice;
+  });
+
+  const labels = Object.keys(revenueByDate).sort();
+  const revenues = labels.map((date) => revenueByDate[date]);
+
+  return { labels, revenues };
+};
+
+
+
+const options = {
+  responsive: true,
+  plugins: {
+    legend: { position: "top" },
+    tooltip: { mode: "index", intersect: false },
+  },
+  scales: {
+    x: { title: { display: true, text: "Date" } },
+    y: { title: { display: true, text: "Revenue" }, beginAtZero: true },
+  },
+};
 
 const Dashboard = () => {
-  const chartData = {
-    labels: ["2015", "2016", "2017", "2018", "2019", "2020"],
+  const [result, setResult] = useState([]);
+  const [newArrival, setNewArrival] = useState([]);
+  const [bestSeller, setBestSeller] = useState([]);
+  const [featureProduct, setFeatureProduct] = useState([]);
+  const navigate=useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/products/fitler/all`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res?.data);
+        setResult(res?.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASEURL}/home/gets`)
+      .then((res) => {
+        // Categorize data properly
+        setNewArrival(res?.data?.newArrivals);
+        setBestSeller(res?.data?.bestSellers);
+        setFeatureProduct(res?.data?.featureProducts);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+
+  const { labels, revenues } = processRevenueData(result?.delivered || []);
+
+  
+  const data = {
+    labels,
     datasets: [
       {
-        label: "Approved",
-        data: [20, 30, 40, 35, 50, 45],
-        borderColor: "#ff6384",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        tension: 0.4,
-        fill: true,
-      },
-      {
-        label: "Submitted",
-        data: [10, 25, 30, 40, 45, 50],
+        label: "Total Revenue",
+        data: revenues,
         borderColor: "#36a2eb",
         backgroundColor: "rgba(54, 162, 235, 0.2)",
         tension: 0.4,
@@ -64,37 +113,7 @@ const Dashboard = () => {
       },
     ],
   };
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      tooltip: {
-        mode: "index",
-        intersect: false,
-      },
-    },
-    scales: {
-      x: {
-        type: "category",
-        title: {
-          display: true,
-          text: "Year",
-        },
-      },
-      y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: "Claims",
-        },
-      },
-    },
-  };
-
+  
   const metrics = [
     {
       icon: <TrendingUp />,
@@ -102,6 +121,7 @@ const Dashboard = () => {
       value: "25k",
       cardBg: "#f5f5f5",
       iconBg: "#d1c4e9",
+      data:result?.ordered?.length
     },
     {
       icon: <AttachMoney />,
@@ -109,20 +129,23 @@ const Dashboard = () => {
       value: "25k",
       cardBg: "#e3f2fd",
       iconBg: "#bbdefb",
+      data:result?.shipped?.length
     },
     {
-      icon: <Person />,
-      label: "Out For Delivery",
+      icon: <LocalShippingIcon />,
+      label: "Delivered",
       value: "4k",
       cardBg: "#ede7f6",
       iconBg: "#b39ddb",
+      data:result?.delivered?.length
     },
     {
-      icon: <Person />,
-      label: "Delivered",
+      icon: <HighlightOffIcon />,
+      label: "Cancelled",
       value: "4k",
       cardBg: "#f1f8e9",
       iconBg: "#c5e1a5",
+      data:result?.cancelled?.length
     },
   ];
 
@@ -132,68 +155,35 @@ const Dashboard = () => {
       name: "Total Products",
       cardBg: "#f3e5f5",
       iconBg: "#ce93d8",
+      data:result?.totalProducts
     },
     {
       icon: <LocalShippingIcon />,
       name: "Total Orders",
       cardBg: "#e8f5e9",
       iconBg: "#81c784",
+      data:result?.Orders
     },
     {
       icon: <GroupIcon />,
       name: "Total Users",
       cardBg: "#e3f2fd",
       iconBg: "#64b5f6",
+      data:result?.Users
     },
     {
       icon: <StarBorderIcon />,
       name: "Total Reviews",
       cardBg: "#fff3e0",
       iconBg: "#ffb74d",
+      data:result?.Reviews
     },
   ];
 
-  const FeatureProducts = {
-    title: "Feature Products",
-    items: [
-      {
-        name: "Royal Enfield",
-        price: "$13520",
-        Description:
-          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
-        image: "product_1.jpg",
-      },
-      {
-        name: "Royal Enfield",
-        price: "$22350",
-        Description:
-          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
-        image: "product_1.jpg",
-      },
-    ],
-  };
 
-  const bestSeller = {
-    title: "Best Seller",
-    items: [
-      {
-        name: "Royal Enfield",
-        price: "$13520",
-        Description:
-          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
-        image: "product_1.jpg",
-      },
-      {
-        name: "Royal Enfield",
-        price: "$13520",
-        Description:
-          "Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak, and in bright light using the new system with two cameras more Enhanced capabilities thanks to an enlarged display of 6.7 inches and work without recharging throughout the day. Incredible photos as in weak...",
-        image: "product_1.jpg",
-      },
-    ],
-  };
+  const renderProductList = (section,title) => (
 
-  const renderProductList = (section) => (
+
     <Card
       sx={{
         p: 2,
@@ -202,9 +192,9 @@ const Dashboard = () => {
       }}
     >
       <Typography variant="body1" color="text.secondary" gutterBottom>
-        {section.title}
+        {title}
       </Typography>
-      {section.items.map((item, index) => (
+       {section?.slice(0,3)?.map((item, index) => (
         <Box
           key={index}
           sx={{
@@ -217,8 +207,9 @@ const Dashboard = () => {
         >
           <CardMedia
             component="img"
-            src={`../../images/${item.image}`}
-            sx={{ width: "70px", borderRadius: 4 }}
+            src={item.image?.[0]}
+            sx={{ width: "70px",cursor:"pointer" }}
+            onClick={(e)=>navigate(`/view-product/${item?._id}/${item?.modelNumber}`)}
           />
           <Box
             sx={{
@@ -227,28 +218,28 @@ const Dashboard = () => {
               justifyContent: "flex-start",
             }}
           >
-            <Typography variant="body1">{item.name}</Typography>
+            <Typography variant="body1">{item.productName}</Typography>
             <Typography variant="body2" color="textSecondary">
-              {`${item.Description.slice(0, 50)}...`}
+              {`${item.description.slice(0, 40)}...`}
             </Typography>
           </Box>
           <Typography variant="body2" color="textSecondary">
             <Stack direction="row">
               <Chip
-                label={item.price}
+                label={item.offerPrice}
                 sx={{ bgcolor: "#5041BC", color: "white" }}
               />
             </Stack>
           </Typography>
         </Box>
-      ))}
-    </Card>
+      ))} 
+  </Card>
   );
   return (
     <Box>
       {/* Top Sales Representatives */}
       <Grid container spacing={2} sx={{ p: 3 }}>
-      {salesReps.map((item, index) => (
+        {salesReps.map((item, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card
               sx={{
@@ -268,7 +259,7 @@ const Dashboard = () => {
                   {item.name}
                 </Typography>
                 <Typography variant="h5">
-                  ${Math.round(Math.random() * 2000) + 1000}.00
+                  {item?.data}
                 </Typography>
               </Box>
             </Card>
@@ -278,7 +269,7 @@ const Dashboard = () => {
 
       {/* Metrics */}
       <Grid container spacing={2} mb={3} p={2}>
-      {metrics.map((item, i) => (
+        {metrics.map((item, i) => (
           <Grid item xs={12} sm={6} md={3} key={i}>
             <Card
               sx={{
@@ -295,7 +286,7 @@ const Dashboard = () => {
                 <Typography variant="body2" color="text.secondary">
                   {item.label}
                 </Typography>
-                <Typography variant="h5">{item.value}</Typography>
+                <Typography variant="h5">{item.data}</Typography>
               </Box>
             </Card>
           </Grid>
@@ -307,16 +298,18 @@ const Dashboard = () => {
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 2 }}>
             <Typography variant="h6" gutterBottom>
-              Claims Over the Years
+              Visual Representions of Revenue
             </Typography>
-            <Box height={400}>
-              <Line data={chartData} options={options} />
+            <Box height={430}>
+            <Line data={data} options={options} />
             </Box>
           </Card>
+
         </Grid>
+
         <Grid item xs={12} md={4}>
-          {renderProductList(bestSeller)}
-          {renderProductList(FeatureProducts)}
+          {renderProductList(bestSeller,"Best Sellers")}
+          {renderProductList(featureProduct,"Feature Products")}
         </Grid>
       </Grid>
     </Box>

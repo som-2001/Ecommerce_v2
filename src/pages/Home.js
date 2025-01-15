@@ -50,7 +50,6 @@ function Home() {
       });
   }, []);
 
-  console.log(newArrival, bestSeller, featureProduct);
   const { search } = useSelector((state) => state.product);
   return (
     <Box

@@ -27,7 +27,7 @@ const benefits = [
 
 const Benefits = () => {
   return (
-    <Box sx={{ backgroundColor: "black", p:{xs:3,sm:"82px 160px"},height:{xs:"fit-content",md:"350px",color:"white" }}}>
+    <Box sx={{ backgroundColor: "rgba(0, 0, 0, 0.7)", p:{xs:3,sm:"82px 160px"},height:{xs:"fit-content",md:"350px",color:"white" }}}>
       <Typography
         variant="h4"
         sx={{ textAlign: "center", marginBottom: "20px", fontWeight: "600" }}

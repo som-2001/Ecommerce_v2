@@ -150,9 +150,9 @@ const ProductTable = () => {
           </TableHead>
           <TableBody>
             {bikes.map((bike) => (
-              <TableRow key={bike._id} onClick={(e)=>navigate(`/view-product/${bike?._id}/${bike?.modelNumber}`)}>
+              <TableRow key={bike._id} >
                 <TableCell align="center">
-                  <img src={`${bike.image?.[0]}`} alt={bike.name} width="70" />
+                  <img src={`${bike.image?.[0]}`} alt={bike.name} width="70" onClick={(e)=>navigate(`/view-product/${bike?._id}/${bike?.modelNumber}`)} style={{cursor:"pointer"}}/>
                 </TableCell>
                 <TableCell align="center">{bike.productName}</TableCell>
                 <TableCell align="center">{bike.brand}</TableCell>
