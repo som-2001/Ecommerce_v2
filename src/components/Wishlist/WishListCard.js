@@ -51,10 +51,12 @@ export const WishListCard = ({ bike, setBike }) => {
         transition: "transform 0.3s, box-shadow 0.3s",
         position: "relative",
         width: { xs: "330px", sm: "340px" },
+        height:{xs:"390px",sm:"410px"},
         cursor: "pointer",
         "&:hover": {
           boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
         },
+        
       }}
     >
       <CardMedia
@@ -62,7 +64,7 @@ export const WishListCard = ({ bike, setBike }) => {
         alt={bike.name}
         height="220"
         image={bike.product?.image?.[0]}
-        sx={{ objectFit: "cover", filter: "brightness(0.9)" }}
+        sx={{ objectFit: {xs:"contain",sm:"cover"}, filter: "brightness(0.9)" }}
       />
 
       <Box
@@ -114,6 +116,7 @@ export const WishListCard = ({ bike, setBike }) => {
           filter: "brightness(0.7)",
           padding: { xs: 1, sm: 2 },
           height: { xs: "60px", sm: "140px" },
+          
         }}
         onClick={(e) =>
           navigate(
@@ -170,7 +173,7 @@ export const WishListCard = ({ bike, setBike }) => {
             display: { xs: "none", sm: "block" },
           }}
         />
-       <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+       <Box sx={{ display: "flex", alignItems: "center", gap: "5px",mt:{xs:1,sm:0}}}>
           <Typography sx={{ fontWeight: 700, fontSize: "1.2rem", color: "green" }}>
             ₹{bike?.product?.offerPrice}
           </Typography>
@@ -179,7 +182,7 @@ export const WishListCard = ({ bike, setBike }) => {
           >
             ₹{bike?.product?.originalPrice}
           </Typography>
-          <Typography sx={{ fontSize: "0.8rem", color: "red" }}>
+          <Typography sx={{ fontSize: "0.8rem", color: "red",display:{xs:"none",sm:"inherit"} }}>
             ({bike?.product?.discount}% OFF)
           </Typography>
         </Box>
