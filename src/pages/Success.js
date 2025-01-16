@@ -40,7 +40,7 @@ export const Success = () => {
         bgcolor: "#f5f5f5",
         py: 4,
         borderRadius: 3,
-        boxShadow: 3,
+       
       }}
     >
       <CheckCircleIcon sx={{ fontSize: 80, color: "green", mb: 2 }} />

@@ -70,7 +70,7 @@ const OrderCard = ({ order}) => {
                     width: "150px",
                     height: "100px",
                     borderRadius: 1,
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                 />
               </Grid>

@@ -10,6 +10,7 @@ import {
   TablePagination,
   Rating,
   Button,
+  Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { AdminopenReviewDrawer } from "./AdminopenReviewDrawer";
@@ -56,7 +57,7 @@ const ReviewTable = ({ reviews,setReviews, page, setPage, limit, setLimit, total
               <TableRow key={review._id}>
                 <TableCell align="center">
                   <img
-                    src={review.product.image?.[0]}
+                    src={review?.product?.image?.[0]}
                     alt=""
                     style={{
                       width: "80px",
@@ -66,14 +67,14 @@ const ReviewTable = ({ reviews,setReviews, page, setPage, limit, setLimit, total
                   />
                 </TableCell>
                 <TableCell align="center">
-                  {review.product.productName}
+                  {review?.product?.productName}
                 </TableCell>
-                <TableCell align="center">{review.user.fullName}</TableCell>
+                <TableCell align="center">{review?.user?.fullName}</TableCell>
                 <TableCell align="center">
-                  <Rating size="medium" value={review.rating} readOnly />
+                  <Rating size="medium" value={review?.rating} readOnly />
                 </TableCell>
                 <TableCell align="center">
-                  {dayjs(review.createdAt).format("DD  MMM,YYYY")}
+                  {dayjs(review?.createdAt).format("DD  MMM,YYYY")}
                 </TableCell>
                 <TableCell align="center">
                   <Button

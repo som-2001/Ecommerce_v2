@@ -79,8 +79,10 @@ const ProductTable = () => {
   };
 
   const handleToggle = (productId, field) => {
+    
+    var Exactfield=bikes.filter(bike=>bike._id===productId);
     const payload = {
-      [field]: true,
+      [field]: !Exactfield?.[0]?.[field],  
     };
 
     axios

@@ -95,20 +95,29 @@ export const AuthNavbar = () => {
         backgroundColor: "black",
         boxShadow: "none",
         paddingY: 1,
-      
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <CardMedia
-          component="img"
-          image="https://files.oaiusercontent.com/file-NNFqH4rqncTBwKyFYGkUzD?se=2025-01-15T14%3A20%3A44Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D8ef0ec6d-36cd-4194-a213-e1449d9e5ea4.webp&sig=7eh5/7A3fzOywzCcDslBgDGyMHQSLwOlG84fLJlpBUs%3D"
-          alt=""
-          sx={{ width: "50px", borderRadius: "50px",display: { xs: "none", md: "block" },cursor:"pointer" }}
+            component="img"
+            image="https://res.cloudinary.com/dzc968nfw/image/upload/v1736507604/e-commerce/profiles/xfy4mgspxbtqoxiyycpu.webp"
+            alt=""
+            sx={{
+              width: "50px",
+              borderRadius: "50px",
+              display: { xs: "none", md: "block" },
+              cursor: "pointer",
+            }}
+            onClick={(e) => navigate("/")}
           />
           <Typography
             variant="h6"
-            sx={{ display: { xs: "none", md: "inherit" }, marginLeft: "5px",cursor:"pointer" }}
+            sx={{
+              display: { xs: "none", md: "inherit" },
+              marginLeft: "5px",
+              cursor: "pointer",
+            }}
             onClick={(e) => navigate("/")}
           >
             BikeMart
@@ -133,7 +142,7 @@ export const AuthNavbar = () => {
                 "& .MuiOutlinedInput-notchedOutline": {
                   border: "none",
                 },
-                width:{xs:"150px",sm:"450px"},
+                width: { xs: "150px", sm: "450px" },
                 height: "55px",
                 marginRight: 1,
               }}

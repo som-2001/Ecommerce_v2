@@ -98,12 +98,12 @@ export const About = () => {
         >
           <CardMedia
             component="img"
-            image="../images/home_img_1.png"
+            image="../images/4.jpg"
             alt="Home Image 1"
             sx={{
               width: "100%",
               maxWidth: "580px",
-              height: "auto",
+              height: "580px",
               objectFit: "cover",
             }}
           />
@@ -121,12 +121,12 @@ export const About = () => {
         >
           <CardMedia
             component="img"
-            image="../images/home_img_2.png"
+            image="../images/1.png"
             alt="Home Image 2"
             sx={{
               width: "100%",
               maxWidth: "580px",
-              height: "auto",
+              height: "580px",
               objectFit: "cover",
             }}
           />
@@ -144,12 +144,12 @@ export const About = () => {
         >
           <CardMedia
             component="img"
-            image="../images/home_img_3.png"
+            image="../images/3.jpg"
             alt="Home Image 3"
             sx={{
               width: "100%",
               maxWidth: "580px",
-              height: "auto",
+              height: "580px",
               objectFit: "cover",
             }}
           />
