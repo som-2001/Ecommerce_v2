@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Box, CardMedia, Grid, Typography } from "@mui/material";
 import Slider from "react-slick";
 export const Review = () => {
+  // Create a reference for the Slider
+  const sliderRef = useRef(null);
   const settings = {
     dots: true,
     infinite: true,
@@ -9,17 +11,28 @@ export const Review = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+ 
+  const handleReviewClick = (direction) => {
+    if (sliderRef.current) {
+      if (direction === "next") {
+        sliderRef.current.slickNext();
+      } else if (direction === "prev") {
+        sliderRef.current.slickPrev();
+      }
+    }
+  };
   return (
-    <Box sx={{ backgroundColor: "black", color: "white", py: 4, overflowX: "hidden" }}>
+    <Box sx={{ backgroundColor: "transparent", color: "white", py: 4, overflowX: "hidden" }}>
       <Typography variant="h3" align="center" sx={{ mb: 2 }}>
         Our Testimonials
       </Typography>
       <Typography variant="body1" gutterBottom align="center" sx={{ mb: 3 }}>
         Join over 4,567 satisfied bikers who love their bikes!
       </Typography>
-      <Slider {...settings}>
+      {/* Initialize Slider and attach ref */}
+      <Slider ref={sliderRef} {...settings}>
         {/* Review 1 */}
-        <Box>
+        <Box onClick={() => handleReviewClick("next")}>
           <Grid container spacing={2} alignItems="center" justifyContent="center">
             {/* Image */}
             <Grid item xs={12} md={3}>
@@ -49,7 +62,7 @@ export const Review = () => {
           </Grid>
         </Box>
         {/* Review 2 */}
-        <Box>
+        <Box onClick={() => handleReviewClick("next")}>
           <Grid container spacing={2} alignItems="center" justifyContent="center">
             {/* Image */}
             <Grid item xs={12} md={3}>
@@ -78,7 +91,7 @@ export const Review = () => {
           </Grid>
         </Box>
         {/* Review 3 */}
-        <Box>
+        <Box onClick={() => handleReviewClick("next")}>
           <Grid container spacing={2} alignItems="center" justifyContent="center">
             {/* Image */}
             <Grid item xs={12} md={3}>
@@ -107,7 +120,7 @@ export const Review = () => {
           </Grid>
         </Box>
         {/* Review 4 */}
-        <Box>
+        <Box onClick={() => handleReviewClick("next")}>
           <Grid container spacing={2} alignItems="center" justifyContent="center">
             {/* Image */}
             <Grid item xs={12} md={3}>
