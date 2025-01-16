@@ -12,7 +12,7 @@ const schema = yup
   .object()
   .shape({
     name: yup.string().required("Name is required"),
-    gender: yup.string().required("Gender is required"),
+    gender: yup.string().oneOf(["Male","Female"],"Valid options: Male, Female").required("Gender is required"),
     email: yup
       .string()
       .email("Invalid email format")

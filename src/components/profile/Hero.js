@@ -13,6 +13,7 @@ import axios from "axios";
 import {jwtDecode} from "jwt-decode";
 import { enqueueSnackbar } from "notistack";
 import { LogoutDialog } from "./LogoutDialog";
+import dayjs from "dayjs";
 
 export const Hero = ({data}) => {
   const [profileImage, setProfileImage] = useState(
@@ -61,7 +62,7 @@ export const Hero = ({data}) => {
             Welcome, {data?.fullName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Joined on, {new Date(data.createdAt).toLocaleDateString()}
+            Joined on, {dayjs(data.createdAt).format("DD MMM,YYYY")}
             {/* {new Date(data.createdAt).toLocaleDateString()} */}
           </Typography>
         </Box>

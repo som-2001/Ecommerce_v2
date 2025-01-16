@@ -6,7 +6,6 @@ import {
   Typography,
   Grid,
   Avatar,
-  Rating,
   Divider,
   CircularProgress,
 } from "@mui/material";

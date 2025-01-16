@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { removeAmount, removeCartProduct } from "../../Redux/ProductAdminSlice/ProductSlice";
 import { enqueueSnackbar } from "notistack";
 import styles from "../../styles/cart.module.css"
+import dayjs from "dayjs";
 
 export const CartProduct = ({ cart, setCart }) => {
   const dispatch = useDispatch();
@@ -109,7 +110,7 @@ export const CartProduct = ({ cart, setCart }) => {
             <CheckIcon sx={{ fontSize: "18px", marginRight: "6px" }} />
             Delivery by{" "}
             <span style={{ fontWeight: "600", marginLeft: "4px" }}>
-              4 Jan 2025
+              {dayjs(new Date().getTime()).add(7,"day").format("DD MMM,YYYY")}
             </span>
           </Typography>
         </Grid>
