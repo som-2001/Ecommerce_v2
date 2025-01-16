@@ -11,6 +11,8 @@ import { Box } from '@mui/material';
 import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { resetProduct } from '../../Redux/ProductAdminSlice/ProductSlice';
 
 const Transition = React.forwardRef(function Transition(props, ref) { 
   return <Slide direction="up" ref={ref} {...props} />;
@@ -19,6 +21,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export const LogoutDialog=({open,setOpen})=>{
   
   const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   const handleClose = () => {
     setOpen(false);
@@ -29,6 +32,7 @@ export const LogoutDialog=({open,setOpen})=>{
       withCredentials:true
     }).then(res=>{
       enqueueSnackbar(res.data?.message,{variant:"success"});
+      dispatch(resetProduct());
       setTimeout(()=>{
         navigate('/');
       },1500);
