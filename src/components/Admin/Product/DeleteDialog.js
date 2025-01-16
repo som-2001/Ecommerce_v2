@@ -26,7 +26,7 @@ export const DeleteDialog = ({ open, setOpen, id, setBikes }) => {
       .delete(`${process.env.REACT_APP_BASEURL}/products/products/${id}`)
       .then((res) => {
         enqueueSnackbar(res.data.message, { variant: "success" });
-        setBikes((prevbikes) => prevbikes.filter((item) => item.id !== id));
+        setBikes((prevbikes) => prevbikes.filter((item) => item._id !== id));
         setOpen(false);
       })
       .catch((res) => {

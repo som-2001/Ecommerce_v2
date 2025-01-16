@@ -20,6 +20,7 @@ export default function BasicMenu({ id, setBikes }) {
   
   const handleDelete=()=>{
     setOpenDialog(true);
+    setAnchorEl(null);
   }
 
   const handleEdit=()=>{
