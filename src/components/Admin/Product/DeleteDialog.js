@@ -30,7 +30,7 @@ export const DeleteDialog = ({ open, setOpen, id, setBikes }) => {
         setOpen(false);
       })
       .catch((res) => {
-        enqueueSnackbar(res.data.message, { variant: "error" });
+        enqueueSnackbar(res?.response?.data?.message, { variant: "error" });
         console.log(res);
         setOpen(false);
       });
