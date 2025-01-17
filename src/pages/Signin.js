@@ -68,8 +68,8 @@ function Signin() {
     onSuccess: (user) => {
       console.log(user);
       enqueueSnackbar(user.data.message, { variant: "success" });
-      // Cookies.set('accessToken', user.data.user.accessToken);
-      // Cookies.set('refreshToken', user.data.user.refreshToken);
+      Cookies.set('accessToken', user.data.user.accessToken);
+      Cookies.set('refreshToken', user.data.user.refreshToken);
 
       setTimeout(() => {
         if(user.data.user.role==="user")
