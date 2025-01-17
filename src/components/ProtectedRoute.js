@@ -13,7 +13,9 @@ import {
 import { setSearch } from "../Redux/ProductAdminSlice/ProductSlice";
 
 export const ProtectedRoute = () => {
-  const token = Cookies.get("refressToken");
+  const token = Cookies.get("accessToken");
+  console.log(token);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { search } = useSelector((state) => state.product);
