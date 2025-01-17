@@ -20,7 +20,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import  PersonIcon  from '@mui/icons-material/Person';
 import CallIcon from '@mui/icons-material/Call';
 
-const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
+const OrderTable = ({ orders,setOrders, page, setPage, limit, setLimit, total }) => {
   // Define columns for the order data
   const columns = [
     { id: "orderId", label: "Order ID", sortable: false },
@@ -57,6 +57,8 @@ const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
       )
       .then((res) => {
         enqueueSnackbar(res.data?.message, { variant: "success" });
+        setOrders(res?.data?.order);
+
       })
       .catch((error) => {
         enqueueSnackbar(error?.response?.data?.message, { variant: "error" });
@@ -100,6 +102,7 @@ const OrderTable = ({ orders, page, setPage, limit, setLimit, total }) => {
                   <Select
                     sx={{width:"150px"}}
                     defaultValue={order?.status}
+                    disabled={order?.status==='delivered'}
                     onChange={(e) => handleOrderStatusChange(order?._id, e.target.value)}
                   >
                     <MenuItem value="ordered">Ordered</MenuItem>
