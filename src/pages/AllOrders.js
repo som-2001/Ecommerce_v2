@@ -10,6 +10,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from '@mui/icons-material/Cancel';
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import Footer from "../components/Footer";
 import axios from "axios";
@@ -74,7 +75,7 @@ const OrdersPage = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height:"60vh",
+                height: "60vh",
                 width: "100vw",
                 flexDirection: "column",
               }}
@@ -111,18 +112,25 @@ const OrdersPage = () => {
                       marginBottom: "16px",
                     }}
                   >
-                    <Avatar
+                    {order?.status==="cancelled" ? <Avatar
+                      sx={{
+                        backgroundColor: "red",
+                        marginRight: "10px",
+                      }}
+                    >
+                      <CancelIcon />
+                    </Avatar> :<Avatar
                       sx={{
                         backgroundColor: "green",
                         marginRight: "10px",
                       }}
                     >
                       <CheckCircleIcon />
-                    </Avatar>
+                    </Avatar>}
                     <Box>
                       <Typography
                         variant="body1"
-                        sx={{ color: "green", fontWeight: "bold" }}
+                        sx={{ color: order.status==="cancelled"?"red":"green", fontWeight: "bold" }}
                       >
                         {order.status}
                       </Typography>
