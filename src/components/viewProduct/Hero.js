@@ -7,6 +7,7 @@ import {
   Chip,
   Divider,
   CardMedia,
+  Skeleton,
 } from "@mui/material";
 import {
   Speed,
@@ -21,7 +22,7 @@ import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { addAmount, addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
 
-const Hero = ({ product, coloredProduct }) => {
+const Hero = ({ product, coloredProduct, load }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { cart } = useSelector((state) => state.product);
@@ -88,58 +89,76 @@ const Hero = ({ product, coloredProduct }) => {
       <Box sx={{ padding: "1rem" }}>
         <Grid container spacing={4}>
           {/* Left Side: Images */}
-          <Grid item xs={12} md={5} sx={{ mt: 4 }}>
-            <Box
-              sx={{
-                textAlign: "center",
-                borderRadius: "8px",
-                padding: "0.6rem",
-              }}
+          {load ? (
+           <Grid item xs={12} md={5} sx={{ mt: 4,display:"flex",justifyContent:"center" }}
+              
             >
-              {selectedImage && (
-                <CardMedia
-                  component="img"
-                  image={selectedImage}
-                  alt={product?.productName || "Product"}
-                  sx={{
-                    width: "95%",
-                    height: { xs: "200px", sm: "500px" },
-                    objectFit: "contain",
-                    borderRadius: "8px",
-                  }}
-                />
-              )}
+              <Skeleton
+                variant="rectangular"
+                sx={{
+                  width: {
+                    xs: 300, // Width for extra-small screens
+                    sm: 500, // Width for small screens
+                    md: 700, // Width for medium and larger screens
+                  },
+                  height: 400, // Height stays constant
+                }}
+              />
+            </Grid>
+          ) : (
+            <Grid item xs={12} md={5} sx={{ mt: 4 }}>
               <Box
                 sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "1rem",
-                  gap: "10px",
+                  textAlign: "center",
+                  borderRadius: "8px",
+                  padding: "0.6rem",
                 }}
               >
-                {product?.image?.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`Thumbnail ${index + 1}`}
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                      objectFit: "cover",
-                      border:
-                        selectedImage === img
-                          ? "2px solid gold"
-                          : "2px solid gray",
-                      borderRadius: "4px",
-                      cursor: "pointer",
-                      transition: "transform 0.3s",
+                {selectedImage && (
+                  <CardMedia
+                    component="img"
+                    image={selectedImage}
+                    alt={product?.productName || "Product"}
+                    sx={{
+                      width: "95%",
+                      height: { xs: "200px", sm: "500px" },
+                      objectFit: "contain",
+                      borderRadius: "8px",
                     }}
-                    onClick={() => setSelectedImage(img)}
                   />
-                ))}
+                )}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "1rem",
+                    gap: "10px",
+                  }}
+                >
+                  {product?.image?.map((img, index) => (
+                   <img
+                      key={index}
+                      src={img}
+                      alt={`Thumbnail ${index + 1}`}
+                      style={{
+                        width: "60px",
+                        height: "60px",
+                        objectFit: "cover",
+                        border:
+                          selectedImage === img
+                            ? "2px solid gold"
+                            : "2px solid gray",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                        transition: "transform 0.3s",
+                      }}
+                      onClick={() => setSelectedImage(img)}
+                    />
+                  ))}
+                </Box>
               </Box>
-            </Box>
-          </Grid>
+            </Grid>
+          )}
 
           {/* Right Side: Product Details */}
           <Grid item xs={12} md={6}>
@@ -148,10 +167,10 @@ const Hero = ({ product, coloredProduct }) => {
                 variant="h4"
                 sx={{ fontWeight: "bold", marginBottom: "0.5rem" }}
               >
-                {product?.productName || "Product Name"} ({product?.brand})
+              {load ?<Skeleton animation="wave" /> : `${product?.productName} (${product?.brand})`}
               </Typography>
               <Typography variant="body2" sx={{ marginBottom: "0.5rem" }}>
-                Available since: {new Date(product?.createdAt).toLocaleString()}
+                Available since: {load?<Skeleton animation="wave" />:new Date(product?.createdAt).toLocaleString()}
               </Typography>
               <Typography variant="body1" color="green" fontWeight="bold">
                 Special price
@@ -170,18 +189,18 @@ const Hero = ({ product, coloredProduct }) => {
                     marginRight: "0.4rem",
                   }}
                 >
-                  ₹{product?.offerPrice || "N/A"}
+                  {load?<Skeleton animation="wave" width={50} />:`₹${product?.offerPrice || "N/A"}`}
                 </Typography>
                 <Typography
                   variant="body1"
                   sx={{ textDecoration: "line-through", color: "gray" }}
                 >
-                  ₹{product?.originalPrice || "N/A"}
+                  {load?<Skeleton animation="wave" width={50}/>:`₹${product?.originalPrice || "N/A"}`}
                 </Typography>
 
                 <Chip
                   sx={{ color: "green", marginLeft: "0.4rem" }}
-                  label={`${product?.discount}% off` || "N/A"}
+                  label={load?<Skeleton animation="wave" />:`${product?.discount}% off` || "N/A"}
                 />
                 <Box
                   sx={{
@@ -193,14 +212,14 @@ const Hero = ({ product, coloredProduct }) => {
                 >
                   <StarIcon />
                   <Typography sx={{ marginLeft: "4px", fontWeight: 600 }}>
-                    4.5
+                  {load?<Skeleton animation="wave"  width={40}/>:4.5}
                   </Typography>
                 </Box>
               </Box>
 
               <Box sx={{ my: 0.3 }}>
                 <Typography variant="body2" sx={{ fontWeight: "600", mb: 2 }}>
-                  Model Version: {product?.yearOfLaunch}
+                  Model Version: {load?<Skeleton animation="wave" width={100}/>:product?.yearOfLaunch}
                 </Typography>
               </Box>
 
@@ -218,7 +237,7 @@ const Hero = ({ product, coloredProduct }) => {
 
                 <Box sx={{ display: "flex", gap: "0.6rem" }}>
                   {coloredProduct.map((color, index) => (
-                    <Box
+                     load?<Skeleton variant="circular" width={40} height={40} />:<Box
                       key={index}
                       sx={{
                         width: "30px",
@@ -243,7 +262,7 @@ const Hero = ({ product, coloredProduct }) => {
                       }}
                     />
                   ))}
-                </Box>
+                    </Box>
                 {/* {selectedColor && (
                 <Typography variant="body2" sx={{ marginTop: '0.5rem' }}>
                   Selected Color: <strong>{selectedColor}</strong>
@@ -266,7 +285,7 @@ const Hero = ({ product, coloredProduct }) => {
                   <Chip
                     key={index}
                     icon={spec.icon}
-                    label={`${spec.label}: ${spec.value}`}
+                    label={load?<Skeleton animation="wave" width={100}/>:`${spec.label}: ${spec.value}`}
                     sx={{
                       padding: "0.5rem",
                       fontWeight: "600",
@@ -284,12 +303,13 @@ const Hero = ({ product, coloredProduct }) => {
                 variant="body2"
                 sx={{ color: "#757575", marginBottom: "1rem", lineHeight: 1.5 }}
               >
-                {product?.description || "No description available."}
+                {load ?<Skeleton animation="wave" />:product?.description}
               </Typography>
 
               <Box sx={{ display: "flex", gap: "1rem", marginTop: "1.4rem" }}>
                 <Button
                   variant="contained"
+                  disabled={load}
                   sx={{
                     flex: 1,
                     padding: "1rem",
@@ -306,7 +326,7 @@ const Hero = ({ product, coloredProduct }) => {
                 </Button>
                 <Button
                   variant="outlined"
-                  disabled={cart.includes(product?._id)}
+                  disabled={cart.includes(product?._id) || load}
                   sx={{
                     flex: 1,
                     padding: "1rem",

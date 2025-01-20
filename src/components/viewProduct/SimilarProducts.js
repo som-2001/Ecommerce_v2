@@ -10,7 +10,7 @@ import { RenderCard } from './../productCard/RenderCard';
 
 
 
-export const SimilarProducts = ({bikes}) => {
+export const SimilarProducts = ({bikes,load}) => {
 
 
   return (
@@ -36,7 +36,7 @@ export const SimilarProducts = ({bikes}) => {
                   my: 2,
                 }}
               >
-                <RenderCard bike={bike}/>
+                <RenderCard bike={bike} load={load}/>
               </Grid>
             ))
           ) : (

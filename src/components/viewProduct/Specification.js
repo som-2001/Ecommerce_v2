@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Card, CardContent, Typography, Grid, Box, Button, Collapse, Divider } from "@mui/material";
+import { Card, CardContent, Typography, Grid, Box, Button, Collapse, Divider, Skeleton } from "@mui/material";
 
-const BikeDetailsCard = ({ product }) => {
+const BikeDetailsCard = ({ product,load }) => {
   const [expanded, setExpanded] = useState(false);
 
   const generalInfo = [
@@ -59,7 +59,7 @@ const BikeDetailsCard = ({ product }) => {
             </Typography>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="body2">{item.value}</Typography>
+            {load?<Skeleton animation="wave" />:<Typography variant="body2">{item.value}</Typography>}
           </Grid>
         </Grid>
         {index < data.length - 1 && <Divider sx={{ my: 1 }} />}
@@ -70,7 +70,7 @@ const BikeDetailsCard = ({ product }) => {
     <Card sx={{ width: { xs: "80vw", sm: "60vw" }, margin: "auto", padding: 2, borderRadius: 2 }}>
       <CardContent>
         <Typography variant="h5" gutterBottom sx={{ textAlign: "center", fontWeight: "bold" }}>
-          {product.productName} - Specifications
+          {load?<Skeleton animation="wave" width={240} sx={{ textAlign: "center" }}/>:`${product.productName} - Specifications`}
         </Typography>
         <Box sx={{ marginTop: 3 }}>
           <Typography variant="h6" sx={{ my: 2 }} gutterBottom>
