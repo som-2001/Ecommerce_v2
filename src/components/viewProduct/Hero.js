@@ -179,6 +179,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                 sx={{
                   display: "flex",
                   alignItems: "center",
+                  flexWrap:"wrap"
                 }}
               >
                 <Typography

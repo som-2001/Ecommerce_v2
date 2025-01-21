@@ -144,18 +144,22 @@ export const AuthNavbar = () => {
                 "& .MuiOutlinedInput-notchedOutline": {
                   border: "none",
                 },
-                width: { xs: "150px", sm: "450px" },
+                width: { xs: "150px", sm: "350px" },
                 height: "55px",
                 marginRight: 1,
               }}
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon onClick={handleSearch} />
-                    </InputAdornment>
-                  ),
-                },
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon 
+                      onClick={handleSearch} 
+                      sx={{
+                        cursor: "pointer", 
+                        color: "#4a90e2" // Optional: Add some color for better visibility
+                      }}
+                    />
+                  </InputAdornment>
+                ),
               }}
             />
 

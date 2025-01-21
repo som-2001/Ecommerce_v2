@@ -16,6 +16,7 @@ export const NoWishList = () => {
         height: "50vh",
         backgroundColor: "#f9f9f9",
         padding: "16px",
+        marginTop:"35px"
       }}
     >
       {/* Illustration */}
