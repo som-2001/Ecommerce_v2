@@ -11,14 +11,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import AutoModeIcon from "@mui/icons-material/AutoMode";
 import LocalGasStationIcon from "@mui/icons-material/LocalGasStation";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
-import PersonIcon from "@mui/icons-material/Person";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { removeWishListProduct } from "../../Redux/ProductAdminSlice/ProductSlice";
+import styles from "../../styles/WishListCard.module.css";
 
 export const WishListCard = ({ bike, setBike }) => {
   const navigate = useNavigate();
@@ -45,19 +44,11 @@ export const WishListCard = ({ bike, setBike }) => {
   };
   return (
     <Card
-      sx={{
-        borderRadius: "10px",
-        boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-        transition: "transform 0.3s, box-shadow 0.3s",
-        position: "relative",
-        width: { xs: "330px", sm: "340px" },
-        height:{xs:"350px",sm:"410px"},
-        cursor: "pointer",
-        "&:hover": {
-          boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
-        },
-        
-      }}
+     className={styles.Card}
+     sx={{
+      width: { xs: "330px", sm: "340px" },
+      height:{xs:"350px",sm:"410px"},
+     }}
     >
       <CardMedia
         component="img"
@@ -68,14 +59,8 @@ export const WishListCard = ({ bike, setBike }) => {
       />
 
       <Box
-        sx={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          display: "flex",
-          flexDirection: "column",
-          gap: "5px",
-        }}
+      className={styles.chip}
+       
       >
         {bike?.product?.isNewArrival && (
           <Chip label="New Arrival" color="success" size="small" />
@@ -91,18 +76,8 @@ export const WishListCard = ({ bike, setBike }) => {
 
       {token && (
         <DeleteIcon
+        className={styles.DeleteIcon}
           sx={{
-            position: "absolute",
-            top: 10,
-            backgroundColor: "white",
-            right: 10,
-            color: "black",
-            filter: "opacity(0.7)",
-            borderRadius: "50%",
-            zIndex: 45,
-            padding: "5px",
-            cursor: "pointer",
-            transition: "transform 0.2s",
             "&:hover": {
               transform: "scale(1.2)", // Slightly enlarge the icon on hover
             },
@@ -173,7 +148,7 @@ export const WishListCard = ({ bike, setBike }) => {
             display: { xs: "none", sm: "block" },
           }}
         />
-       <Box sx={{ display: "flex", alignItems: "center", gap: "5px",mt:{xs:1,sm:0}}}>
+       <Box sx={{ mt:{xs:1,sm:0}}} className={styles.price}>
           <Typography sx={{ fontWeight: 700, fontSize: "1.2rem", color: "green" }}>
             ₹{bike?.product?.offerPrice}
           </Typography>

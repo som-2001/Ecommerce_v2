@@ -19,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setSearch } from "../Redux/ProductAdminSlice/ProductSlice";
+import styles from "../styles/AuthNavbar.module.css";
 
 export const AuthNavbar = () => {
   const navigate = useNavigate();
@@ -88,26 +89,16 @@ export const AuthNavbar = () => {
   ];
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        opacity: 0.95,
-        backgroundColor: "black",
-        boxShadow: "none",
-        paddingY: 1,
-      }}
-    >
+    <AppBar position="static" className={styles.Appbar}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <CardMedia
             component="img"
             image="https://res.cloudinary.com/dzc968nfw/image/upload/v1736507604/e-commerce/profiles/xfy4mgspxbtqoxiyycpu.webp"
             alt=""
+            className={styles.cardMedia}
             sx={{
-              width: "50px",
-              borderRadius: "50px",
               display: { xs: "none", md: "block" },
-              cursor: "pointer",
             }}
             onClick={(e) => navigate("/")}
           />
@@ -125,7 +116,6 @@ export const AuthNavbar = () => {
 
           <Box
             sx={{
-           
               flexGrow: 1,
               display: "flex",
               justifyContent: "flex-end",
@@ -138,7 +128,7 @@ export const AuthNavbar = () => {
               autoComplete="off"
               onChange={(e) => setInput(e.target.value)}
               sx={{
-                display:{xs:"none",sm:"block"},
+                display: { xs: "none", sm: "block" },
                 background: "#e1eef5",
                 borderRadius: 7,
                 "& .MuiOutlinedInput-notchedOutline": {
@@ -151,11 +141,11 @@ export const AuthNavbar = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon 
-                      onClick={handleSearch} 
+                    <SearchIcon
+                      onClick={handleSearch}
                       sx={{
-                        cursor: "pointer", 
-                        color: "#4a90e2" // Optional: Add some color for better visibility
+                        cursor: "pointer",
+                        color: "#4a90e2", // Optional: Add some color for better visibility
                       }}
                     />
                   </InputAdornment>
@@ -168,12 +158,8 @@ export const AuthNavbar = () => {
                 key={page.label}
                 component={Link}
                 to={page.path}
+                className={styles.icons}
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  color: "white",
-                  textDecoration: "none",
                   "&:hover": {
                     color: "rgba(255, 255, 255, 0.8)",
                   },

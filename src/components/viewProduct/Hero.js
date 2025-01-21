@@ -29,14 +29,22 @@ const Hero = ({ product, coloredProduct, load }) => {
   const dispatch = useDispatch();
 
   const [selectedImage, setSelectedImage] = useState("");
-  const [selectedColor, setSelectedColor] = useState(0);
+  const [selectedColor, setSelectedColor] = useState("");
 
   useEffect(() => {
     if (product?.image?.length > 0) {
       setSelectedImage(product.image[0]);
     }
     if (coloredProduct?.length > 0) {
-      setSelectedColor(coloredProduct?.[0]?.selectedColor);
+     
+      coloredProduct?.forEach((data,index)=>{
+       
+        if(data?._id===id){
+          console.log(data)
+          setSelectedColor(data?.selectedColor)
+        }
+      })
+      // setSelectedColor(coloredProduct?.[0]?.selectedColor);
     }
   }, [product, coloredProduct]);
 

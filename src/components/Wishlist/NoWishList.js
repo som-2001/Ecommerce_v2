@@ -1,24 +1,12 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/WishList.module.css";
 
 export const NoWishList = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        width:"100vw",
-        height: "50vh",
-        backgroundColor: "#f9f9f9",
-        padding: "16px",
-        marginTop:"35px"
-      }}
-    >
+    <Box className={styles.Wrapper}>
       {/* Illustration */}
       <Box
         component="img"
@@ -28,14 +16,7 @@ export const NoWishList = () => {
       />
 
       {/* Main Heading */}
-      <Typography
-        variant="h4"
-        sx={{
-          fontWeight: "bold",
-          color: "#ff4d4d",
-          marginBottom: "8px",
-        }}
-      >
+      <Typography variant="h4" className={styles.font}>
         Your Wishlist is empty!
       </Typography>
 
@@ -56,17 +37,14 @@ export const NoWishList = () => {
       <Button
         variant="contained"
         sx={{
-          backgroundColor: "black",
-          color: "#fff",
           borderRadius: 2,
           padding: 2.2,
-          width:"fit-content"
         }}
-        onClick={(e)=>navigate("/explore-products")}
+        className={styles.btn}
+        onClick={(e) => navigate("/explore-products")}
       >
         Start Shopping
       </Button>
     </Box>
   );
 };
-

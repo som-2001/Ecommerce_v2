@@ -278,6 +278,8 @@ const Dashboard = () => {
           setFromValue={setFromValue}
           setToValue={setToValue}
           handleFilterChange={handleFilterChange}
+          fromValueRef={fromValueRef}
+          toValueRef={toValueRef}
         />
       </Drawer>
         
