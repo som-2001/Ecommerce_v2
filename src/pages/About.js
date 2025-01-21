@@ -1,92 +1,50 @@
 import React from "react";
 import { Box, Button, Grid, Typography, CardMedia } from "@mui/material";
 import Footer from "../components/Footer";
+import styles from "../styles/About.module.css";
+import { AuthNavbar } from "../components/AuthNavbar";
+import { HomeNavbar } from "../components/HomeNavbar";
+import Cookies from "js-cookie";
+
 function About() {
+  const token = Cookies.get("accessToken");
   return (
-    <Box sx={{ backgroundColor: "black", color: "whitesmoke" }}>
+    <Box className={styles.container}>
+      {/* Banner Section */}
+       {token ? <AuthNavbar /> : <HomeNavbar />}
       <Box
-        sx={{
-          position: "relative",
-          height: "70vh",
-          backgroundImage: `url("../images/about_banner.jpg")`,
-          backgroundSize: "cover",
-          backgroundPosition: "center 40%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          color: "white",
-        }}
+        className={styles.banner}
+        style={{ backgroundImage: `url("../images/about_banner.jpg")` }}
       >
-        <Box
-          sx={{
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            padding: "20px 40px",
-            borderRadius: "8px",
-          }}
-        >
+        <Box className={styles.bannerOverlay}>
           <Typography
             variant="h3"
-            sx={{
-              fontWeight: "bold",
-              mb: 2,
-              fontSize: { xs: "1.8rem", md: "3rem" },
-            }}
+            className={`${styles.bannerTitle} ${styles.bannerTitleXs}`}
           >
             Discover the Joy of Biking
           </Typography>
           <Typography
             variant="body1"
-            sx={{
-              fontSize: { xs: "0.9rem", md: "1.2rem" },
-              mb: 3,
-            }}
+            className={`${styles.bannerSubtitle} ${styles.bannerSubtitleXs}`}
           >
             Your ultimate destination for premium bikes, accessories, and
             unforgettable adventures.
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#F9A826",
-              color: "black",
-              padding: "10px 20px",
-              borderRadius: "6px",
-            }}
-          >
-            Explore Now
-          </Button>
+          <Button className={styles.bannerButton}>Explore Now</Button>
         </Box>
       </Box>
+
       {/* About Section */}
-      <Box
-        sx={{
-          px: { xs: 3, sm: 5 },
-          py: { xs: 5, md: 10 },
-          textAlign: "center",
-        }}
-      >
+      <Box className={styles.aboutSection}>
         <Typography
           variant="h4"
-          sx={{
-            color: "#C6E4FF",
-            fontWeight: "bold",
-            mb: 2,
-            fontSize: { xs: "1.8rem", md: "3rem" },
-          }}
+          className={`${styles.aboutTitle} ${styles.aboutTitleXs}`}
         >
           About Us
         </Typography>
         <Typography
           variant="body1"
-          sx={{
-            fontSize: { xs: "0.9rem", md: "1.2rem" },
-            lineHeight: 1.6,
-            maxWidth: "700px",
-            mx: "auto",
-            color: "#C6E4FF",
-            mb: 5,
-          }}
+          className={`${styles.aboutText} ${styles.aboutTextXs}`}
         >
           We are passionate about providing the best biking experience. Whether
           you are a professional rider or a casual enthusiast, our mission is
@@ -94,41 +52,22 @@ function About() {
           adventures unforgettable.
         </Typography>
       </Box>
+
       {/* Features Section */}
-      <Grid container spacing={3} sx={{ px: { xs: 3, sm: 5 }, pb: 10 }}>
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={4}
-          sx={{
-            textAlign: "center",
-          }}
-        >
+      <Grid container spacing={3} className={styles.featuresGrid}>
+        <Grid item xs={12} sm={6} md={4} className={styles.featureItem}>
           <CardMedia
             component="img"
             image="../images/about_bike.jpg"
             alt="High-Performance Bikes"
-            sx={{
-              borderRadius: 2,
-              width: "100%",
-              height: "250px",
-              objectFit: "cover",
-            }}
+            className={styles.featureImage}
           />
-          <Typography
-            variant="h6"
-            sx={{
-              mt: 2,
-              fontWeight: "bold",
-              color: "#F9A826",
-            }}
-          >
+          <Typography variant="h6" className={styles.featureTitle}>
             High-Performance Bikes
           </Typography>
           <Typography
             variant="body2"
-            sx={{ mt: 1, color: "whitesmoke", fontSize: "0.9rem" }}
+            className={styles.featureDescription}
           >
             Experience the thrill with our range of high-performance bikes
             designed for speed and agility.
@@ -210,136 +149,76 @@ function About() {
             fellow riders.
           </Typography>
         </Grid>
+       
       </Grid>
-      {/* Our Team Section */}
-      <Box
-        sx={{
-          px: { xs: 3, sm: 5 },
-          py: { xs: 5, md: 10 },
-          textAlign: "center",
-        }}
-      >
+
+      {/* Team Section */}
+      <Box className={styles.teamSection}>
         <Typography
           variant="h4"
-          sx={{
-            color: "#C6E4FF",
-            fontWeight: "bold",
-            mb: 5,
-            fontSize: { xs: "1.8rem", md: "3rem" },
-          }}
+          className={`${styles.teamTitle} ${styles.teamTitleXs}`}
         >
           MEET OUR TEAM
         </Typography>
         <Grid container spacing={3}>
-          {/* Team Member 1 */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={4} className={styles.teamMember}>
             <CardMedia
               component="img"
               image="../images/team_member1.jpg"
               alt="Team Member 1"
-              sx={{
-                borderRadius: "50%",
-                width: "200px",
-                height: "200px",
-                objectFit: "cover",
-                mx: "auto",
-              }}
+              className={styles.teamMemberImage}
             />
-            <Typography
-              variant="h6"
-              sx={{
-                mt: 2,
-                fontWeight: "bold",
-                color: "#F9A826",
-              }}
-            >
-             Someswar Gorai
+            <Typography variant="h6" className={styles.teamMemberName}>
+              Someswar Gorai
             </Typography>
             <Typography
               variant="body2"
-              sx={{
-                color: "whitesmoke",
-                fontSize: "1rem",
-                fontStyle: "italic",
-              }}
+              className={styles.teamMemberRole}
             >
               Frontend Developer
             </Typography>
           </Grid>
-          {/* Team Member 2 */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={4} className={styles.teamMember}>
             <CardMedia
               component="img"
               image="../images/team_member2.jpg"
-              alt="Team Member 2"
-              sx={{
-                borderRadius: "50%",
-                width: "200px",
-                height: "200px",
-                objectFit: "cover",
-                mx: "auto",
-              }}
+              alt="Team Member 1"
+              className={styles.teamMemberImage}
             />
-            <Typography
-              variant="h6"
-              sx={{
-                mt: 2,
-                fontWeight: "bold",
-                color: "#F9A826",
-              }}
-            >
+            <Typography variant="h6" className={styles.teamMemberName}>
               Amardeep Dubey
             </Typography>
             <Typography
               variant="body2"
-              sx={{
-                color: "whitesmoke",
-                fontSize: "1rem",
-                fontStyle: "italic",
-              }}
+              className={styles.teamMemberRole}
             >
-              Manager, Senior Developer & Lead
+              Senoir Developer & Lead
             </Typography>
           </Grid>
-          {/* Team Member 3 */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={4} className={styles.teamMember}>
             <CardMedia
               component="img"
               image="../images/team_member3.jpg"
-              alt="Team Member 3"
-              sx={{
-                borderRadius: "50%",
-                width: "200px",
-                height: "200px",
-                objectFit: "cover",
-                mx: "auto",
-              }}
+              alt="Team Member 1"
+              className={styles.teamMemberImage}
             />
-            <Typography
-              variant="h6"
-              sx={{
-                mt: 2,
-                fontWeight: "bold",
-                color: "#F9A826",
-              }}
-            >
-             Md Danish
+            <Typography variant="h6" className={styles.teamMemberName}>
+              Md Danish
             </Typography>
             <Typography
               variant="body2"
-              sx={{
-                color: "whitesmoke",
-                fontSize: "1rem",
-                fontStyle: "italic",
-              }}
+              className={styles.teamMemberRole}
             >
-              Backend Developer
+              backend Developer
             </Typography>
           </Grid>
+          {/* Repeat for other team members */}
         </Grid>
       </Box>
+
       <Footer />
     </Box>
   );
 }
+
 export default About;

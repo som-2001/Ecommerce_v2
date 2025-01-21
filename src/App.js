@@ -36,10 +36,10 @@ function App() {
             <Route path="/register" element={<Signup />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route element={<ProtectedRoute />}>
               
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/explore-products" element={<Dashboard />} />
               <Route path="/view-product/:id/:modelNumber" element={<ViewProduct />} />

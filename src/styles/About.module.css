@@ -1,0 +1,151 @@
+/* General Styles */
+.container {
+    background-color: black;
+    color: whitesmoke;
+  }
+  
+  /* Banner Section */
+  .banner {
+    position: relative;
+    height: 70vh;
+    background-size: cover;
+    background-position: center 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+   
+  }
+  
+  .bannerOverlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px 40px;
+    border-radius: 8px;
+  }
+  
+  .bannerTitle {
+    font-weight: bold;
+    margin-bottom: 16px;
+    font-size: 3rem;
+  }
+  
+  .bannerTitleXs {
+    font-size: 1.8rem;
+  }
+  
+  .bannerSubtitle {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+  
+  .bannerSubtitleXs {
+    font-size: 0.9rem;
+  }
+  
+  .bannerButton {
+    background-color: #f9a826;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 6px;
+  }
+  
+  /* About Section */
+  .aboutSection {
+    padding: 40px 16px;
+    text-align: center;
+  }
+  
+  .aboutTitle {
+    color: #c6e4ff;
+    font-weight: bold;
+    margin-bottom: 16px;
+    font-size: 3rem;
+  }
+  
+  .aboutTitleXs {
+    font-size: 1.8rem;
+  }
+  
+  .aboutText {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #c6e4ff;
+    margin-bottom: 40px;
+  }
+  
+  .aboutTextXs {
+    font-size: 0.9rem;
+  }
+  
+  /* Features Section */
+  .featuresGrid {
+    padding: 0 16px 40px;
+  }
+  
+  .featureItem {
+    text-align: center;
+  }
+  
+  .featureImage {
+    border-radius: 8px;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+  
+  .featureTitle {
+    margin-top: 16px;
+    font-weight: bold;
+    color: #f9a826;
+  }
+  
+  .featureDescription {
+    margin-top: 8px;
+    color: whitesmoke;
+    font-size: 0.9rem;
+  }
+  
+  /* Team Section */
+  .teamSection {
+    padding: 40px 16px;
+    text-align: center;
+  }
+  
+  .teamTitle {
+    color: #c6e4ff;
+    font-weight: bold;
+    margin-bottom: 40px;
+    font-size: 3rem;
+  }
+  
+  .teamTitleXs {
+    font-size: 1.8rem;
+  }
+  
+  .teamMember {
+    text-align: center;
+  }
+  
+  .teamMemberImage {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+  
+  .teamMemberName {
+    margin-top: 16px;
+    font-weight: bold;
+    color: #f9a826;
+  }
+  
+  .teamMemberRole {
+    color: whitesmoke;
+    font-size: 1rem;
+    font-style: italic;
+  }
+  
