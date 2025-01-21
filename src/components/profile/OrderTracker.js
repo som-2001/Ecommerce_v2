@@ -23,7 +23,7 @@ export const OrderTracker = ({ status }) => {
           const StepIcon = step.icon;
 
           return (
-            <Step key={step.label} sx={{width:"100px"}}>
+            <Step key={step.label} sx={{width:"40px",display:'flex',justifyContent:"center"}}>
               <StepLabel
                 StepIconComponent={() => (
                   <StepIcon
@@ -40,6 +40,7 @@ export const OrderTracker = ({ status }) => {
                         : "text.secondary",
                     fontWeight: index === activeStep ? "bold" : "normal",
                   },
+                  fontSize:{xs:"11px",sm:"20px"}
                 }}
               >
                 {step.label}

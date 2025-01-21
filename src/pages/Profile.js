@@ -60,7 +60,7 @@ function Profile() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          overflowX: "hidden",
+        
         }}
       >
         <Hero data={data} load={profileLoad}/>
@@ -74,7 +74,7 @@ function Profile() {
         />
         <WishList />
       </Box>
-      <Footer />
+      
     </>
   );
 }

@@ -143,7 +143,7 @@ export const RenderCard = ({ bike, load }) => {
           {load ? (
             <Skeleton animation="wave" width={150} />
           ) : bikeName?.length > 20 ? (
-            `${bikeName.slice(0, 60)}...`
+            `${bikeName.slice(0, 25)}...`
           ) : (
             bikeName 
           )}
@@ -183,13 +183,13 @@ export const RenderCard = ({ bike, load }) => {
           <Box sx={{ textAlign: "center" }}>
             <LocalGasStationIcon />
             <Typography variant="body2" sx={{ fontSize: "12px" }}>
-              {load ? <Skeleton animation="wave" /> : bike.fuelType}CC
+              {load ? <Skeleton animation="wave" /> : bike.fuelType}
             </Typography>
           </Box>
           <Box sx={{ textAlign: "center" }}>
             <AutoModeIcon />
             <Typography variant="body2" sx={{ fontSize: "12px" }}>
-              {load ? <Skeleton animation="wave" /> : bike.type}Type
+              {load ? <Skeleton animation="wave" /> : bike.type}
             </Typography>
           </Box>
         </Box>

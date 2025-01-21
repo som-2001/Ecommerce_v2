@@ -87,7 +87,7 @@ const Footer = () => {
           {/* Embedding Google Map */}
           <Box
             sx={{
-              width: "150%",
+              
               height: "250px",
               marginTop: "16px",
               borderRadius: "8px",
@@ -97,7 +97,7 @@ const Footer = () => {
             <iframe
               width="100%"
               height="100%"
-              src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Klizo&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+              src="https://maps.google.com/maps?width=300&amp;height=400&amp;hl=en&amp;q=Klizo&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"

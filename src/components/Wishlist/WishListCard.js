@@ -51,7 +51,7 @@ export const WishListCard = ({ bike, setBike }) => {
         transition: "transform 0.3s, box-shadow 0.3s",
         position: "relative",
         width: { xs: "330px", sm: "340px" },
-        height:{xs:"390px",sm:"410px"},
+        height:{xs:"350px",sm:"410px"},
         cursor: "pointer",
         "&:hover": {
           boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
@@ -115,7 +115,7 @@ export const WishListCard = ({ bike, setBike }) => {
           color: "black",
           filter: "brightness(0.7)",
           padding: { xs: 1, sm: 2 },
-          height: { xs: "60px", sm: "140px" },
+          height: { xs: "40px", sm: "140px" },
           
         }}
         onClick={(e) =>
@@ -141,7 +141,7 @@ export const WishListCard = ({ bike, setBike }) => {
         />
         <Box
           sx={{
-            display: "flex",
+            display: {xs:"none",sm:"flex"},
             justifyContent: "space-between",
             gap: "15px",
             flexWrap: "wrap",

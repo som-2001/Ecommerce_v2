@@ -23,7 +23,7 @@ export const ProtectedRoute = () => {
   if (!token) return <Navigate to="/" />;
 
   return (
-    <>
+    <Box >
       <AuthNavbar />
       {search?.length > 0 && (
         <Box
@@ -97,6 +97,6 @@ export const ProtectedRoute = () => {
         </Box>
       )}
       <Outlet />
-    </>
+    </Box>
   );
 };
