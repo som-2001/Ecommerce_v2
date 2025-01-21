@@ -8,6 +8,7 @@ export const OrderDashboard = () => {
   const [page, setPage] = useState(1); 
   const [limit, setLimit] = useState(10); 
   const [total, setTotal] = useState(0); 
+  const [load,setLoad]=useState(true);
   
 
   const fetchOrders = () => {
@@ -23,6 +24,7 @@ export const OrderDashboard = () => {
       .get(`${process.env.REACT_APP_BASEURL}/orders/orders?${queryParams}`, { withCredentials: true })
       .then((res) => {
         console.log(res.data);
+        setLoad(false);
         setOrders(res.data?.orders);
         setTotal(res?.data?.totalOrders)
       })
@@ -48,7 +50,7 @@ export const OrderDashboard = () => {
         total={total}
         limit={limit}
         setLimit={setLimit}
-       
+        load={load}
       />
     </Box>
   );

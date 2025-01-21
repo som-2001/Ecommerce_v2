@@ -8,6 +8,7 @@ import {
   CardMedia,
   Stack,
   Chip,
+  Skeleton,
 } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import { TrendingUp, AttachMoney } from "@mui/icons-material";
@@ -74,6 +75,7 @@ const Dashboard = () => {
   const [result, setResult] = useState([]);
   const [newArrival, setNewArrival] = useState([]);
   const [bestSeller, setBestSeller] = useState([]);
+  const [load,setLoad]=useState(true);
   const [featureProduct, setFeatureProduct] = useState([]);
   const navigate = useNavigate();
 
@@ -84,6 +86,7 @@ const Dashboard = () => {
       })
       .then((res) => {
         console.log(res?.data);
+        setLoad(false);
         setResult(res?.data);
       })
       .catch((error) => {
@@ -267,7 +270,7 @@ const Dashboard = () => {
                   {item.name}
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                  {item?.data}
+                  {load ? <Skeleton animation="wave" width={50} /> : item?.data}
                 </Typography>
               </Box>
             </Card>
@@ -305,7 +308,7 @@ const Dashboard = () => {
                   {item.label}
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                  {item.data}
+                {load ? <Skeleton animation="wave" width={50} /> : item?.data}
                 </Typography>
               </Box>
             </Card>

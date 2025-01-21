@@ -11,6 +11,8 @@ import {
   TableSortLabel,
   TablePagination,
   TextField,
+  Box,
+  CircularProgress,
 } from "@mui/material";
 import BasicMenu from "./BasicMenu";
 import axios from "axios";
@@ -27,6 +29,7 @@ const ProductTable = () => {
   const [order, setOrder] = useState("desc"); // Sorting order
   const [orderBy, setOrderBy] = useState("createdAt"); // Default column to sort by
   const [search, setSearch] = useState(""); // Search query
+  const [load, setLoad] = useState(true); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,6 +47,7 @@ const ProductTable = () => {
       })
       .then((res) => {
         const { products, total } = res.data;
+        setLoad(false);
         setBikes(products);
         setTotal(total);
         dispatch(resetProduct());
@@ -123,6 +127,19 @@ const ProductTable = () => {
   ];
 
   return (
+    load ? (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "70vw",
+          height: "50vh",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    ) : 
     <Paper>
       <TextField
         placeholder="Search Bikes By Name..."
@@ -209,6 +226,7 @@ const ProductTable = () => {
         onRowsPerPageChange={handleRowsPerPageChange}
       />
     </Paper>
+    
   );
 };
 
