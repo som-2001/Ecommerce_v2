@@ -67,7 +67,7 @@ export const RenderCard = ({ bike, load }) => {
           alt={bike.productName}
           height="220"
           image={bike.image?.[0]}
-          sx={{ objectFit: "cover", filter: "brightness(0.9)" }}
+          sx={{ objectFit: {xs:"contain",sm:"cover"}, filter: "brightness(0.9)" }}
         />
       )}
 
@@ -129,7 +129,7 @@ export const RenderCard = ({ bike, load }) => {
       >
         <Typography
           variant="h6"
-          sx={{ fontWeight: 700, display: { xs: "inherit", sm: "none" } }}
+          sx={{ fontWeight: 700, display: { xs: "inherit", sm: "none" },fontSize:"17px" }}
         >
           {bikeName.length > 10 ? `${bikeName.slice(0, 10)}...` : bikeName}
         </Typography>
@@ -167,7 +167,7 @@ export const RenderCard = ({ bike, load }) => {
         {/* Specifications */}
         <Box
           sx={{
-            display: "flex",
+            display: {xs:"none",sm:"flex"},
             justifyContent: "space-between",
             gap: "0px",
             flexWrap: "wrap",
@@ -194,7 +194,7 @@ export const RenderCard = ({ bike, load }) => {
           </Box>
         </Box>
 
-        <Divider sx={{ my: 1 }} />
+        <Divider sx={{ my: 1, display: {xs:"none",sm:"block"} }} />
 
         {/* Price and Discount */}
         <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>

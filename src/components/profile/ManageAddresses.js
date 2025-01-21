@@ -1,4 +1,4 @@
-import { Box, Chip, Grid, Typography, IconButton } from "@mui/material";
+import { Box, Chip, Grid, Typography, IconButton, CircularProgress } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EditIcon from "@mui/icons-material/Edit";
@@ -11,7 +11,7 @@ import { PersonPinCircle } from "@mui/icons-material";
 import { AddressEditDialogFunc } from "./AddressEditDialogFunc";
 import { AddressDeleteDialogFunc } from "./AddressDeleteDialogFunc";
 
-export const ManageAddresses = ({ profile }) => {
+export const ManageAddresses = ({ profile,load }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -40,7 +40,7 @@ export const ManageAddresses = ({ profile }) => {
     setAddressId(addressId);
   }
   return (
-    <Box sx={{ width: "77vw", margin: "0 auto", mt: 4 }}>
+    <Box sx={{ width: {xs:"88vw",sm:"77vw"}, margin: "0 auto", mt: 4 }}>
       {/* Header Section */}
       <Typography
         variant="h6"
@@ -98,7 +98,19 @@ export const ManageAddresses = ({ profile }) => {
 
       {/* Address Cards */}
       <Grid container spacing={2}>
-        {address?.map((data, index) => (
+        {load ? (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        width:"100vw",
+                        height: "20vh",
+                        alignItems: "center",
+                      }}
+                    >
+                      <CircularProgress />
+                    </Box>
+                  ) :address?.map((data, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Box
               sx={{

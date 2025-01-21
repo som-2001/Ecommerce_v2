@@ -52,6 +52,7 @@ function WishList() {
               sx={{
                 display: "flex",
                 justifyContent: "center",
+                width:"100vw",
                 height: "60vh",
                 alignItems: "center",
               }}

@@ -26,7 +26,7 @@ export const WishList = () => {
   console.log(wishlist)
 
   return (
-    <Box sx={{ width: "77vw", margin: "auto" }}>
+    <Box sx={{ width: {xs:"88vw",sm:"77vw"}, margin: "auto" }}>
       <Typography variant="h6" color="text.secondary" gutterBottom>
         My WishList ({wishlist?.length || 0} Items) (
         <span

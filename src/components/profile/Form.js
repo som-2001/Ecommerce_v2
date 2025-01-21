@@ -24,7 +24,7 @@ const schema = yup
   })
   .required();
 
-export const Form = ({data,setChangeState,changeState}) => {
+export const Form = ({data,setChangeState,changeState,load}) => {
   const { control, handleSubmit,setValue} = useForm({
     resolver: yupResolver(schema),
   });
@@ -69,7 +69,7 @@ export const Form = ({data,setChangeState,changeState}) => {
   return (
     <Box
       sx={{
-        width: "77vw",
+        width: {xs:"88vw",sm:"77vw"},
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

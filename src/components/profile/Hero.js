@@ -6,31 +6,32 @@ import {
   Grid,
   Typography,
   IconButton,
+  Skeleton,
 } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { enqueueSnackbar } from "notistack";
 import { LogoutDialog } from "./LogoutDialog";
 import dayjs from "dayjs";
 
-export const Hero = ({data}) => {
+export const Hero = ({ data, load }) => {
   const [profileImage, setProfileImage] = useState(
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Breezeicons-actions-22-im-user.svg/1200px-Breezeicons-actions-22-im-user.svg.png"
   );
-  const [open,setOpen]=useState(false);
+  const [open, setOpen] = useState(false);
 
-  const openLogoutDialog=()=>{
+  const openLogoutDialog = () => {
     setOpen(true);
-  }
+  };
   console.log(data);
 
-  useEffect(()=>{
-    if(data){
+  useEffect(() => {
+    if (data) {
       setProfileImage(data?.profilePicture);
     }
-  },[data]);
+  }, [data]);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -42,27 +43,67 @@ export const Hero = ({data}) => {
       formData.append("profilePicture", file);
       console.log(file);
 
-      axios.put(`${process.env.REACT_APP_BASEURL}/users/profile-picture/${jwtDecode(Cookies.get("accessToken")).id}`,formData,{
-        withCredentials: true
-      }).then(res=>{
-        enqueueSnackbar("Profile picture has been updated successfully",{variant:"success"})
-      }).catch(err=>{
-        enqueueSnackbar("Failed to update profile picture", {variant: "error"})
-      })
-
+      axios
+        .put(
+          `${process.env.REACT_APP_BASEURL}/users/profile-picture/${
+            jwtDecode(Cookies.get("accessToken")).id
+          }`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          enqueueSnackbar("Profile picture has been updated successfully", {
+            variant: "success",
+          });
+        })
+        .catch((err) => {
+          enqueueSnackbar("Failed to update profile picture", {
+            variant: "error",
+          });
+        });
     }
   };
 
   return (
-    <Box sx={{ width: "77vw", padding: { xs: 2, sm: 5 } }}>
-     
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+    <Box sx={{ width: {xs:"88vw",sm:"77vw"}, padding: { xs: 2, sm: 5 } }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}>
         <Box>
-          <Typography variant="h5" color="text.secondary" sx={{fontSize:{xs:"1.0rem",lg:"1.6rem"}}}>
-            Welcome, {data?.fullName}
+          <Typography
+            variant="h5"
+            color="text.secondary"
+            sx={{
+              fontSize: { xs: "1.0rem", lg: "1.6rem" },
+              display: "flex",
+              gap: "10px",
+              alignItems: "center",
+            }}
+          >
+            <span>Welcome, </span>
+            <span>
+              {load ? (
+                <Skeleton animation="wave" width={150} />
+              ) : (
+                data?.fullName
+              )}
+            </span>
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Joined on, {dayjs(data.createdAt).format("DD MMM,YYYY")}
+          <Typography variant="body2" color="text.secondary"  sx={{
+             
+              display: {xs:"none",sm:"flex"},
+              gap: "10px",
+              alignItems: "center",
+              
+            }}>
+            <span>Joined on,</span>
+            <span>
+              {load ? (
+                <Skeleton animation="wave" width={100} />
+              ) : (
+                dayjs(data.createdAt).format("DD MMM,YYYY")
+              )}
+            </span>
             {/* {new Date(data.createdAt).toLocaleDateString()} */}
           </Typography>
         </Box>
@@ -92,7 +133,7 @@ export const Hero = ({data}) => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          alignItems:"center",
+          alignItems: "center",
         }}
       >
         <Grid container spacing={2}>
@@ -103,20 +144,23 @@ export const Hero = ({data}) => {
             md={2}
             lg={1}
             sx={{
-            
               position: "relative", // Important for overlay positioning
             }}
           >
-            <CardMedia
-              component="img"
-              image={profileImage}
-              sx={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "50px",
-                objectFit:"cover"
-              }}
-            />
+            {load ? (
+              <Skeleton variant="circular" width={80} height={80} />
+            ) : (
+              <CardMedia
+                component="img"
+                image={profileImage}
+                sx={{
+                  width: "80px",
+                  height: "80px",
+                  borderRadius: "50px",
+                  objectFit: "cover",
+                }}
+              />
+            )}
             <Box
               sx={{
                 position: "absolute",
@@ -136,7 +180,6 @@ export const Hero = ({data}) => {
                 },
               }}
             >
-              
               <IconButton
                 sx={{
                   backgroundColor: "rgba(0, 0, 0, 0.6)",
@@ -145,17 +188,17 @@ export const Hero = ({data}) => {
                 }}
               >
                 <input
-                type="file"
-                accept="image/*"
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  opacity: 0,
-                  cursor: "pointer",
-                }}
-                onChange={handleImageChange}
-              />
+                  type="file"
+                  accept="image/*"
+                  style={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    opacity: 0,
+                    cursor: "pointer",
+                  }}
+                  onChange={handleImageChange}
+                />
                 <PhotoCamera />
               </IconButton>
             </Box>
@@ -172,15 +215,21 @@ export const Hero = ({data}) => {
               justifyContent: "center",
             }}
           >
-            <Typography variant="h6">{data?.fullName}</Typography>
+            <Typography variant="h6">
+              {load ? (
+                <Skeleton animation="wave" width={150} />
+              ) : (
+                data?.fullName
+              )}
+            </Typography>
             <Typography variant="body2" color="text.secondary">
-              {data?.email}
+              {load ? <Skeleton animation="wave" width={150} /> : data?.email}
             </Typography>
           </Grid>
         </Grid>
       </Box>
 
-        <LogoutDialog open={open} setOpen={setOpen}/>
+      <LogoutDialog open={open} setOpen={setOpen} />
     </Box>
   );
 };

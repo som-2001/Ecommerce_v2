@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 
 function Profile() {
   const [data, setData] = useState([]);
+  const [profileLoad,setProfileLoad]=useState(true);
+  const [orderLoad,setOrderLoad]=useState(true);
   const [orders, setOrders] = useState([]);
   const [orderError, setOrderError] = useState("");
   const [orderLength, setOrderLength] = useState("");
@@ -27,6 +29,7 @@ function Profile() {
       )
       .then((res) => {
         console.log(res.data);
+        setProfileLoad(false);
         setData(res.data);
       })
       .catch((err) => {
@@ -39,6 +42,7 @@ function Profile() {
       })
       .then((res) => {
         console.log(res.data);
+        setOrderLoad(false);
         setOrders(res.data?.orders);
         setOrderLength(res.data.orderLength);
       })
@@ -59,13 +63,14 @@ function Profile() {
           overflowX: "hidden",
         }}
       >
-        <Hero data={data} />
-        <Form data={data} setChangeState={setChangeState} changeState={changeState}/>
-        <ManageAddresses profile={data} />
+        <Hero data={data} load={profileLoad}/>
+        <Form data={data} setChangeState={setChangeState} changeState={changeState} load={profileLoad}/>
+        <ManageAddresses profile={data} load={profileLoad}/>
         <Orders
           orders={orders}
           orderLength={orderLength}
           orderError={orderError}
+          load={orderLoad}
         />
         <WishList />
       </Box>

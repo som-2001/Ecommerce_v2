@@ -125,6 +125,7 @@ export const AuthNavbar = () => {
 
           <Box
             sx={{
+           
               flexGrow: 1,
               display: "flex",
               justifyContent: "flex-end",
@@ -137,6 +138,7 @@ export const AuthNavbar = () => {
               autoComplete="off"
               onChange={(e) => setInput(e.target.value)}
               sx={{
+                display:{xs:"none",sm:"block"},
                 background: "#e1eef5",
                 borderRadius: 7,
                 "& .MuiOutlinedInput-notchedOutline": {
