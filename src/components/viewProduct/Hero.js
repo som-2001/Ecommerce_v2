@@ -21,6 +21,9 @@ import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { addAmount, addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
+import dayjs from "dayjs";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Hero = ({ product, coloredProduct, load }) => {
   const navigate = useNavigate();
@@ -36,14 +39,12 @@ const Hero = ({ product, coloredProduct, load }) => {
       setSelectedImage(product.image[0]);
     }
     if (coloredProduct?.length > 0) {
-     
-      coloredProduct?.forEach((data,index)=>{
-       
-        if(data?._id===id){
-          console.log(data)
-          setSelectedColor(data?.selectedColor)
+      coloredProduct?.forEach((data, index) => {
+        if (data?._id === id) {
+          console.log(data);
+          setSelectedColor(data?.selectedColor);
         }
-      })
+      });
       // setSelectedColor(coloredProduct?.[0]?.selectedColor);
     }
   }, [product, coloredProduct]);
@@ -98,8 +99,11 @@ const Hero = ({ product, coloredProduct, load }) => {
         <Grid container spacing={4}>
           {/* Left Side: Images */}
           {load ? (
-           <Grid item xs={12} md={5} sx={{ mt: 4,display:"flex",justifyContent:"center" }}
-              
+            <Grid
+              item
+              xs={12}
+              md={5}
+              sx={{ mt: 4, display: "flex", justifyContent: "center" }}
             >
               <Skeleton
                 variant="rectangular"
@@ -144,7 +148,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                   }}
                 >
                   {product?.image?.map((img, index) => (
-                   <img
+                    <img
                       key={index}
                       src={img}
                       alt={`Thumbnail ${index + 1}`}
@@ -175,10 +179,19 @@ const Hero = ({ product, coloredProduct, load }) => {
                 variant="h4"
                 sx={{ fontWeight: "bold", marginBottom: "0.5rem" }}
               >
-              {load ?<Skeleton animation="wave" /> : `${product?.productName} (${product?.brand})`}
+                {load ? (
+                  <Skeleton animation="wave" />
+                ) : (
+                  `${product?.productName} (${product?.brand})`
+                )}
               </Typography>
               <Typography variant="body2" sx={{ marginBottom: "0.5rem" }}>
-                Available since: {load?<Skeleton animation="wave" />:new Date(product?.createdAt).toLocaleString()}
+                Available since:{" "}
+                {load ? (
+                  <Skeleton animation="wave" />
+                ) : (
+                  dayjs(product?.createdAt).format("DD MMM,YYYY")
+                )}
               </Typography>
               <Typography variant="body1" color="green" fontWeight="bold">
                 Special price
@@ -187,7 +200,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  flexWrap:"wrap"
+                  flexWrap: "wrap",
                 }}
               >
                 <Typography
@@ -198,18 +211,32 @@ const Hero = ({ product, coloredProduct, load }) => {
                     marginRight: "0.4rem",
                   }}
                 >
-                  {load?<Skeleton animation="wave" width={50} />:`₹${product?.offerPrice || "N/A"}`}
+                  {load ? (
+                    <Skeleton animation="wave" width={50} />
+                  ) : (
+                    `₹${product?.offerPrice || "N/A"}`
+                  )}
                 </Typography>
                 <Typography
                   variant="body1"
                   sx={{ textDecoration: "line-through", color: "gray" }}
                 >
-                  {load?<Skeleton animation="wave" width={50}/>:`₹${product?.originalPrice || "N/A"}`}
+                  {load ? (
+                    <Skeleton animation="wave" width={50} />
+                  ) : (
+                    `₹${product?.originalPrice || "N/A"}`
+                  )}
                 </Typography>
 
                 <Chip
                   sx={{ color: "green", marginLeft: "0.4rem" }}
-                  label={load?<Skeleton animation="wave" />:`${product?.discount}% off` || "N/A"}
+                  label={
+                    load ? (
+                      <Skeleton animation="wave" />
+                    ) : (
+                      `${product?.discount}% off` || "N/A"
+                    )
+                  }
                 />
                 <Box
                   sx={{
@@ -221,14 +248,19 @@ const Hero = ({ product, coloredProduct, load }) => {
                 >
                   <StarIcon />
                   <Typography sx={{ marginLeft: "4px", fontWeight: 600 }}>
-                  {load?<Skeleton animation="wave"  width={40}/>:4.5}
+                    {load ? <Skeleton animation="wave" width={40} /> : 4.5}
                   </Typography>
                 </Box>
               </Box>
 
               <Box sx={{ my: 0.3 }}>
                 <Typography variant="body2" sx={{ fontWeight: "600", mb: 2 }}>
-                  Model Version: {load?<Skeleton animation="wave" width={100}/>:product?.yearOfLaunch}
+                  Model Version:{" "}
+                  {load ? (
+                    <Skeleton animation="wave" width={100} />
+                  ) : (
+                    product?.yearOfLaunch
+                  )}
                 </Typography>
               </Box>
 
@@ -245,33 +277,56 @@ const Hero = ({ product, coloredProduct, load }) => {
                 <Typography variant="body1">Select Color:</Typography>
 
                 <Box sx={{ display: "flex", gap: "0.6rem" }}>
-                  {coloredProduct.map((color, index) => (
-                     load?<Skeleton variant="circular" width={40} height={40} />:<Box
-                      key={index}
-                      sx={{
-                        width: "30px",
-                        height: "30px",
-                        backgroundColor: color?.selectedColor?.toLowerCase(),
-                        border:
-                          selectedColor === color?.selectedColor
-                            ? "2px solid black"
-                            : "2px solid gray",
-                        borderRadius: "50%",
-                        cursor: "pointer",
-                        transition: "transform 0.2s",
-                        "&:hover": {
-                          transform: "scale(1.1)",
-                        },
-                      }}
-                      onClick={() => {
-                        navigate(
-                          `/view-product/${color?._id}/${color?.modelNumber}`
-                        );
-                        setSelectedColor(color?.selectedColor);
-                      }}
-                    />
-                  ))}
-                    </Box>
+                  {coloredProduct.map((color, index) =>
+                    load ? (
+                      <Skeleton variant="circular" width={40} height={40} />
+                    ) : (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          gap: "10px",
+                          border: "1px solid #e0dede",
+                          p: 1,
+                          borderRadius: "10px",
+                          transform:
+                            selectedColor === color?.selectedColor
+                              ? "scale(1.05)"
+                              : "scale(1)",
+                        }}
+                        onClick={() => {
+                          navigate(
+                            `/view-product/${color?._id}/${color?.modelNumber}`
+                          );
+                          setSelectedColor(color?.selectedColor);
+                        }}
+                      >
+                        {color?.selectedColor}
+                        <Box
+                          key={index}
+                          sx={{
+                            width: "30px",
+                            height: "30px",
+                            backgroundColor:
+                              color?.selectedColor?.toLowerCase(),
+                            // border:
+                            //   selectedColor === color?.selectedColor
+                            //     ? "2px solid black"
+                            //     : "2px solid gray",
+                            borderRadius: "50%",
+                            cursor: "pointer",
+                            transition: "transform 0.2s",
+                            filter: "brightness(0.9)",
+                            "&:hover": {
+                              transform: "scale(1.1)",
+                            },
+                          }}
+                        ></Box>
+                      </Box>
+                    )
+                  )}
+                </Box>
                 {/* {selectedColor && (
                 <Typography variant="body2" sx={{ marginTop: '0.5rem' }}>
                   Selected Color: <strong>{selectedColor}</strong>
@@ -294,7 +349,13 @@ const Hero = ({ product, coloredProduct, load }) => {
                   <Chip
                     key={index}
                     icon={spec.icon}
-                    label={load?<Skeleton animation="wave" width={100}/>:`${spec.label}: ${spec.value}`}
+                    label={
+                      load ? (
+                        <Skeleton animation="wave" width={100} />
+                      ) : (
+                        `${spec.label}: ${spec.value}`
+                      )
+                    }
                     sx={{
                       padding: "0.5rem",
                       fontWeight: "600",
@@ -312,8 +373,99 @@ const Hero = ({ product, coloredProduct, load }) => {
                 variant="body2"
                 sx={{ color: "#757575", marginBottom: "1rem", lineHeight: 1.5 }}
               >
-                {load ?<Skeleton animation="wave" />:product?.description}
+                {load ? <Skeleton animation="wave" /> : product?.description}
               </Typography>
+
+              <Chip
+                label={
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "fit-content",
+                    }}
+                  >
+                    Bluetooth Connectivity:{" "}
+                    {product?.bluetoothConnectivity ? (
+                      <DoneAllIcon />
+                    ) : (
+                      <CloseIcon />
+                    )}
+                  </Box>
+                }
+                sx={{
+                  color: "#757575",
+                  marginBottom: "1rem",
+                  lineHeight: 1.5,
+                  mr: 1,
+                }}
+              />
+
+              <Chip
+                label={
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "fit-content",
+                    }}
+                  >
+                    Mobile Charging Port:{" "}
+                    {product?.mobileChargingPort ? (
+                      <DoneAllIcon />
+                    ) : (
+                      <CloseIcon />
+                    )}
+                  </Box>
+                }
+                sx={{
+                  color: "#757575",
+                  marginBottom: "1rem",
+                  lineHeight: 1.5,
+                  mr: 1,
+                }}
+              />
+
+              <Chip
+                label={
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "fit-content",
+                    }}
+                  >
+                    Alloy Wheels:{" "}
+                    {product?.alloyWheels ? <DoneAllIcon /> : <CloseIcon />}
+                  </Box>
+                }
+                sx={{
+                  color: "#757575",
+                  marginBottom: "1rem",
+                  lineHeight: 1.5,
+                  mr: 1,
+                }}
+              />
+
+              <Chip
+                label={
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "fit-content",
+                    }}
+                  >
+                    Led Lights:{" "}
+                    {product?.ledLights ? <DoneAllIcon /> : <CloseIcon />}
+                  </Box>
+                }
+                sx={{ color: "#757575", marginBottom: "1rem", lineHeight: 1.5 }}
+              />
 
               <Box sx={{ display: "flex", gap: "1rem", marginTop: "1.4rem" }}>
                 <Button
