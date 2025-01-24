@@ -6,9 +6,12 @@ import { removeAmount, removeCartProduct } from "../../Redux/ProductAdminSlice/P
 import { enqueueSnackbar } from "notistack";
 import styles from "../../styles/cart.module.css"
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 export const CartProduct = ({ cart, setCart }) => {
+ 
   const dispatch = useDispatch();
+  const navigate=useNavigate();
 
   const removeCart = (id,price) => {
     axios
@@ -50,8 +53,10 @@ export const CartProduct = ({ cart, setCart }) => {
             alt={cart?.product?.productName}
             sx={{
               width: { xs: "200px", sm: "150px" },
+              cursor:"pointer"
             }}
             className={styles.img}
+            onClick={(e)=>navigate(`/view-product/${cart?.product?._id}/${cart?.product?.modelNumber}`)}
           />
         </Grid>
 
