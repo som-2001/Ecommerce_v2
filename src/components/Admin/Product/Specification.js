@@ -54,9 +54,9 @@ const Specifications = ({product}) => {
 
   useEffect(() => {
     if (product) {
-      setValue("engineType", product.engineType || ""); // Set default or empty if not available
+      setValue("engineType", product.engineType || ""); 
       setValue("fuelType", product.fuelType || "");
-      setValue("mileage", product.mileage || ""); // Set default if not available
+      setValue("mileage", product.mileage || ""); 
       setValue("maxPower", product.maxPower || "");
       setValue("maxTorque", product.maxTorque || "");
       setValue("gearbox", product.gearbox || "");

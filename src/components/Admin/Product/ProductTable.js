@@ -24,11 +24,11 @@ import { useNavigate } from "react-router-dom";
 const ProductTable = () => {
   const [bikes, setBikes] = useState([]);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(0); // API expects 1-indexed page; frontend uses 0-indexed
+  const [page, setPage] = useState(0); 
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [order, setOrder] = useState("desc"); // Sorting order
-  const [orderBy, setOrderBy] = useState("createdAt"); // Default column to sort by
-  const [search, setSearch] = useState(""); // Search query
+  const [order, setOrder] = useState("desc");
+  const [orderBy, setOrderBy] = useState("createdAt"); 
+  const [search, setSearch] = useState(""); 
   const [load, setLoad] = useState(true); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const ProductTable = () => {
     axios
       .get(`${process.env.REACT_APP_BASEURL}/products/products`, {
         params: {
-          page: page + 1, // Convert 0-indexed to 1-indexed for API
+          page: page + 1,
           limit: rowsPerPage,
           search,
           sortBy: orderBy,
@@ -74,12 +74,12 @@ const ProductTable = () => {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); // Reset to first page
+    setPage(0); 
   };
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
-    setPage(0); // Reset to first page for new search
+    setPage(0);
   };
 
   const handleToggle = (productId, field) => {

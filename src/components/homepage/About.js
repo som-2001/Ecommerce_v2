@@ -1,7 +1,7 @@
 import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
 import "../../App.css";
 import { useNavigate } from "react-router-dom";
-import { motion } from "motion/react";
+
 
 export const About = () => {
   const navigate = useNavigate();
