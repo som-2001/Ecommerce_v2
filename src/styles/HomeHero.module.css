@@ -1,0 +1,52 @@
+.hero {
+  width: 100%;
+  background-image: url("https://cdn.shopify.com/s/files/1/0577/9675/5633/files/leo_mtdanstore_h2-slide.png?v=1640138612");
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-direction: column;
+}
+.shopBox {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopBtn {
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  text-transform: none;
+}
+
+.shopBtn:hover {
+  background-color: #333;
+}
+
+.text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.HomeHeroTypography {
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.05em;
+}

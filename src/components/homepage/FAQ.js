@@ -1,18 +1,20 @@
 import React from "react";
 import { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, Box, CardMedia } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import styles from '../../styles/FAQ.module.css';  
+
 export const FAQ = () => {
   return (
-    <Box sx={{ padding: 5, backgroundColor: "black", color: "white" }}>
+    <Box className={styles.container}>
       <Grid container spacing={4} justifyContent="center" alignItems="center">
         {/* FAQ Section */}
         <Grid item xs={12} md={6}>
-          <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold", textAlign: "center", marginBottom: 4 }}>
+          <Typography variant="h4" gutterBottom className={styles.title}>
             Frequently Asked Questions
           </Typography>
           {/* Accordion for FAQ Items */}
-          <Accordion sx={{ backgroundColor: "transparent", borderRadius: "8px", marginBottom: 2, color: "white" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} aria-controls="panel1a-content" id="panel1a-header">
+          <Accordion className={`${styles.accordion} ${styles.faqItem}`}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon className={styles.expandIcon} />} aria-controls="panel1a-content" id="panel1a-header">
               <Typography variant="h6">How do I buy a bike from your store?</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -22,8 +24,8 @@ export const FAQ = () => {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Accordion sx={{ backgroundColor: "transparent", borderRadius: "8px", marginBottom: 2, color: "white" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} aria-controls="panel2a-content" id="panel2a-header">
+          <Accordion className={`${styles.accordion} ${styles.faqItem}`}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon className={styles.expandIcon} />} aria-controls="panel2a-content" id="panel2a-header">
               <Typography variant="h6">Do you offer bike delivery?</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -33,8 +35,8 @@ export const FAQ = () => {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Accordion sx={{ backgroundColor: "transparent", borderRadius: "8px", marginBottom: 2, color: "white" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} aria-controls="panel3a-content" id="panel3a-header">
+          <Accordion className={`${styles.accordion} ${styles.faqItem}`}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon className={styles.expandIcon} />} aria-controls="panel3a-content" id="panel3a-header">
               <Typography variant="h6">Can I test ride the bike before purchasing?</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -43,8 +45,8 @@ export const FAQ = () => {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Accordion sx={{ backgroundColor: "transparent", borderRadius: "8px", marginBottom: 2, color: "white" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} aria-controls="panel4a-content" id="panel4a-header">
+          <Accordion className={`${styles.accordion} ${styles.faqItem}`}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon className={styles.expandIcon} />} aria-controls="panel4a-content" id="panel4a-header">
               <Typography variant="h6">What if my bike gets damaged during delivery?</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -53,8 +55,8 @@ export const FAQ = () => {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Accordion sx={{ backgroundColor: "transparent", borderRadius: "8px", marginBottom: 2, color: "white" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} aria-controls="panel5a-content" id="panel5a-header">
+          <Accordion className={`${styles.accordion} ${styles.faqItem}`}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon className={styles.expandIcon} />} aria-controls="panel5a-content" id="panel5a-header">
               <Typography variant="h6">Do you offer bike accessories?</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -63,8 +65,8 @@ export const FAQ = () => {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Accordion sx={{ backgroundColor: "transparent", borderRadius: "8px", marginBottom: 2, color: "white" }}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />} aria-controls="panel6a-content" id="panel6a-header">
+          <Accordion className={`${styles.accordion} ${styles.faqItem}`}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon className={styles.expandIcon} />} aria-controls="panel6a-content" id="panel6a-header">
               <Typography variant="h6">What if I need a bike repair or service?</Typography>
             </AccordionSummary>
             <AccordionDetails>
@@ -75,16 +77,12 @@ export const FAQ = () => {
           </Accordion>
         </Grid>
         {/* Image Section - Bike with Removed Background */}
-        <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Grid item xs={12} md={6} className={styles.imageContainer}>
           <CardMedia
             component="img"
             image="../images/faq.jpg"
             alt="Bike"
-            sx={{
-              maxWidth: { xs: "90%", sm: "70%", md: "70%", lg: "60%" },
-              height: "auto",
-              borderRadius: "8px",
-            }}
+            className={styles.image}
           />
         </Grid>
       </Grid>

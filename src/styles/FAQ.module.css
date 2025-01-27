@@ -1,0 +1,49 @@
+.container {
+    padding: 5rem;
+    background-color: black;
+    color: white;
+  }
+  
+  .title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .accordion {
+    background-color: transparent;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    color: white;
+  }
+  
+  .expandIcon {
+    color: white;
+  }
+  
+  .imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image {
+    max-width: 90%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .faqItem {
+    margin-bottom: 2rem;
+  }
+  
+  .accordionSummary {
+    background-color: transparent;
+    border-radius: 8px;
+  }
+  
+  .accordionDetails {
+    background-color: transparent;
+    border-radius: 8px;
+  }
+  

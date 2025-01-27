@@ -1,12 +1,16 @@
 import React from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Footer from "../components/Footer";
+import Cookies from "js-cookie";
+import { HomeNavbar } from "../components/HomeNavbar";
+import { AuthNavbar } from "../components/AuthNavbar";
 
-function Contact(){
+function Contact() {
+  const token = Cookies.get("accessToken");
   return (
     <Box sx={{ backgroundColor: "black", color: "whitesmoke" }}>
       {/* Banner Section */}
-
+      {token ? <AuthNavbar /> : <HomeNavbar />}
       <Box
         sx={{
           position: "relative",
@@ -91,8 +95,8 @@ function Contact(){
             mb: 5,
           }}
         >
-          We value your inquiries and feedback! Whether you have a question, 
-          need assistance, or just want to say hello, we're always happy to hear 
+          We value your inquiries and feedback! Whether you have a question,
+          need assistance, or just want to say hello, we're always happy to hear
           from you.
         </Typography>
       </Box>
@@ -200,9 +204,9 @@ function Contact(){
           is our location.
         </Typography>
       </Box>
-      <Footer/>
+      <Footer />
     </Box>
   );
-};
+}
 
 export default Contact;

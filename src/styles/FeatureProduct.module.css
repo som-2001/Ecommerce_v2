@@ -1,0 +1,62 @@
+.parent {
+  background-color: black;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Card {
+  background-color: #1c1c1c;
+  color: white;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 3px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+.Icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: black;
+  filter: opacity(0.7);
+  border-radius: 50%;
+  background-color: white;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.Icon:hover {
+  transform: scale(1.2); /* Slightly enlarge the icon on hover */
+}
+
+.body{
+    background-color: white;
+  color: black;
+  filter: brightness(0.9);
+}
+
+.icons{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.btn{
+    background-color: black;
+    border-radius: 19px;
+    padding: 0.5rem;
+    width: 120px;
+}
+.price{
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: green;
+}

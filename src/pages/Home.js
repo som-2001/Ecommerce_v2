@@ -27,6 +27,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../Redux/ProductAdminSlice/ProductSlice";
 import { useNavigate } from "react-router-dom";
+import styles from '../styles/home.module.css';
 
 function Home() {
   const token = Cookies.get("accessToken");
@@ -53,29 +54,16 @@ function Home() {
   const { search } = useSelector((state) => state.product);
   return (
     <Box
+    className={styles.home}
       sx={{
-        backgroundImage: `url("./images/background.jpg")`,
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
         backgroundSize: { xs: "cover", md: "100%" },
-        overflowX: "hidden",
       }}
     >
       {token ? <AuthNavbar /> : <HomeNavbar />}
       {search?.length > 0 && (
         <Box
-          sx={{
-            padding: "1rem",
-            width: "320px",
-            position: "fixed",
-            right: { xs: "5%", sm: "35%",md:"31%",lg:"28%" },
-            zIndex: 50,
-            backgroundColor: "whitesmoke",
-            overflowY: "scroll",
-            height: "355px",
-            borderRadius: 2,
-          }}
+        className={styles.search}
+          sx={{right: { xs: "5%", sm: "35%",md:"31%",lg:"28%" }}}
         >
           <Grid container spacing={1}>
             {search.map((data, index) => (
@@ -91,13 +79,7 @@ function Home() {
                   <CardMedia
                     component="img"
                     height="80"
-                    sx={{
-                      width: "80px",
-                      objectFit: "contain",
-                      borderRadius: 3,
-                      ml: 1,
-                      mt: 1,
-                    }}
+                    className={styles.searchCard}
                     image={data.image?.[0] || "https://via.placeholder.com/180"} // Placeholder if no image
                     alt={data.productName || "Product Image"}
                   />

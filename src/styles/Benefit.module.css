@@ -1,0 +1,28 @@
+.icon{
+    width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20%;
+  margin-bottom: 10px;
+}
+.Box{
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+.TypographyBenefit{
+    text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.paper{
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px;
+}
+.center{
+    display: flex;
+    justify-content: center 
+}

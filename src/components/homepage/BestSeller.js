@@ -5,18 +5,16 @@ import {
   Typography,
 } from "@mui/material";
 import { RenderCard } from "../productCard/RenderCard";
-
+import styles from '../../styles/HomeAbout.module.css'
 
 
 const BestSeller = ({product}) => {
   return (
   
     <Box
+    className={styles.color}
       sx={{
-        backgroundColor: "black",
-        color: "white",
         padding: {xs:"5px",sm:"2rem"},
-       
       }}
     >
       <Typography variant="body2" color="#999999" gutterBottom align="center">
@@ -28,7 +26,7 @@ const BestSeller = ({product}) => {
       <Grid container spacing={1}>
 
         {product?.slice(0,4).map((product) => (
-          <Grid item xs={6} sm={6} md={3} key={product.id} sx={{display:"flex",justifyContent:"center"}}>
+          <Grid item xs={6} sm={6} md={3} key={product.id} className={styles.Grid}>
 
           <RenderCard bike={product}/>  
             

@@ -1,21 +1,15 @@
 import { Box, Button, CardMedia, Grid, Typography } from "@mui/material";
 import "../../App.css";
 import { useNavigate } from "react-router-dom";
-
+import styles from '../../styles/HomeAbout.module.css'
 
 export const About = () => {
   const navigate = useNavigate();
   return (
     <Box
+      className={styles.container}
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundColor: "black",
-        p: { xs: 3, md: 10 },
-        minHeight: "90vh",
-        borderBottom: "10px solid #323232",
+        p: { xs: 3, md: 10 }
       }}
     >
       <Typography
@@ -62,15 +56,8 @@ export const About = () => {
 
       <Button
         variant="contained"
-        sx={{
-          borderRadius: 3,
-          padding: 2.4,
-          mb: 5,
-          backgroundColor: "white",
-          color: "black",
-          mt: 3,
-          width: "150px",
-        }}
+        className={styles.HomeAboutbutton}
+        
         onClick={(e) => navigate("/about")}
       >
         READ MORE
@@ -79,33 +66,20 @@ export const About = () => {
       <Grid
         container
         spacing={2}
-        sx={{
-          mt: 3,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        className={styles.Box}
       >
         <Grid
           item
           xs={12}
           sm={6}
           md={4}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          className={styles.Grid}
         >
           <CardMedia
             component="img"
             image="../images/4.jpg"
             alt="Home Image 1"
-            sx={{
-              width: "100%",
-              maxWidth: "580px",
-              height: "580px",
-              objectFit: "cover",
-            }}
+            className={styles.img}
           />
         </Grid>
         <Grid
@@ -113,22 +87,13 @@ export const About = () => {
           xs={12}
           sm={6}
           md={4}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          className={styles.Grid}
         >
           <CardMedia
             component="img"
             image="../images/1.png"
             alt="Home Image 2"
-            sx={{
-              width: "100%",
-              maxWidth: "580px",
-              height: "580px",
-              objectFit: "cover",
-            }}
+            className={styles.img}
           />
         </Grid>
         <Grid
@@ -136,22 +101,13 @@ export const About = () => {
           xs={12}
           sm={6}
           md={4}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          className={styles.Grid}
         >
           <CardMedia
             component="img"
             image="../images/3.jpg"
             alt="Home Image 3"
-            sx={{
-              width: "100%",
-              maxWidth: "580px",
-              height: "580px",
-              objectFit: "cover",
-            }}
+            className={styles.img}
           />
         </Grid>
       </Grid>

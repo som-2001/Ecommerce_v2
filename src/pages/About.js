@@ -10,7 +10,6 @@ function About() {
   const token = Cookies.get("accessToken");
   return (
     <Box className={styles.container}>
-      {/* Banner Section */}
        {token ? <AuthNavbar /> : <HomeNavbar />}
       <Box
         className={styles.banner}
@@ -86,12 +85,7 @@ function About() {
             component="img"
             image="../images/about_gear.jpg"
             alt="Adventure Gear"
-            sx={{
-              borderRadius: 2,
-              width: "100%",
-              height: "250px",
-              objectFit: "cover",
-            }}
+            className={styles.img}
           />
           <Typography
             variant="h6"
@@ -124,12 +118,7 @@ function About() {
             component="img"
             image="../images/about_community.jpg"
             alt="Community Support"
-            sx={{
-              borderRadius: 2,
-              width: "100%",
-              height: "250px",
-              objectFit: "cover",
-            }}
+            className={styles.img}
           />
           <Typography
             variant="h6"

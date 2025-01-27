@@ -94,8 +94,6 @@ function Signin() {
 
   return (
     <Box>
-
-
       <Grid container>
         <Grid item xs={12} md={6} lg={7}>
           <Box sx={{ position: "relative" }}>
@@ -226,6 +224,7 @@ function Signin() {
 
             <Button
               type="submit"
+              disabled={mutation.isPending}
               className="submitbutton"
               sx={{ width: { xs: "300px", sm: "500px", md: "400px" } }}
             >

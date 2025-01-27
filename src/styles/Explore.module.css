@@ -1,0 +1,24 @@
+.hero{
+    height: 90vh;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.layout{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btn{
+    border-radius: 13px;
+    padding: 19px;
+    margin-bottom: 5px;
+    background-color: white;
+    color: black;
+    margin-top: 15px;
+}

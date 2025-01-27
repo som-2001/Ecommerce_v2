@@ -1,0 +1,12 @@
+.hero{
+    background-color: #222222;
+    color: white;
+    text-align: center;
+}
+.heading{
+    font-weight: 600;
+    color: #fff;
+    opacity: 0.1;
+    text-transform: uppercase;
+    text-align: center;
+}

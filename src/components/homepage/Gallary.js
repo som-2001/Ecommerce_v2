@@ -1,25 +1,20 @@
 import React from "react";
 import { Box, Grid, Typography, CardMedia } from "@mui/material";
+import styles from "../../styles/Gallary.module.css";
 
 const Gallary = () => {
   return (
     <Box
+      className={styles.hero}
       sx={{
-        backgroundColor: "#222222",
-        color: "white",
-        padding: {xs:"1rem",sm:"5rem"},
-        textAlign: "center",
+        padding: { xs: "1rem", sm: "5rem" },
       }}
     >
       <Typography
+        className={styles.heading}
         sx={{
-          fontWeight: 600,
-          fontSize: {xs:"30px",md:"150px"},
-          lineHeight: {xs:"88px",md:"220px"},
-          color: "#fff",
-          opacity: 0.1,
-          textTransform: "uppercase",
-          textAlign: "center",
+          fontSize: { xs: "30px", md: "150px" },
+          lineHeight: { xs: "88px", md: "220px" },
         }}
       >
         SDANSTORE
@@ -36,11 +31,9 @@ const Gallary = () => {
           <CardMedia
             component="img"
             image="../images/gallary_1.jpg"
-           
             sx={{
-              objectFit:"contain",
-              height:{xs:200,md:500},
-              
+              objectFit: "contain",
+              height: { xs: 200, md: 500 },
             }}
           />
         </Grid>
@@ -48,10 +41,9 @@ const Gallary = () => {
           <CardMedia
             component="img"
             image="../images/gallary_2.jpg"
-           
             sx={{
-              objectFit:"contain",
-              height:{xs:200,md:500}
+              objectFit: "contain",
+              height: { xs: 200, md: 500 },
             }}
           />
         </Grid>

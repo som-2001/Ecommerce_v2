@@ -1,0 +1,71 @@
+.container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    background-color: black !important;
+    min-height: 90vh !important;
+    border-bottom: 10px solid #323232 !important;
+}
+.HomeAboutbutton{
+  border-radius: 9px !important;
+  padding: 16.4px !important;
+  margin-bottom: 15px !important;
+  background-color: white !important;
+  color: black !important;
+  margin-top: 15px !important;
+  width: 150px !important;
+}
+.Box{
+  display: flex;
+  margin-top: 3px;
+  justify-content: center; 
+  align-items: center;
+}
+
+.Grid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img{
+    width: 100%;
+    max-width: 580px;
+    height: 580px;
+    object-fit: cover;
+}
+
+.color{
+  background-color:black;
+  color: white
+}
+
+.colorLayout{
+  background-color:black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imgGrid{
+  display: flex;
+  justify-content: center
+}
+.productImg{
+  width: 100%;
+  border-radius: 8px;
+  max-width: 500px
+}
+.productBtn{
+  background-color: white;
+  color: black;
+  border-radius: 16px;
+  width: 130px;
+  height: 60px
+}
+.priceBox{
+  display: flex;
+  justify-content: space-between;
+  width: 90%
+}

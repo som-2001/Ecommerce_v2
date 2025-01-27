@@ -1,24 +1,16 @@
 import { Box, Button, CardMedia, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import styles from "../../styles/HomeHero.module.css";
 
 export const Hero = () => {
   const navigate = useNavigate();
 
   return (
     <Box
+      className={styles.hero}
       sx={{
-        minHeight: { xs: "48vh", sm: "59vh", md: "86vh",lg:"90vh" },
-        width: "100%",
-        backgroundImage: `url("https://cdn.shopify.com/s/files/1/0577/9675/5633/files/leo_mtdanstore_h2-slide.png?v=1640138612")`,
-        position: "relative",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        overflow: "hidden",
-        flexDirection: "column",
+        minHeight: { xs: "48vh", sm: "59vh", md: "86vh", lg: "90vh" },
         padding: { xs: 2, sm: 3 },
       }}
     >
@@ -34,63 +26,41 @@ export const Hero = () => {
             width: { xs: "180px", sm: "350px", md: "550px", lg: "700px" },
             height: "auto",
             padding: { xs: 1, sm: 2, md: 3 },
-            borderRadius: "16px",
-            margin: "0 auto",
           }}
         />
       </motion.div>
 
       {/* Shop Now Button */}
-      <Box sx={{
-        position: "absolute",
-        bottom: { xs: "4%", sm: "8%", md: "10%", lg: "16%" },
-        left: "50%",
-        transform: "translateX(-50%)",
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-      }}>
-      <motion.div
-        initial={{ y: "5vh", opacity: 0 }}
-        animate={{ y: 0, opacity: 1, transition: { duration: 0.8 } }}
-       
+      <Box
+        className={styles.shopBox}
+        sx={{
+          bottom: { xs: "4%", sm: "8%", md: "10%", lg: "16%" },
+        }}
       >
-        <Button
-          variant="contained"
-          sx={{
-            padding: { xs: "8px 16px", sm: "10px 20px", md: "12px 24px" },
-            fontSize: { xs: "12px", sm: "14px", md: "16px" },
-            backgroundColor: "#000",
-            color: "#fff",
-            borderRadius: "10px",
-            textTransform: "none",
-            "&:hover": {
-              backgroundColor: "#333",
-            },
-          }}
-          onClick={() => navigate("/explore-products")}
+        <motion.div
+          initial={{ y: "5vh", opacity: 0 }}
+          animate={{ y: 0, opacity: 1, transition: { duration: 0.8 } }}
         >
-          Shop Now
-        </Button>
-      </motion.div>
+          <Button
+            variant="contained"
+            className={styles.shopBtn}
+            sx={{
+              padding: { xs: "8px 16px", sm: "10px 20px", md: "12px 24px" },
+              fontSize: { xs: "12px", sm: "14px", md: "16px" },
+            }}
+            onClick={() => navigate("/explore-products")}
+          >
+            Shop Now
+          </Button>
+        </motion.div>
       </Box>
 
       {/* Text Section */}
       <Box
+        className={styles.text}
         sx={{
-          position: "absolute",
           top: { xs: "4%", sm: "8%", md: "10%", lg: "10%" },
-          left: "50%",
-          transform: "translateX(-50%)",
-          textAlign: "center",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
           gap: { xs: "12px", sm: "20px", md: "32px" },
-          px: 2,
         }}
       >
         {/* Text Items */}
@@ -98,11 +68,9 @@ export const Hero = () => {
           <Typography
             key={index}
             variant="h6"
+            className={styles.HomeHeroTypography}
             sx={{
-              fontWeight: 700,
-              color: "white",
               fontSize: { xs: "12px", sm: "1rem", md: "1.3rem", lg: "1.5rem" },
-              letterSpacing: "0.05em",
             }}
           >
             <motion.div

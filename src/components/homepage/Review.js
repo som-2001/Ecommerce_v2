@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { Box, CardMedia, Grid, Typography } from "@mui/material";
 import Slider from "react-slick";
+import styles from "../../styles/HomeReview.module.css";
+
 export const Review = () => {
   // Create a reference for the Slider
   const sliderRef = useRef(null);
@@ -22,7 +24,7 @@ export const Review = () => {
     }
   };
   return (
-    <Box sx={{ backgroundColor: "transparent", color: "white", py: 4, overflowX: "hidden" }}>
+    <Box className={styles.ReviewBox}>
       <Typography variant="h3" align="center" sx={{ mb: 2 }}>
         Our Testimonials
       </Typography>
@@ -40,12 +42,7 @@ export const Review = () => {
                 component="img"
                 image={"../../images/review01.jpg"}
                 alt="Mountain Bike Review"
-                sx={{
-                  width: "200px",
-                  height: "auto",
-                  margin: "0 auto",
-                  borderRadius: "8px",
-                }}
+                className={styles.img}
               />
             </Grid>
             {/* Review Text */}
@@ -70,12 +67,7 @@ export const Review = () => {
                 component="img"
                 image={"../../images/review1.png"}
                 alt="Road Bike Review"
-                sx={{
-                  width: "200px",
-                  height: "auto",
-                  margin: "0 auto",
-                  borderRadius: "8px",
-                }}
+                className={styles.img}
               />
             </Grid>
             {/* Review Text */}
@@ -99,12 +91,7 @@ export const Review = () => {
                 component="img"
                 image={"../../images/review02.jpg"}
                 alt="Cruiser Bike Review"
-                sx={{
-                  width: "200px",
-                  height: "auto",
-                  margin: "0 auto",
-                  borderRadius: "8px",
-                }}
+                className={styles.img}
               />
             </Grid>
             {/* Review Text */}
@@ -128,12 +115,7 @@ export const Review = () => {
                 component="img"
                 image={"../../images/review03.avif"}
                 alt="Electric Bike Review"
-                sx={{
-                  width: "200px",
-                  height: "auto",
-                  margin: "0 auto",
-                  borderRadius: "8px",
-                }}
+                className={styles.img}
               />
             </Grid>
             {/* Review Text */}

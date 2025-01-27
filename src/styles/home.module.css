@@ -1,0 +1,26 @@
+.home{
+    background-image: url('../../public/images/background.jpg') !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    overflow-x: hidden !important
+}
+
+.search{
+    padding: 1rem !important;
+    width: 320px !important;
+    position: fixed !important;
+    z-index: 50 !important;
+    background-color: whitesmoke !important;
+    overflow-y: scroll !important;
+    height: 355px !important;
+
+}
+
+.searchCard{
+    width: 80px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-left: 4px;
+    margin-top: 8px,
+}

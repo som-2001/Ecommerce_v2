@@ -1,18 +1,31 @@
-import { Box, Button, Typography } from "@mui/material"
-import { useNavigate } from "react-router-dom"
+import { Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import styles from "../../styles/Explore.module.css";
 
-export const ExploreNow=()=>{
+export const ExploreNow = () => {
+  const navigate = useNavigate();
 
-  const navigate=useNavigate();
-
-    return(
-        <Box sx={{backgroundColor:"transparent",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",p:{xs:4,sm:10},height:"90vh"}}>
-        <Box sx={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column",}}>
-        <Typography variant="h6" color="#73b2eb" sx={{mb:4}}>COLLECTIONS</Typography>
-        <Typography variant="h3" color="whitesmoke" sx={{ fontSize: { xs: "1.1rem", sm: "2rem", md: "2.2rem" } }}>EXPLORE OUR BIKE COLLECTIONS</Typography>
-        <Button variant="contained" sx={{borderRadius:4,padding:"19px",mb:5,backgroundColor:"white",color:"black",mt:5}} onClick={(e)=>navigate("/explore-products")}>Explore now</Button>     
-        </Box>
+  return (
+    <Box className={styles.hero} sx={{ p: { xs: 4, sm: 10 } }}>
+      <Box className={styles.layout}>
+        <Typography variant="h6" color="#73b2eb" sx={{ mb: 4 }}>
+          COLLECTIONS
+        </Typography>
+        <Typography
+          variant="h3"
+          color="whitesmoke"
+          sx={{ fontSize: { xs: "1.1rem", sm: "2rem", md: "2.2rem" } }}
+        >
+          EXPLORE OUR BIKE COLLECTIONS
+        </Typography>
+        <Button
+          variant="contained"
+          className={styles.btn}
+          onClick={(e) => navigate("/explore-products")}
+        >
+          Explore now
+        </Button>
       </Box>
-    )
-
-}
+    </Box>
+  );
+};
