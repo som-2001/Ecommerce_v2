@@ -4,7 +4,7 @@ import { Amount } from "../components/cart/Amout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { NoCartProduct } from "../components/cart/NoCartProduct";
-
+import styles from '../styles/cart.module.css'
 
 export const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -25,12 +25,7 @@ export const Cart = () => {
 
   return (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
+    className={styles.noCartBox}
     >
       <Box sx={{ width: "77vw", my: 5 }}>
         <Grid container spacing={2}>
@@ -47,11 +42,7 @@ export const Cart = () => {
             xs={12}
             md={5}
             lg={3}
-            sx={{
-              position: "sticky", // Makes the Amount sticky
-              top: "10px", // Keeps it at the top of the viewport
-              height: "fit-content", // Prevents stretching of the grid
-            }}
+            className={styles.cartAmount}
           >
             <Amount length={cart}/>
           </Grid>

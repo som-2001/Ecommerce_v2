@@ -1,0 +1,65 @@
+.parent {
+  position: sticky;
+  top: 0px;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 12px;
+  background: #1e1e1e;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  color: whitesmoke;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  height: 665px;
+}
+
+.parent:hover {
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.7),
+    inset 0 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+.FilterBike {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgba(100, 181, 246, 1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.subtitle1 {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #64b5f6;
+}
+.grid {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+.brand {
+  font-weight: bold;
+  color: #64b5f6;
+}
+.brandLabel {
+  font-size: 14px;
+  color: #e0e0e0;
+  transition: color 0.3s ease;
+}
+.brandLabel:hover {
+  color: #64b5f6;
+}
+.fuelType {
+  font-weight: bold;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  color: #64b5f6;
+}
+
+.fuelLabel {
+  font-size: 14px;
+  color: #e0e0e0;
+  transition: color 0.3s ease;
+}
+
+.fuelLabel:hover {
+  color: #64b5f6;
+}

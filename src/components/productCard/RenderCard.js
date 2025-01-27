@@ -17,6 +17,7 @@ import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import { addwishList } from "../../Redux/ProductAdminSlice/ProductSlice";
+import styles from "../../styles/RenderCard.module.css";
 
 export const RenderCard = ({ bike, load }) => {
   const navigate = useNavigate();
@@ -46,16 +47,9 @@ export const RenderCard = ({ bike, load }) => {
 
   return (
     <Card
+      className={styles.card}
       sx={{
-        borderRadius: "10px",
-        boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-        transition: "transform 0.3s, box-shadow 0.3s",
-        position: "relative",
         width: { xs: "330px", sm: "360px" },
-        cursor: "pointer",
-        "&:hover": {
-          boxShadow: "0 12px 30px rgba(0,0,0,0.2)",
-        },
       }}
     >
       {/* Product Image */}
@@ -67,21 +61,15 @@ export const RenderCard = ({ bike, load }) => {
           alt={bike.productName}
           height="220"
           image={bike.image?.[0]}
-          sx={{ objectFit: {xs:"contain",sm:"cover"}, filter: "brightness(0.9)" }}
+          sx={{
+            objectFit: { xs: "contain", sm: "cover" },
+            filter: "brightness(0.9)",
+          }}
         />
       )}
 
       {/* Badge Indicators */}
-      <Box
-        sx={{
-          position: "absolute",
-          top: 10,
-          left: 10,
-          display: "flex",
-          flexDirection: "column",
-          gap: "5px",
-        }}
-      >
+      <Box className={styles.positionWrapper}>
         {bike.isNewArrival && (
           <Chip label="New Arrival" color="success" size="small" />
         )}
@@ -97,20 +85,9 @@ export const RenderCard = ({ bike, load }) => {
       {token &&
         (load ? null : (
           <Favorite
+            className={styles.buttonWrapper}
             sx={{
-              position: "absolute",
-              top: 10,
-              right: 10,
               color: wishList?.includes(bike?._id) ? "red" : "black",
-              backgroundColor: "white",
-              borderRadius: "50%",
-              zIndex: 10,
-              padding: "5px",
-              cursor: "pointer",
-              transition: "transform 0.2s",
-              "&:hover": {
-                transform: "scale(1.2)",
-              },
             }}
             onClick={() => addWishList(bike?._id)}
           />
@@ -129,7 +106,11 @@ export const RenderCard = ({ bike, load }) => {
       >
         <Typography
           variant="h6"
-          sx={{ fontWeight: 700, display: { xs: "inherit", sm: "none" },fontSize:"17px" }}
+          sx={{
+            fontWeight: 700,
+            display: { xs: "inherit", sm: "none" },
+            fontSize: "17px",
+          }}
         >
           {bikeName.length > 10 ? `${bikeName.slice(0, 10)}...` : bikeName}
         </Typography>
@@ -143,9 +124,9 @@ export const RenderCard = ({ bike, load }) => {
           {load ? (
             <Skeleton animation="wave" width={150} />
           ) : bikeName?.length > 20 ? (
-            `${bikeName.slice(0, 25)}...`
+            `${bikeName.slice(0, 20)}...`
           ) : (
-            bikeName 
+            bikeName
           )}
         </Typography>
         <Typography
@@ -165,13 +146,11 @@ export const RenderCard = ({ bike, load }) => {
         <Divider sx={{ my: 1 }} />
 
         {/* Specifications */}
-        <Box
+        <Box 
+         className={styles.speicification}
           sx={{
-            display: {xs:"none",sm:"flex"},
-            justifyContent: "space-between",
-            gap: "0px",
-            flexWrap: "wrap",
-            p: 1,
+            display: { xs: "none", sm: "flex" },
+          
           }}
         >
           <Box sx={{ textAlign: "center" }}>
@@ -194,12 +173,12 @@ export const RenderCard = ({ bike, load }) => {
           </Box>
         </Box>
 
-        <Divider sx={{ my: 1, display: {xs:"none",sm:"block"} }} />
+        <Divider sx={{ my: 1, display: { xs: "none", sm: "block" } }} />
 
         {/* Price and Discount */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <Box className={styles.price}>
           <Typography
-            sx={{ fontWeight: 700, fontSize: "1.2rem", color: "green" }}
+           className={styles.Typography}
           >
             {load ? (
               <Skeleton animation="wave" width={50} />
@@ -208,11 +187,7 @@ export const RenderCard = ({ bike, load }) => {
             )}
           </Typography>
           <Typography
-            sx={{
-              textDecoration: "line-through",
-              fontSize: "0.9rem",
-              color: "gray",
-            }}
+           className={styles.originalPrice}
           >
             {load ? (
               <Skeleton animation="wave" width={50} />
@@ -227,7 +202,8 @@ export const RenderCard = ({ bike, load }) => {
               display: { xs: "none", sm: "inherit" },
             }}
           >
-            ({load?<Skeleton animation="wave" width={20}/>:bike.discount}% OFF)
+            ({load ? <Skeleton animation="wave" width={20} /> : bike.discount}%
+            OFF)
           </Typography>
         </Box>
       </CardContent>

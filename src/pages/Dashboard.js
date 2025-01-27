@@ -14,6 +14,7 @@ import axios from "axios";
 import { FilterSideBar } from "../components/FilterSideBar.js";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { DrawerFilter } from "../components/DrawerFilter.js";
+import styles from '../styles/Dashboard.module.css'
 
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
@@ -26,28 +27,28 @@ const Dashboard = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [fromValue, setFromValue] = useState("");
-  const fromValueRef=useRef(undefined);
-  const toValueRef=useRef(undefined);
+  const fromValueRef = useRef(undefined);
+  const toValueRef = useRef(undefined);
   const [toValue, setToValue] = useState("");
   const [urlParamsState, setUrlParamsState] = useState();
-  const [drawerOpen,setDrawerOpen]=useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const footerRef = useRef(null);
 
-  const handleFilterChange = (updatedBrandParams,updatedFuelParams) => {
-
+  const handleFilterChange = (updatedBrandParams, updatedFuelParams) => {
     console.log(updatedBrandParams);
     const urlParams = new URLSearchParams();
     setPage(1);
-    // Add price filters if defined
-    if (fromValueRef?.current!==undefined) urlParams.append("minPrice", fromValueRef?.current);
-    if (toValueRef?.current!==undefined) urlParams.append("maxPrice", toValueRef?.current);
 
-    // Add selected brands if any
+    if (fromValueRef?.current !== undefined)
+      urlParams.append("minPrice", fromValueRef?.current);
+    if (toValueRef?.current !== undefined)
+      urlParams.append("maxPrice", toValueRef?.current);
+
     if (updatedBrandParams?.length > 0) {
       updatedBrandParams?.forEach((brand) => urlParams.append("brand", brand));
     }
-    // Add selected fuel types if any
+
     if (updatedFuelParams?.length > 0) {
       updatedFuelParams?.forEach((fuel) => urlParams.append("fuelType", fuel));
     }
@@ -57,7 +58,6 @@ const Dashboard = () => {
   useEffect(() => {
     setLoad(true);
 
-    // Fetch bikes for the first page
     axios
       .get(
         `${process.env.REACT_APP_BASEURL}/products/filter?${urlParamsState}&page=${page}`,
@@ -73,7 +73,7 @@ const Dashboard = () => {
         setLoad(false);
       });
 
-    // Fetch brands and fuel types
+   
     axios
       .get(`${process.env.REACT_APP_BASEURL}/products/brand`, {
         withCredentials: true,
@@ -87,7 +87,7 @@ const Dashboard = () => {
       });
   }, [urlParamsState]);
 
-  // Observer to detect when footer is in view
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -108,7 +108,6 @@ const Dashboard = () => {
     };
   }, [isLoadingMore, page, totalPages]);
 
-  // Fetch more bikes when page changes
   useEffect(() => {
     if (page === 1) return; // Skip initial fetch (handled in the first useEffect)
 
@@ -137,13 +136,10 @@ const Dashboard = () => {
   return (
     <Box>
       <Box
+        className={styles.parent}
         sx={{
-          display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          gap: 1,
           p: { xs: 0, sm: 3 },
-          backgroundColor: "#121212",
-          minHeight: "100vh",
         }}
       >
         {/* Sidebar Filter */}
@@ -166,18 +162,15 @@ const Dashboard = () => {
 
         {/* Product Grid */}
         <Box
+         className={styles.productGrid}
           sx={{
-            flex: 1,
             p: { xs: 0.3, sm: 2 },
-            backgroundColor: "#1E1E1E",
-            borderRadius: "16px",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.5)",
             my: { xs: 1, sm: 0 },
           }}
         >
           <Typography
             variant="h5"
-            sx={{ mb: 3, fontWeight: "bold", color: "whitesmoke", p: 2 }}
+            className={styles.Typography}
           >
             Explore All Bikes
           </Typography>
@@ -192,28 +185,14 @@ const Dashboard = () => {
                     md={6}
                     lg={3}
                     key={bike.id}
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
+                    className={styles.container}
                   >
                     <RenderCard bike={bike} />
                   </Grid>
                 ))
               ) : (
                 <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "100%",
-                    color: "whitesmoke",
-                    height: "50vh",
-                    flexDirection: "column",
-                    mt: 5,
-                  }}
+                 className={styles.centeredContainer}
                 >
                   <CardMedia
                     component="img"
@@ -229,14 +208,7 @@ const Dashboard = () => {
             </Grid>
           ) : (
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                color: "whitesmoke",
-                height: "80vh",
-              }}
+              className={styles.centeredContainer80vh}
             >
               <CircularProgress size={35} />
             </Box>
@@ -244,13 +216,7 @@ const Dashboard = () => {
           {/* Loading Indicator for More Items */}
           {isLoadingMore && (
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                py: 3,
-              }}
+             className={styles.centeredContainerWithPadding}
             >
               <CircularProgress size={24} />
             </Box>
@@ -282,32 +248,24 @@ const Dashboard = () => {
           toValueRef={toValueRef}
         />
       </Drawer>
-        
+
       <Box
-          sx={{
-            display: { xs: "flex", md: "none" },
-            position: "fixed",
-            bottom: 16,
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 1000,
-          }}
+      className={styles.fixedButton}
+        sx={{
+          display: { xs: "flex", md: "none" },
+         
+        }}
+      >
+        <Button
+          variant="contained"
+          startIcon={<FilterListIcon />}
+          onClick={() => setDrawerOpen(true)}
+          className={styles.button}
         >
-          <Button
-            variant="contained"
-            startIcon={<FilterListIcon />}
-            onClick={() => setDrawerOpen(true)}
-            sx={{
-              backgroundColor: "black",
-              color: "white",
-              borderRadius: 4,
-              padding: 2,
-            }}
-          >
-            Filters
-          </Button>
-        </Box>
-     
+          Filters
+        </Button>
+      </Box>
+
       <Footer />
     </Box>
   );

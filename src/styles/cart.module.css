@@ -5,27 +5,27 @@
   flex-direction: column;
 }
 
-.flex{
+.flex {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.img{
+.img {
   height: auto;
   border-radius: 10px;
   object-fit: contain;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1),
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.textFormat1{
+.textFormat1 {
   font-size: 18px !important;
   font-weight: 700 !important;
   color: #333 !important;
   margin-bottom: 8px !important;
-  text-transform: capitalize !important
+  text-transform: capitalize !important;
 }
-.removeButton{
+.removeButton {
   background: linear-gradient(135deg, #ff5a5f, #ff4081);
   color: #fff;
   font-size: 14px;
@@ -34,13 +34,67 @@
   border-radius: 24px;
   text-transform: capitalize !important;
   border-radius: 20px !important;
-  box-shadow: 0 4px 12px rgba(255, 64, 129, 0.3)
+  box-shadow: 0 4px 12px rgba(255, 64, 129, 0.3);
 }
 
-.CartProductBox{
+.removeButton:hover {
+  background: linear-gradient(135deg, #ff4081, #ff5a5f);
+  box-shadow: 0 6px 16px rgba(255, 64, 129, 0.5);
+}
+.CartProductBox {
   padding: 16px;
   border-radius: 12px;
   background: linear-gradient(135deg, #f8f9fa, #ffffff);
   /* margin-bottom: 24px; */
-  transition: transform 0.3s, box-shadow 0.3s
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.CartProductBox:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.cartAmount {
+  position: sticky;
+  top: 10px;
+  height: fit-content;
+}
+
+.deliveryDate {
+  font-size: 14px;
+  color: #4caf50;
+  display: flex;
+  align-items: center;
+}
+.CheckIcon {
+  font-size: 18px;
+  margin-right: 6px;
+}
+
+.DeliveryBy {
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.discount {
+  color: #ff4081;
+  margin-left: 8px;
+}
+.originalPrice {
+  text-decoration: line-through;
+  font-weight: 400;
+  color: #9e9e9e;
+  margin-left: 8px;
+}
+.offerPrice {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.description{
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+  line-height: 1.6,
 }

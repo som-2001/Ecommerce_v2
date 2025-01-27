@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRef } from "react";
+import styles from '../styles/FilterSideBar.module.css'
 
 export const FilterSideBar = ({
   selectedBrands,
@@ -46,49 +47,29 @@ export const FilterSideBar = ({
 
   return (
     <Box
+    className={styles.parent}
       sx={{
         width: { xs: "100%", md: "23%", lg: "15%" },
         display: { xs: "none", md: "flex" },
-        position: "sticky",
-        top: "0px",
-        flexDirection: "column",
-        p: 3,
-        borderRadius: "18px",
-        background: "#1E1E1E",
-        boxShadow:
-          "0 10px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
-        color: "whitesmoke",
-        transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-        height: "665px",
-        "&:hover": {
-          boxShadow:
-            "0 15px 25px rgba(0, 0, 0, 0.7), inset 0 2px 2px rgba(255, 255, 255, 0.2)",
-        },
       }}
     >
       <Typography
         variant="h5"
-        sx={{
-          mb: 3,
-          fontWeight: "bold",
-          textAlign: "center",
-          color: "rgba(100, 181, 246, 1)",
-          textShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-        }}
+        className={styles.FilterBike}
       >
         Filter Bikes
       </Typography>
       {/* Price Filter */}
       <Typography
         variant="subtitle1"
-        sx={{ fontWeight: "bold", mb: 1, color: "#64b5f6" }}
+        className={styles.subtitle1}
       >
         Price Range
       </Typography>
       <Grid
         container
         spacing={1}
-        sx={{ mb: 2, display: "flex", alignItems: "center" }}
+        className={styles.grid}
       >
         <Grid item xs={6}>
           <TextField
@@ -154,7 +135,7 @@ export const FilterSideBar = ({
       {/* Brand Filter */}
       <Typography
         variant="subtitle1"
-        sx={{ fontWeight: "bold", color: "#64b5f6" }}
+        className={styles.brand}
       >
         Brand
       </Typography>
@@ -172,11 +153,7 @@ export const FilterSideBar = ({
           }
           label={
             <Typography
-              sx={{
-                fontSize: "14px",
-                color: "#E0E0E0",
-                "&:hover": { color: "#64b5f6" },
-              }}
+              className={styles.brandLabel}
             >
               {brand}
             </Typography>
@@ -187,7 +164,7 @@ export const FilterSideBar = ({
       {/* Fuel Type Filter */}
       <Typography
         variant="subtitle1"
-        sx={{ fontWeight: "bold", mt: 3, mb: 2, color: "#64b5f6" }}
+        className={styles.fuelType}
       >
         Fuel Type
       </Typography>
@@ -205,11 +182,7 @@ export const FilterSideBar = ({
           }
           label={
             <Typography
-              sx={{
-                fontSize: "14px",
-                color: "#E0E0E0",
-                "&:hover": { color: "#64b5f6" },
-              }}
+            className={styles.fuelLabel}
             >
               {fuel}
             </Typography>

@@ -32,11 +32,6 @@ export const CartProduct = ({ cart, setCart }) => {
   return (
     <Box
     className={styles.CartProductBox}
-      sx={{
-        "&:hover": {
-          boxShadow: "0 12px 32px rgba(0, 0, 0, 0.15)",
-        },
-      }}
     >
       <Grid container spacing={3} sx={{ alignItems: "center" }}>
         {/* Product Image */}
@@ -68,53 +63,33 @@ export const CartProduct = ({ cart, setCart }) => {
             {cart?.product?.productName}
           </Typography>
           <Typography
-            sx={{
-              fontSize: "14px",
-              color: "#555",
-              marginBottom: "12px",
-              lineHeight: 1.6,
-            }}
+            className={styles.description}
           >
             {cart?.product?.description?.slice(0, 50)}...
           </Typography>
 
           {/* Pricing */}
           <Typography
-            sx={{
-              fontSize: "18px",
-              fontWeight: "700",
-              color: "#2c3e50",
-              marginBottom: "12px",
-            }}
+            className={styles.offerPrice}
           >
             ${cart?.product?.offerPrice}
             <span
-              style={{
-                textDecoration: "line-through",
-                fontWeight: 400,
-                color: "#9e9e9e",
-                marginLeft: "8px",
-              }}
+              className={styles.originalPrice}
             >
               ${cart?.product?.originalPrice}
             </span>{" "}
-            <span style={{ color: "#ff4081", marginLeft: "8px" }}>
+            <span className={styles.discount}>
               {cart?.product?.discount}% OFF
             </span>
           </Typography>
 
           {/* Delivery Date */}
           <Typography
-            sx={{
-              fontSize: "14px",
-              color: "#4caf50",
-              display: "flex",
-              alignItems: "center",
-            }}
+           className={styles.deliveryDate}
           >
-            <CheckIcon sx={{ fontSize: "18px", marginRight: "6px" }} />
+            <CheckIcon className={styles.CheckIcon} />
             Delivery by{" "}
-            <span style={{ fontWeight: "600", marginLeft: "4px" }}>
+            <span className={styles.DeliveryBy}>
               {dayjs(new Date().getTime()).add(7,"day").format("DD MMM,YYYY")}
             </span>
           </Typography>
@@ -133,12 +108,7 @@ export const CartProduct = ({ cart, setCart }) => {
           <Button
             variant="contained"
             className={styles.removeButton}
-            sx={{
-              "&:hover": {
-                background: "linear-gradient(135deg, #ff4081, #ff5a5f)",
-                boxShadow: "0 6px 16px rgba(255, 64, 129, 0.5)",
-              },
-            }}
+           
             onClick={() => removeCart(cart?.product?._id,cart?.product?.offerPrice)}
           >
             Remove
