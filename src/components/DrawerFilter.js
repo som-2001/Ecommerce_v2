@@ -72,7 +72,7 @@ import styles from '../styles/DrawerFilter.module.css'
           <TextField
             label="From"
             InputLabelProps={{
-              style: { color: "#64b5f6" }, // Label color
+              style: { color: "#64b5f6" }, 
             }}
             value={fromValue}
             onChange={(e) => {
