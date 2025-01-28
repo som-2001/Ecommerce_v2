@@ -88,7 +88,8 @@ const UserTable = ({
                     src={user.profilePicture}
                     alt={user.fullName}
                     width="50"
-                    style={{ borderRadius: "50%" }}
+                    height="50"
+                    style={{ borderRadius: "50%",objectFit:"contain" }}
                   />
                 </TableCell>
                 <TableCell align="center">{user.fullName}</TableCell>
@@ -98,7 +99,7 @@ const UserTable = ({
                 <TableCell align="center">
                   <Switch
                     checked={user.role==="admin" || false}
-                    // onChange={() => handleToggle(user._id, "admin")}
+                 
                   />
                 </TableCell>
               </TableRow>

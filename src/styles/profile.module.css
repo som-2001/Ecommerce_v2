@@ -129,6 +129,12 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+.profileParent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .adressDetails {
   font-weight: bold;
   margin-top: 1rem;
@@ -154,8 +160,8 @@
   gap: 1rem,
 }
 .HeroParent{
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
+  justify-content: space-between !important;
   align-items:center 
 }
 .HeroChild{

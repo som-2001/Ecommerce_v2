@@ -1,0 +1,122 @@
+.addressParent {
+  border: 1px solid #dfdfdf;
+  padding: 15px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.addressParent:hover {
+  background-color: #f9f9f9;
+}
+
+.addressParent:active {
+  background-color: #f0f0f0;
+}
+
+.icon {
+  color: #4caf50;
+  font-size: 2rem;
+  margin-right: 8px;
+}
+.addressText {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.addressMap {
+  border: 1px solid #dfdfdf;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-radius: 8px;
+}
+
+.noOrderParent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  flex-direction: column;
+}
+
+.OrderComponentParent {
+  width: 80%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.activeStep {
+  border: 1px solid black;
+  padding: 15px;
+  color: black;
+  border-radius: 12px;
+  width: 120px;
+  margin-right: 4px;
+}
+.PaymentCartFormMap {
+  background-color: whitesmoke;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.OnlinePaymentButton {
+  border: 1px solid #dfdfdf;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pay{
+    background-color: black;
+    padding: 16px;
+    border-radius: 9px;
+    color: white;
+    width: 140px
+}
+
+.pay:hover{
+    background-color: #333;
+}
+
+.shipmentCenter{
+    display: flex;
+    justify-content: center;
+    flex-direction: column
+}
+.shipmentRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center
+}
+.orderPageParent{
+    overflow-x: hidden !important;
+}
+.OrderComponentWrapperClass{
+    width:100vw !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important
+}

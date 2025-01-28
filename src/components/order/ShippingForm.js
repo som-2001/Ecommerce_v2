@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { setShippingDate } from "../../Redux/ProductAdminSlice/ProductSlice";
 import dayjs from "dayjs";
 
+import styles from "../../styles/Order.module.css";
+
 export const ShippingForm = ({ handlefunction1 }) => {
   const dispatch = useDispatch();
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -60,7 +62,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             sm={12}
             md={3}
             lg={2}
-            sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+            className={styles.shipmentRow}
           >
             <FormControlLabel
               control={<Radio checked={selectedMethod === "Free"} />}
@@ -73,11 +75,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             xs={12}
             sm={12}
             md={4}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
+            className={styles.shipmentCenter}
           >
             <Typography variant="body1">Regular Shipment Method</Typography>
           </Grid>
@@ -87,10 +85,9 @@ export const ShippingForm = ({ handlefunction1 }) => {
             sm={12}
             md={4}
             lg={6}
+            className={styles.shipmentCenter}
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
+              
               alignItems: { xs: "start", md: "center" },
             }}
           >
@@ -113,7 +110,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             sm={12}
             md={3}
             lg={2}
-            sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+            className={styles.shipmentRow}
           >
             <FormControlLabel
               control={<Radio checked={selectedMethod === "8"} />}
@@ -126,11 +123,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             xs={12}
             sm={12}
             md={4}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
+            className={styles.shipmentCenter}
           >
             <Typography variant="body1">
               Get your delivery as soon as possible
@@ -142,10 +135,9 @@ export const ShippingForm = ({ handlefunction1 }) => {
             sm={12}
             md={4}
             lg={6}
+            className={styles.shipmentCenter}
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
+             
               alignItems: { xs: "start", md: "center" },
             }}
           >
@@ -168,7 +160,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             sm={12}
             md={3}
             lg={2}
-            sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+            className={styles.shipmentRow}
           >
             <FormControlLabel
               control={<Radio checked={selectedMethod === "Schedule"} />}
@@ -181,11 +173,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
             xs={12}
             sm={12}
             md={4}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
+            className={styles.shipmentCenter}
           >
             <Typography variant="body1">
               Pick a date when you want to get your delivery
@@ -197,10 +185,9 @@ export const ShippingForm = ({ handlefunction1 }) => {
             sm={12}
             md={4}
             lg={6}
+            className={styles.shipmentCenter}
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
+             
               alignItems: { xs: "start", md: "center" },
             }}
           >

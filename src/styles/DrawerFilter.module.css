@@ -1,0 +1,22 @@
+.drawerParent{
+height: fit-content;
+padding: 8px;
+background: linear-gradient(145deg, #1f1f2b, #272738);
+box-shadow: 
+  0 10px 20px rgba(0, 0, 0, 0.5), 
+  inset 0 1px 1px rgba(255, 255, 255, 0.1);
+color: whitesmoke;
+}
+.h5{
+    margin-bottom: 12px;
+    font-weight: bold;
+    text-align: center;
+    color: rgba(100, 181, 246, 1);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4)
+}
+.fuelType{
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    color:#64b5f6
+}

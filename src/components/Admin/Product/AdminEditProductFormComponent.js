@@ -22,7 +22,7 @@ const BikeFormWithAccordion = () => {
 
   const dispatch=useDispatch();
   const {id}=useParams();
-  const [expanded, setExpanded] = useState("panel1"); // Track which panel is expanded
+  const [expanded, setExpanded] = useState("panel1");
   const [product,setProduct]=useState([]);
 
   useEffect(() => {
@@ -71,14 +71,10 @@ const BikeFormWithAccordion = () => {
       });
   }, []);
 
-  // Handle panel expansion
   const handleChange = (panel) => (event, isExpanded) => {
     
     setExpanded(isExpanded ? panel : false);
   };
-
-  // Validation callbacks
- 
   return (
     <Box p={4}>
       {/* Basic Information */}

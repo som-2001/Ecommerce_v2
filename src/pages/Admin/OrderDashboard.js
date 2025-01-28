@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import OrderTable from './../../components/Admin/Order/OrderTable';
+import styles from "../../styles/Admin/OrderDashboard.module.css";
 
 export const OrderDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -38,8 +39,8 @@ export const OrderDashboard = () => {
   }, [page, limit]); 
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-end", flexDirection: "column" }}>
-      <Typography variant="body1" sx={{ mb: 4, fontSize: "20px" }} color="text.secondary">
+    <Box className={styles.parent} >
+      <Typography variant="body1" className={styles.body} color="text.secondary">
         Order Dashboard
       </Typography>
       <OrderTable

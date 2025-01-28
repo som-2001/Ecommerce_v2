@@ -90,7 +90,7 @@ const BasicDetails = ({ product }) => {
   }, [product, setValue, dispatch]);
   const onSubmit = (data) => {
     console.log("Form Submitted:", data);
-    // Add the new product to the Redux store
+   
     dispatch(EditProduct(data));
   };
 

@@ -1,17 +1,10 @@
 import { Box, CardMedia, Typography } from "@mui/material";
-
+import styles from '../../styles/Order.module.css'
 
 export const NoOrder = () => {
   return (
     <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        
-        width:"100vw",
-        flexDirection:"column"
-      }}
+      className={styles.noOrderParent}
     >
       <CardMedia
         component="img"

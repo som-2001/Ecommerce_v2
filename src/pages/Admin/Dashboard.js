@@ -17,6 +17,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import styles from "../../styles/Admin/Dashboard.module.css";
 
 import {
   Chart as ChartJS,
@@ -47,9 +48,9 @@ const processRevenueData = (orders) => {
   const revenueByDate = {};
 
   orders.forEach((order) => {
-    const date = dayjs(
-      order.shipmentDetails.deliveryDate
-    ).format("DD MMM,YYYY");
+    const date = dayjs(order.shipmentDetails.deliveryDate).format(
+      "DD MMM,YYYY"
+    );
     revenueByDate[date] = (revenueByDate[date] || 0) + order.totalPrice;
   });
 
@@ -75,7 +76,7 @@ const Dashboard = () => {
   const [result, setResult] = useState([]);
   const [newArrival, setNewArrival] = useState([]);
   const [bestSeller, setBestSeller] = useState([]);
-  const [load,setLoad]=useState(true);
+  const [load, setLoad] = useState(true);
   const [featureProduct, setFeatureProduct] = useState([]);
   const navigate = useNavigate();
 
@@ -201,16 +202,7 @@ const Dashboard = () => {
         {title}
       </Typography>
       {section?.slice(0, 3)?.map((item, index) => (
-        <Box
-          key={index}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            mb: 1,
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
+        <Box key={index} className={styles.parent}>
           <CardMedia
             component="img"
             src={item.image?.[0]}
@@ -219,13 +211,7 @@ const Dashboard = () => {
               navigate(`/view-product/${item?._id}/${item?.modelNumber}`)
             }
           />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-            }}
-          >
+          <Box className={styles.center}>
             <Typography variant="body1">{item.productName}</Typography>
             <Typography variant="body2" color="textSecondary">
               {`${item.description.slice(0, 40)}...`}
@@ -233,10 +219,7 @@ const Dashboard = () => {
           </Box>
 
           <Stack direction="row">
-            <Chip
-              label={item.offerPrice}
-              sx={{ bgcolor: "#DDA853", color: "white", width: "100px" }}
-            />
+            <Chip label={item.offerPrice} className={styles.chip} />
           </Stack>
         </Box>
       ))}
@@ -249,15 +232,9 @@ const Dashboard = () => {
         {salesReps.map((item, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card
+              className={styles.card}
               sx={{
-                display: "flex",
-                alignItems: "center",
-                p: 2,
-                height: "120px",
                 backgroundColor: item.cardBg,
-                boxShadow: 3,
-                borderRadius: 2,
-                gap: "16px",
               }}
             >
               <Avatar
@@ -283,13 +260,9 @@ const Dashboard = () => {
         {metrics.map((item, i) => (
           <Grid item xs={12} sm={6} md={3} key={i}>
             <Card
+              className={styles.card}
               sx={{
-                p: 3,
-                display: "flex",
-                alignItems: "center",
                 backgroundColor: item.cardBg,
-                boxShadow: 3,
-                borderRadius: 2,
               }}
             >
               <Avatar
@@ -308,7 +281,7 @@ const Dashboard = () => {
                   {item.label}
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                {load ? <Skeleton animation="wave" width={50} /> : item?.data}
+                  {load ? <Skeleton animation="wave" width={50} /> : item?.data}
                 </Typography>
               </Box>
             </Card>
@@ -324,7 +297,7 @@ const Dashboard = () => {
           <Card
             sx={{
               p: 3,
-             
+
               borderRadius: 2,
             }}
           >
@@ -348,7 +321,6 @@ const Dashboard = () => {
           <Card
             sx={{
               p: 3,
-
               mt: 2,
             }}
           >

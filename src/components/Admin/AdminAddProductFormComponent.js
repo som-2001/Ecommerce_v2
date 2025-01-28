@@ -15,18 +15,18 @@ import Features from "./ProductForm/Features";
 import ImageDetails from "./ProductForm/ImageDetails";
 
 const BikeFormWithAccordion = () => {
-  const [expanded, setExpanded] = useState("panel1"); // Track which panel is expanded
-  const [validBasicInfo, setValidBasicInfo] = useState(false); // Track if Basic Details are valid
-  const [validSpecifications, setValidSpecifications] = useState(false); // Track if Specifications are valid
-  const [validPriceDetails, setValidPriceDetails] = useState(false); // Track if Price Details are valid
-  const [validFeatures, setValidFeatures] = useState(false); // Track if Features are valid
+  const [expanded, setExpanded] = useState("panel1"); 
+  const [validBasicInfo, setValidBasicInfo] = useState(false);
+  const [validSpecifications, setValidSpecifications] = useState(false);
+  const [validPriceDetails, setValidPriceDetails] = useState(false); 
+  const [validFeatures, setValidFeatures] = useState(false); 
 
   // Handle panel expansion
   const handleChange = (panel) => (event, isExpanded) => {
-    if (panel === "panel2" && !validBasicInfo) return; // Prevent expansion of specifications if Basic Details are not valid
-    if (panel === "panel3" && !validSpecifications) return; // Prevent expansion of Price if Specifications are not valid
-    if (panel === "panel4" && !validPriceDetails) return; // Prevent expansion of Features if Price is not valid
-    if (panel === "panel5" && !validFeatures) return; // Prevent expansion of Images if Features are not valid
+    if (panel === "panel2" && !validBasicInfo) return; 
+    if (panel === "panel3" && !validSpecifications) return; 
+    if (panel === "panel4" && !validPriceDetails) return;
+    if (panel === "panel5" && !validFeatures) return; 
     
     setExpanded(isExpanded ? panel : false);
   };
@@ -35,7 +35,7 @@ const BikeFormWithAccordion = () => {
   const handleBasicInfoValidation = (isValid) => {
    
     if (isValid) {
-      setExpanded("panel2"); // Expand the second panel if the first panel is valid
+      setExpanded("panel2"); 
     }
   };
 
@@ -43,21 +43,21 @@ const BikeFormWithAccordion = () => {
     setValidBasicInfo(isValid); 
     setValidSpecifications(isValid);
     if (isValid) {
-      setExpanded("panel3"); // Expand the third panel if the second panel is valid
+      setExpanded("panel3"); 
     }
   };
 
   const handlePriceDetailsValidation = (isValid) => {
     setValidPriceDetails(isValid);
     if (isValid) {
-      setExpanded("panel4"); // Expand the fourth panel if the third panel is valid
+      setExpanded("panel4"); 
     }
   };
 
   const handleFeaturesValidation = (isValid) => {
     setValidFeatures(isValid);
     if (isValid) {
-      setExpanded("panel5"); // Expand the fifth panel if the fourth panel is valid
+      setExpanded("panel5");
     }
   };
 

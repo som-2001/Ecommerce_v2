@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ReviewTable from './../../components/Admin/Review/ReviewTable';
+import styles from "../../styles/Admin/ReviewDashboard.module.css";
+
 
 export const ReviewDashboard = () => {
   const [reviews, setReviews] = useState([]);
@@ -36,7 +38,7 @@ export const ReviewDashboard = () => {
   }, [page, limit]); 
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "flex-end", flexDirection: "column" }}>
+    <Box className={styles.parent}>
       <Typography variant="body1" sx={{ mb: 4, fontSize: "20px" }} color="text.secondary">
        Review Dashboard
       </Typography>

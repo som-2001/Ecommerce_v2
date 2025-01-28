@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Notifications } from "@mui/icons-material";
 import { LogoutDialog } from "../profile/LogoutDialog";
+import styles from '../../styles/Admin/Dashboard.module.css'
 
 const Topbar = () => {
 
@@ -27,14 +28,7 @@ const Topbar = () => {
           </Badge>
         </IconButton>
         <Button
-          sx={{
-            width: "120px",
-            background: "#DDA853",
-            color: "white",
-            p: 1,
-            borderRadius: 2,
-            mr: 1,
-          }}
+          className={styles.logout}
           onClick={handleLogout}
         >
           Logout

@@ -13,6 +13,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import styles from "../../styles/Order.module.css";
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 const stripe = await stripePromise;
 
@@ -31,8 +33,8 @@ export const PaymentCartForm = () => {
         userId: jwtDecode(Cookies.get("accessToken")).id,
         products: cartProducts,
         orderMode: selectedItem === "COD" ? "COD" : "Prepaid",
-        shipmentDetails:shippingDate,
-        Tax:Tax
+        shipmentDetails: shippingDate,
+        Tax: Tax,
       },
       {
         withCredentials: true,
@@ -67,16 +69,7 @@ export const PaymentCartForm = () => {
             <Grid
               container
               alignItems="center"
-              sx={{
-                backgroundColor: "whitesmoke",
-                padding: 2,
-                borderRadius: 2,
-                my: 2,
-
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              className={styles.PaymentCartFormMap}
             >
               <Grid item xs={3}>
                 <CardMedia
@@ -223,7 +216,7 @@ export const PaymentCartForm = () => {
                     ? Number(Tax) + Number(amount)
                     : Number(Tax) +
                       Number(amount) +
-                      (Number(shippingDate?.method))}
+                      Number(shippingDate?.method)}
                 </Typography>
               </Grid>
             </Grid>
@@ -237,14 +230,8 @@ export const PaymentCartForm = () => {
           </Typography>
 
           <Box
+            className={styles.OnlinePaymentButton}
             sx={{
-              border: "1px solid #dfdfdf",
-              padding: 3,
-              borderRadius: 3,
-              my: 2,
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
               width: { xs: "75vw", md: "30vw" },
             }}
           >
@@ -264,14 +251,8 @@ export const PaymentCartForm = () => {
           </Box>
 
           <Box
+            className={styles.OnlinePaymentButton}
             sx={{
-              border: "1px solid #dfdfdf",
-              padding: 3,
-              borderRadius: 3,
-              my: 2,
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
               width: { xs: "75vw", md: "30vw" },
             }}
           >
@@ -297,14 +278,8 @@ export const PaymentCartForm = () => {
             }}
           >
             <Button
-              sx={{
-                backgroundColor: "black",
-                padding: 2,
-                borderRadius: 3,
-                color: "white",
-                width: "140px",
-                "&:hover": { backgroundColor: "#333" },
-              }}
+              className={styles.pay}
+              
               onClick={StripePayment}
             >
               Pay

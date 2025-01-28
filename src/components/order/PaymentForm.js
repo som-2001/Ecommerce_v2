@@ -14,6 +14,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { loadStripe } from "@stripe/stripe-js";
+import styles from "../../styles/Order.module.css";
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 const stripe = await stripePromise;
 
@@ -273,14 +275,8 @@ export const PaymentForm = () => {
           </Typography>
 
           <Box
+           className={styles.OnlinePaymentButton}
             sx={{
-              border: "1px solid #dfdfdf",
-              padding: 3,
-              borderRadius: 3,
-              my: 2,
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
               width: { xs: "75vw", sm: "30vw" },
             }}
           >
@@ -300,14 +296,9 @@ export const PaymentForm = () => {
           </Box>
 
           <Box
+           className={styles.OnlinePaymentButton}
             sx={{
-              border: "1px solid #dfdfdf",
-              padding: 3,
-              borderRadius: 3,
-              my: 2,
-              display: "flex",
-              alignItems: "center",
-              gap: "20px",
+             
               width: { xs: "75vw", sm: "30vw" },
             }}
           >
@@ -333,14 +324,7 @@ export const PaymentForm = () => {
             }}
           >
             <Button
-              sx={{
-                backgroundColor: "black",
-                padding: 2,
-                borderRadius: 3,
-                color: "white",
-                width: "140px",
-                "&:hover": { backgroundColor: "#333" },
-              }}
+              className={styles.pay}
               onClick={StripePayment}
             >
               Pay

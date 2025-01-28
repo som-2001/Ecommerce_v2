@@ -7,6 +7,7 @@ import {
     Typography,
   } from "@mui/material";
 import { useRef } from "react";
+import styles from '../styles/DrawerFilter.module.css'
   
   export const DrawerFilter = ({
     selectedBrands,
@@ -47,29 +48,15 @@ import { useRef } from "react";
   
     return (
       <Box
-        sx={{
-          height:"fit-content",
-          p:2,
-          background: "linear-gradient(145deg, #1F1F2B, #272738)",
-          boxShadow:
-            "0 10px 20px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1)",
-          color: "whitesmoke",
-         
-        }}
+       className={styles.drawerParent}
       >
         <Typography
         variant="h5"
-        sx={{
-          mb: 3,
-          fontWeight: "bold",
-          textAlign: "center",
-          color: "rgba(100, 181, 246, 1)",
-          textShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-        }}
+       className={styles.h5}
       >
         Filter Bikes
       </Typography>
-      {/* Price Filter */}
+      
       <Typography
         variant="subtitle1"
         sx={{ fontWeight: "bold", mb: 1, color: "#64b5f6" }}
@@ -178,7 +165,7 @@ import { useRef } from "react";
       {/* Fuel Type Filter */}
       <Typography
         variant="subtitle1"
-        sx={{ fontWeight: "bold", mt: 3, mb: 2, color: "#64b5f6" }}
+        className={styles.fuelType}
       >
         Fuel Type
       </Typography>

@@ -26,7 +26,7 @@ export const Hero = ({ data, load }) => {
   const openLogoutDialog = () => {
     setOpen(true);
   };
-  console.log(data);
+
 
   useEffect(() => {
     if (data) {
@@ -69,7 +69,7 @@ export const Hero = ({ data, load }) => {
 
   return (
     <Box sx={{ width: {xs:"88vw",sm:"77vw"}, padding: { xs: 2, sm: 5 } }}>
-      <Box className="HeroParent">
+      <Box className={styles.HeroParent}>
         <Box>
           <Typography
             variant="h5"
@@ -127,7 +127,7 @@ export const Hero = ({ data, load }) => {
             md={2}
             lg={1}
             sx={{
-              position: "relative", // Important for overlay positioning
+              position: "relative",
             }}
           >
             {load ? (

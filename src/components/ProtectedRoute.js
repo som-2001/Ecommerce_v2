@@ -11,11 +11,12 @@ import {
   Grid,
 } from "@mui/material";
 import { setSearch } from "../Redux/ProductAdminSlice/ProductSlice";
+import styles from "../styles/ProtectedRoute.module.css";
 
 export const ProtectedRoute = () => {
   const token = Cookies.get("accessToken");
   console.log(token);
-  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { search } = useSelector((state) => state.product);
@@ -23,27 +24,20 @@ export const ProtectedRoute = () => {
   if (!token) return <Navigate to="/" />;
 
   return (
-    <Box >
+    <Box>
       <AuthNavbar />
       {search?.length > 0 && (
         <Box
+          className={styles.parent}
           sx={{
-            padding: "1rem",
-            width: "320px",
-            position: "fixed",
             right: { xs: "5%", sm: "23%" },
-            zIndex: 50,
-            backgroundColor: "whitesmoke",
-            overflowY: "scroll",
-            height: "355px",
-            borderRadius: 2,
           }}
         >
           <Grid container spacing={1}>
             {search.map((data, index) => (
               <Grid item xs={12} key={index}>
                 <Card
-                  sx={{ display: "flex", height: "fit-content" }}
+                  className={styles.card}
                   onClick={(e) => {
                     navigate(`/view-product/${data?._id}/${data?.modelNumber}`);
                     dispatch(setSearch([]));
@@ -53,13 +47,7 @@ export const ProtectedRoute = () => {
                   <CardMedia
                     component="img"
                     height="80"
-                    sx={{
-                      width: "80px",
-                      objectFit: "contain",
-                      borderRadius: 3,
-                      ml: 1,
-                      mt: 1,
-                    }}
+                    className={styles.cardMedia}
                     image={data.image?.[0] || "https://via.placeholder.com/180"} // Placeholder if no image
                     alt={data.productName || "Product Image"}
                   />
@@ -67,11 +55,10 @@ export const ProtectedRoute = () => {
                   <CardContent>
                     <Typography
                       variant="body2"
-                     
                       color="text.secondary"
                       sx={{ fontWeight: "bold", mb: 1 }}
                     >
-                      {data.productName || "Product Name"}  ({data.brand})
+                      {data.productName || "Product Name"} ({data.brand})
                     </Typography>
 
                     <Typography

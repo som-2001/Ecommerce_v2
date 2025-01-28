@@ -4,11 +4,11 @@ import { Form } from "../components/profile/Form";
 import { ManageAddresses } from "../components/profile/ManageAddresses";
 import { WishList } from "../components/profile/WishList";
 import { Orders } from "../components/profile/Orders";
-import Footer from "./../components/Footer";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import styles from "../styles/profile.module.css";
 
 function Profile() {
   const [data, setData] = useState([]);
@@ -47,6 +47,7 @@ function Profile() {
         setOrderLength(res.data.orderLength);
       })
       .catch((err) => {
+        setOrderLoad(false);
         setOrderError(err?.response?.data?.message);
         console.log(err);
       });
@@ -55,13 +56,7 @@ function Profile() {
   return (
     <>
       <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        
-        }}
+        className={styles.profileParent}
       >
         <Hero data={data} load={profileLoad}/>
         <Form data={data} setChangeState={setChangeState} changeState={changeState} load={profileLoad}/>

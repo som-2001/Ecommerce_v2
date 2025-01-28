@@ -1,0 +1,39 @@
+.h6{
+    margin-bottom: 8px;
+    font-weight: bold !important;
+    color: #37474f;
+    text-align: center
+}
+.img{
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1)
+}
+.offerPrice{
+    margin-bottom: 4px;
+    font-weight: bold !important;
+    color: #d32f2f;
+    display: flex;
+    align-items: center;
+    gap: 5px
+}
+.customerDetailed{
+    margin-bottom: 8px !important;
+    font-weight: bold;
+    color: #37474f;
+    text-align: center
+}
+.reviewBox{
+    margin-bottom: 8px;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+    position: relative
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px !important
+}

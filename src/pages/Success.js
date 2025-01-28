@@ -31,7 +31,7 @@ export const Success = () => {
   return (
     <Container
       maxWidth="sm"
-      className={styles.container}
+      className={styles.container} 
     >
       <CheckCircleIcon sx={{ fontSize: 80, color: "green", mb: 2 }} />
       <Typography variant="h4" gutterBottom>

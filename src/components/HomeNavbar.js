@@ -2,6 +2,7 @@ import React from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, MenuItem, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom"; // Import Link for routing
+import styles from '../styles/HomeNavbar.module.css'
 
 const pages = [
   { label: "Sign up", path: "/register" },
@@ -24,12 +25,7 @@ export const HomeNavbar = () => {
   return (
     <AppBar
       position="initial"
-      sx={{
-        opacity:0.9,
-        backgroundColor:"#36454F",
-        boxShadow: "none",
-      
-      }}
+     className={styles.parent}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -38,14 +34,9 @@ export const HomeNavbar = () => {
             noWrap
             component="a"
             href="/"
+            className={styles.logoText}
             sx={{
-              mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "white",
-              textDecoration: "none",
             }}
           >
             BikeMart

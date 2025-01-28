@@ -1,4 +1,4 @@
-import { Box, Chip, Typography } from "@mui/material";
+  import { Box, Chip, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import { AddressDialogFunc } from "../profile/AddressDialogFunc";
@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { setAddressDetails } from "../../Redux/ProductAdminSlice/ProductSlice";
+import styles from '../../styles/Order.module.css'
 
 export const AddressForm = ({ handlefunction }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -44,29 +45,14 @@ export const AddressForm = ({ handlefunction }) => {
       </Typography>
 
       <Box
-        sx={{
-          border: "1px solid #dfdfdf",
-          padding: 2,
-          my: 2,
-          display: "flex",
-          alignItems: "center",
-          borderRadius: 2,
-          cursor: "pointer",
-          backgroundColor: "#fff",
-          "&:hover": {
-            backgroundColor: "#f9f9f9",
-          },
-          "&:active": {
-            backgroundColor: "#f0f0f0",
-          },
-        }}
+        className={styles.addressParent}
         onClick={(e) => setOpenDialog(true)}
       >
-        <AddIcon sx={{ color: "#4caf50", fontSize: "2rem", mr: 2 }} />
+        <AddIcon className={styles.icon}/>
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ fontSize: "1rem", fontWeight: "bold", color: "#4caf50" }}
+          className={styles.addressText}
         >
           Add a new Address
         </Typography>
@@ -75,14 +61,7 @@ export const AddressForm = ({ handlefunction }) => {
       {addressData.map((address) => (
         <Box
           key={address.id}
-          sx={{
-            border: "1px solid #dfdfdf",
-            padding: 2,
-            my: 2,
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-          }}
+          className={styles.addressMap}
         >
           <Box>
             <input

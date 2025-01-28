@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { ReviewDeleteDrawer } from "./ReviewDeleteDrawer";
+import styles from '../../../styles/Admin/AdminopenReviewDrawer.module.css'
 
 export const AdminopenReviewDrawer = ({
   review,
@@ -34,7 +35,6 @@ export const AdminopenReviewDrawer = ({
           sx: {
             width: { xs: "80vw", sm: "450px" },
             p: 3,
-
             borderRadius: "8px 0 0 8px",
           },
         }}
@@ -43,12 +43,7 @@ export const AdminopenReviewDrawer = ({
           {/* Header */}
           <Typography
             variant="h6"
-            sx={{
-              mb: 2,
-              fontWeight: "bold",
-              color: "#37474f",
-              textAlign: "center",
-            }}
+            className={styles.h6}
           >
             Review Summary
           </Typography>
@@ -61,21 +56,12 @@ export const AdminopenReviewDrawer = ({
                 Product Details
               </Typography>
               <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  mb: 2,
-                }}
+               className={styles.flex}
               >
                 <img
                   src={review?.product?.image?.[0]}
                   alt="Product"
-                  style={{
-                    width: "100%",
-                    maxWidth: "250px",
-                    borderRadius: "8px",
-                    boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-                  }}
+                 className={styles.img}
                 />
               </Box>
               <Grid container spacing={1}>
@@ -124,14 +110,7 @@ export const AdminopenReviewDrawer = ({
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{
-                      mb: 1,
-                      fontWeight: "bold",
-                      color: "#d32f2f",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
+                    className={styles.offerPrice}
                   >
                     ${review?.product?.offerPrice}
                     <span
@@ -192,26 +171,14 @@ export const AdminopenReviewDrawer = ({
           {/* Reviews Section */}
           <Typography
             variant="h6"
-            sx={{
-              mb: 2,
-              fontWeight: "bold",
-              color: "#37474f",
-              textAlign: "center",
-            }}
+            className={styles.customerDetailed}
           >
             Customer Detailed Review
           </Typography>
 
           <Box
             key={review._id}
-            sx={{
-              mb: 2,
-              p: 2,
-              bgcolor: "#fff",
-              borderRadius: "8px",
-              boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
-              position: "relative",
-            }}
+            className={styles.reviewBox}
           >
             <Box
               sx={{
@@ -240,7 +207,7 @@ export const AdminopenReviewDrawer = ({
             >
               {new Date(review.createdAt).toLocaleDateString()}
             </Typography>
-            <DeleteRounded
+            {/* <DeleteRounded
               sx={{
                 position: "absolute",
                 top: "12px",
@@ -251,7 +218,7 @@ export const AdminopenReviewDrawer = ({
                 setOpenReviewDelete(true);
                 setReviewId(review?._id);
               }}
-            />
+            /> */}
           </Box>
         </Box>
       </Drawer>

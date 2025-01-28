@@ -1,0 +1,14 @@
+.parent{
+    opacity:0.9;
+    background-color:#36454F;
+    box-shadow: none
+  
+}
+.logoText{
+    margin-right: 8px; 
+    font-family: monospace;
+    font-weight: 700;
+    letter-spacing: 0.3rem;
+    color: white;
+    text-decoration: none;
+}

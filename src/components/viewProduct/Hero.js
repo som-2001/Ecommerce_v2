@@ -105,11 +105,11 @@ const Hero = ({ product, coloredProduct, load }) => {
                 variant="rectangular"
                 sx={{
                   width: {
-                    xs: 300, // Width for extra-small screens
-                    sm: 500, // Width for small screens
-                    md: 700, // Width for medium and larger screens
+                    xs: 300, 
+                    sm: 500, 
+                    md: 700, 
                   },
-                  height: 400, // Height stays constant
+                  height: 400, 
                 }}
               />
             </Grid>

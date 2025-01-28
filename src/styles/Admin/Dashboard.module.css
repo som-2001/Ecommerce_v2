@@ -1,0 +1,35 @@
+.parent{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    align-items: center;
+    gap: 8px
+}
+
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start
+}
+.chip{
+    background-color: #DDA853;
+    color: white;
+    width: 100px
+}
+.card{
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
+    gap: 16px; 
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    height: 120px;
+}
+.logout{
+    width: 120px;
+    background: #DDA853 !important;
+    color: white !important;
+    padding: 8px !important;
+    border-radius: 8px;
+    margin-right: 8px !important
+}

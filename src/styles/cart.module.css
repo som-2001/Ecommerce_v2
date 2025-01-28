@@ -60,7 +60,7 @@
 }
 
 .deliveryDate {
-  font-size: 14px;
+  font-size: 14px !important;
   color: #4caf50;
   display: flex;
   align-items: center;
@@ -81,20 +81,55 @@
 }
 .originalPrice {
   text-decoration: line-through;
-  font-weight: 400;
+  font-weight: 400 !important;
   color: #9e9e9e;
   margin-left: 8px;
 }
 .offerPrice {
-  font-size: 18px;
+  font-size: 14px !important;
   font-weight: 700;
   color: #2c3e50;
   margin-bottom: 12px;
 }
 
 .description{
-  font-size: 14px;
+  font-size: 14px !important;
   color: #555;
   margin-bottom: 12px;
   line-height: 1.6,
+}
+
+.amountParent{
+  padding: 8px; 
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+.amountTypography{
+  font-size: 16px;
+  font-weight: 600 !important;
+  margin-bottom: 18px !important
+}
+.totalMRP{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px
+}
+.placeOrder {
+  background-color: #ff4081 !important;
+  color: #ffffff;
+  padding: 16px 0 !important;
+  font-size: 16px;
+  text-transform: none;
+  font-weight: 600 !important;
+  border: none; /* Optional, to ensure no border */
+  cursor: pointer; /* Adds a pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.placeOrder:hover {
+  background-color: #ff1c75;
+}
+.amountText{
+  font-size: 14px;
+  font-weight: 600
 }

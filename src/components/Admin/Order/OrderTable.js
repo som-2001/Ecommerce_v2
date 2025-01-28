@@ -20,6 +20,7 @@ import dayjs from "dayjs";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PersonIcon from "@mui/icons-material/Person";
 import CallIcon from "@mui/icons-material/Call";
+import styles from '../../../styles/Admin/OrderDashboard.module.css'
 
 const OrderTable = ({
   orders,
@@ -77,13 +78,7 @@ const OrderTable = ({
     <>
       {load ? (
         <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            width: "70vw",
-            height: "50vh",
-            alignItems: "center",
-          }}
+          className={styles.adminOrderTable}
         >
           <CircularProgress />
         </Box>
@@ -109,12 +104,7 @@ const OrderTable = ({
                     <TableCell align="center">{order._id}</TableCell>
                     <TableCell align="center">
                       <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
+                        className={styles.adminOrderTableFlex}
                       >
                         <PersonIcon />
                         {order.shippingAddress[0]?.customerName || "N/A"}
@@ -122,12 +112,7 @@ const OrderTable = ({
                     </TableCell>
                     <TableCell align="center">
                       <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
+                          className={styles.adminOrderTableFlex}
                       >
                         <CallIcon />
                         {order.shippingAddress[0]?.contactNumber || "N/A"}
@@ -161,12 +146,7 @@ const OrderTable = ({
                     </TableCell>
                     <TableCell align="center">
                       <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
+                          className={styles.adminOrderTableFlex}
                       >
                         <DateRangeIcon />
                         {dayjs(order.shipmentDetails.deliveryDate).format(

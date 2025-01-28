@@ -14,7 +14,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link, useNavigate } from "react-router-dom"; // Import Link for routing
+import { Link, useNavigate } from "react-router-dom"; 
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -104,22 +104,15 @@ export const AuthNavbar = () => {
           />
           <Typography
             variant="h6"
-            sx={{
-              display: { xs: "none", md: "inherit" },
-              marginLeft: "5px",
-              cursor: "pointer",
-            }}
+            sx={{display: { xs: "none", md: "inherit" },marginLeft: "5px",cursor: "pointer",}}
             onClick={(e) => navigate("/")}
           >
             BikeMart
           </Typography>
 
           <Box
+          className={styles.searchParent}
             sx={{
-              flexGrow: 1,
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center",
               gap: { xs: 2, md: 4 },
             }}
           >
@@ -145,7 +138,7 @@ export const AuthNavbar = () => {
                       onClick={handleSearch}
                       sx={{
                         cursor: "pointer",
-                        color: "#4a90e2", // Optional: Add some color for better visibility
+                        color: "#4a90e2",
                       }}
                     />
                   </InputAdornment>
