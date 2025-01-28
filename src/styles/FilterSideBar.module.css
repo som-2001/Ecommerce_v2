@@ -36,11 +36,13 @@
   align-items: center;
 }
 .brand {
+  margin-top: 1rem;
   font-weight: bold;
   color: #64b5f6;
 }
 .brandLabel {
   font-size: 14px;
+  
   color: #e0e0e0;
   transition: color 0.3s ease;
 }
@@ -49,8 +51,8 @@
 }
 .fuelType {
   font-weight: bold;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   color: #64b5f6;
 }
 

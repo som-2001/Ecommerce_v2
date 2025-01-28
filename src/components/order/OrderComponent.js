@@ -21,8 +21,7 @@ export default function OrderComponent() {
   const [ShippingState, setShippingState] = React.useState(false);
 
   const { id } = useParams();
-  console.log(id);
-
+ 
   const handlefunction = (data) => {
     setAddressFormState(data);
   };
@@ -66,7 +65,7 @@ export default function OrderComponent() {
       <Stepper
         nonLinear
         activeStep={activeStep}
-        sx={{ width: { xs: "100%", md: "70%" }, marginBottom: "20px" }}
+        sx={{ width: { xs: "100%", md: "70%" },mb:5 }}
       >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -102,8 +101,8 @@ export default function OrderComponent() {
               )
             ) : null}
 
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
+            <Box className={styles.nextBtn}>
+              <Box className={styles.nextBtnChild} />
               <Button
                 onClick={handleNext}
                 className={styles.activeStep}
@@ -111,11 +110,9 @@ export default function OrderComponent() {
                   display: activeStep === 2 ? "none" : "inherit",
                 }}
                 disabled={
-                  activeStep === 0
-                    ? !addressFormState
-                    : activeStep === 1
-                    ? !ShippingState
-                    : true
+                  activeStep === 0 ? !addressFormState : 
+                  activeStep === 1 ? !ShippingState : 
+                  true
                 }
               >
                 Next

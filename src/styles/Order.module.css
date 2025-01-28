@@ -189,3 +189,13 @@
   background-color: green;
   margin-right: 10px
 }
+
+.nextBtn{
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px 
+}
+
+.nextBtnChild{
+  flex: 1 1 auto
+}
