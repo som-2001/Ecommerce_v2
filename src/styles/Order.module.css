@@ -120,3 +120,72 @@
     justify-content:center !important;
     align-items:center !important
 }
+.h5{
+  margin-bottom: 20px;
+  font-weight: bold;
+  width: 46vw;
+  display: flex;
+  justify-content: center
+}
+.allOrderParents{
+  padding: 20px;
+}
+.CircularProgress{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 100vw;
+  flex-direction: column
+}
+
+.center{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card{
+  padding: 20px;
+  border: 1px solid #e0e0e0
+}
+.header{
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.productInfoBox{
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom:10px
+}
+.img{
+  width: 70px;
+  height: 70px;
+  margin-right: 16px;
+  object-fit: contain
+}
+.colorBox{
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  border: 1px solid black
+}
+.rating{
+  margin: 10px 0px 10px 0px;
+  color: #ff4081;
+  cursor: pointer
+}
+.cancelStatus{
+  background-color: red;
+  margin-right: 10px
+}
+
+.deliveredStatus{
+  background-color: green;
+  margin-right: 10px
+}

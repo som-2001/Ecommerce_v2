@@ -33,7 +33,9 @@ export const AuthNavbar = () => {
     }
   }, [input, dispatch]);
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+
+    
     if (input?.length !== 0) {
       const urlParams = new URLSearchParams();
       urlParams.append("searchQuery", input);
@@ -119,17 +121,15 @@ export const AuthNavbar = () => {
             <TextField
               placeholder="Search…"
               autoComplete="off"
+              className={styles.searchTextField}
               onChange={(e) => setInput(e.target.value)}
               sx={{
                 display: { xs: "none", sm: "block" },
-                background: "#e1eef5",
-                borderRadius: 7,
                 "& .MuiOutlinedInput-notchedOutline": {
                   border: "none",
                 },
                 width: { xs: "150px", sm: "350px" },
-                height: "55px",
-                marginRight: 1,
+             
               }}
               InputProps={{
                 startAdornment: (

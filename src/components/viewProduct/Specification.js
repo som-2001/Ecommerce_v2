@@ -70,7 +70,7 @@ const BikeDetailsCard = ({ product,load }) => {
   return (
     <Card className={styles.card} sx={{ width: { xs: "80vw", sm: "60vw" }}}>
       <CardContent>
-        <Typography variant="h5" gutterBottom sx={{ textAlign: "center", fontWeight: "bold" }}>
+        <Typography variant="h5" gutterBottom className={styles.specificationHeading}>
           {load?<Skeleton animation="wave" width={240} sx={{ textAlign: "center" }}/>:`${product.productName} - Specifications`}
         </Typography>
         <Box sx={{ marginTop: 3 }}>
@@ -104,7 +104,7 @@ const BikeDetailsCard = ({ product,load }) => {
           </Box>
         </Collapse>
 
-        <Box sx={{ marginTop: 3, textAlign: "center" }}>
+        <Box className={styles.dynamicText}>
           <Button
             variant="contained"
             onClick={handleExpandClick}

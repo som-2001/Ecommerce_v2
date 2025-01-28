@@ -17,6 +17,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { ReviewDrawer } from "../components/UserReview/ReviewDrawer";
 import { NoOrder } from "../components/order/NoOrder";
+import styles from '../styles/Order.module.css'
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -53,32 +54,20 @@ const OrdersPage = () => {
         console.log(error);
       });
   };
+  
   return (
     <Box>
-      <Box sx={{ padding: "20px" }}>
+      <Box className={styles.allOrderParents}>
         <Typography
           variant="h5"
-          sx={{
-            marginBottom: "20px",
-            fontWeight: "bold",
-            width: "46vw",
-            display: "flex",
-            justifyContent: "center",
-          }}
+          className={styles.h5}
         >
           All Orders
         </Typography>
         <Grid container spacing={3}>
           {loading ? (
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "60vh",
-                width: "100vw",
-                flexDirection: "column",
-              }}
+              className={styles.CircularProgress}
             >
               <CircularProgress />
             </Box>
@@ -90,40 +79,24 @@ const OrdersPage = () => {
                 item
                 xs={12}
                 key={order.id}
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                className={styles.center}
               >
                 <Card
+                 className={styles.card}
                   sx={{
-                    padding: "20px",
-                    border: "1px solid #e0e0e0",
                     width: { xs: "78vw", md: "57vw" },
                   }}
                 >
                   {/* Header Section */}
                   <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "16px",
-                    }}
+                   className={styles.header}
                   >
                     {order?.status==="cancelled" ? <Avatar
-                      sx={{
-                        backgroundColor: "red",
-                        marginRight: "10px",
-                      }}
+                      className={styles.cancelStatus}
                     >
                       <CancelIcon />
                     </Avatar> :<Avatar
-                      sx={{
-                        backgroundColor: "green",
-                        marginRight: "10px",
-                      }}
+                       className={styles.deliveredStatus}
                     >
                       <CheckCircleIcon />
                     </Avatar>}
@@ -145,24 +118,12 @@ const OrdersPage = () => {
                   {/* Product Info Section */}
                   {order?.products?.map((item, index) => (
                     <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        backgroundColor: "#f9f9f9",
-                        padding: "16px",
-                        borderRadius: "8px",
-                        mb: 1,
-                      }}
+                     className={styles.productInfoBox}
                     >
                       <img
                         src={item?.image?.[0]}
                         alt={order.productName}
-                        style={{
-                          width: "70px",
-                          height: "70px",
-                          marginRight: "16px",
-                          objectFit: "contain",
-                        }}
+                       className={styles.img}
                       />
                       <Grid container>
                         <Grid item xs={12} sm={6} sx={{ flexGrow: 1 }}>
@@ -178,13 +139,9 @@ const OrdersPage = () => {
                               Color:{" "}
                             </Typography>
                             <Box
+                            className={styles.colorBox}
                               sx={{
-                                width: "16px",
-                                height: "16px",
                                 backgroundColor: item?.selectedColor,
-                                borderRadius: "50%",
-                                transition: "transform 0.2s",
-                                border: "1px solid black",
                               }}
                             />
                           </Box>
@@ -196,11 +153,7 @@ const OrdersPage = () => {
                           {order?.status === "delivered" ? (
                             <Typography
                               variant="body2"
-                              sx={{
-                                my: 1,
-                                color: "#ff4081",
-                                cursor: "pointer",
-                              }}
+                              className={styles.rating}
                               onClick={(e) => handleOpenDrawer(item?._id)}
                             >
                               Rate & Review

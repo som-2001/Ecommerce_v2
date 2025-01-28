@@ -14,7 +14,7 @@ export const SimilarProducts = ({bikes,load}) => {
 
 
   return (
-    <Box sx={{width:"91vw"}}>
+    <Box className={styles.similarProductsWidth}>
       <Typography className={styles.heading} sx={{ fontSize:{xs:"0.9rem",sm:"1.2rem"}, paddingLeft: {xs:3,sm:6} }}>
         Similar Products you may be interested in
       </Typography>
@@ -37,9 +37,8 @@ export const SimilarProducts = ({bikes,load}) => {
           ) : (
             <Typography
               variant="body1"
-              sx={{ textAlign: "center", width: "100%", color: "whitesmoke" }}
             >
-              No bikes match your filters.
+              Not Available Any Bike.
             </Typography>
           )}
         </Grid>

@@ -1,22 +1,43 @@
-.Wrapper{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width:100vw;
-    height: 50vh;
-    background-color: #f9f9f9;
-    padding: 16px;
-    margin-top:35px
+.Wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 50vh;
+  background-color: #f9f9f9;
+  padding: 16px;
+  margin-top: 35px;
 }
 
-.font{
-    font-weight: bold;
-    color: #ff4d4d;
-    margin-bottom: 8px
+.font {
+  font-weight: bold;
+  color: #ff4d4d;
+  margin-bottom: 8px;
 }
-.btn{
-    background-color: black;
-    color: #fff
+.btn {
+  background-color: black;
+  color: #fff;
+}
+.wishListParent {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+.h4 {
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.progress {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 60vh;
+  align-items: center;
+}
+.Grid{
+    display: flex;
+    justify-content: center;
+    align-items: center
 }

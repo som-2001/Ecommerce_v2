@@ -182,7 +182,14 @@
   font-weight: 600;
   margin-top: 12px;
 }
-
+.specificationHeading{
+  text-align: center;
+  font-weight: bold
+}
+.dynamicText{
+  margin-top: 12px;
+  text-align: center
+}
 .reviewHeading {
   font-weight: bold;
   margin-bottom: 1rem;
@@ -219,4 +226,13 @@
   align-items: center;
   gap: 16px;
   margin-bottom: 16px;
+}
+.btnDiv{
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.4rem
+}
+
+.similarProductsWidth{
+  width: 91vw;
 }

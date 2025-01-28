@@ -106,8 +106,6 @@ function Signup () {
 
   return (
     <Box>
-    
-     
       <Grid container>
         <Grid item xs={12} md={6} lg={7}>
           <Box>

@@ -46,7 +46,6 @@ const Hero = ({ product, coloredProduct, load }) => {
           setSelectedColor(data?.selectedColor);
         }
       });
-      // setSelectedColor(coloredProduct?.[0]?.selectedColor);
     }
   }, [product, coloredProduct]);
 
@@ -328,7 +327,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                 className={styles.chip}
               />
 
-              <Box sx={{ display: "flex", gap: "1rem", marginTop: "1.4rem" }}>
+              <Box className={styles.btnDiv}>
                 <Button
                   variant="contained"
                   disabled={load}

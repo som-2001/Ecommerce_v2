@@ -41,7 +41,6 @@ function Home() {
     axios
       .get(`${process.env.REACT_APP_BASEURL}/home/gets`)
       .then((res) => {
-        // Categorize data properly
         setNewArrival(res?.data?.newArrivals);
         setBestSeller(res?.data?.bestSellers);
         setFeatureProduct(res?.data?.featureProducts);
@@ -54,15 +53,13 @@ function Home() {
   const { search } = useSelector((state) => state.product);
   return (
     <Box
-    className={styles.home}
-      sx={{
-        backgroundSize: { xs: "cover", md: "100%" },
-      }}
+      className={styles.home}
+      sx={{backgroundSize: { xs: "cover", md: "100%" }}}
     >
       {token ? <AuthNavbar /> : <HomeNavbar />}
       {search?.length > 0 && (
         <Box
-        className={styles.search}
+          className={styles.search}
           sx={{right: { xs: "5%", sm: "35%",md:"31%",lg:"28%" }}}
         >
           <Grid container spacing={1}>

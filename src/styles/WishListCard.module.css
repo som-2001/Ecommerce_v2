@@ -3,7 +3,7 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
-    cursor: "pointer",
+  
 }
 .chip{
     position: absolute;
@@ -48,5 +48,6 @@
 }
 .cardContent{
     color: black;
-    filter: brightness(0.7)
+    filter: brightness(0.7);
+    cursor: pointer
 }

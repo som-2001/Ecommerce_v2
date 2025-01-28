@@ -69,16 +69,16 @@ const Features = ({ product }) => {
   }, [product, setValue]);
 
   const onSubmit = (data) => {
-    // Convert string values to boolean before dispatching
+  
     const formattedData = {
       absType: data.absType,
       fuelTankCapacity: data.fuelTankCapacity,
       topSpeed: data.topSpeed,
       instrumentConsole: data.instrumentConsole,
-      bluetoothConnectivity: data.bluetoothConnectivity === "Available" ,
-      mobileChargingPort: data.mobileChargingPort === "Available",
-      alloyWheels: data.alloyWheels === "Available",
-      ledLights: data.ledLights === "Available",
+      bluetoothConnectivity: data.bluetoothConnectivity === "Available"?true:false ,
+      mobileChargingPort: data.mobileChargingPort === "Available"?true:false,
+      alloyWheels: data.alloyWheels === "Available"?true:false,
+      ledLights: data.ledLights === "Available"?true:false,
     };
     console.log("Form Submitted:", formattedData);
     dispatch(EditProduct(formattedData));
@@ -129,12 +129,13 @@ const Features = ({ product }) => {
         <Grid item xs={12} sm={6} md={4}>
           <Controller
             name="topSpeed"
-            focused
+           
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
                 label="Top Speed"
+                focused
                 fullWidth
                 error={!!errors.topSpeed}
                 helperText={errors.topSpeed?.message}
@@ -153,6 +154,7 @@ const Features = ({ product }) => {
             render={({ field }) => (
               <TextField
                 {...field}
+                focused
                 label="Instrument Console"
                 fullWidth
                 error={!!errors.instrumentConsole}
@@ -239,6 +241,7 @@ const Features = ({ product }) => {
       <Grid item xs={12}>
         <Box className={styles.center}>
           <Button
+          type="submit"
            className={styles.button}
           >
             Save & Continue

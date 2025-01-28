@@ -30,13 +30,14 @@ export const Cart = () => {
       <Box sx={{ width: "77vw", my: 5 }}>
         <Grid container spacing={2}>
           {/* Cart Product Grid */}
-          <Grid item xs={12} md={7} lg={9}>
+
+          <Grid item xs={12} md={7} lg={9} >
             {cart.length===0?<NoCartProduct/>:cart?.map((data, index) => (
               <CartProduct setCart={setCart} cart={data} key={index} />
             ))}
           </Grid>
-
           {/* Amount Grid */}
+          
           <Grid
             item
             xs={12}

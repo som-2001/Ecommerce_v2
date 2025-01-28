@@ -6,7 +6,6 @@ import Speicification from "../components/viewProduct/Specification";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Footer from "../components/Footer";
 import styles from '../styles/ViewProduct.module.css'
 
 const ViewProduct = () => {
@@ -17,7 +16,6 @@ const ViewProduct = () => {
   const [load,setLoad]=useState(true);
   const [load1,setLoad1]=useState(true);
 
-  // Fetch product data using id from the URL parameter
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BASEURL}/products/products/${id}`, {
@@ -62,9 +60,7 @@ const ViewProduct = () => {
   }, [id,modelNumber]);
 
   return (
-    <Box
-      className={styles.container}
-    >
+    <Box className={styles.container} >
       <Hero product={product} coloredProduct={coloredProduct} load={load}/>
       <Speicification product={product} load={load}/>
       <Review />

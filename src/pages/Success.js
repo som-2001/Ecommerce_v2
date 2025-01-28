@@ -11,8 +11,7 @@ export const Success = () => {
   const handleBackToHome = () => {
     navigate("/explore-products");
   };
-  // http://localhost:3000/success?session_id=cs_test_a1JhBhccSHhR4uIgLUDY43nPBZqpxBinOg5irbMRsrBk9SmSoatgbfbVRg
-
+ 
   const url = window.location.href;
   const session_id=url.split("/success?")[1];
   useEffect(() => {
@@ -29,11 +28,8 @@ export const Success = () => {
   }, []);
 
   return (
-    <Container
-      maxWidth="sm"
-      className={styles.container} 
-    >
-      <CheckCircleIcon sx={{ fontSize: 80, color: "green", mb: 2 }} />
+    <Container maxWidth="sm" className={styles.container} >
+      <CheckCircleIcon className={styles.icon}/>
       <Typography variant="h4" gutterBottom>
         Order Successful!
       </Typography>

@@ -14,7 +14,7 @@ import axios from "axios";
 import { FilterSideBar } from "../components/FilterSideBar.js";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { DrawerFilter } from "../components/DrawerFilter.js";
-import styles from '../styles/Dashboard.module.css'
+import styles from "../styles/Dashboard.module.css";
 
 const Dashboard = () => {
   const [bikesList, setBikesList] = useState([]);
@@ -73,7 +73,6 @@ const Dashboard = () => {
         setLoad(false);
       });
 
-   
     axios
       .get(`${process.env.REACT_APP_BASEURL}/products/brand`, {
         withCredentials: true,
@@ -86,7 +85,6 @@ const Dashboard = () => {
         console.error(err);
       });
   }, [urlParamsState]);
-
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -109,7 +107,7 @@ const Dashboard = () => {
   }, [isLoadingMore, page, totalPages]);
 
   useEffect(() => {
-    if (page === 1) return; // Skip initial fetch (handled in the first useEffect)
+    if (page === 1) return;
 
     setIsLoadingMore(true);
 
@@ -162,16 +160,13 @@ const Dashboard = () => {
 
         {/* Product Grid */}
         <Box
-         className={styles.productGrid}
+          className={styles.productGrid}
           sx={{
             p: { xs: 0.3, sm: 2 },
             my: { xs: 1, sm: 0 },
           }}
         >
-          <Typography
-            variant="h5"
-            className={styles.Typography}
-          >
+          <Typography variant="h5" className={styles.Typography}>
             Explore All Bikes
           </Typography>
           {!load ? (
@@ -191,9 +186,7 @@ const Dashboard = () => {
                   </Grid>
                 ))
               ) : (
-                <Box
-                 className={styles.centeredContainer}
-                >
+                <Box className={styles.centeredContainer}>
                   <CardMedia
                     component="img"
                     image="../../images/product-empty.gif"
@@ -207,17 +200,13 @@ const Dashboard = () => {
               )}
             </Grid>
           ) : (
-            <Box
-              className={styles.centeredContainer80vh}
-            >
+            <Box className={styles.centeredContainer80vh}>
               <CircularProgress size={35} />
             </Box>
           )}
           {/* Loading Indicator for More Items */}
           {isLoadingMore && (
-            <Box
-             className={styles.centeredContainerWithPadding}
-            >
+            <Box className={styles.centeredContainerWithPadding}>
               <CircularProgress size={24} />
             </Box>
           )}
@@ -250,10 +239,9 @@ const Dashboard = () => {
       </Drawer>
 
       <Box
-      className={styles.fixedButton}
+        className={styles.fixedButton}
         sx={{
           display: { xs: "flex", md: "none" },
-         
         }}
       >
         <Button
