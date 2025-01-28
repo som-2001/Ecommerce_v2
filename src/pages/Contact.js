@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Cookies from "js-cookie";
 import { HomeNavbar } from "../components/HomeNavbar";
 import { AuthNavbar } from "../components/AuthNavbar";
+import styles from "../styles/Contact.module.css";
 
 function Contact() {
   const token = Cookies.get("accessToken");
@@ -11,27 +12,8 @@ function Contact() {
     <Box sx={{ backgroundColor: "black", color: "whitesmoke" }}>
       {/* Banner Section */}
       {token ? <AuthNavbar /> : <HomeNavbar />}
-      <Box
-        sx={{
-          position: "relative",
-          height: "60vh",
-          backgroundImage: `url("../images/contact.jpg")`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          color: "white",
-        }}
-      >
-        <Box
-          sx={{
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            padding: "20px 40px",
-            borderRadius: "8px",
-          }}
-        >
+      <Box className={styles.parent}>
+        <Box className={styles.child}>
           <Typography
             variant="h3"
             sx={{
@@ -51,15 +33,7 @@ function Contact() {
           >
             We're here to help with any questions or feedback you may have.
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#f9a826",
-              color: "black",
-              padding: "10px 20px",
-              borderRadius: "6px",
-            }}
-          >
+          <Button variant="contained" className={styles.heading}>
             Contact Us
           </Button>
         </Box>
@@ -75,10 +49,8 @@ function Contact() {
       >
         <Typography
           variant="h4"
+          className={styles.h4}
           sx={{
-            color: "#C6E4FF",
-            fontWeight: "bold",
-            mb: 2,
             fontSize: { xs: "1.8rem", md: "3rem" },
           }}
         >
@@ -86,14 +58,8 @@ function Contact() {
         </Typography>
         <Typography
           variant="body1"
-          sx={{
-            fontSize: { xs: "0.9rem", md: "1.2rem" },
-            lineHeight: 1.6,
-            maxWidth: "700px",
-            mx: "auto",
-            color: "#C6E4FF",
-            mb: 5,
-          }}
+          className={styles.body1}
+          sx={{ fontSize: { xs: "0.9rem", md: "1.2rem" } }}
         >
           We value your inquiries and feedback! Whether you have a question,
           need assistance, or just want to say hello, we're always happy to hear
@@ -126,7 +92,7 @@ function Contact() {
               label="Your Name"
               variant="outlined"
               fullWidth
-              sx={{ backgroundColor: "white", borderRadius: "6px" }}
+              className={styles.textField}
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -134,7 +100,7 @@ function Contact() {
               label="Your Email"
               variant="outlined"
               fullWidth
-              sx={{ backgroundColor: "white", borderRadius: "6px" }}
+              className={styles.textField}
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -142,7 +108,7 @@ function Contact() {
               label="Subject"
               variant="outlined"
               fullWidth
-              sx={{ backgroundColor: "white", borderRadius: "6px" }}
+              className={styles.textField}
             />
           </Grid>
           <Grid item xs={12}>
@@ -152,20 +118,11 @@ function Contact() {
               multiline
               rows={4}
               fullWidth
-              sx={{ backgroundColor: "white", borderRadius: "6px" }}
+              className={styles.textField}
             />
           </Grid>
         </Grid>
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "#f9a826",
-            color: "black",
-            padding: "10px 20px",
-            mt: 3,
-            borderRadius: "6px",
-          }}
-        >
+        <Button variant="contained" className={styles.btn}>
           Submit
         </Button>
       </Box>
@@ -180,10 +137,8 @@ function Contact() {
       >
         <Typography
           variant="h4"
+          className={styles.h4}
           sx={{
-            color: "#C6E4FF",
-            fontWeight: "bold",
-            mb: 2,
             fontSize: { xs: "1.8rem", md: "3rem" },
           }}
         >
@@ -191,13 +146,9 @@ function Contact() {
         </Typography>
         <Typography
           variant="body1"
+          className={styles.body1}
           sx={{
             fontSize: { xs: "0.9rem", md: "1.2rem" },
-            lineHeight: 1.6,
-            maxWidth: "700px",
-            mx: "auto",
-            color: "#C6E4FF",
-            mb: 5,
           }}
         >
           Come visit our office, and we’ll be happy to meet you in person! Here

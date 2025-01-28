@@ -5,7 +5,8 @@
   z-index: 50;
   background-color: whitesmoke;
   overflow-y: scroll;
-  height: 355px;
+  height: fit-content;
+  max-height: 300px;
   border-radius: 8px;
 }
 
@@ -22,4 +23,10 @@
   margin-left: 4px;
   margin-top: 4px;
   cursor: pointer;
+}
+.noProductFound{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
 }

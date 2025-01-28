@@ -79,7 +79,7 @@ export const WishListCard = ({ bike, setBike }) => {
         className={styles.DeleteIcon}
           sx={{
             "&:hover": {
-              transform: "scale(1.2)", // Slightly enlarge the icon on hover
+              transform: "scale(1.2)", 
             },
           }}
           onClick={(e) => removeWishList(bike?.product?._id)}

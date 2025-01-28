@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   AppBar,
   Box,
@@ -6,58 +6,22 @@ import {
   Typography,
   Container,
   Badge,
-  InputAdornment,
-  TextField,
   CardMedia,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link, useNavigate } from "react-router-dom"; 
-import SearchIcon from "@mui/icons-material/Search";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { setSearch } from "../Redux/ProductAdminSlice/ProductSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styles from "../styles/AuthNavbar.module.css";
+import { SearchApiCall } from "./SearchApiCall";
 
 export const AuthNavbar = () => {
   const navigate = useNavigate();
   const { wishList, cart } = useSelector((state) => state.product);
-  const [input, setInput] = useState("");
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (input.length === 0) {
-      dispatch(setSearch([]));
-    }
-  }, [input, dispatch]);
 
-  const handleSearch = (e) => {
-
-    
-    if (input?.length !== 0) {
-      const urlParams = new URLSearchParams();
-      urlParams.append("searchQuery", input);
-
-      axios
-        .get(
-          `${
-            process.env.REACT_APP_BASEURL
-          }/products/filter?${urlParams.toString()}`,
-          {
-            withCredentials: true,
-          }
-        )
-        .then((res) => {
-          console.log(res?.data);
-          dispatch(setSearch(res?.data?.products));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
 
   const pages = [
     {
@@ -106,45 +70,23 @@ export const AuthNavbar = () => {
           />
           <Typography
             variant="h6"
-            sx={{display: { xs: "none", md: "inherit" },marginLeft: "5px",cursor: "pointer",}}
+            sx={{
+              display: { xs: "none", md: "inherit" },
+              marginLeft: "5px",
+              cursor: "pointer",
+            }}
             onClick={(e) => navigate("/")}
           >
             BikeMart
           </Typography>
 
           <Box
-          className={styles.searchParent}
+            className={styles.searchParent}
             sx={{
               gap: { xs: 2, md: 4 },
             }}
           >
-            <TextField
-              placeholder="Search…"
-              autoComplete="off"
-              className={styles.searchTextField}
-              onChange={(e) => setInput(e.target.value)}
-              sx={{
-                display: { xs: "none", sm: "block" },
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                width: { xs: "150px", sm: "350px" },
-             
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon
-                      onClick={handleSearch}
-                      sx={{
-                        cursor: "pointer",
-                        color: "#4a90e2",
-                      }}
-                    />
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <SearchApiCall/>
 
             {pages.map((page) => (
               <Box
