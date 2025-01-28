@@ -18,6 +18,7 @@ import * as yup from "yup";
 import { enqueueSnackbar } from "notistack";
 import axios from "axios";
 import { useEffect } from "react";
+import styles from '../../styles/profile.module.css'
 
 // Yup validation schema
 const schema = yup
@@ -141,14 +142,7 @@ export const AddressEditDialogFunc = ({
       <DialogContent>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          style={{
-            width: "fit-content",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "10px",
-          }}
+          className={styles.AddressDialogForm}
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6}>
@@ -324,14 +318,7 @@ export const AddressEditDialogFunc = ({
           </Grid>
           <Button
             type="submit"
-            sx={{
-              backgroundColor: "black",
-              color: "white",
-              padding: 2,
-              width: "150px",
-              borderRadius: 2,
-              my: 2,
-            }}
+            className={styles.Submit}
           >
             Submit
           </Button>

@@ -31,17 +31,7 @@ export const Success = () => {
   return (
     <Container
       maxWidth="sm"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-        mt: 10,
-        bgcolor: "#f5f5f5",
-        py: 4,
-        borderRadius: 3,
-       
-      }}
+      className={styles.container}
     >
       <CheckCircleIcon sx={{ fontSize: 80, color: "green", mb: 2 }} />
       <Typography variant="h4" gutterBottom>

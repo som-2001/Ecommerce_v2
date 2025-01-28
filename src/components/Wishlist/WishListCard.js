@@ -86,9 +86,9 @@ export const WishListCard = ({ bike, setBike }) => {
         />
       )}
       <CardContent
+      className={styles.cardContent}
         sx={{
-          color: "black",
-          filter: "brightness(0.7)",
+         
           padding: { xs: 1, sm: 2 },
           height: { xs: "40px", sm: "140px" },
           
@@ -115,11 +115,9 @@ export const WishListCard = ({ bike, setBike }) => {
           }}
         />
         <Box
+          className={styles.iconSection}
           sx={{
             display: {xs:"none",sm:"flex"},
-            justifyContent: "space-between",
-            gap: "15px",
-            flexWrap: "wrap",
           }}
         >
           <Box sx={{ textAlign: "center" }}>
@@ -149,11 +147,11 @@ export const WishListCard = ({ bike, setBike }) => {
           }}
         />
        <Box sx={{ mt:{xs:1,sm:0}}} className={styles.price}>
-          <Typography sx={{ fontWeight: 700, fontSize: "1.2rem", color: "green" }}>
+          <Typography className={styles.offerPrice}>
             ₹{bike?.product?.offerPrice}
           </Typography>
           <Typography
-            sx={{ textDecoration: "line-through", fontSize: "0.9rem", color: "gray" }}
+          className={styles.originalPrice}
           >
             ₹{bike?.product?.originalPrice}
           </Typography>

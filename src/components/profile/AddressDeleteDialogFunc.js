@@ -10,6 +10,8 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import DeleteIcon from '@mui/icons-material/Delete';
+import styles from '../../styles/profile.module.css'
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -52,14 +54,9 @@ export const AddressDeleteDialogFunc = ({
       >
         <DialogTitle>{"Logout"}</DialogTitle>
         <DialogContent>
-          <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
+          <Box className={styles.flexContainer}>
             <DeleteIcon
-              sx={{
-                backgroundColor: "whitesmoke",
-                p: 2,
-                borderRadius: 8,
-                fontSize: "2.2rem",
-              }}
+             className={styles.DeleteIcon}
             />
           </Box>
           <DialogContentText id="alert-dialog-slide-description">
@@ -69,13 +66,7 @@ export const AddressDeleteDialogFunc = ({
         <DialogActions>
           <Button
             variant="outlined"
-            sx={{
-              borderRadius: 4,
-              border: "none",
-              color: "black",
-              p: 2,
-              width: "120px",
-            }}
+            className={styles.Cancel}
             onClick={handleClose}
           >
             Cancel
@@ -83,12 +74,7 @@ export const AddressDeleteDialogFunc = ({
           <Button
             variant="contained"
             onClick={handleDelete}
-            sx={{
-              borderRadius: 3,
-              backgroundColor: "black",
-              p: 2,
-              width: "120px",
-            }}
+            className={styles.Delete}
           >
             Delete
           </Button>

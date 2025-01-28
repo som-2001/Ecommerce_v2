@@ -1,0 +1,221 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+.centeredContent {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+.centeredBox {
+  text-align: center;
+  border-radius: 8px;
+  padding: 0.6rem;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 10px;
+}
+.img {
+  width: 95%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.selectedImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.specialPrice {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.h5 {
+  font-weight: bold;
+  color: #ff5722;
+  margin-right: 0.4rem;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+
+.box {
+  flex: 1;
+  padding: 1rem;
+  border-color: black;
+  color: black;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.box:hover {
+  background-color: #e3f2fd;
+}
+
+.buybtn {
+  flex: 1;
+  padding: 1rem;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+
+.buybtn:hover {
+  background-color: grey;
+}
+
+.chip {
+  color: #757575;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.alloyWheels {
+  color: #757575;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  margin-right: 1rem;
+}
+
+.buttonStyle {
+  padding: 0.5rem;
+  font-weight: 600;
+  color: black;
+  border: 1px solid #d3d3d3;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
+}
+
+.buttonStyle:hover {
+  background-color: #e3f2fd;
+}
+
+.containerStyle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: start;
+}
+
+.selectedColorBox {
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+  filter: brightness(0.9);
+  width: 30px;
+  height: 30px;
+}
+
+.selectedColorBox:hover {
+  transform: scale(1.1);
+}
+
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e0dede;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.flexContainer {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  margin-left: 0.4rem;
+  color: #ffa439;
+}
+.card {
+  margin: auto;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.customBtn {
+  margin-top: 2rem;
+  padding: 2rem;
+  width: 150px;
+  background-color: black;
+  color: white;
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.customBtn:hover {
+  background-color: #444;
+}
+
+.RenderCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.heading {
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+.reviewHeading {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+.flexCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.reviewBox {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.media {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.reviewSection {
+  background-color: white;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}

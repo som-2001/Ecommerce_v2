@@ -31,3 +31,22 @@
     align-items: center;
     gap: 5px
 }
+.offerPrice{
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: green
+}
+.originalPrice{
+    text-decoration: line-through;
+    font-size: 0.9rem;
+    color: gray
+}
+.iconSection{
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap
+}
+.cardContent{
+    color: black;
+    filter: brightness(0.7)
+}

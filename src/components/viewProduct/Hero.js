@@ -24,6 +24,7 @@ import { addAmount, addCart } from "../../Redux/ProductAdminSlice/ProductSlice";
 import dayjs from "dayjs";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import CloseIcon from "@mui/icons-material/Close";
+import styles from "../../styles/ViewProduct.module.css";
 
 const Hero = ({ product, coloredProduct, load }) => {
   const navigate = useNavigate();
@@ -99,12 +100,7 @@ const Hero = ({ product, coloredProduct, load }) => {
         <Grid container spacing={4}>
           {/* Left Side: Images */}
           {load ? (
-            <Grid
-              item
-              xs={12}
-              md={5}
-              sx={{ mt: 4, display: "flex", justifyContent: "center" }}
-            >
+            <Grid item xs={12} md={5} className={styles.centeredContent}>
               <Skeleton
                 variant="rectangular"
                 sx={{
@@ -119,50 +115,30 @@ const Hero = ({ product, coloredProduct, load }) => {
             </Grid>
           ) : (
             <Grid item xs={12} md={5} sx={{ mt: 4 }}>
-              <Box
-                sx={{
-                  textAlign: "center",
-                  borderRadius: "8px",
-                  padding: "0.6rem",
-                }}
-              >
+              <Box className={styles.centeredBox}>
                 {selectedImage && (
                   <CardMedia
                     component="img"
                     image={selectedImage}
                     alt={product?.productName || "Product"}
+                    className={styles.img}
                     sx={{
-                      width: "95%",
                       height: { xs: "200px", sm: "500px" },
-                      objectFit: "contain",
-                      borderRadius: "8px",
                     }}
                   />
                 )}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: "1rem",
-                    gap: "10px",
-                  }}
-                >
+                <Box className={styles.flexCenter}>
                   {product?.image?.map((img, index) => (
                     <img
                       key={index}
                       src={img}
                       alt={`Thumbnail ${index + 1}`}
+                      className={styles.selectedImage}
                       style={{
-                        width: "60px",
-                        height: "60px",
-                        objectFit: "cover",
                         border:
                           selectedImage === img
                             ? "2px solid gold"
                             : "2px solid gray",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                        transition: "transform 0.3s",
                       }}
                       onClick={() => setSelectedImage(img)}
                     />
@@ -196,21 +172,8 @@ const Hero = ({ product, coloredProduct, load }) => {
               <Typography variant="body1" color="green" fontWeight="bold">
                 Special price
               </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: "bold",
-                    color: "#FF5722",
-                    marginRight: "0.4rem",
-                  }}
-                >
+              <Box className={styles.specialPrice}>
+                <Typography variant="h5" className={styles.h5}>
                   {load ? (
                     <Skeleton animation="wave" width={50} />
                   ) : (
@@ -238,14 +201,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                     )
                   }
                 />
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginLeft: "0.4rem",
-                    color: "#FFA439",
-                  }}
-                >
+                <Box className={styles.icon}>
                   <StarIcon />
                   <Typography sx={{ marginLeft: "4px", fontWeight: 600 }}>
                     {load ? <Skeleton animation="wave" width={40} /> : 4.5}
@@ -265,15 +221,7 @@ const Hero = ({ product, coloredProduct, load }) => {
               </Box>
 
               <Divider sx={{ marginBottom: "1rem" }} />
-              <Box
-                sx={{
-                  marginBottom: "1rem",
-                  display: "flex",
-                  gap: "10px",
-                  alignItems: "center",
-                  mb: 2,
-                }}
-              >
+              <Box className={styles.flexContainer}>
                 <Typography variant="body1">Select Color:</Typography>
 
                 <Box sx={{ display: "flex", gap: "0.6rem" }}>
@@ -282,14 +230,8 @@ const Hero = ({ product, coloredProduct, load }) => {
                       <Skeleton variant="circular" width={40} height={40} />
                     ) : (
                       <Box
+                        className={styles.parent}
                         sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          gap: "10px",
-                          border: "1px solid #e0dede",
-                          p: 1,
-                          borderRadius: "10px",
                           transform:
                             selectedColor === color?.selectedColor
                               ? "scale(1.05)"
@@ -304,47 +246,21 @@ const Hero = ({ product, coloredProduct, load }) => {
                       >
                         {color?.selectedColor}
                         <Box
+                          className={styles.selectedColorBox}
                           key={index}
                           sx={{
-                            width: "30px",
-                            height: "30px",
-                            backgroundColor:
-                              color?.selectedColor?.toLowerCase(),
-                            // border:
-                            //   selectedColor === color?.selectedColor
-                            //     ? "2px solid black"
-                            //     : "2px solid gray",
-                            borderRadius: "50%",
-                            cursor: "pointer",
-                            transition: "transform 0.2s",
-                            filter: "brightness(0.9)",
-                            "&:hover": {
-                              transform: "scale(1.1)",
-                            },
+                            backgroundColor: color?.selectedColor?.toLowerCase(),
                           }}
                         ></Box>
                       </Box>
                     )
                   )}
                 </Box>
-                {/* {selectedColor && (
-                <Typography variant="body2" sx={{ marginTop: '0.5rem' }}>
-                  Selected Color: <strong>{selectedColor}</strong>
-                </Typography>
-              )} */}
               </Box>
 
               <Divider sx={{ marginBottom: "1rem" }} />
 
-              <Box
-                sx={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "1rem",
-                  marginBottom: "1rem",
-                  justifyContent: "start",
-                }}
-              >
+              <Box className={styles.containerStyle}>
                 {specifications.map((spec, index) => (
                   <Chip
                     key={index}
@@ -356,36 +272,17 @@ const Hero = ({ product, coloredProduct, load }) => {
                         `${spec.label}: ${spec.value}`
                       )
                     }
-                    sx={{
-                      padding: "0.5rem",
-                      fontWeight: "600",
-                      color: "black",
-                      border: "1px solid #d3d3d3",
-                      backgroundColor: "#f9f9f9",
-                      "&:hover": {
-                        backgroundColor: "#e3f2fd",
-                      },
-                    }}
+                    className={styles.buttonStyle}
                   />
                 ))}
               </Box>
-              <Typography
-                variant="body2"
-                sx={{ color: "#757575", marginBottom: "1rem", lineHeight: 1.5 }}
-              >
+              <Typography variant="body2" className={styles.alloyWheels}>
                 {load ? <Skeleton animation="wave" /> : product?.description}
               </Typography>
 
               <Chip
                 label={
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "fit-content",
-                    }}
-                  >
+                  <Box className={styles.center}>
                     Bluetooth Connectivity:{" "}
                     {product?.bluetoothConnectivity ? (
                       <DoneAllIcon />
@@ -394,24 +291,12 @@ const Hero = ({ product, coloredProduct, load }) => {
                     )}
                   </Box>
                 }
-                sx={{
-                  color: "#757575",
-                  marginBottom: "1rem",
-                  lineHeight: 1.5,
-                  mr: 1,
-                }}
+                className={styles.alloyWheels}
               />
 
               <Chip
                 label={
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "fit-content",
-                    }}
-                  >
+                  <Box className={styles.center}>
                     Mobile Charging Port:{" "}
                     {product?.mobileChargingPort ? (
                       <DoneAllIcon />
@@ -420,67 +305,34 @@ const Hero = ({ product, coloredProduct, load }) => {
                     )}
                   </Box>
                 }
-                sx={{
-                  color: "#757575",
-                  marginBottom: "1rem",
-                  lineHeight: 1.5,
-                  mr: 1,
-                }}
+                className={styles.alloyWheels}
               />
 
               <Chip
                 label={
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "fit-content",
-                    }}
-                  >
+                  <Box className={styles.center}>
                     Alloy Wheels:{" "}
                     {product?.alloyWheels ? <DoneAllIcon /> : <CloseIcon />}
                   </Box>
                 }
-                sx={{
-                  color: "#757575",
-                  marginBottom: "1rem",
-                  lineHeight: 1.5,
-                  mr: 1,
-                }}
+                className={styles.alloyWheels}
               />
 
               <Chip
                 label={
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "fit-content",
-                    }}
-                  >
+                  <Box className={styles.center}>
                     Led Lights:{" "}
                     {product?.ledLights ? <DoneAllIcon /> : <CloseIcon />}
                   </Box>
                 }
-                sx={{ color: "#757575", marginBottom: "1rem", lineHeight: 1.5 }}
+                className={styles.chip}
               />
 
               <Box sx={{ display: "flex", gap: "1rem", marginTop: "1.4rem" }}>
                 <Button
                   variant="contained"
                   disabled={load}
-                  sx={{
-                    flex: 1,
-                    padding: "1rem",
-                    backgroundColor: "black",
-                    color: "white",
-                    borderRadius: 3,
-                    "&:hover": {
-                      backgroundColor: "grey",
-                    },
-                  }}
+                  className={styles.buybtn}
                   onClick={() => navigate(`/payment/${product?._id}`)}
                 >
                   Buy Now
@@ -488,16 +340,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                 <Button
                   variant="outlined"
                   disabled={cart.includes(product?._id) || load}
-                  sx={{
-                    flex: 1,
-                    padding: "1rem",
-                    borderColor: "black",
-                    color: "black",
-                    borderRadius: 3,
-                    "&:hover": {
-                      backgroundColor: "#e3f2fd",
-                    },
-                  }}
+                  className={styles.box}
                   // onClick={() => navigate('/cart')}
                   onClick={(e) => addToCart(product?.offerPrice)}
                 >

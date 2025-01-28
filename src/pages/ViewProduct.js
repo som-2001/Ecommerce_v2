@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
+import styles from '../styles/ViewProduct.module.css'
 
 const ViewProduct = () => {
   const { id, modelNumber } = useParams();
@@ -62,21 +63,12 @@ const ViewProduct = () => {
 
   return (
     <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        overflowX: "hidden",
-      }}
+      className={styles.container}
     >
       <Hero product={product} coloredProduct={coloredProduct} load={load}/>
       <Speicification product={product} load={load}/>
       <Review />
       <SimilarProducts bikes={products} load={load1}/>
-      <Box sx={{ width: "100vw" }}>
-        <Footer />
-      </Box>
     </Box>
   );
 };

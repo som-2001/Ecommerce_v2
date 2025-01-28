@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styles from '../../styles/profile.module.css'
 
 export const WishList = () => {
   const navigate = useNavigate();
@@ -30,12 +31,7 @@ export const WishList = () => {
       <Typography variant="h6" color="text.secondary" gutterBottom>
         My WishList ({wishlist?.length || 0} Items) (
         <span
-          style={{
-            fontSize: "1.0rem",
-            textDecoration: "underline",
-            cursor: "pointer",
-            color: "#64b5f6",
-          }}
+         className={styles.seeMore}
           onClick={() => navigate("/wishlist")}
         >
           see more
@@ -76,12 +72,7 @@ export const WishList = () => {
                   <Typography variant="body1" color="green">
                     ${item?.product?.offerPrice} {" "}
                     {item?.product?.originalPrice && (
-                      <span
-                        style={{
-                          textDecoration: "line-through",
-                          color: "red",
-                          fontSize: "0.8rem",
-                        }}
+                      <span className={styles.originalPrice}
                       >
                         ${item?.product?.originalPrice}
                       </span>

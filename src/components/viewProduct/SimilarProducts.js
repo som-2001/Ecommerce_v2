@@ -8,14 +8,14 @@ import {
 
 import { RenderCard } from './../productCard/RenderCard';
 
-
+import styles from '../../styles/ViewProduct.module.css';
 
 export const SimilarProducts = ({bikes,load}) => {
 
 
   return (
     <Box sx={{width:"91vw"}}>
-      <Typography  sx={{ fontWeight: "600", fontSize:{xs:"0.9rem",sm:"1.2rem"}, paddingLeft: {xs:3,sm:6},mt:3 }}>
+      <Typography className={styles.heading} sx={{ fontSize:{xs:"0.9rem",sm:"1.2rem"}, paddingLeft: {xs:3,sm:6} }}>
         Similar Products you may be interested in
       </Typography>
       <Box sx={{ padding: 4 }}>
@@ -29,12 +29,7 @@ export const SimilarProducts = ({bikes,load}) => {
                 md={4}
                 lg={3}
                 key={bike.id}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  my: 2,
-                }}
+                className={styles.RenderCard}
               >
                 <RenderCard bike={bike} load={load}/>
               </Grid>

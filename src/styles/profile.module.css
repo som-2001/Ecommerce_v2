@@ -1,0 +1,227 @@
+.flexContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.DeleteIcon {
+  background-color: whitesmoke;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 2.2rem;
+}
+.Cancel {
+  border-radius: 4px;
+  border: none;
+  color: black;
+  padding: 16px;
+  width: 120px;
+}
+.Delete {
+  border-radius: 3px;
+  background-color: black;
+  padding: 16px;
+  width: 120px;
+}
+
+.Submit {
+  background-color: black;
+  color: white;
+  padding: 16px;
+  width: 150px;
+  border-radius: 2px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.AddressDialogForm {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formParent {
+  width: 77vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Editsection {
+  display: flex !important;
+  justify-content: flex-end !important;
+  width: 77vw;
+}
+.editBtn {
+  background-color: black;
+  color: white;
+  padding: 11.2px;
+  width: 120px;
+  border-radius: 8px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.seeMore {
+  font-size: 1rem;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #64b5f6;
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: red;
+  font-size: 0.8rem;
+}
+
+  .addressBox {
+    border: 1px solid #dfdfdf;
+    padding: 16px;  
+    margin-top: 16px; 
+    margin-bottom: 16px; /* my: 2 */
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.2s ease; /* For smooth hover/active transitions */
+  }
+  
+  .addressBox:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .addressBox:active {
+    background-color: #f0f0f0;
+  }
+  
+.emptyAddress{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;  
+  margin-bottom: 40px; 
+}
+.progress{
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 20vh;
+  align-items: center;
+}
+.addressTypeBox {
+  border: 1px solid #dfdfdf;
+  padding: 2rem;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.addressTypeBox:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.adressDetails {
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.ManageAddresseschip{
+  margin: 1rem 0; 
+  color: #fff; 
+  font-weight: bold;
+  display: flex; 
+  align-items: center; 
+  padding-left: 1rem;
+  width: fit-content;
+}
+.ActionButton{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 1rem,
+}
+.HeroParent{
+  display: flex;
+  justify-content: space-between;
+  align-items:center 
+}
+.HeroChild{
+  display: flex;
+  gap: 10px;
+  align-items: center
+}
+.HeroLogout{
+  background-color: black; 
+  color: white; 
+  padding: 0.7rem; 
+  width: 120px; 
+  border-radius: 8px;
+  margin-top:10px 
+}
+.banner{
+  background-image: linear-gradient(to right, #9d9dff, #ffffbe);
+  height: 90px;
+  margin-top: 2rem; 
+  margin-bottom: 2rem; 
+  padding: 2rem; 
+  border-radius: 9px 9px 0px 0px; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+}
+.Heroimg{
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+.HeroIcon {
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  border-radius: 50%;
+  transition: opacity 1s;
+}
+
+.HeroIcon:hover {
+  opacity: 1;
+}
+
+.iconButton {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.iconButton:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.file{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer
+}

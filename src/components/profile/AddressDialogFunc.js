@@ -19,15 +19,17 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { enqueueSnackbar } from "notistack";
 import axios from "axios";
+import styles from "../../styles/profile.module.css";
 
 // Yup validation schema
 const schema = yup
   .object()
   .shape({
-    customerName:yup.string().required("Customer Name is required."),
-    contactNumber:yup
-    .string()
-    .matches(/^\d{10}$/, "Phone number must be 10 digits").required("Phone number must be a valid number"),
+    customerName: yup.string().required("Customer Name is required."),
+    contactNumber: yup
+      .string()
+      .matches(/^\d{10}$/, "Phone number must be 10 digits")
+      .required("Phone number must be a valid number"),
     pincode: yup
       .string()
       .matches(/^\d{6}$/, "Pincode must be 6 digits")
@@ -46,7 +48,12 @@ const schema = yup
   })
   .required();
 
-export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData }) => {
+export const AddressDialogFunc = ({
+  open,
+  setOpen,
+  profileData,
+  setProfileData,
+}) => {
   const {
     control,
     handleSubmit,
@@ -69,7 +76,6 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
       console.log(data);
       // Prepare payload for the API request
       const payload = {
-       
         email: profileData.email,
         password: profileData.password,
         role: profileData.role,
@@ -77,7 +83,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
         gender: profileData.gender,
         mobileNumber: profileData.mobileNumber,
         address: {
-          customerName:data.customerName,
+          customerName: data.customerName,
           contactNumber: data.contactNumber,
           pincode: data.pincode,
           locality: data.locality,
@@ -132,24 +138,16 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
       onClose={handleClose}
       aria-labelledby="draggable-dialog-title"
     >
-      <DialogTitle style={{ cursor: "move",}} id="draggable-dialog-title">
+      <DialogTitle style={{ cursor: "move" }} id="draggable-dialog-title">
         Add a new address
       </DialogTitle>
       <DialogContent>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          style={{
-            width: "fit-content",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop:"10px"
-          }}
+          className={styles.AddressDialogForm}
         >
           <Grid container spacing={2}>
-
-          <Grid item xs={12} sm={12} md={6}>
+            <Grid item xs={12} sm={12} md={6}>
               <Controller
                 name="customerName"
                 control={control}
@@ -183,7 +181,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
                 )}
               />
             </Grid>
-           
+
             <Grid item xs={12} sm={12} md={6}>
               <Controller
                 name="pincode"
@@ -218,7 +216,7 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
                 )}
               />
             </Grid>
-          
+
             <Grid item xs={12} sm={12} md={6}>
               <Controller
                 name="city"
@@ -331,34 +329,25 @@ export const AddressDialogFunc = ({ open, setOpen, profileData,setProfileData })
                         control={<Radio />}
                         label="Work"
                       />
-                     
                     </RadioGroup>
                   )}
                 />
               </FormControl>
             </Grid>
-            
           </Grid>
-          <Button
-            type="submit"
-            sx={{
-              backgroundColor: "black",
-              color: "white",
-              padding: 2,
-              width: "150px",
-              borderRadius: 2,
-              my: 2,
-            }}
-          >
+          <Button type="submit" className={styles.Submit}>
             Submit
           </Button>
         </form>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={handleClose} sx={{border:"1px solid black",color:"black"}}>
+        <Button
+          variant="outlined"
+          onClick={handleClose}
+          sx={{ border: "1px solid black", color: "black" }}
+        >
           Cancel
         </Button>
-       
       </DialogActions>
     </Dialog>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, CardContent, Typography, Grid, Box, Button, Collapse, Divider, Skeleton } from "@mui/material";
+import styles from '../../styles/ViewProduct.module.css';
 
 const BikeDetailsCard = ({ product,load }) => {
   const [expanded, setExpanded] = useState(false);
@@ -67,7 +68,7 @@ const BikeDetailsCard = ({ product,load }) => {
     ));
 
   return (
-    <Card sx={{ width: { xs: "80vw", sm: "60vw" }, margin: "auto", padding: 2, borderRadius: 2 }}>
+    <Card className={styles.card} sx={{ width: { xs: "80vw", sm: "60vw" }}}>
       <CardContent>
         <Typography variant="h5" gutterBottom sx={{ textAlign: "center", fontWeight: "bold" }}>
           {load?<Skeleton animation="wave" width={240} sx={{ textAlign: "center" }}/>:`${product.productName} - Specifications`}
@@ -107,15 +108,7 @@ const BikeDetailsCard = ({ product,load }) => {
           <Button
             variant="contained"
             onClick={handleExpandClick}
-            sx={{
-              marginTop: 2,
-              padding: 2,
-              width: "150px",
-              backgroundColor: "black",
-              color: "white",
-              borderRadius: 2,
-              ":hover": { backgroundColor: "#444" },
-            }}
+            className={styles.customBtn}
           >
             {expanded ? "View Less" : "View More"}
           </Button>

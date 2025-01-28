@@ -10,6 +10,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import  dayjs  from 'dayjs';
+import styles from '../../styles/ViewProduct.module.css';
 
 const ratings = [
   { label: "Excellent", value: 60, color: "#14958f" },
@@ -42,7 +43,7 @@ export const Review = () => {
       {/* Section Title */}
       <Typography
         variant="h5"
-        sx={{ fontWeight: "bold", mb: 3, color: "#333", textAlign: "center" }}
+        className={styles.reviewHeading}
       >
         Ratings & Reviews
       </Typography>
@@ -53,20 +54,10 @@ export const Review = () => {
           item
           xs={12}
           md={4}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+         className={styles.flexCenter}
         >
           <Box
-            sx={{
-              backgroundColor: "white",
-              borderRadius: "16px",
-              padding: 3,
-              boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-              textAlign: "center",
-            }}
+           className={styles.reviewBox}
           >
             <Typography
               variant="h3"
@@ -88,12 +79,7 @@ export const Review = () => {
           {ratings.map((rating, index) => (
             <Box
               key={index}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 2,
-                mb: 2,
-              }}
+              className={styles.rating}
             >
               <Typography
                 variant="body2"
@@ -129,13 +115,7 @@ export const Review = () => {
         {review.map((data, index) => (
           <Box
             key={index}
-            sx={{
-              backgroundColor: "white",
-              padding: 3,
-              borderRadius: "16px",
-              boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-              mb: 3,
-            }}
+            className={styles.reviewSection}
           >
             <Grid container spacing={2}>
               <Grid
@@ -143,22 +123,13 @@ export const Review = () => {
                 xs={3}
                 sm={2}
                 md={1}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+              className={styles.flexCenter}
               >
                 <CardMedia
                   component="img"
                   image={data?.user?.profilePicture}
                   alt={data.name}
-                  sx={{
-                    width: "60px",
-                    height: "60px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
+                  className={styles.media}
                 />
               </Grid>
               <Grid item xs={9} sm={10} md={11}>

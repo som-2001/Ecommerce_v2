@@ -15,6 +15,7 @@ import { jwtDecode } from "jwt-decode";
 import { enqueueSnackbar } from "notistack";
 import { LogoutDialog } from "./LogoutDialog";
 import dayjs from "dayjs";
+import styles from "../../styles/profile.module.css";
 
 export const Hero = ({ data, load }) => {
   const [profileImage, setProfileImage] = useState(
@@ -68,17 +69,15 @@ export const Hero = ({ data, load }) => {
 
   return (
     <Box sx={{ width: {xs:"88vw",sm:"77vw"}, padding: { xs: 2, sm: 5 } }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}>
+      <Box className="HeroParent">
         <Box>
           <Typography
             variant="h5"
             color="text.secondary"
             sx={{
               fontSize: { xs: "1.0rem", lg: "1.6rem" },
-              display: "flex",
-              gap: "10px",
-              alignItems: "center",
             }}
+            className={styles.HeroChild}
           >
             <span>Welcome, </span>
             <span>
@@ -109,13 +108,7 @@ export const Hero = ({ data, load }) => {
         </Box>
         <Box>
           <Button
-            sx={{
-              backgroundColor: "black",
-              color: "white",
-              padding: 1.4,
-              width: "120px",
-              borderRadius: 2,
-            }}
+           className={styles.HeroLogout}
             onClick={openLogoutDialog}
           >
             Logout
@@ -124,17 +117,7 @@ export const Hero = ({ data, load }) => {
       </Box>
 
       <Box
-        sx={{
-          backgroundImage: "linear-gradient(to right, #9d9dff, #ffffbe);",
-          height: "90px",
-          my: 2,
-          padding: 2,
-          borderRadius: "9px 9px 0px 0px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+       className={styles.banner}
       >
         <Grid container spacing={2}>
           <Grid
@@ -153,50 +136,19 @@ export const Hero = ({ data, load }) => {
               <CardMedia
                 component="img"
                 image={profileImage}
-                sx={{
-                  width: "80px",
-                  height: "80px",
-                  borderRadius: "50px",
-                  objectFit: "cover",
-                }}
+                className={styles.Heroimg}
               />
             )}
             <Box
-              sx={{
-                position: "absolute",
-                top: 9,
-                left: 12,
-                width: "80px",
-                height: "80px",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                opacity: 0,
-                borderRadius: "50%",
-                transition: "opacity 1s",
-                "&:hover": {
-                  opacity: 1,
-                },
-              }}
+             className={styles.HeroIcon}
             >
               <IconButton
-                sx={{
-                  backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  color: "white",
-                  "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.8)" },
-                }}
+                className={styles.iconButton}
               >
                 <input
                   type="file"
                   accept="image/*"
-                  style={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    opacity: 0,
-                    cursor: "pointer",
-                  }}
+                  className={styles.file}
                   onChange={handleImageChange}
                 />
                 <PhotoCamera />
