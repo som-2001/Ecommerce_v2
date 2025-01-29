@@ -25,13 +25,15 @@ import dayjs from "dayjs";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import CloseIcon from "@mui/icons-material/Close";
 import styles from "../../styles/ViewProduct.module.css";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const Hero = ({ product, coloredProduct, load }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { cart } = useSelector((state) => state.product);
   const dispatch = useDispatch();
-
+  const userRole = jwtDecode(Cookies.get("accessToken")).role;
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
 
@@ -104,11 +106,11 @@ const Hero = ({ product, coloredProduct, load }) => {
                 variant="rectangular"
                 sx={{
                   width: {
-                    xs: 300, 
-                    sm: 500, 
-                    md: 700, 
+                    xs: 300,
+                    sm: 500,
+                    md: 700,
                   },
-                  height: 400, 
+                  height: 400,
                 }}
               />
             </Grid>
@@ -207,7 +209,6 @@ const Hero = ({ product, coloredProduct, load }) => {
                   </Typography>
                 </Box>
               </Box>
-
               <Box sx={{ my: 0.3 }}>
                 <Typography variant="body2" sx={{ fontWeight: "600", mb: 2 }}>
                   Model Version:{" "}
@@ -218,7 +219,6 @@ const Hero = ({ product, coloredProduct, load }) => {
                   )}
                 </Typography>
               </Box>
-
               <Divider sx={{ marginBottom: "1rem" }} />
               <Box className={styles.flexContainer}>
                 <Typography variant="body1">Select Color:</Typography>
@@ -256,9 +256,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                   )}
                 </Box>
               </Box>
-
               <Divider sx={{ marginBottom: "1rem" }} />
-
               <Box className={styles.containerStyle}>
                 {specifications.map((spec, index) => (
                   <Chip
@@ -278,7 +276,6 @@ const Hero = ({ product, coloredProduct, load }) => {
               <Typography variant="body2" className={styles.alloyWheels}>
                 {load ? <Skeleton animation="wave" /> : product?.description}
               </Typography>
-
               <Chip
                 label={
                   <Box className={styles.center}>
@@ -292,7 +289,6 @@ const Hero = ({ product, coloredProduct, load }) => {
                 }
                 className={styles.alloyWheels}
               />
-
               <Chip
                 label={
                   <Box className={styles.center}>
@@ -306,7 +302,6 @@ const Hero = ({ product, coloredProduct, load }) => {
                 }
                 className={styles.alloyWheels}
               />
-
               <Chip
                 label={
                   <Box className={styles.center}>
@@ -316,7 +311,6 @@ const Hero = ({ product, coloredProduct, load }) => {
                 }
                 className={styles.alloyWheels}
               />
-
               <Chip
                 label={
                   <Box className={styles.center}>
@@ -326,26 +320,27 @@ const Hero = ({ product, coloredProduct, load }) => {
                 }
                 className={styles.chip}
               />
-
-              <Box className={styles.btnDiv}>
-                <Button
-                  variant="contained"
-                  disabled={load}
-                  className={styles.buybtn}
-                  onClick={() => navigate(`/payment/${product?._id}`)}
-                >
-                  Buy Now
-                </Button>
-                <Button
-                  variant="outlined"
-                  disabled={cart.includes(product?._id) || load}
-                  className={styles.box}
-                  // onClick={() => navigate('/cart')}
-                  onClick={(e) => addToCart(product?.offerPrice)}
-                >
-                  Add to Cart
-                </Button>
-              </Box>
+              {userRole !== "admin" && (
+                <Box className={styles.btnDiv}>
+                  <Button
+                    variant="contained"
+                    disabled={load}
+                    className={styles.buybtn}
+                    onClick={() => navigate(`/payment/${product?._id}`)}
+                  >
+                    Buy Now
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    disabled={cart.includes(product?._id) || load}
+                    className={styles.box}
+                    // onClick={() => navigate('/cart')}
+                    onClick={(e) => addToCart(product?.offerPrice)}
+                  >
+                    Add to Cart
+                  </Button>
+                </Box>
+              )}
             </Box>
           </Grid>
         </Grid>

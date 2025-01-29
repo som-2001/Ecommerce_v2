@@ -25,19 +25,25 @@ const productSlice = createSlice({
     },
     //WishList reducers
     initializewishList: (state, action) => {
+      console.log("segse");
       action.payload.forEach((payload) => {
         if (!state.wishList.includes(payload?.product?._id)) {
           state.wishList.push(payload?.product?._id);
+          
         }
       });
+
+      localStorage.setItem("wishlist",JSON.stringify(state.wishList))
     },
     addwishList: (state, action) => {
       if (!state.wishList.includes(action?.payload)) {
         state.wishList.push(action?.payload);
+        localStorage.setItem("wishlist",JSON.stringify(state.wishList))
       }
     },
     removeWishListProduct: (state, action) => {
       state.wishList = state.wishList.filter((id) => id !== action?.payload);
+      localStorage.setItem("wishlist",JSON.stringify(state.wishList))
     },
     //Cart reducers
     initializeCart: (state, action) => {
@@ -45,12 +51,15 @@ const productSlice = createSlice({
         if (!state.cart.includes(payload?.product?._id)) {
           state.cart.push(payload?.product?._id);
           state.amount = state.amount + payload?.product?.offerPrice;
+         
         }
       });
+      localStorage.setItem("cart",JSON.stringify(state.cart))
     },
     addCart: (state, action) => {
       if (!state.cart.includes(action?.payload)) {
         state.cart.push(action?.payload);
+        localStorage.setItem("cart",JSON.stringify(state.cart))
       }
     },
     cartProducts:(state,action)=>{
@@ -64,6 +73,7 @@ const productSlice = createSlice({
     },
     removeCartProduct: (state, action) => {
       state.cart = state.cart.filter((id) => id !== action?.payload);
+      localStorage.setItem("cart",JSON.stringify(state.cart))
     },
     setSearch: (state, action) => {
       state.search = action.payload;

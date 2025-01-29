@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -13,15 +13,22 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import styles from "../styles/AuthNavbar.module.css";
 import { SearchApiCall } from "./SearchApiCall";
+import { useSelector } from "react-redux";
 
 export const AuthNavbar = () => {
   const navigate = useNavigate();
   const { wishList, cart } = useSelector((state) => state.product);
+  const [cartLength, setCartLength] = useState(0);
+  const [wishListLength, setWishListLength] = useState(0);
 
-
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const wishList = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setCartLength(cart.length);
+    setWishListLength(wishList.length);
+  }, [wishList, cart]);
 
   const pages = [
     {
@@ -33,7 +40,10 @@ export const AuthNavbar = () => {
       label: "Wishlist",
       path: "/wishlist",
       icon: (
-        <Badge badgeContent={wishList.length} color="error">
+        <Badge
+          badgeContent={wishListLength}
+          color="error"
+        >
           <FavoriteBorderIcon />
         </Badge>
       ),
@@ -42,7 +52,10 @@ export const AuthNavbar = () => {
       label: "Cart",
       path: "/cart",
       icon: (
-        <Badge badgeContent={cart.length} color="error">
+        <Badge
+          badgeContent={cartLength}
+          color="error"
+        >
           <ShoppingCartIcon />
         </Badge>
       ),
@@ -86,7 +99,7 @@ export const AuthNavbar = () => {
               gap: { xs: 2, md: 4 },
             }}
           >
-            <SearchApiCall/>
+            <SearchApiCall />
 
             {pages.map((page) => (
               <Box

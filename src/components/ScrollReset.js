@@ -11,6 +11,7 @@ export const ScrollReset = () => {
   const dispatch=useDispatch();
 
   useEffect(() => {
+    if(location.pathname==='/explore-products'){
     axios
       .get(`${process.env.REACT_APP_BASEURL}/wishlist/wishlist`, {
         withCredentials: true,
@@ -23,9 +24,12 @@ export const ScrollReset = () => {
       .catch((err) => {
         console.log(err);
       });
+    }
   }, [location.pathname,dispatch]);
 
   useEffect(() => {
+  
+    if(location.pathname==='/explore-products'){
     axios
     .get(`${process.env.REACT_APP_BASEURL}/cart/product/cart/view`, {
       withCredentials: true,
@@ -37,6 +41,7 @@ export const ScrollReset = () => {
     .catch((err) => {
       console.log(err);
     });
+  }
   }, [location.pathname,dispatch]);
 
   useEffect(() => {
