@@ -110,7 +110,7 @@ const OrdersPage = () => {
                         {order.status}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        On{" "}
+                        By{" "}
                         {dayjs(order?.shipmentDetails?.deliveryDate).format(
                           "DD-MMM-YYYY"
                         )}
@@ -149,7 +149,7 @@ const OrdersPage = () => {
                             />
                           </Box>
                           <Typography variant="body2" color="green">
-                            Price: ${order.totalPrice}
+                            Price: ₹{order.totalPrice}
                           </Typography>
                         </Grid>
                         <Grid item xs={8} sm={6}>

@@ -65,7 +65,7 @@ const OrderCard = ({ order }) => {
       </Typography>
 
       <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-        Ordered on:{" "}
+        Delivery by:{" "}
         {dayjs(order.shipmentDetails.deliveryDate).format("DD MMM, YYYY")}
       </Typography>
 
