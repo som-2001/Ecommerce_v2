@@ -25,8 +25,10 @@ import { motion } from "motion/react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";
-import Cookies from 'js-cookie';
-// import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import Cookies from 'js-cookie'
+import { useEffect } from "react";
+
 
 const schema = yup.object().shape({
   email: yup
@@ -57,6 +59,13 @@ function Signin() {
   });
 
   const navigate = useNavigate();
+  
+  useEffect(()=>{
+    const token=Cookies.get("accessToken");
+    if(token){
+      jwtDecode(Cookies?.get("accessToken"))?.role!=="admin" ?navigate("/explore-products"):navigate("/admin/dashboard")
+    }
+   },[]);
 
   const mutation = useMutation({
     mutationKey: ["register"],
@@ -142,7 +151,7 @@ function Signin() {
             color="text.secondary"
             sx={{ mb: 5, width: { xs: "306px", md: "400px" } }}
           >
-            Start your engine and drive into the world of premium bikes! 🚗
+            Start your engine and drive into the world of premium bikes! 🏍️💨
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)} className="flex-container">
             <Box sx={{ mt: 2 }}>

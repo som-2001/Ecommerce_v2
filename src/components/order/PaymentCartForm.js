@@ -169,7 +169,7 @@ export const PaymentCartForm = () => {
               Shipment Method
             </Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            ₹{shippingDate?.method}
+            {shippingDate?.method}
             </Typography>
           </Box>
 
