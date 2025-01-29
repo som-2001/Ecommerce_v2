@@ -82,10 +82,10 @@ export const PaymentCartForm = () => {
                 <CardMedia
                   component="img"
                   image={product?.product?.image?.[0]}
+                  className={styles.PaymentCartFormimg}
                   sx={{
                     width: { xs: "70px", sm: "120px" },
-                    height: "80px",
-                    borderRadius: 1,
+                   
                   }}
                 />
               </Grid>
@@ -143,7 +143,7 @@ export const PaymentCartForm = () => {
               <Typography variant="body2" color="text.secondary">
                 {address?.address?.landmark}
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Box className={styles.paymentCartFormFlex}>
                 <Typography variant="body2" color="text.secondary">
                   {address?.address?.locality},{" "}
                 </Typography>

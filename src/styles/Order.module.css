@@ -236,3 +236,13 @@
   display:flex;
   justify-content:center
 }
+.PaymentCartFormimg{
+  height: 80px;
+  border-radius: 4px;
+  object-fit:contain
+}
+.paymentCartFormFlex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap
+}

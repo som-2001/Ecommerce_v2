@@ -248,7 +248,7 @@ const Hero = ({ product, coloredProduct, load }) => {
                           className={styles.selectedColorBox}
                           key={index}
                           sx={{
-                            backgroundColor: color?.selectedColor?.toLowerCase(),
+                            backgroundColor: color?.selectedColor==="Lava"?"#CF1020":color?.selectedColor.toLowerCase(),
                           }}
                         ></Box>
                       </Box>

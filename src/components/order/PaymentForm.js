@@ -126,10 +126,9 @@ export const PaymentForm = () => {
                 <CardMedia
                   component="img"
                   image={product?.image?.[0]}
+                  className={styles.PaymentCartFormimg}
                   sx={{
                     width: { xs: "70px", sm: "120px" },
-                    height: "70px",
-                    borderRadius: 1,
                   }}
                 />
               </Grid>
@@ -147,7 +146,7 @@ export const PaymentForm = () => {
                 </Box>
               </Grid>
               <Grid item xs={4}>
-                <Typography variant="body1" color="green" fontWeight="bold">
+                <Typography variant="body1" color="green">
                 ₹{product?.offerPrice}{" "}
                   <span
                     style={{
@@ -178,7 +177,7 @@ export const PaymentForm = () => {
                   my: 1,
                   backgroundColor:
                     address?.addressType === "Home" ? "#4caf50" : "#2196f3",
-                  color: "white",
+                    color: "white",
                 }}
               />
               <Typography variant="body1">
@@ -187,7 +186,7 @@ export const PaymentForm = () => {
               <Typography variant="body2" color="text.secondary">
                 {address?.address?.landmark}
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Box className={styles.paymentCartFormFlex}>
                 <Typography variant="body2" color="text.secondary">
                   {address?.address?.locality},{" "}
                 </Typography>
