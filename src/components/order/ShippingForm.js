@@ -116,7 +116,7 @@ export const ShippingForm = ({ handlefunction1 }) => {
               control={<Radio checked={selectedMethod === "8"} />}
               label=""
             />
-            <Typography variant="body1">$8</Typography>
+            <Typography variant="body1">₹8</Typography>
           </Grid>
           <Grid
             item

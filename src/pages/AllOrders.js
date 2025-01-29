@@ -18,12 +18,14 @@ import dayjs from "dayjs";
 import { ReviewDrawer } from "../components/UserReview/ReviewDrawer";
 import { NoOrder } from "../components/order/NoOrder";
 import styles from '../styles/Order.module.css'
+import { useNavigate } from "react-router-dom";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const [productDetails, setProductDetails] = useState([]);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
+  const navigate=useNavigate();
 
   useEffect(() => {
     axios
@@ -123,7 +125,8 @@ const OrdersPage = () => {
                       <img
                         src={item?.image?.[0]}
                         alt={order.productName}
-                       className={styles.img}
+                        className={styles.img}
+                        onClick={(e)=>navigate(`/view-product/${item?._id}/${item?.modelNumber}`)}
                       />
                       <Grid container>
                         <Grid item xs={12} sm={6} sx={{ flexGrow: 1 }}>

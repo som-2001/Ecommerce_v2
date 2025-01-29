@@ -15,7 +15,7 @@ const Sidebar = () => {
     <Box width="280px" sx={{ background:  "#0d2229" }} minHeight="100vh" color="white">
       <Box textAlign="center" p={2} fontSize={20}>
        
-        <Typography variant='h6' sx={{cursor:"pointer"}}>BikeMart</Typography>
+        <Typography variant='h6' sx={{cursor:"pointer"}} onClick={(e)=>navigate("/")}>BikeMart</Typography>
       </Box>
       <List>
         {[

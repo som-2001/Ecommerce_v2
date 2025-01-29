@@ -112,7 +112,7 @@ export const AdminopenReviewDrawer = ({
                     variant="body2"
                     className={styles.offerPrice}
                   >
-                    ${review?.product?.offerPrice}
+                    ₹{review?.product?.offerPrice}
                     <span
                       style={{
                         textDecoration: "line-through",
@@ -120,7 +120,7 @@ export const AdminopenReviewDrawer = ({
                         color: "#9e9e9e",
                       }}
                     >
-                      ${review?.product?.originalPrice}
+                      ₹{review?.product?.originalPrice}
                     </span>
                   </Typography>
                 </Grid>

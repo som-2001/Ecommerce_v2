@@ -33,6 +33,8 @@ export const LogoutDialog=({open,setOpen})=>{
       withCredentials:true
     }).then(res=>{
       enqueueSnackbar(res.data?.message,{variant:"success"});
+      localStorage.removeItem("wishlist");
+      localStorage.removeItem("cart");
       dispatch(resetProduct());
       setTimeout(()=>{
         navigate('/');

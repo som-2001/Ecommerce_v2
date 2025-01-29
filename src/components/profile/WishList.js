@@ -51,9 +51,10 @@ export const WishList = () => {
                 <Box sx={{ border: "1px solid #e0e0e0", borderRadius: 2, padding: 2 }}>
                   <CardMedia
                     component="img"
+                    onClick={(e)=>navigate(`/view-product/${item?.product?._id}/${item?.product?.modelNumber}`)}
                     image={item?.product?.image?.[0] || "../images/default_product.jpg"}
                     alt={item?.product?.productName}
-                    sx={{ width: "100%", height: "150px", objectFit: "cover" }}
+                    sx={{ width: "100%", height: "150px", objectFit: "contain",cursor:"pointer" }}
                   />
                   <Typography
                     variant="body2"

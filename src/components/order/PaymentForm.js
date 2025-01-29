@@ -148,7 +148,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={4}>
                 <Typography variant="body1" color="green" fontWeight="bold">
-                  ${product?.offerPrice}{" "}
+                ₹{product?.offerPrice}{" "}
                   <span
                     style={{
                       fontSize: "14px",
@@ -156,7 +156,7 @@ export const PaymentForm = () => {
                       textDecoration: "line-through",
                     }}
                   >
-                    ${product?.originalPrice}
+                    ₹{product?.originalPrice}
                   </span>{" "}
                   <span style={{ fontSize: "12px", color: "black" }}>
                     {product?.discount}%OFF
@@ -225,7 +225,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body1" textAlign="right">
-                  ${product?.offerPrice}
+                ₹{product?.offerPrice}
                 </Typography>
               </Grid>
             </Grid>
@@ -235,7 +235,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body1" textAlign="right">
-                  ${Tax}
+                ₹{Tax}
                 </Typography>
               </Grid>
             </Grid>
@@ -261,7 +261,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="h6" fontWeight="bold" textAlign="right">
-                  ${TotalAmount}
+                ₹{TotalAmount}
                 </Typography>
               </Grid>
             </Grid>

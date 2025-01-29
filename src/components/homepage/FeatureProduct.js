@@ -91,7 +91,7 @@ const FeatureProduct = ({ product }) => {
                     <Typography
                       className={styles.price}
                     >
-                      ${product?.offerPrice}
+                      ₹{product?.offerPrice}
                     </Typography>
                     <Button
                       variant="contained"
@@ -172,7 +172,7 @@ const FeatureProduct = ({ product }) => {
                     <Typography
                      className={styles.price}
                     >
-                      ${product?.offerPrice}
+                      ₹{product?.offerPrice}
                     </Typography>
                     <Button
                       variant="contained"
@@ -250,7 +250,7 @@ const FeatureProduct = ({ product }) => {
                     <Typography
                         className={styles.price}
                     >
-                      ${product?.offerPrice}
+                      ₹{product?.offerPrice}
                     </Typography>
                     <Button
                       variant="contained"
