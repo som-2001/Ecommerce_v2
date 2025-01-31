@@ -1,24 +1,24 @@
 .parent {
-  background-color: black;
-  color: white;
-  padding: 2rem;
-  text-align: center;
+  background-color: black !important;
+  color: white !important;
+  padding: 2rem !important;
+  text-align: center !important;
 }
 
 .center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 .Card {
-  background-color: #1c1c1c;
-  color: white;
-  border-radius: 2px;
-  position: relative;
-  box-shadow: 3px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  background-color: #1c1c1c !important;
+  color: white !important;
+  border-radius: 2px !important;
+  position: relative !important;
+  box-shadow: 3px !important;
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
 }
 .Icon {
   position: absolute;
@@ -38,7 +38,7 @@
 }
 
 .body{
-    background-color: white;
+  background-color: white;
   color: black;
   filter: brightness(0.9);
 }
@@ -50,10 +50,10 @@
 }
 
 .btn{
-    background-color: black;
-    border-radius: 19px;
-    padding: 0.5rem;
-    width: 120px;
+    background-color: black !important;
+    border-radius: 19px !important;
+    padding: 0.5rem !important;
+    width: 120px !important;
 }
 .price{
     font-weight: 700;
