@@ -1,9 +1,16 @@
 import React from "react";
-import { Grid, Typography, Divider, Box, Button } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Divider,
+  Box,
+  Button,
+  Skeleton,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/HomeAbout.module.css";
 
-export const Product = ({ product }) => {
+export const Product = ({ product, load }) => {
   const navigate = useNavigate();
 
   return (
@@ -30,11 +37,20 @@ export const Product = ({ product }) => {
       >
         {/* Image Section */}
         <Grid item xs={12} md={6} className={styles.imgGrid}>
-          <img
-            src={product?.[0]?.image?.[0]} // Replace with your image URL
-            alt="Product"
-            className={styles.productImg}
-          />
+          {load ? (
+            <Skeleton
+              animation="wave"
+              className={styles.productImg}
+              height={400}
+              sx={{backgroundColor:"#1d1d1d"}}
+            />
+          ) : (
+            <img
+              src={product?.[0]?.image?.[0]} // Replace with your image URL
+              alt="Product"
+              className={styles.productImg}
+            />
+          )}
         </Grid>
 
         {/* Product Details Section */}
@@ -47,14 +63,22 @@ export const Product = ({ product }) => {
               color: "#73b2eb",
             }}
           >
-            {product?.[0]?.productName}
+            {load ? (
+              <Skeleton animation="wave" width={200} sx={{backgroundColor:"#1d1d1d"}}/>
+            ) : (
+              product?.[0]?.productName
+            )}
           </Typography>
           <Typography
             variant="body2"
             gutterBottom
             sx={{ fontSize: { xs: "1rem", sm: "1.0rem", md: "0.9rem" } }}
           >
-            {product?.[0]?.description}
+            {load ? (
+              <Skeleton animation="wave" width={300} sx={{backgroundColor:"#1d1d1d"}} />
+            ) : (
+              product?.[0]?.description
+            )}
           </Typography>
           <Divider
             sx={{ backgroundColor: "whitesmoke", my: 2, width: "90%" }}
@@ -78,17 +102,29 @@ export const Product = ({ product }) => {
             <Grid container item xs={12} spacing={2}>
               <Grid item xs={4} className={styles.Grid}>
                 <Typography variant="body1">
-                  {product?.[0]?.kerbWeight} kg
+                  {load ? (
+                    <Skeleton animation="wave" width={200} sx={{backgroundColor:"#1d1d1d"}}/>
+                  ) : (
+                    `${product?.[0]?.kerbWeight}kg`
+                  )}
                 </Typography>
               </Grid>
               <Grid item xs={4} className={styles.Grid}>
                 <Typography variant="body1">
-                  {product?.[0]?.maxPower} C
+                  {load ? (
+                    <Skeleton animation="wave" width={200} sx={{backgroundColor:"#1d1d1d"}}/>
+                  ) : (
+                    `${product?.[0]?.maxPower}C`
+                  )}
                 </Typography>
               </Grid>
               <Grid item xs={4} className={styles.Grid}>
                 <Typography variant="body1">
-                  {product?.[0]?.fuelTankCapacity}
+                  {load ? (
+                    <Skeleton animation="wave" width={200} sx={{backgroundColor:"#1d1d1d"}}/>
+                  ) : (
+                    product?.[0]?.fuelTankCapacity
+                  )}
                 </Typography>
               </Grid>
             </Grid>
@@ -98,19 +134,22 @@ export const Product = ({ product }) => {
             sx={{ backgroundColor: "whitesmoke", my: 2, width: "90%" }}
           />
 
-          <Box
-           className={styles.priceBox}
-          >
+          <Box className={styles.priceBox}>
             <Typography
               align="center"
               color="#8ef5a8"
               gutterBottom
               sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2.2rem" } }}
             >
-              ₹{product?.[0]?.offerPrice}
+              {load ? (
+                <Skeleton animation="wave" width={200} sx={{backgroundColor:"#1d1d1d"}} />
+              ) : (
+                `₹${product?.[0]?.offerPrice}`
+              )}
             </Typography>
             <Button
               variant="contained"
+              disabled={load}
               className={styles.productBtn}
               onClick={(e) =>
                 navigate(

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Box,
+  CircularProgress,
   Grid,
   Typography,
 } from "@mui/material";
@@ -8,7 +9,7 @@ import { RenderCard } from "../productCard/RenderCard";
 import styles from '../../styles/HomeAbout.module.css'
 
 
-const BestSeller = ({product}) => {
+const BestSeller = ({product,load}) => {
   return (
   
     <Box
@@ -25,7 +26,7 @@ const BestSeller = ({product}) => {
       </Typography>
       <Grid container spacing={1}>
 
-        {product?.slice(0,4).map((product) => (
+        {load?<Box sx={{width:"100vw",mt:5}} className={styles.Grid}><CircularProgress size={30} /></Box>:product?.slice(0,4).map((product) => (
           <Grid item xs={6} sm={6} md={3} key={product.id} className={styles.Grid}>
 
           <RenderCard bike={product}/>  

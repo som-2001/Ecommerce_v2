@@ -27,6 +27,7 @@ function Home() {
   const [newArrival, setNewArrival] = useState([]);
   const [bestSeller, setBestSeller] = useState([]);
   const [featureProduct, setFeatureProduct] = useState([]);
+  const [load,setLoad]=useState(true);
 
   useEffect(() => {
     axios
@@ -35,6 +36,7 @@ function Home() {
         setNewArrival(res?.data?.newArrivals);
         setBestSeller(res?.data?.bestSellers);
         setFeatureProduct(res?.data?.featureProducts);
+        setLoad(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -51,9 +53,9 @@ function Home() {
       <Hero />
       <About />
       <ExploreNow />
-      <Product product={newArrival} />
-      <BestSeller product={bestSeller} />
-      <FeatureProduct product={featureProduct} />
+      <Product product={newArrival} load={load}/>
+      <BestSeller product={bestSeller} load={load}/>
+      <FeatureProduct product={featureProduct} load={load}/>
       <Partners />
       <Gallary />
       <Benefits />
