@@ -32,6 +32,7 @@ const Dashboard = () => {
   const [toValue, setToValue] = useState("");
   const [urlParamsState, setUrlParamsState] = useState();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [load1,setLoad1]=useState(true);
 
   const footerRef = useRef(null);
 
@@ -80,6 +81,7 @@ const Dashboard = () => {
       .then((res) => {
         setBrands(res.data?.brand || []);
         setFuelType(res?.data?.fuelType || []);
+        setLoad1(false);
       })
       .catch((err) => {
         console.error(err);
@@ -156,6 +158,7 @@ const Dashboard = () => {
           handleFilterChange={handleFilterChange}
           fromValueRef={fromValueRef}
           toValueRef={toValueRef}
+          load1={load1}
         />
 
         {/* Product Grid */}

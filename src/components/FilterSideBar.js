@@ -3,6 +3,7 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
+  Skeleton,
   TextField,
   Typography,
 } from "@mui/material";
@@ -23,6 +24,7 @@ export const FilterSideBar = ({
   setFromValue,
   setToValue,
   handleFilterChange,
+  load1
 }) => {
 
   const input=useRef(null);
@@ -139,8 +141,12 @@ export const FilterSideBar = ({
       >
         Brand
       </Typography>
+      {load1 && <><Skeleton animation="wave" width={150} sx={{backgroundColor:"#353535"}}/>
+      <Skeleton animation="wave" width={150} sx={{backgroundColor:"#353535"}}/>
+      <Skeleton animation="wave" width={150} sx={{backgroundColor:"#353535"}}/>
+      </>}
       {brands?.map((brand) => (
-        <FormControlLabel
+       <FormControlLabel
           key={brand}
           control={
             <Checkbox
@@ -162,12 +168,19 @@ export const FilterSideBar = ({
       ))}
 
       {/* Fuel Type Filter */}
+
       <Typography
         variant="subtitle1"
         className={styles.fuelType}
       >
         Fuel Type
       </Typography>
+
+      {load1 && <><Skeleton animation="wave" width={150} sx={{backgroundColor:"#353535"}}/>
+      <Skeleton animation="wave" width={150} sx={{backgroundColor:"#353535"}}/>
+      <Skeleton animation="wave" width={150} sx={{backgroundColor:"#353535"}}/>
+      </>}
+
       {fuelType.map((fuel) => (
         <FormControlLabel
           key={fuel}
