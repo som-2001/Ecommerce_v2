@@ -86,7 +86,7 @@ export const PaymentForm = () => {
 
     if (response?.data?.message === "Order confirmed successfully.") {
       navigate("/success");
-    } 
+    }
 
     const session = response.data?.checkoutSessionId;
     if (session) {
@@ -122,18 +122,29 @@ export const PaymentForm = () => {
             }}
           >
             <Grid container spacing={1} alignItems="center">
-              <Grid item xs={3}>
+              <Grid
+                item
+                xs={12}
+                sm={3}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
                 <CardMedia
                   component="img"
                   image={product?.image?.[0]}
                   className={styles.PaymentCartFormimg}
                   sx={{
-                    width: { xs: "70px", sm: "120px" },
+                    width: { xs: "120px", sm: "80px", md: "80px", lg: "80px" },
                   }}
                 />
               </Grid>
-              <Grid item xs={5}>
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Grid item xs={12} sm={5}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexWrap: "wrap",
+                  }}
+                >
                   <Typography variant="body1" fontWeight="bold">
                     {product?.productName} ({product?.brand})
                   </Typography>
@@ -145,9 +156,9 @@ export const PaymentForm = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <Typography variant="body1" color="green">
-                ₹{product?.offerPrice}{" "}
+                  ₹{product?.offerPrice}{" "}
                   <span
                     style={{
                       fontSize: "14px",
@@ -177,7 +188,7 @@ export const PaymentForm = () => {
                   my: 1,
                   backgroundColor:
                     address?.addressType === "Home" ? "#4caf50" : "#2196f3",
-                    color: "white",
+                  color: "white",
                 }}
               />
               <Typography variant="body1">
@@ -224,7 +235,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body1" textAlign="right">
-                ₹{product?.offerPrice}
+                  ₹{product?.offerPrice}
                 </Typography>
               </Grid>
             </Grid>
@@ -234,7 +245,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="body1" textAlign="right">
-                ₹{Tax}
+                  ₹{Tax}
                 </Typography>
               </Grid>
             </Grid>
@@ -260,7 +271,7 @@ export const PaymentForm = () => {
               </Grid>
               <Grid item xs={6}>
                 <Typography variant="h6" fontWeight="bold" textAlign="right">
-                ₹{TotalAmount}
+                  ₹{TotalAmount}
                 </Typography>
               </Grid>
             </Grid>
@@ -274,7 +285,7 @@ export const PaymentForm = () => {
           </Typography>
 
           <Box
-           className={styles.OnlinePaymentButton}
+            className={styles.OnlinePaymentButton}
             sx={{
               width: { xs: "75vw", sm: "30vw" },
             }}
@@ -295,9 +306,8 @@ export const PaymentForm = () => {
           </Box>
 
           <Box
-           className={styles.OnlinePaymentButton}
+            className={styles.OnlinePaymentButton}
             sx={{
-             
               width: { xs: "75vw", sm: "30vw" },
             }}
           >
@@ -322,10 +332,7 @@ export const PaymentForm = () => {
               justifyContent: "center",
             }}
           >
-            <Button
-              className={styles.pay}
-              onClick={StripePayment}
-            >
+            <Button className={styles.pay} onClick={StripePayment}>
               Pay
             </Button>
           </Box>

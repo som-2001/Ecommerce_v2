@@ -78,18 +78,17 @@ export const PaymentCartForm = () => {
               alignItems="center"
               className={styles.PaymentCartFormMap}
             >
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3} sx={{display:"flex",justifyContent:"center"}}>
                 <CardMedia
                   component="img"
                   image={product?.product?.image?.[0]}
                   className={styles.PaymentCartFormimg}
                   sx={{
-                    width: { xs: "70px", sm: "120px" },
-                   
+                    width: { xs: "120px", sm: "80px",md:"80px",lg:"80px" },
                   }}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={12} sm={5}>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Typography variant="body1" fontWeight="bold">
                     {product?.product?.productName} ({product?.product?.brand})
@@ -102,7 +101,7 @@ export const PaymentCartForm = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <Typography variant="body1" color="green" >
                 ₹{product?.product?.offerPrice}{" "}
                   <span

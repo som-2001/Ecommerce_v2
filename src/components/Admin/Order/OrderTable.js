@@ -34,7 +34,7 @@ const OrderTable = ({
 }) => {
   // Define columns for the order data
   const columns = [
-    { id: "createdAt", label: "Created At", sortable: false },
+  
     { id: "orderId", label: "Order ID", sortable: false },
     { id: "customerName", label: "Customer Name", sortable: true },
     { id: "contactNumber", label: "Contact Number", sortable: false },
@@ -61,7 +61,7 @@ const OrderTable = ({
     axios
       .put(
         `${process.env.REACT_APP_BASEURL}/orders/order/status`,
-        { orderId: id, status: value },
+        { orderId: id, status: value,page:page },
         {
           withCredentials: true,
         }
@@ -98,9 +98,7 @@ const OrderTable = ({
               <TableBody>
                 {orders.map((order) => (
                   <TableRow key={order._id}>
-                    <TableCell align="center">
-                      {dayjs(order.createdAt).format("DD MMM,YYYY")}
-                    </TableCell>
+                  
                     <TableCell align="center">{order._id}</TableCell>
                     <TableCell align="center">
                       <Box

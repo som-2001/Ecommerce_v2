@@ -35,7 +35,7 @@ import styles from '../../styles/cart.module.css'
           >
             <Typography sx={{ fontSize: "14px" }}>Total MRP</Typography>
             <Typography className={styles.amountText}>
-              {amount}
+            ₹{amount}
             </Typography>
           </Box>
           <Box
@@ -45,15 +45,10 @@ import styles from '../../styles/cart.module.css'
             <Typography
               sx={{ fontSize: "14px", fontWeight: "600", color: "#4caf50" }}
             >
-              0
+              ₹0
             </Typography>
           </Box>
-          <Box
-            className={styles.totalMRP}
-          >
-            <Typography sx={{ fontSize: "14px" }}>Coupon Discount</Typography>
-           
-          </Box>
+          
           <Box
            className={styles.totalMRP}
           >
@@ -63,7 +58,7 @@ import styles from '../../styles/cart.module.css'
               Platform Fee
             </Typography>
             <Typography sx={{ fontSize: "14px", fontWeight: "600" }}>
-              0
+            ₹0
             </Typography>
           </Box>
           <Box
@@ -96,7 +91,7 @@ import styles from '../../styles/cart.module.css'
             Total Amount
           </Typography>
           <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>
-            {amount}
+          ₹{amount}
           </Typography>
         </Box>
   

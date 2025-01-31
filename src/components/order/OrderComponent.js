@@ -65,7 +65,7 @@ export default function OrderComponent() {
       <Stepper
         nonLinear
         activeStep={activeStep}
-        sx={{ width: { xs: "100%", md: "70%" },mb:5 }}
+        sx={{ width: { xs: "100%", md: "70%" },mb:5,flexWrap: "wrap",gap:'7px' }}
       >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>

@@ -35,6 +35,7 @@ export const ScrollReset = () => {
   useEffect(() => {
     if (
       location.pathname === "/explore-products" ||
+      location.pathname==="/cart" ||
       location.pathname.includes("bike-order-cart") ||
       location.pathname.startsWith("/success") ||
       location.pathname.startsWith("/cancel")

@@ -17,7 +17,7 @@ const Sidebar = () => {
        
         <Typography variant='h6' sx={{cursor:"pointer"}} onClick={(e)=>navigate("/")}>BikeMart</Typography>
       </Box>
-      <List>
+      <List sx={{mt:6}}>
         {[
           { label: 'Dashboard', icon: <Dashboard />,route:"dashboard" },
           { label: 'User Management', icon: <GroupIcon />,route:"users" },
