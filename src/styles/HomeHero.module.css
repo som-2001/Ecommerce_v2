@@ -22,10 +22,10 @@
 }
 
 .shopBtn {
-  background-color: #000;
-  color: #fff;
-  border-radius: 10px;
-  text-transform: none;
+  background-color: #000 !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  text-transform: none !important;
 }
 
 .shopBtn:hover {
