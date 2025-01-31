@@ -13,7 +13,7 @@ import { enqueueSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { resetProduct } from '../../Redux/ProductAdminSlice/ProductSlice';
-
+import Cookies from 'js-cookie'
 
 const Transition = React.forwardRef(function Transition(props, ref) { 
   return <Slide direction="up" ref={ref} {...props} />;
@@ -35,6 +35,8 @@ export const LogoutDialog=({open,setOpen})=>{
       enqueueSnackbar(res.data?.message,{variant:"success"});
       localStorage.removeItem("wishlist");
       localStorage.removeItem("cart");
+      Cookies.set("accessToken","");
+      Cookies.set("refreshToken","");
       dispatch(resetProduct());
       setTimeout(()=>{
         navigate('/');

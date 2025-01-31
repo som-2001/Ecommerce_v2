@@ -58,11 +58,11 @@
   max-width: 500px
 }
 .productBtn{
-  background-color: white;
-  color: black;
-  border-radius: 16px;
-  width: 130px;
-  height: 60px
+  background-color: white !important;
+  color: black !important;
+  border-radius: 16px !important;
+  width: 130px !important;
+  height: 60px !important
 }
 .priceBox{
   display: flex;

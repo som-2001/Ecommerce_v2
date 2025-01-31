@@ -15,10 +15,10 @@
 }
 
 .btn{
-    border-radius: 13px;
-    padding: 19px;
-    margin-bottom: 5px;
-    background-color: white;
-    color: black;
-    margin-top: 15px;
+    border-radius: 13px !important;
+    padding: 19px !important;
+    margin-bottom: 5px !important;
+    background-color: white !important;
+    color: black !important;
+    margin-top: 15px !important;
 }

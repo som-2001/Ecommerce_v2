@@ -1,7 +1,7 @@
 .parent{
-    opacity:0.9;
-    background-color:#36454F;
-    box-shadow: none;
+    opacity:0.9 !important;
+    background-color:#36454F !important;
+    box-shadow: none !important;
    
 }
 .logoText{
