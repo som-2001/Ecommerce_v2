@@ -13,7 +13,7 @@ export const About = () => {
       }}
     >
       <Typography
-        variant="h6"
+        variant="h6" 
         className="HomeAboutSection"
         color="#C6E4FF"
         sx={{ mb: 4 }}
