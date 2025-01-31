@@ -15,7 +15,7 @@ export const UserDashboard = () => {
   const [sortOrder, setSortOrder] = useState('desc'); 
 
   const fetchUsers = () => {
-    // Construct query parameters
+    
     const queryParams = new URLSearchParams({
       page,
       limit,
@@ -25,7 +25,6 @@ export const UserDashboard = () => {
       sortOrder,
     }).toString();
 
-    // API call
     axios
       .get(`${process.env.REACT_APP_BASEURL}/users/users?${queryParams}`, { withCredentials: true })
       .then((res) => {

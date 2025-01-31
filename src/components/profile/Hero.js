@@ -38,7 +38,7 @@ export const Hero = ({ data, load }) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl); // Update the image preview
+      setProfileImage(imageUrl); 
 
       const formData = new FormData();
       formData.append("profilePicture", file);

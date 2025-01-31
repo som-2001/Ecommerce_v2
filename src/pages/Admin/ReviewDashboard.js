@@ -13,14 +13,14 @@ export const ReviewDashboard = () => {
   
 
   const fetchOrders = () => {
-    // Construct query parameters
+  
     const queryParams = new URLSearchParams({
       page,
       limit,
       
     }).toString();
 
-    // API call
+   
     axios
       .get(`${process.env.REACT_APP_BASEURL}/review/reviews/pagination?${queryParams}`, { withCredentials: true })
       .then((res) => {

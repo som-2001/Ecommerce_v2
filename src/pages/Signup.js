@@ -40,7 +40,7 @@ const schema = yup.object().shape({
   email: yup
     .string()
     .test("Invalid email", (value) => {
-      // Check for leading spaces and invalid email format
+      
       return !value?.startsWith(" ") && EmailValidator.validate(value);
     })
     .required("Email is required"),
@@ -373,7 +373,7 @@ function Signup () {
                   render={({ field }) => (
                     <Checkbox
                       {...field}
-                      color="primary" // Optional: set color if needed
+                      color="primary" 
                     />
                   )}
                 />
@@ -381,7 +381,7 @@ function Signup () {
                   I've agreed with terms of service and our privacy policy
                 </Typography>
               </FormControl>
-              {/* Display error message if it exists */}
+             
               {errors?.checkbox && (
                 <FormHelperText sx={{ color: "error.main", ml: 2 }}>
                   {errors.checkbox.message}

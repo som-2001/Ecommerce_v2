@@ -11,7 +11,7 @@ import {
 import { useDispatch } from "react-redux";
 
 export const ScrollReset = () => {
-  const location = useLocation(); // Get the current location
+  const location = useLocation(); 
   const dispatch = useDispatch();
 
   useEffect(() => {

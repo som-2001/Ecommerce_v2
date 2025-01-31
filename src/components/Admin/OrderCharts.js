@@ -11,7 +11,7 @@ import {
   Legend,
 } from "chart.js";
 
-// Register the Chart.js components
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
 const OrderCharts = ({ orderData }) => {
@@ -22,7 +22,7 @@ const OrderCharts = ({ orderData }) => {
     cancelled: orderData?.cancelled?.length || 0,
   };
 
-  // Data for the Bar Chart
+
   const barData = {
     labels: ["Ordered", "Shipped", "Delivered", "Cancelled"],
     datasets: [
@@ -41,7 +41,7 @@ const OrderCharts = ({ orderData }) => {
     ],
   };
 
-  // Data for the Pie Chart
+
   const pieData = {
     labels: ["Ordeded", "Shipped", "Delivered", "Cancelled"],
     datasets: [
@@ -58,7 +58,7 @@ const OrderCharts = ({ orderData }) => {
     ],
   };
 
-  // Chart Options
+
   const options = {
     responsive: true,
     plugins: {

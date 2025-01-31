@@ -32,7 +32,7 @@ const OrderTable = ({
   total,
   load,
 }) => {
-  // Define columns for the order data
+ 
   const columns = [
   
     { id: "orderId", label: "Order ID", sortable: false },
@@ -45,12 +45,12 @@ const OrderTable = ({
     { id: "deliveryDate", label: "Delivery Date", sortable: true },
   ];
 
-  // Handle page change
+  
   const handlePageChange = (event, newPage) => {
     setPage(newPage + 1);
   };
 
-  // Handle rows per page change
+  
   const handleRowsPerPageChange = (event) => {
     setLimit(parseInt(event.target.value, 10));
     setPage(1);

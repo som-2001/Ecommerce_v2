@@ -21,7 +21,7 @@ const BikeFormWithAccordion = () => {
   const [validPriceDetails, setValidPriceDetails] = useState(false); 
   const [validFeatures, setValidFeatures] = useState(false); 
 
-  // Handle panel expansion
+  
   const handleChange = (panel) => (event, isExpanded) => {
     if (panel === "panel2" && !validBasicInfo) return; 
     if (panel === "panel3" && !validSpecifications) return; 
@@ -31,7 +31,6 @@ const BikeFormWithAccordion = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  // Validation callbacks
   const handleBasicInfoValidation = (isValid) => {
    
     if (isValid) {

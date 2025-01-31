@@ -33,7 +33,7 @@ import { useNavigate } from "react-router-dom";
 import OrderCharts from "../../components/Admin/OrderCharts";
 import dayjs from "dayjs";
 
-// Register components
+
 ChartJS.register(
   LineElement,
   Tooltip,
@@ -43,7 +43,7 @@ ChartJS.register(
   PointElement
 );
 
-// Process data
+
 const processRevenueData = (orders) => {
   const revenueByDate = {};
 

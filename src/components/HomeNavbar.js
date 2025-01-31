@@ -1,7 +1,7 @@
 import React from "react";
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, MenuItem, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom"; // Import Link for routing
+import { Link } from "react-router-dom"; 
 import styles from '../styles/HomeNavbar.module.css'
 
 const pages = [

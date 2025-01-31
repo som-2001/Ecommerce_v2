@@ -33,7 +33,7 @@ export const AddressForm = ({ handlefunction }) => {
   }, []);
 
   const handleIdFunction = (id,address) => {
-    setSelectedId((prev) => (prev === id ? null : id)); // Toggle the same checkbox or select a new one
+    setSelectedId((prev) => (prev === id ? null : id)); 
     dispatch(setAddressDetails({address:address}));
     handlefunction(true);
   };
@@ -67,7 +67,7 @@ export const AddressForm = ({ handlefunction }) => {
             <input
               type="radio"
               style={{cursor:"pointer"}}
-              checked={selectedId === address._id} // Only the selected checkbox will appear checked
+              checked={selectedId === address._id} 
               onChange={() => handleIdFunction(address._id,address)}
             />
           </Box>
