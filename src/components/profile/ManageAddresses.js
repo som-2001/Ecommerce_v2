@@ -19,7 +19,7 @@ import { AddressEditDialogFunc } from "./AddressEditDialogFunc";
 import { AddressDeleteDialogFunc } from "./AddressDeleteDialogFunc";
 import styles from "../../styles/profile.module.css";
 
-export const ManageAddresses = ({ profile, load }) => {
+export const ManageAddresses = ({ profile, load,changeState,setChangeState }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -189,6 +189,8 @@ export const ManageAddresses = ({ profile, load }) => {
           setOpen={setOpenDialog}
           profileData={address}
           setProfileData={setAddress}
+          changeState={changeState}
+          setChangeState={setChangeState}
         />
       )}
 
@@ -213,6 +215,8 @@ export const ManageAddresses = ({ profile, load }) => {
           profileId={profileId}
           addressId={addressId}
           setAddressData={setAddress}
+          changeState={changeState}
+          setChangeState={setChangeState}
         />
       )}
     </Box>

@@ -23,6 +23,8 @@ export const AddressDeleteDialogFunc = ({
   profileId,
   addressId,
   setAddressData,
+  changeState,
+  setChangeState
 }) => {
   const handleClose = () => {
     setOpen(false);
@@ -36,6 +38,7 @@ export const AddressDeleteDialogFunc = ({
       .then((res) => {
         enqueueSnackbar(res.data.message, { variant: "success" });
         setAddressData(res.data.user?.address);
+        setChangeState(!changeState)
         setOpen(false);
       })
       .catch((err) => {

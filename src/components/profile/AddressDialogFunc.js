@@ -53,6 +53,8 @@ export const AddressDialogFunc = ({
   setOpen,
   profileData,
   setProfileData,
+  changeState,
+  setChangeState
 }) => {
   const {
     control,
@@ -114,7 +116,7 @@ export const AddressDialogFunc = ({
         console.log("Address added successfully:", response.data);
         enqueueSnackbar(response.data.message, { variant: "success" });
         console.log(response?.data?.message);
-
+        setChangeState(!changeState);
         setProfileData(response?.data?.user?.address);
 
         setOpen(false); 

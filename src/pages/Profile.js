@@ -60,7 +60,7 @@ function Profile() {
       >
         <Hero data={data} load={profileLoad}/>
         <Form data={data} setChangeState={setChangeState} changeState={changeState} load={profileLoad}/>
-        <ManageAddresses profile={data} load={profileLoad}/>
+        <ManageAddresses profile={data} load={profileLoad} changeState={changeState} setChangeState={setChangeState}/>
         <Orders
           orders={orders}
           orderLength={orderLength}
