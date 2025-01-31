@@ -44,7 +44,7 @@ export const AddressForm = ({ handlefunction }) => {
         Manage Addresses ({addressData.length})
       </Typography>
 
-      <Box
+      {/* <Box
         className={styles.addressParent}
         onClick={(e) => setOpenDialog(true)}
       >
@@ -56,7 +56,7 @@ export const AddressForm = ({ handlefunction }) => {
         >
           Add a new Address
         </Typography>
-      </Box>
+      </Box> */}
 
       {addressData.map((address) => (
         <Box
