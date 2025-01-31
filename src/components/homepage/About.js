@@ -32,7 +32,7 @@ export const About = () => {
         Ideas for Your Single
       </Typography>
       <Typography
-        variant="h3"
+        variant="h3" 
         color="#C6E4FF"
         sx={{ fontSize: { xs: "1.2rem", md: "3.5rem" } }}
         className="HomeAboutSection"
