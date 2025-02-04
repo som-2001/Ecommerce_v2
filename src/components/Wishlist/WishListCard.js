@@ -148,12 +148,12 @@ export const WishListCard = ({ bike, setBike }) => {
         />
        <Box sx={{ mt:{xs:1,sm:0}}} className={styles.price}>
           <Typography className={styles.offerPrice}>
-            ₹{bike?.product?.offerPrice}
+            ₹{new Intl.NumberFormat('en-IN').format(bike?.product?.offerPrice)}
           </Typography>
           <Typography
           className={styles.originalPrice}
           >
-            ₹{bike?.product?.originalPrice}
+            ₹{new Intl.NumberFormat('en-IN').format(bike?.product?.originalPrice)}
           </Typography>
           <Typography sx={{ fontSize: "0.8rem", color: "red",display:{xs:"none",sm:"inherit"} }}>
             ({bike?.product?.discount}% OFF)
