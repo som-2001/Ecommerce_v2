@@ -8,6 +8,7 @@ import {
   Avatar,
   Divider,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -19,6 +20,7 @@ import { ReviewDrawer } from "../components/UserReview/ReviewDrawer";
 import { NoOrder } from "../components/order/NoOrder";
 import styles from "../styles/Order.module.css";
 import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
@@ -54,6 +56,26 @@ const OrdersPage = () => {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+
+  const cancelPayment = (id) => {
+    axios
+      .put(`${process.env.REACT_APP_BASEURL}/orders/order/cancel/${id}`,{}, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        
+        setOrders((prev) =>
+          prev.map((item) =>
+            item._id === id ? res.data.order : item
+          )
+        );
+        enqueueSnackbar(res.data.message, { variant: "success" });
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar(error?.response?.data?.message, { variant: "error" });
       });
   };
 
@@ -166,13 +188,22 @@ const OrdersPage = () => {
                   <CardContent>
                     <Divider sx={{ marginY: "16px" }} />
 
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ fontWeight: "bold" }}
-                    >
-                      Order ID # {order._id}
-                    </Typography>
+                    <Box className={styles.flex}>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ fontWeight: "bold" }}
+                      >
+                        Order ID # {order._id}
+                      </Typography>
+
+                      <Button
+                        className={styles.cancel}
+                        onClick={(e) => cancelPayment(order._id)}
+                      >
+                        Cancel
+                      </Button>
+                    </Box>
                   </CardContent>
                 </Card>
               </Grid>

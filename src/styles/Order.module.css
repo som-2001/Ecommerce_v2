@@ -247,3 +247,16 @@
   flex-direction: row;
   flex-wrap:wrap
 }
+.cancel{
+    background-color: rgb(177, 68, 68);
+    padding: 16px;
+    border-radius: 9px;
+    color: white;
+    width: 140px
+}
+.flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
