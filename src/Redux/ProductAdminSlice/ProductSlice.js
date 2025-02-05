@@ -31,7 +31,7 @@ const productSlice = createSlice({
           state.wishList.push(payload?.product?._id);
           
         }
-      });
+      }); 
 
       localStorage.setItem("wishlist",JSON.stringify(state.wishList))
     },
