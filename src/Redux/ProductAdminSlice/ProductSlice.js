@@ -85,7 +85,7 @@ const productSlice = createSlice({
     setShippingDate:(state,action)=>{
       state.shippingDate=action.payload
     }
-  },
+  }, 
 });
 
 export const {
